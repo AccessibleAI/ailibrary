@@ -5,8 +5,7 @@ All rights reserved to cnvrg.io
 
 cnvrg_sklearn_helper.py
 -----------------------
-This file performs training with or without cross-validation over
-sklearn-models.
+This file performs training with or without cross-validation over SK-learn models.
 ==============================================================================
 """
 import pickle

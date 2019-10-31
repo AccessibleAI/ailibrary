@@ -3,10 +3,9 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-cnvrg_random_forest_regressor_helper.py
+cnvrg_sklearn_helper.py
 -----------------------
-This file performs training with or without cross-validation over
-sklearn-models.
+This file performs training with or without cross-validation over SK-learn models.
 ==============================================================================
 """
 import pickle

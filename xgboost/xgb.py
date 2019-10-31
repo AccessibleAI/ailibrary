@@ -9,7 +9,7 @@ Written by: Omer Liberman
 Last update: Oct 06, 2019
 Updated by: Omer Liberman
 
-xgb_XGBoost.py
+xgb.py
 ==============================================================================
 """
 import argparse
@@ -171,7 +171,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""xgb_XGBoost Classifier""")
+	parser = argparse.ArgumentParser(description="""xgboost Classifier""")
 
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,

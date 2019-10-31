@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="" />
+    <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/sklearn_LinearRegression.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LogisticRegression/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LogisticRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LogisticRegression/logistic_regression.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LogisticRegression/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LogisticRegression/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgb_XGBoost/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgb_XGBoost/XGBoost.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/xgb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgb_XGBoost/cnvrg_sklearn_helper.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgb_XGBoost/metrics.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgb_XGBoost/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/requirements.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,21 +39,24 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1RolA1LBmuqHOQFbPtv60WWppBS" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/XGBoost" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/xgb_XGBoost" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/xgb_XGBoost" />
+      <recent name="$PROJECT_DIR$/sklearn_SVM" />
+      <recent name="$PROJECT_DIR$/sklearn_RandomForestRegressor" />
+      <recent name="$PROJECT_DIR$/sklearn_RandomForestClassifier" />
+      <recent name="$PROJECT_DIR$/sklearn_NaiveBayes" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RandomForestRegressor" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/XGBoost" />
-      <recent name="$PROJECT_DIR$/SVM" />
-      <recent name="$PROJECT_DIR$/RandomForestRegressor" />
-      <recent name="$PROJECT_DIR$/RandomForestClassifier" />
-      <recent name="$PROJECT_DIR$/NaiveBayes" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -57,10 +84,22 @@
       <workItem from="1570341205853" duration="1006000" />
       <workItem from="1570343259186" duration="352000" />
       <workItem from="1570350506735" duration="7240000" />
+      <workItem from="1572534753929" duration="237000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
