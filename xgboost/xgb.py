@@ -189,7 +189,7 @@ if __name__ == '__main__':
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
 	                    help="""Float. The portion of the data of testing. Default is 0.2""")
 
-	parser.add_argument('--output_model', action='store', default="xgboost_model.sav", dest='output_model',
+	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
 	                    help="""String. The name of the output file which is a trained random forests model """)
 
 	# ----- model's params.
