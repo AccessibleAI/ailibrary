@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_KNN/knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/knn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/linear_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/linear_regression.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/naive_bayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/naive_bayes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/random_forest_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/random_forest_classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/random_forest_regressor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor/random_forest_regressor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_SVM/svm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/svm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xgboost/xgb.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/xgb.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +63,7 @@
       <workItem from="1570343259186" duration="352000" />
       <workItem from="1570350506735" duration="7240000" />
       <workItem from="1572534753929" duration="883000" />
-      <workItem from="1573540713187" duration="1324000" />
+      <workItem from="1573540713187" duration="1735000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
