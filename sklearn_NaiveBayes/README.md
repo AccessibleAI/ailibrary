@@ -21,4 +21,11 @@ rightmost one are considered as features columns (X), and the rightmost one is t
 ```--output_model``` - String. The name of the output file which is a trained model. Default is naive_bayes_model.sav
 
 ### algorithm params
+```--alpha``` - float, optional (default=1.0) Additive (Laplace/Lidstone) smoothing parameter (0 for no smoothing).
+
+```--fit_prior``` - boolean, optional (default=True). Whether to learn class prior probabilities or not. If false, a uniform prior will be used.
+
+```--class_prior``` - array-like, size (n_classes,), optional (default=None). Prior probabilities of the classes. If specified the priors are not adjusted according to the data.
+
+## Link
 https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html

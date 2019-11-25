@@ -23,4 +23,47 @@ rightmost one are considered as features columns (X), and the rightmost one is t
 ```--output_model``` - String. The name of the output file which is a trained model. Default is xgboost_model.sav .
 
 ### algorithm params
-https://xgboost.readthedocs.io/en/latest/parameter.html
+```--max_depth``` - (int) – Maximum tree depth for base learners.
+
+```--learning_rate``` - (float) – Boosting learning rate (xgb’s “eta”)
+
+```--n_estimators``` - (int) – Number of trees to fit.
+
+```--verbosity``` - (int) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug).
+
+```--objective``` - (string or callable) – Specify the learning task and the corresponding learning objective or a custom objective function to be used (see note below).
+
+```--booster``` - (string) – Specify which booster to use: gbtree, gblinear or dart.
+
+```--tree_method``` - (string) – Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. It’s recommended to study this option from parameters document.
+
+```--n_jobs``` - (int) – Number of parallel threads used to run xgboost.
+
+```--gamma``` - (float) – Minimum loss reduction required to make a further partition on a leaf node of the tree.
+
+```--min_child_weight``` - (int) – Minimum sum of instance weight(hessian) needed in a child.
+
+```--max_delta_step``` - (int) – Maximum delta step we allow each tree’s weight estimation to be.
+
+```--subsample``` - (float) – Subsample ratio of the training instance.
+
+```--colsample_bytree``` - (float) – Subsample ratio of columns when constructing each tree.
+
+```--colsample_bylevel``` - (float) – Subsample ratio of columns for each level.
+
+```--colsample_bynode``` - (float) – Subsample ratio of columns for each split.
+
+```--reg_alpha``` - (float (xgb's alpha)) – L1 regularization term on weights.
+
+```--reg_lambda``` - (float (xgb's lambda)) – L2 regularization term on weights.
+
+```--scale_pos_weight``` - (float) – Balancing of positive and negative weights.
+
+```--base_score``` - The initial prediction score of all instances, global bias.
+
+```--random_state``` - (int) – Random number seed.
+
+```--missing``` - (float, optional) – Value in the data which needs to be present as a missing value. If None, defaults to np.nan.
+
+## Link
+https://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn
