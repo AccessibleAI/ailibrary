@@ -13,6 +13,7 @@ import torch
 import keras
 import pickle
 import argparse
+import tensorflow as tf
 
 from cnvrg import Endpoint
 from flask import current_app as app
@@ -22,11 +23,13 @@ def _load_model():
 	"""
 	Load models of types: keras|tensorflow|xgboost|sklearn|pytorch.
 	"""
-	try:
-		path = app.config["model_path"]
-		model_type = app.config["model_type"]
-	except Exception:
-		raise Exception('CnvrgError: Unrecognized flask.')
+	# try:
+	# 	path = app.config["model_path"]
+	# 	model_type = app.config["model_type"]
+	# except Exception:
+	# 	raise Exception('CnvrgError: Unrecognized flask.')
+	path = 'model.h5'
+	model_type = 'tensorflow'
 
 	if model_type == 'sklearn':
 		return pickle.load(open(path, 'rb'))
@@ -41,9 +44,6 @@ def _load_model():
 	else:
 		raise Exception('CnvrgError: unrecognized model type.')
 
-loaded_model = _load_model()
-
-
 def _preprocess(input):
 	"""
 	In order to have a functional and working predict file,
@@ -53,17 +53,15 @@ def _preprocess(input):
 	"""
 	return 'None'
 
+loaded_model = _load_model()
 
 def predict(*args):
 	"""
 	:param args: should get 4 floats.
 	:return: prediction (string).
 	"""
-
 	to_predict = _preprocess(args)
-
 	prediction = loaded_model.predict(to_predict)
-
 	e = Endpoint()
 	e.log_metric("Prediction", prediction)
 	return prediction
