@@ -7,8 +7,8 @@ CnvrgPrep.py
 ==============================================================================
 """
 import argparse
+import numpy as np
 import pandas as pd
-
 
 def _parse_list(list_as_string):
 	"""
@@ -37,10 +37,16 @@ def _parse_dict(dict_as_string):
 	if dict_as_string == '{}':
 		return {}
 
-	import json
-	parsed_dict = json.loads(dict_as_string)
-
-	return parsed_dict
+	final_key = dict()
+	import yaml
+	parsed_dict = yaml.safe_load(dict_as_string)
+	all_keys = parsed_dict.keys()
+	for k in all_keys:
+		true_key, true_value = k.split(':')
+		true_key = true_key.strip()
+		true_value = true_value.strip()
+		final_key[true_key] = true_value
+	return final_key
 
 
 def _perform_one_hot_encoding(data, columns_list):
@@ -55,6 +61,9 @@ def _perform_scaling(data, columns_list):
 	"""
 	Performs the scaling.
 	"""
+	if columns_list == '[all]':
+		columns_list = list(data.columns)
+
 	for col in columns_list:
 		data[col] -= data[col].min()
 		data[col] /= data[col].max()
@@ -66,8 +75,10 @@ def _perform_remapping(data, new_map):
 	Performs the remapping.
 	"""
 	all_columns = data.columns
+	set_of_keys = set(new_map.keys())
 	for col in all_columns:
-		data[col] = data[col].map(new_map)
+		if len(set_of_keys.intersection(set(data[col]))) > 0:
+			data[col] = data[col].map(new_map)
 	return data
 
 
@@ -96,14 +107,18 @@ def _perform_index_col(data, index_col):
 	# If it is a numerical index.
 	try:
 		index_col = int(index_col)
+
+		if index_col == -1:
+			index_col = data.shape[1] - 1
+
 		target_col = data.iloc[:, index_col]
-		target_col_header = target_col.index
-		data = data.drop(columns=[target_col_header], axis=1)
+		data = data.drop(index=[index_col], axis=1)
+		return data, target_col
 	# If its a string name.
 	except ValueError:
 		target_col = data[index_col]
-		data = data.drop(columns=[index_col], axis=1)
-	return data, target_col
+		data = data.drop(index=[index_col], axis=1)
+		return data, target_col
 
 
 def _perform_dropping(data, drop_list):
@@ -113,27 +128,49 @@ def _perform_dropping(data, drop_list):
 	return data.drop(columns=drop_list, axis=1)
 
 
+def _convert_all_to_numeric(data):
+	columns = data.columns
+	for col in columns:
+		try:
+			data[col] = np.float64(data[col])
+		except TypeError or ValueError:
+			raise Exception('The column {} contains not-numerical values.'.format(col))
+
+	if True in np.isinf(data).any():
+		raise Exception('Inf or -Ind found in data.')
+
+	if True in np.isfinite(data).all():
+		raise Exception('Not all values are finite. in data.')
+
+	if True in data.isnull():
+		raise Exception('Found NaN value in data.')
+
+	return data
+
+
 def main(args):
-	path = args.csv
-	output_path = args.output
-	index_col = args.index
-	one_hot_list = _parse_list(args.one_hot)
-	scale_list = _parse_list(args.scale)
-	remap_dict = _parse_dict(args.remap)
-	drop_list = _parse_list(args.drop)
-	empty_command = args.empty
+	# === Parse the input params.
+	path = args.csv                                                                 # Parses the path.
+	output_path = args.output                                                       # Parses the output path.
+	index_col = args.index                                                          # Parses the target column index.
+	one_hot_list = _parse_list(args.one_hot)                                        # Parses the list of columns for one-hot-encoding.
+	remap_dict = _parse_dict(args.remap)                                            # Parses the dict of remapping values.
+	drop_list = _parse_list(args.drop)                                              # Parses the list of columns to be dropped.
+	empty_command = args.empty                                                      # Parses the command what to do with empty cells.
+	scale_list = _parse_list(args.scale) if args.scale != '[all]' else args.scale   # Parses the list of columns to be scaled.
 
-	data = pd.read_csv(path)
-	data, index_col = _perform_index_col(data, index_col)
-	data = _perform_dropping(data, drop_list)
-	data = _perform_one_hot_encoding(data, one_hot_list)
-	data = _perform_scaling(data, scale_list)
-	# data = _perform_remapping(data, remap_dict)
-	data = _perform_empty_cells(data, empty_command)
+	# === Operations.
+	data = pd.read_csv(path)                                                         # Reading data.
+	data = _perform_remapping(data, remap_dict)                                      # Remapping values.
+	data = _perform_empty_cells(data, empty_command)                                 # Perform operations on empty cells.
+	data = _convert_all_to_numeric(data)                                             # Makes sure all value are numeric and finite.
+	data, index_col = _perform_index_col(data, index_col)                            # Splits the index column and the rest of the feature columns.
+	data = _perform_dropping(data, drop_list)                                        # Drops redundant columns.
+	data = _perform_one_hot_encoding(data, one_hot_list)                             # Does one-hot-encoding.
+	data = _perform_scaling(data, scale_list)                                        # Performs scaling to the selected columns.
+	data = pd.concat([data, index_col], axis=1)                                      # attach the feature column to be the rightmost column.
+	data.to_csv(output_path)                                                         # Saves the data.
 
-	data = pd.concat([data, index_col], axis=1)
-
-	data.to_csv(output_path)
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser("""Preprocessing CSV Script""")

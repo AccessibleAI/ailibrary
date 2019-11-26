@@ -31,7 +31,7 @@ The parameters which the user is required to fill are:
 
 5) ```--scale``` - (list) a list contains all the columns names the user wants to scale. Default value: '[]' (empty list).
 
-6) ```--remap``` - NOT AVAILABLE NOW (dict) a dictionary with from the structure ```{VALUE: NEW_VALUE}```, **Important** - it replaces all the values with the name value in the dataset without noticing between columns. Default value: '{}' (empty dict).
+6) ```--remap``` - (dict) a dictionary with from the structure ```{VALUE: NEW_VALUE}```, **Important** - it replaces all the values with the name value in the dataset without noticing between columns. Default value: '{}' (empty dict).
 
 7) ```--drop``` - (list) a list contains all the columns names the user wants to drop. Default value: '[]' (empty list).
 
