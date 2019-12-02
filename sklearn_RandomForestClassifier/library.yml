@@ -1,0 +1,52 @@
+---
+title: RandomForest
+command: python3 random_forest_classifier.py
+version: 1.0.0
+docker_images: cnvrg
+compute: CPU
+arguments:
+  data:
+    value: ''
+  x_val:
+    value: None
+  test_size:
+    value: 0.2
+  output_model:
+    value: model.sav
+  n_estimators:
+    value: 10
+  criterion:
+    value: gini
+  max_depth:
+    value: None
+  min_samples_split:
+    value: 2
+  min_samples_leaf:
+    value: 1
+  min_weight_fraction_leaf:
+    value: 0.
+  max_features:
+    value: auto
+  max_leaf_nodes:
+    value: None
+  min_impurity_decrease:
+    value: 0.
+  min_impurity_split:
+    value: None
+  bootstrap:
+    value: True
+  oob_score:
+    value: False
+  n_jobs:
+    value: 1
+  random_state:
+    value: None
+  verbose:
+    value: 0
+  warm_start:
+    value: True
+  class_weight:
+    value: None
+
+data_type: CSV
+icon: sklearn
