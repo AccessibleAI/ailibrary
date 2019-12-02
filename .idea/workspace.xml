@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/labels_dict.json" beforeDir="false" />
-    </list>
+    <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +95,7 @@
       <workItem from="1575266426013" duration="13000" />
       <workItem from="1575266443357" duration="370000" />
       <workItem from="1575267469965" duration="17461000" />
+      <workItem from="1575291960269" duration="352000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
