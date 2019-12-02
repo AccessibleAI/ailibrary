@@ -18,6 +18,7 @@ parser.add_argument('-d', '--data', action='store', dest='data', default="defaul
 parser.add_argument('-v', '--verbose', action='store', dest='verbose', type=int, default=1, help="""0 or 1. Verbosity mode. 0 = silent, 1 = progress bar.""")
 args = parser.parse_args()
 
+# model_name : ( path_to_script, directory_name )
 scripts = {
     'decision_tree': ('sklearn_DecisionTreesClassifier/decision_trees_classifier.py', 'sklearn_DecisionTreesClassifier'),
     'knn': ('sklearn_KNN/knn.py', 'sklearn_KNN'),
@@ -43,7 +44,7 @@ OUTPUT_FILE_NAME = 'model.sav'
 # Output messages - Inform success or fail.
 MODEL_CREATED = "*** Sub-Test Result: Model created successfully. ***"
 TESTING_STARTS = "\n***** Testing Starts *****\n"
-ENDED_SUCCESSFULLY = "\n***** Test Result: Ended. *****\n"
+ENDED_SUCCESSFULLY = "\n***** Test Result: Ended. Look for errors! *****\n"
 
 with open(DIRECTORY + '/' + '_params') as file:
     params_dict = yaml.load(file, Loader=yaml.FullLoader)

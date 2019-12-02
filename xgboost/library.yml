@@ -6,6 +6,7 @@ docker_images: cnvrg
 compute: CPU
 arguments:
   data:
+    value: ''
   test_size:
     value: 0.2
   output_model:
