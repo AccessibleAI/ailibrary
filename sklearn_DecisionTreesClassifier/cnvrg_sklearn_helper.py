@@ -36,24 +36,19 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	X, y = train_set
 
 	# --- Training.
+	for train_index, val_index in kf.split(X):
+		X_train, X_val = X.iloc[train_index, :], X.iloc[val_index, :]
+		y_train, y_val = y.iloc[train_index], y.iloc[val_index]
 
-	test_acc, train_acc, _, _, model = cross_validate(model, X, y,
-										return_train_score=True,
-										return_estimator=True)
+		model = model.fit(X_train, y_train)
 
-	# for train_index, val_index in kf.split(X):
-	# 	X_train, X_val = X.iloc[train_index, :], X.iloc[val_index, :]
-	# 	y_train, y_val = y.iloc[train_index], y.iloc[val_index]
-	#
-	# 	cross_validate(model, X_train, y_train, return_estimator=True)
-	#
-	# 	y_hat = model.predict(X_val)  # y_hat is a.k.a y_pred
-	#
-	# 	acc = accuracy_score(y_val, y_hat)
-	# 	loss = mean_squared_error(y_val, y_hat)
-	#
-	# 	train_acc.append(acc)
-	# 	train_loss.append(loss)
+		y_hat = model.predict(X_val)  # y_hat is a.k.a y_pred
+
+		acc = accuracy_score(y_val, y_hat)
+		loss = mean_squared_error(y_val, y_hat)
+
+		train_acc.append(acc)
+		train_loss.append(loss)
 
 	# --- Testing.
 	X_test, y_test = test_set

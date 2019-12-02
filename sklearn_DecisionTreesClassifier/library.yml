@@ -1,8 +1,8 @@
 ---
-title: RandomForest
-command: python3 random_forest_classifier.py
-description: "Random Forest - AI library made by cnvrg.io data science team."
-version: 1.0.1
+title: DecisionTrees
+command: python3 decision_tree_classifier.py
+description: "Decision Trees - AI library made by cnvrg.io data science team."
+version: 1.0.0
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
@@ -17,10 +17,10 @@ arguments:
     value: 0.2
   output_model:
     value: model.sav
-  n_estimators:
-    value: 10
   criterion:
     value: gini
+  splitter:
+    value: best
   max_depth:
     value: None
   min_samples_split:
@@ -30,24 +30,14 @@ arguments:
   min_weight_fraction_leaf:
     value: 0.
   max_features:
-    value: auto
+    value: None
+  random_state:
+    value: None
   max_leaf_nodes:
     value: None
   min_impurity_decrease:
     value: 0.
-  min_impurity_split:
-    value: None
-  bootstrap:
-    value: True
-  oob_score:
-    value: False
-  n_jobs:
-    value: 1
-  random_state:
-    value: None
-  verbose:
-    value: 0
-  warm_start:
-    value: True
   class_weight:
     value: None
+  presort:
+    value: False

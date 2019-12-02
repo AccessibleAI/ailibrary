@@ -4,6 +4,13 @@
     <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/library.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xgboost/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/library.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,15 +32,15 @@
   <component name="ProjectId" id="1RolA1LBmuqHOQFbPtv60WWppBS" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sklearn_RandomForestClassifier" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sklearn_KNN" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sklearn_KNN" />
+      <recent name="$PROJECT_DIR$/sklearn_DecisionTreesClassifier" />
       <recent name="$PROJECT_DIR$/sklearn_RandomForestClassifier" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/xgboost" />
-      <recent name="$PROJECT_DIR$/sklearn_DecisionTreesClassifier" />
-      <recent name="$PROJECT_DIR$/sklearn_KNN" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RandomForestRegressor" />
@@ -99,7 +106,7 @@
       <workItem from="1575266426013" duration="13000" />
       <workItem from="1575266443357" duration="370000" />
       <workItem from="1575267469965" duration="17461000" />
-      <workItem from="1575291960269" duration="2803000" />
+      <workItem from="1575291960269" duration="4429000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
@@ -135,14 +142,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py</url>
-          <line>217</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575289498628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575296515662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
   </component>
 </project>

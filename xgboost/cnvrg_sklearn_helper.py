@@ -39,8 +39,8 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	for train_index, val_index in kf.split(X):
 		X_train, X_val = X.iloc[train_index, :], X.iloc[val_index, :]
 		y_train, y_val = y.iloc[train_index], y.iloc[val_index]
-		model.fit(X_train, y_train)
-		model.n_estimators += 1
+
+		model = model.fit(X_train, y_train)
 
 		y_hat = model.predict(X_val)  # y_hat is a.k.a y_pred
 
