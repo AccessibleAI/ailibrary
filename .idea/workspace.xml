@@ -3,113 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/ResNet50.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/ResNet50.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/densenet201.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/densenet201.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/metrics.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/python/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/python/casting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/python/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/python/cnvrg_base_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/python/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/python/cnvrg_images_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/python/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/python/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DenseNet201 (with tf2.0)/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/ResNet50.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/ResNet50.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/labels_dict.json" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/labels_dict.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/metrics.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/mobilenetv2.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/mobilenetv2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/python/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/python/casting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/python/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/python/cnvrg_base_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/python/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/python/cnvrg_images_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/python/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/python/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MobileNetV2 (with tf2.0)/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/Predict.iml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/Predict.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_densenet201/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Predict/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/_predict/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/PrepLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/PrepLibrary.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_mobilenetv2/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/CnvrgPrep.py" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/CnvrgPrep.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/Preprocessed.csv" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/Preprocessed.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrepLibrary/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/_PrepLibrary/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/ResNet50.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/ResNet50.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/metrics.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/python/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/python/casting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/python/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/python/cnvrg_base_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/python/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/python/cnvrg_images_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/python/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/python/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ResNet50 (with tf2.0)/resnet50.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_resnet50/resnet50.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/ResNet50.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/ResNet50.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/libraries/R_User_Library.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/metrics.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/python/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/python/casting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/python/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/python/cnvrg_base_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/python/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/python/cnvrg_images_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/python/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/python/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VGG16 (with tf2.0)/vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/tensorflow2_vgg16/vgg16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_testing_data/default.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/_params" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_KNN/knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/knn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/linear_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/linear_regression.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/naive_bayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/naive_bayes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/random_forest_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/random_forest_classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor (not prepared/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/cnvrg_random_forest_regressor_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor (not prepared/cnvrg_random_forest_regressor_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor (not prepared/metrics.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/random_forest_regressor.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor (not prepared/random_forest_regressor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestRegressor/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestRegressor (not prepared/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_SVM/svm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/svm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xgboost/xgb.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/xgb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xgboost/test.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -130,18 +33,18 @@
   <component name="ProjectId" id="1RolA1LBmuqHOQFbPtv60WWppBS" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sklearn_DecisionTreesClassifier" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RandomForestRegressor" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/xgboost" />
       <recent name="$PROJECT_DIR$/sklearn_DecisionTreesClassifier" />
       <recent name="$PROJECT_DIR$/sklearn_KNN" />
       <recent name="$PROJECT_DIR$/sklearn_LinearRegression" />
-      <recent name="$PROJECT_DIR$/sklearn_NaiveBayes" />
-      <recent name="$PROJECT_DIR$/sklearn_RandomForestClassifier" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -165,13 +68,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/xgboost" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xgboost/test.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="--algo=knn" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -203,7 +106,7 @@
       <workItem from="1574779864191" duration="64000" />
       <workItem from="1575266426013" duration="13000" />
       <workItem from="1575266443357" duration="370000" />
-      <workItem from="1575267469965" duration="6789000" />
+      <workItem from="1575267469965" duration="13702000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
@@ -235,7 +138,18 @@
     <MESSAGE value="small changes in the helper file." />
     <option name="LAST_COMMIT_MESSAGE" value="small changes in the helper file." />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575273188436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/xgboost" />
+    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575282071279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
   </component>
 </project>

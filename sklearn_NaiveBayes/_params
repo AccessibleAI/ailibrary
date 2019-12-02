@@ -1,3 +1,5 @@
 {
-
+'alpha': 0.1,
+'fit_prior': True,
+'class_prior': None
 }

@@ -1,3 +1,6 @@
 {
-
+'fit_intercept': True,
+'normalize': False,
+'copy_X': True,
+'n_jobs': None
 }

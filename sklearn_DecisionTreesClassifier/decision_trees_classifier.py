@@ -204,7 +204,6 @@ if __name__ == '__main__':
 	parser.add_argument('--min_impurity_decrease',  action='store', default="0.", dest='min_impurity_decrease',
 	                    help="""A node will be split if this split induces a decrease of the impurity greater than or equal to this value.""")
 
-
 	parser.add_argument('--class_weight', action='store', default='None', dest='class_weight',
 	                    help="""Weights associated with classes in the form {class_label: weight}. 
                         If not given, all classes are supposed to have weight one. For multi-output problems, 
