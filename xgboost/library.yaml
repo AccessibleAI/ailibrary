@@ -1,0 +1,75 @@
+---
+title: xgboost
+command: python3 xgb.py
+version: 1.0.0
+docker_images: cnvrg
+compute: CPU
+arguments:
+  data:
+    description: ""
+  test_size:
+    description: ""
+    value: 0.2
+  output_model:
+    description: ""
+    value: model.sav
+  max_depth:
+    description: ""
+    value: 3
+  learning_rate:
+    description: ""
+    value: 0.1
+  n_estimators:
+    description: ""
+    value: 100
+  silent:
+    description: ""
+    value: True
+  objective:
+    description: ""
+    value: 'binary:logistic'
+  booster:
+    description: ""
+    value: 'gbtree'
+  n_jobs:
+    description: ""
+    value: 1
+  nthread:
+    description: ""
+    value: None
+  gamma:
+    description: ""
+    value: 0
+  min_child_weight:
+    description: ""
+    value: 1
+  max_delta_step:
+    description: ""
+    value: 0
+  subsample:
+    description: ""
+    value: 1
+  colsample_bytree:
+    description: ""
+    value: 1
+  colsample_bylevel:
+    description: ""
+    value: 1
+  reg_alpha:
+    description: ""
+    value: 0
+  reg_lambda:
+    description: ""
+    value: 1
+  scale_pos_weight:
+    description: ""
+    value: 1
+  base_score:
+    description: ""
+    value: 0.5
+  random_state:
+    description: ""
+    value: 0
+
+data_type: CSV
+icon: xgboost

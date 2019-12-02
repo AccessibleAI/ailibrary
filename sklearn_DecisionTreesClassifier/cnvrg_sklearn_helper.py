@@ -35,6 +35,8 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	kf = KFold(n_splits=folds)
 	X, y = train_set
 
+	model.warm_start = True
+
 	# --- Training.
 	for train_index, val_index in kf.split(X):
 		X_train, X_val = X.iloc[train_index, :], X.iloc[val_index, :]

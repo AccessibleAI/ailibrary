@@ -37,7 +37,7 @@ DEF_DATA_PATH = "tester_data.csv" if args.data == 'default' else args.data
 
 ENV = 'python3'
 TEST_MODE = ' --test_mode=True '
-X_VAL = ' --x_val=5 '
+X_VAL = ' --x_val=8 '
 OUTPUT_FILE_NAME = 'model.sav'
 
 # Output messages - Inform success or fail.
@@ -139,11 +139,11 @@ def run():
     _test_file_with_data_only('1.1')
     _test_file_with_data_only_and_cross_validation('1.2')
 
-    # _test_running_with_data_and_some_params('2.1')
-    # _test_running_with_data_and_some_params_and_cross_validation('2.2')
-    #
-    # _test_running_with_data_and_all_params('3.1')
-    # _test_running_with_data_and_all_params_and_cross_validation('3.2')
+    _test_running_with_data_and_some_params('2.1')
+    _test_running_with_data_and_some_params_and_cross_validation('2.2')
+
+    _test_running_with_data_and_all_params('3.1')
+    _test_running_with_data_and_all_params_and_cross_validation('3.2')
 
     print(ENDED_SUCCESSFULLY)
 

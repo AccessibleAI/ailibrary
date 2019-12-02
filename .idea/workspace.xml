@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_testing_data/default.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/_params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_KNN/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/_params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/_params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/_params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/_params" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_SVM/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xgboost/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/tester_data.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +67,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="--algo=knn" />
+      <option name="PARAMETERS" value="--algo=decision_tree" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -106,7 +99,7 @@
       <workItem from="1574779864191" duration="64000" />
       <workItem from="1575266426013" duration="13000" />
       <workItem from="1575266443357" duration="370000" />
-      <workItem from="1575267469965" duration="13702000" />
+      <workItem from="1575267469965" duration="17294000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
@@ -142,14 +135,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py</url>
+          <line>217</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575282071279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575289498628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
   </component>
 </project>
