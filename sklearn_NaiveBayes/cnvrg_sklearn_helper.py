@@ -19,7 +19,7 @@ warnings.filterwarnings(action="ignore", category=RuntimeWarning)
 warnings.filterwarnings(action='ignore', category=DeprecationWarning)
 
 
-def train_with_cross_validation(model, train_set, test_set, folds, project_dir, output_model_name):
+def train_with_cross_validation(model, train_set, test_set, folds, project_dir, output_model_name, testing_mode):
 	"""
 	This method enables sklearn algorithms to perform KFold-cross-validation.
 	The method also initates the cnvrg.io experiment with all its metrics.
@@ -56,20 +56,29 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	exp = Experiment()
-	exp.log_param("model", output_model_name)
-	exp.log_param("folds", folds)
-	exp.log_metric("train_acc", train_acc)
-	exp.log_metric("train_loss", train_loss)
-	exp.log_param("test_acc", test_acc)
-	exp.log_param("test_loss", test_loss)
+	if not testing_mode:
+		exp = Experiment()
+		exp.log_param("model", output_model_name)
+		exp.log_param("folds", folds)
+		exp.log_metric("train_acc", train_acc)
+		exp.log_metric("train_loss", train_loss)
+		exp.log_param("test_acc", test_acc)
+		exp.log_param("test_loss", test_loss)
+	else:
+		print("Model: {model}\n"
+			  "Folds: {folds}\n"
+			  "train_acc={train_acc}\n"
+			  "train_loss={train_loss}\n"
+			  "test_acc={test_acc}\n"
+			  "test_loss={test_loss}".format(
+			model=output_model_name, folds=folds, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
 
 	# Save model.
 	output_file_name = project_dir + "/" + output_model_name if project_dir is not None else output_model_name
 	pickle.dump(model, open(output_file_name, 'wb'))
 
 
-def train_without_cross_validation(model, train_set, test_set, project_dir, output_model_name):
+def train_without_cross_validation(model, train_set, test_set, project_dir, output_model_name, testing_mode):
 	"""
 	The method also initates the cnvrg.io experiment with all its metrics.
 	:param model: SKlearn model object (initiated).
@@ -95,12 +104,20 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	exp = Experiment()
-	exp.log_param("model", output_model_name)
-	exp.log_param("train_acc", train_acc)
-	exp.log_param("train_loss", train_loss)
-	exp.log_param("test_acc", test_acc)
-	exp.log_param("test_loss", test_loss)
+	if not testing_mode:
+		exp = Experiment()
+		exp.log_param("model", output_model_name)
+		exp.log_param("train_acc", train_acc)
+		exp.log_param("train_loss", train_loss)
+		exp.log_param("test_acc", test_acc)
+		exp.log_param("test_loss", test_loss)
+	else:
+		print("Model: {model}\n"
+			  "train_acc={train_acc}\n"
+			  "train_loss={train_loss}\n"
+			  "test_acc={test_acc}\n"
+			  "test_loss={test_loss}".format(
+			model=output_model_name, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
 
 	# Save model.
 	output_file_name = project_dir + "/" + output_model_name if project_dir is not None else output_model_name

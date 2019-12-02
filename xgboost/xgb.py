@@ -159,7 +159,8 @@ def main(args):
 									test_set=(X_test, y_test),
 									folds=args.x_val,
 									project_dir=args.project_dir,
-									output_model_name=args.output_model)
+									output_model_name=args.output_model,
+									testing_mode=args.test_mode)
 
 	# Training without cross validation.
 	else:
@@ -167,7 +168,8 @@ def main(args):
 										train_set=(X_train, y_train),
 										test_set=(X_test, y_test),
 										project_dir=args.project_dir,
-										output_model_name=args.output_model)
+										output_model_name=args.output_model,
+										testing_mode=args.test_mode)
 
 
 if __name__ == '__main__':
@@ -191,6 +193,9 @@ if __name__ == '__main__':
 
 	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
 	                    help="""String. The name of the output file which is a trained random forests model """)
+
+	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
+						help="""--- For inner use of cnvrg.io ---""")
 
 	# ----- model's params.
 	parser.add_argument('--max_depth', action='store', default="3", dest='max_depth',
@@ -250,10 +255,11 @@ if __name__ == '__main__':
 	parser.add_argument('--random_state', action='store', default="0", dest='random_state',
 						help=""": --- . Default is 0""")
 
-	# Type
+	# Type issue, Can't use here.
 	parser.add_argument('--seed', action='store', default="None", dest='seed',
 						help=""": --- . Default is None""")
-	# Type
+
+	# Type issue, Can't use here.
 	parser.add_argument('--missing', action='store', default="None", dest='missing',
 						help=""": --- . Default is None""")
 
