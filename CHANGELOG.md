@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file.
 ## [1.0] - 2019-12-05 #TBD
 
 ### Added
-- Changelog ;-)
 - XGBoost
 - SVM
 - Decision Trees
@@ -17,6 +16,4 @@ All notable changes to this project will be documented in this file.
 - TensorFlow Transfer Learning: ResNet50
 - TensorFlow Transfer Learning: DenseNet201
 - TensorFlow Transfer Learning: MobileNet v2
-
-
-
+- Changelog ;-)
