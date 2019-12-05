@@ -173,7 +173,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""xgboost Classifier""")
+	parser = argparse.ArgumentParser(description="""sk_xgboost Classifier""")
 
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,

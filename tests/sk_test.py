@@ -26,7 +26,7 @@ scripts = {
     'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),
     'random_forest': ('sk_RandomForestClassifier/random_forest_classifier.py', 'sk_RandomForestClassifier'),
     'svm': ('sk_SVM/svm.py', 'sk_SVM'),
-    'xgboost': ('xgboost/xgb.py', 'xgboost'),
+    'sk_xgboost': ('sk_xgboost/xgb.py', 'sk_xgboost'),
 }
 
 curr_dir = os.getcwd().split('sk_test.py')[0]

@@ -96,3 +96,5 @@ def train(args, model_name):
 	# Save.
 	output_file_name = os.environ['PROJECT_DIR'] + "/" + args.output_model if os.environ['PROJECT_DIR'] is not None else args.output_model
 	model.save(output_file_name)
+
+	os.system('ls -la {}'.format(os.environ['PROJECT_DIR']))
