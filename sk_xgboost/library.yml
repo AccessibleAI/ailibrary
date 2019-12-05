@@ -2,7 +2,7 @@
 title: sk_xgboost
 command: python3 xgb.py
 description: "sk_xgboost - AI library made by cnvrg.io data science team."
-version: 1.0.5
+version: 1.0.6
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
