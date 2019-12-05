@@ -79,7 +79,7 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	pickle.dump(model, open(output_file_name, 'wb'))
 
 	if not testing_mode:
-		os.system('ls -la {}'.format(os.environ['PROJECT_DIR']))
+		os.system('ls -la {}'.format(os.environ.get("CNVRG_PROJECT_PATH")))
 
 
 def train_without_cross_validation(model, train_set, test_set, project_dir, output_model_name, testing_mode):
@@ -128,4 +128,4 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	pickle.dump(model, open(output_file_name, 'wb'))
 
 	if not testing_mode:
-		os.system('ls -la {}'.format(os.environ['PROJECT_DIR']))
+		os.system('ls -la {}'.format(os.environ.get("CNVRG_PROJECT_PATH")))

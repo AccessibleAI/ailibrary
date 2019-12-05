@@ -94,7 +94,7 @@ def train(args, model_name):
 			model=model_name, training_time=training_time, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
 
 	# Save.
-	output_file_name = os.environ['PROJECT_DIR'] + "/" + args.output_model if os.environ['PROJECT_DIR'] is not None else args.output_model
+	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + args.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None else args.output_model
 	model.save(output_file_name)
 
-	os.system('ls -la {}'.format(os.environ['PROJECT_DIR']))
+	os.system('ls -la {}'.format(os.environ.get("CNVRG_PROJECT_PATH")))
