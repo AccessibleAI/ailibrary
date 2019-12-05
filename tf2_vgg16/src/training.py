@@ -14,9 +14,9 @@ import time
 import tensorflow as tf
 
 from cnvrg import Experiment
-from python.casting import cast_types
-from python.cnvrg_base_model import init_model
-from python.cnvrg_images_generator import load_images_to_generators, output_generator_dictionary
+from src.casting import cast_types
+from src.cnvrg_base_model import init_model
+from src.cnvrg_images_generator import load_images_to_generators, output_generator_dictionary
 
 VERBOSE = 1
 WORKERS = 1
@@ -25,7 +25,7 @@ GRAYSCALE_NUM_OF_COLORS = 1
 
 tf.compat.v1.disable_eager_execution()
 
-def train(args):
+def train(args, model_name):
 	args = cast_types(args)
 
 	# Set basic params.
@@ -81,6 +81,24 @@ def train(args):
 	exp.log_param("test_loss", test_loss)
 	exp.log_param("test_acc", test_acc)
 	exp.log_param("training_time", training_time)
+
+	if not testing_mode:
+		# Initiating cnvrg.io experiment.
+		exp = Experiment()
+		exp.log_metric("train_loss", train_loss)
+		exp.log_metric("train_acc", train_acc)
+		exp.log_param("test_loss", test_loss)
+		exp.log_param("test_acc", test_acc)
+		exp.log_param("training_time", training_time)
+		exp.log_param("model_name", model_name)
+	else:
+		print("Model: {model}\n"
+			  "Folds: {folds}\n"
+			  "train_acc={train_acc}\n"
+			  "train_loss={train_loss}\n"
+			  "test_acc={test_acc}\n"
+			  "test_loss={test_loss}".format(
+			model=output_model_name, folds=folds, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
 
 	# Save.
 	where_to_save = args.project_dir + "/" + args.output_model if args.project_dir is not None else args.output_model

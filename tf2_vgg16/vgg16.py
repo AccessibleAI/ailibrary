@@ -31,6 +31,9 @@ if __name__ == '__main__':
 	parser.add_argument('--output_dir', action='store', dest='output_dir',
 	                    help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
 
+	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
+						help="""--- For inner use of cnvrg.io ---""")
+
 	parser.add_argument('--output_model', action='store', default="model.h5", dest='output_model',
 						help="""(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file.""")
 
@@ -75,4 +78,4 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train(args)
+	train(args, model_name='vgg16')
