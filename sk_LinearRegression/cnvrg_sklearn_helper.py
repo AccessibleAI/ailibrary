@@ -10,6 +10,7 @@ This file performs training with or without cross-validation over SK-learn model
 """
 import os
 import pickle
+import numpy as np
 
 from cnvrg import Experiment
 from sklearn.model_selection import KFold
