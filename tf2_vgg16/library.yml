@@ -10,6 +10,7 @@ icon: tensorflow
 
 arguments:
   data:
+    value: ''
     description: """(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation."""
   data_test:
     value: None

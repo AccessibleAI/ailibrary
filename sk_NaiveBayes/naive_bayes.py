@@ -39,7 +39,7 @@ def _cast_types(args):
 	args.alpha = float(args.alpha)
 
 	# fit_prior
-	args.fit_prior = (args.fit_prior == 'True' or args.fit_prior == "True")
+	args.fit_prior = (args.fit_prior in ['True', "True", 'true', "true"])
 
 	# class_prior - array like type (problem to convert)
 	if args.class_prior == "None" or args.class_prior == 'None':

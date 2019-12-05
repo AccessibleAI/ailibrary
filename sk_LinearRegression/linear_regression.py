@@ -37,13 +37,13 @@ def _cast_types(args):
 	args.test_size = float(args.test_size)
 
 	# fit_intercept.
-	args.fit_intercept = (args.fit_intercept == 'True')
+	args.fit_intercept = (args.fit_intercept in ['True', "True", 'true', "true"])
 
 	# normalize.
-	args.normalize = (args.normalize == 'True')
+	args.normalize = (args.normalize in ['True', "True", 'true', "true"])
 
 	# copy_X.
-	args.copy_X = (args.copy_X == 'True')
+	args.copy_X = (args.copy_X in ['True', "True", 'true', "true"])
 
 	# n_jobs.
 	if args.n_jobs == 'None':

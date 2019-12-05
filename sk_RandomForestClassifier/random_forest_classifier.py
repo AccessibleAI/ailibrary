@@ -89,10 +89,10 @@ def _cast_types(args):
 		args.min_impurity_split = float(args.min_impurity_split)
 
 	# bootstrap.
-	args.bootstrap = (args.bootstrap == "True" or args.bootstrap == 'True')
+	args.bootstrap = (args.bootstrap in ['True', "True", 'true', "true"])
 
 	# oob_score.
-	args.oob_score = (args.oob_score == "True" or args.oob_score == 'True')
+	args.oob_score = (args.oob_score in ['True', "True", 'true', "true"])
 
 	# n_jobs.
 	if args.n_jobs == "None" or args.n_jobs == 'None':
@@ -110,7 +110,7 @@ def _cast_types(args):
 	args.verbose = int(args.verbose)
 
 	# warm_start.
-	args.warm_start = (args.warm_start == "True" or args.warm_start == 'True')
+	args.warm_start = (args.warm_start in ['True', "True", 'true', "true"])
 
 	# class_weight. (problematic)
 	if args.class_weight == "None" or args.class_weight == 'None':

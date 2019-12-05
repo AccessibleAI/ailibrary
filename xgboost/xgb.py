@@ -45,7 +45,7 @@ def _cast_types(args):
 	args.n_estimators = int(args.n_estimators)
 
 	# silent.
-	args.silent = (args.silent == 'True' or args.silent == "True")
+	args.silent = (args.silent in ['True', "True", 'true', "true"])
 
 	# n_jobs.
 	if args.n_jobs == "None" or args.n_jobs == 'None':

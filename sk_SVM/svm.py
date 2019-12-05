@@ -52,10 +52,10 @@ def _cast_types(args):
 	args.coef0 = float(args.coef0)
 
 	# shrinking
-	args.shrinking = (args.shrinking == 'True' or args.shrinking == "True")
+	args.shrinking = (args.shrinking in ['True', "True", 'true', "true"])
 
 	# probability
-	args.probability = (args.probability == 'True' or args.probability == "True")
+	args.probability = (args.probability in ['True', "True", 'true', "true"])
 
 	# tol
 	args.tol = float(args.tol)
@@ -68,7 +68,7 @@ def _cast_types(args):
 		args.class_weight = None
 
 	# verbose
-	args.verbose = (args.verbose == 'True' or args.verbose == "True")
+	args.verbose = (args.verbose in ['True', "True", 'true', "true"])
 
 	# max_iter
 	args.max_iter = int(args.max_iter)

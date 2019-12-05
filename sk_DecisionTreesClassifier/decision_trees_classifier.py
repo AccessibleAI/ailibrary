@@ -84,7 +84,7 @@ def _cast_types(args):
 		args.class_weight = float(args.class_weight)
 
 	# presort
-	args.presort = (args.presort == 'True' or args.presort == "True")
+	args.presort = (args.presort in ['True', "True", 'true', "true"] )
 
 	return args
 
