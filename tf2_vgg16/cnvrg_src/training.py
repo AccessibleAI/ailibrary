@@ -10,6 +10,7 @@ training.py
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
+import os
 import time
 import tensorflow as tf
 
@@ -74,15 +75,7 @@ def train(args, model_name):
 	                                               verbose=VERBOSE,
 	                                               steps=steps_per_epoch_testing)
 
-	# Initiating cnvrg.io experiment.
-	exp = Experiment()
-	exp.log_metric("train_loss", train_loss)
-	exp.log_metric("train_acc", train_acc)
-	exp.log_param("test_loss", test_loss)
-	exp.log_param("test_acc", test_acc)
-	exp.log_param("training_time", training_time)
-
-	if not testing_mode:
+	if not args.test_mode:
 		# Initiating cnvrg.io experiment.
 		exp = Experiment()
 		exp.log_metric("train_loss", train_loss)
@@ -93,13 +86,13 @@ def train(args, model_name):
 		exp.log_param("model_name", model_name)
 	else:
 		print("Model: {model}\n"
-			  "Folds: {folds}\n"
 			  "train_acc={train_acc}\n"
 			  "train_loss={train_loss}\n"
 			  "test_acc={test_acc}\n"
-			  "test_loss={test_loss}".format(
-			model=output_model_name, folds=folds, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
+			  "test_loss={test_loss}\n"
+			  "training_time={training_time}".format(
+			model=model_name, training_time=training_time, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
 
 	# Save.
-	where_to_save = args.project_dir + "/" + args.output_model if args.project_dir is not None else args.output_model
-	model.save(where_to_save)
+	output_file_name = os.environ['PROJECT_DIR'] + "/" + args.output_model if os.environ['PROJECT_DIR'] is not None else args.output_model
+	model.save(output_file_name)

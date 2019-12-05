@@ -142,8 +142,6 @@ def main(args):
 										testing_mode=args.test_mode)
 
 
-
-
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""sk_SVM""")
 	# ----- cnvrg.io params.

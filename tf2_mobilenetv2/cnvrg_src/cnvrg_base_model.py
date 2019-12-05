@@ -21,7 +21,7 @@ def _get_optimizer(optimizer_name):
 	Returns an optimizer object.
 	:param optimizer_name: string.
 	:param learning_rate: float in [0, 1]
-	:return: tensorflow.src.keras.optimizers object.
+	:return: tensorflow.cnvrg_src.keras.optimizers object.
 	"""
 	if optimizer_name == 'sgd':
 		return tf.keras.optimizers.SGD()
