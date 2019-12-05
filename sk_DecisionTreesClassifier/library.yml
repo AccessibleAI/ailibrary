@@ -1,8 +1,8 @@
 ---
 title: DecisionTrees
-command: python3 decision_tree_classifier.py
+command: python3 decision_trees_classifier.py.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.6
+version: 1.0.7
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
