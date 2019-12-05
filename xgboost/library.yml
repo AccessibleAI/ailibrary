@@ -2,11 +2,11 @@
 title: xgboost
 command: python3 xgb.py
 description: "xgboost - AI library made by cnvrg.io data science team."
-version: 1.0.2
+version: 1.0.3
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
-icon: sklearn
+icon: xgboost
 
 arguments:
   data:

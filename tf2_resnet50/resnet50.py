@@ -6,15 +6,15 @@ cnvrg.io - AI library
 
 Created by: Omer Liberman
 
-Last update: Nov 26th, 2019
+Last update: Oct 19, 2019
 Updated by: Omer Liberman
 
-mobilenetv2.py
+resnet50.py
 ==============================================================================
 """
 import argparse
 
-from python.training import train
+from src.training import training
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""ResNet50 Model""")

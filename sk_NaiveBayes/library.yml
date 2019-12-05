@@ -1,0 +1,26 @@
+---
+title: naive-bayes
+command: python3 naive_bayes.py
+description: "AI library made by cnvrg.io data science team."
+version: 1.0.2
+docker_images: cnvrg
+compute: CPU
+data_type: CSV
+icon: sklearn
+
+arguments:
+  data:
+    value: ''
+  x_val:
+    value: None
+  test_size:
+    value: 0.2
+  output_model:
+    value: model.sav
+
+  alpha:
+    value: 0.1
+  fit_prior:
+    value: True
+  class_prior:
+    value: None

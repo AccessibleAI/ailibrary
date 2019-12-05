@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-test.py
+sk_test.py
 ==============================================================================
 """
 import os
@@ -20,16 +20,16 @@ args = parser.parse_args()
 
 # model_name : ( path_to_script, directory_name )
 scripts = {
-    'decision_tree': ('sklearn_DecisionTreesClassifier/decision_trees_classifier.py', 'sklearn_DecisionTreesClassifier'),
-    'knn': ('sklearn_KNN/knn.py', 'sklearn_KNN'),
-    'linear_regression': ('sklearn_LinearRegression/linear_regression.py', 'sklearn_LinearRegression'),
-    'naive_bayes': ('sklearn_NaiveBayes/naive_bayes.py', 'sklearn_NaiveBayes'),
-    'random_forest': ('sklearn_RandomForestClassifier/random_forest_classifier.py', 'sklearn_RandomForestClassifier'),
-    'svm': ('sklearn_SVM/svm.py', 'sklearn_SVM'),
+    'decision_tree': ('sk_DecisionTreesClassifier/decision_trees_classifier.py', 'sk_DecisionTreesClassifier'),
+    'knn': ('sk_KNN/knn.py', 'sk_KNN'),
+    'linear_regression': ('sk_LinearRegression/linear_regression.py', 'sk_LinearRegression'),
+    'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),
+    'random_forest': ('sk_RandomForestClassifier/random_forest_classifier.py', 'sk_RandomForestClassifier'),
+    'svm': ('sk_SVM/svm.py', 'sk_SVM'),
     'xgboost': ('xgboost/xgb.py', 'xgboost'),
 }
 
-curr_dir = os.getcwd().split('test.py')[0]
+curr_dir = os.getcwd().split('sk_test.py')[0]
 
 SCRIPT_FILE, DIRECTORY = scripts[args.algo]
 SCRIPT_FILE = curr_dir + '/' + SCRIPT_FILE

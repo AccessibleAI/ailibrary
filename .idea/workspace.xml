@@ -3,14 +3,82 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec7f4a0-7a55-4834-9f24-8481ccc5b43e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_RandomForestClassifier/library.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/decision_trees_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/decision_trees_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/library.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_DecisionTreesClassifier/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_DecisionTreesClassifier/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/knn.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/knn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/library.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_KNN/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_KNN/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/linear_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/linear_regression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_LinearRegression/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_LinearRegression/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/naive_bayes.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/naive_bayes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_NaiveBayes/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_NaiveBayes/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/library.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/random_forest_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/random_forest_classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_RandomForestClassifier/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_RandomForestClassifier/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/_params" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/_params" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/cnvrg_sklearn_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/cnvrg_sklearn_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sklearn_SVM/svm.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_SVM/svm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/densenet201.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/densenet201.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/src/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/src/casting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/src/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/src/cnvrg_base_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/src/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/src/cnvrg_images_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_densenet201/src/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_densenet201/src/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/mobilenetv2.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/mobilenetv2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/src/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/src/casting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/src/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/src/cnvrg_base_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/src/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/src/cnvrg_images_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_mobilenetv2/src/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_mobilenetv2/src/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/resnet50.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/resnet50.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/src/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/src/casting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/src/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/src/cnvrg_base_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/src/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/src/cnvrg_images_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_resnet50/src/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_resnet50/src/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/metrics.md" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/metrics.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/src/casting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/src/casting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/src/cnvrg_base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/src/cnvrg_base_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/src/cnvrg_images_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/src/cnvrg_images_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/src/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/src/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tensorflow2_vgg16/vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/tf2_vgg16/vgg16.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/sk_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xgboost/library.yml" beforeDir="false" afterPath="$PROJECT_DIR$/xgboost/library.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,22 +96,23 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1RolA1LBmuqHOQFbPtv60WWppBS" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sklearn_KNN" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tf2_vgg16" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/sklearn_KNN" />
-      <recent name="$PROJECT_DIR$/sklearn_DecisionTreesClassifier" />
-      <recent name="$PROJECT_DIR$/sklearn_RandomForestClassifier" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/xgboost" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RandomForestRegressor" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tf2_vgg16" />
+      <recent name="$PROJECT_DIR$/tf2_resnet50" />
+      <recent name="$PROJECT_DIR$/tf2_mobilenetv2" />
+      <recent name="$PROJECT_DIR$/tf2_densenet201" />
+      <recent name="$PROJECT_DIR$/sk_SVM" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -58,7 +127,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.knn">
+    <configuration name="knn" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Prepared" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sklearn_KNN" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sklearn_KNN/knn.py" />
+      <option name="PARAMETERS" value="--data=&quot;$PROJECT_DIR$/../Lending_Club_AutoML/LendingClub_processed.csv&quot; --test_mode=True --x_val None --test_size 0.2 --output_model model.sav --n_neighbors 1 --weights uniform --algorithm auto --leaf_size 1 --p 1 --metric minkowski --metric_params None --n_jobs 1" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Prepared" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -72,7 +163,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sk_test.py" />
       <option name="PARAMETERS" value="--algo=decision_tree" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -81,8 +172,37 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="xgb" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Prepared" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/xgboost" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xgboost/xgb.py" />
+      <option name="PARAMETERS" value="--data=&quot;$PROJECT_DIR$/../Lending_Club_AutoML/LendingClub_processed.csv&quot; --test_mode=True --x_val None --test_size 1 --output_model model.sav --n_neighbors 1 --weights uniform --algorithm auto --leaf_size 1 --p 1 --metric minkowski --metric_params None --n_jobs 1" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.xgb" />
+      <item itemvalue="Python.knn" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.knn" />
+        <item itemvalue="Python.xgb" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -107,6 +227,7 @@
       <workItem from="1575266443357" duration="370000" />
       <workItem from="1575267469965" duration="17461000" />
       <workItem from="1575291960269" duration="4429000" />
+      <workItem from="1575464971419" duration="4690000" />
     </task>
     <task id="LOCAL-00001" summary="small changes in the helper file.">
       <created>1572535068118</created>
@@ -142,14 +263,21 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sklearn_DecisionTreesClassifier/cnvrg_sklearn_helper.py</url>
+          <url>file://$PROJECT_DIR$/sk_DecisionTreesClassifier/cnvrg_sklearn_helper.py</url>
           <line>53</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/sk_KNN/knn.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ailibrary$knn.coverage" NAME="knn Coverage Results" MODIFIED="1575476677655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sklearn_KNN" />
     <SUITE FILE_PATH="coverage/ailibrary$test.coverage" NAME="test Coverage Results" MODIFIED="1575296515662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
+    <SUITE FILE_PATH="coverage/ailibrary$xgb.coverage" NAME="xgb Coverage Results" MODIFIED="1575476499967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/xgboost" />
   </component>
 </project>

@@ -1,8 +1,8 @@
 ---
 title: RandomForest
 command: python3 random_forest_classifier.py
-description: "Random Forest - AI library made by cnvrg.io data science team."
-version: 1.0.1
+description: "AI library made by cnvrg.io data science team."
+version: 1.0.2
 docker_images: cnvrg
 compute: CPU
 data_type: CSV

@@ -9,12 +9,12 @@ Created by: Omer Liberman
 Last update: Oct 19, 2019
 Updated by: Omer Liberman
 
-vgg16.py
+densenet201.py
 ==============================================================================
 """
 import argparse
 
-from python.training import train
+from src.training import training
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""vgg16 Model""")
@@ -49,11 +49,11 @@ if __name__ == '__main__':
 	parser.add_argument('--optimizer', action='store', dest='optimizer', default='adam',
 	                    help="""(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.""")
 
-	parser.add_argument('--image_width', action='store', default="200", dest='image_width',
-						help="""(int) (Default: 200) The width of the images.""")
+	parser.add_argument('--image_width', action='store', default="128", dest='image_width',
+						help="""(int) (Default: 128) The width of the images.""")
 
-	parser.add_argument('--image_height', action='store', default="200", dest='image_height',
-						help="""(int) (Default: 200) The height of the images.""")
+	parser.add_argument('--image_height', action='store', default="128", dest='image_height',
+						help="""(int) (Default: 128) The height of the images.""")
 
 	parser.add_argument('--conv_width', action='store', default="3", dest='conv_width',
 						help="""(int) (Default: 3) The width of the convolution window.""")

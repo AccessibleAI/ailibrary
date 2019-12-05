@@ -6,18 +6,18 @@ cnvrg.io - AI library
 
 Created by: Omer Liberman
 
-Last update: Oct 19, 2019
+Last update: Nov 26th, 2019
 Updated by: Omer Liberman
 
-densenet201.py
+mobilenetv2.py
 ==============================================================================
 """
 import argparse
 
-from python.training import train
+from src.training import training
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""vgg16 Model""")
+	parser = argparse.ArgumentParser(description="""ResNet50 Model""")
 
 	parser.add_argument('--data', action='store', dest='data', required=True,
 						help="""(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation.""")

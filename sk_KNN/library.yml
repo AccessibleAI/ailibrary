@@ -1,8 +1,8 @@
 ---
 title: k-nearest-neighbors
 command: python3 knn.py
-description: "K-nearest-neighbors - AI library made by cnvrg.io data science team."
-version: 1.0.0
+description: "AI library made by cnvrg.io data science team."
+version: 1.0.2
 docker_images: cnvrg
 compute: CPU
 data_type: CSV

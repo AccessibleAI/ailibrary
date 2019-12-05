@@ -1,0 +1,28 @@
+---
+title: linear-regression
+command: python3 linear_regression.py
+description: "AI library made by cnvrg.io data science team."
+version: 1.0.2
+docker_images: cnvrg
+compute: CPU
+data_type: CSV
+icon: sklearn
+
+arguments:
+  data:
+    value: ''
+  x_val:
+    value: None
+  test_size:
+    value: 0.2
+  output_model:
+    value: model.sav
+
+  fit_intercept:
+    value: True
+  normalize:
+    value: False
+  copy_X:
+    value: True
+  n_jobs:
+    value: None

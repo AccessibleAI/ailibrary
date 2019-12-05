@@ -1,0 +1,48 @@
+---
+title: svm
+command: python3 svm.py
+description: "AI library made by cnvrg.io data science team."
+version: 1.0.3
+docker_images: cnvrg
+compute: CPU
+data_type: CSV
+icon: sklearn
+
+arguments:
+  data:
+    value: ''
+  x_val:
+    value: None
+  test_size:
+    value: 0.2
+  output_model:
+    value: model.sav
+
+  C:
+    value: 1.0
+  kernel:
+    value: rbf
+  degree:
+    value: 3
+  gamma:
+    value: auto
+  coef0:
+    value: 0.0
+  shrinking:
+    value: True
+  probability:
+    value: False
+  tol:
+    value: 1e-3
+  cache_size:
+    value: 200.0
+  class_weight:
+    value: None
+  verbose:
+    value: False
+  max_iter:
+    value: -1
+  decision_function_shape:
+    value: ovr
+  random_state:
+    value: None
