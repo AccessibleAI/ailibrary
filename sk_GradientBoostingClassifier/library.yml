@@ -1,0 +1,62 @@
+---
+title: gradient-boosting
+command: python3 gradient_boosting.py
+description: "AI library made by cnvrg.io data science team."
+version: 1.1.15
+docker_images: cnvrg
+compute: CPU
+data_type: CSV
+icon: sklearn
+
+arguments:
+  data:
+    value: ''
+  x_val:
+    value: None
+  test_size:
+    value: 0.2
+  output_model:
+    value: model.sav
+
+  loss:
+    value: deviance
+  learning_rate:
+    value: 0.1
+  n_estimators:
+    value: 100
+  subsample:
+    value: 1.0
+  criterion:
+    value: friedman_mse
+  min_samples_split:
+    value: 2
+  min_samples_leaf:
+    value: 1
+  min_weight_fraction_leaf:
+    value: 0.
+  max_depth:
+    value: 3
+  min_impurity_decrease:
+    value: 0.
+  min_impurity_split:
+    value: 1e-7
+  init:
+    value: None
+  random_state:
+    value: None
+  max_features:
+    value: None
+  verbose:
+    value: 0
+  max_leaf_nodes:
+    value: None
+  warm_start:
+    value: False
+  presort:
+    value: deprecated
+  validation_fraction:
+    value: 0.1
+  n_iter_no_change:
+    value: None
+  tol:
+    value: 1e-4

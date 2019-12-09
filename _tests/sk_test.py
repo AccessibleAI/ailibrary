@@ -21,7 +21,7 @@ args = parser.parse_args()
 # model_name : ( path_to_script, directory_name )
 scripts = {
     'decision_trees': ('sk_DecisionTreesClassifier/decision_trees_classifier.py', 'sk_DecisionTreesClassifier'),
-    'knn': ('sk_KNN/knn.py', 'sk_KNN'),
+    'knn': ('sk_KNN/gradient_boosting.py', 'sk_KNN'),
     'linear_regression': ('sk_LinearRegression/linear_regression.py', 'sk_LinearRegression'),
     'logistic_regression': ('sk_LogisticRegression/logistic_regression.py', 'sk_LogisticRegression'),
     'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),

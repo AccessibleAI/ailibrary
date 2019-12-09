@@ -9,7 +9,7 @@ Written by: Omer Liberman
 Last update: Oct 06, 2019
 Updated by: Omer Liberman
 
-knn.py
+gradient_boosting.py
 ==============================================================================
 """
 import argparse
