@@ -14,7 +14,7 @@ mobilenetv2.py
 """
 import argparse
 
-from cnvrg_src.training import training
+from cnvrg_src.training import train
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""ResNet50 Model""")

@@ -55,21 +55,21 @@ def train(args, model_name):
 	                   optimizer=args.optimizer)
 
 	# train.
-	steps_per_epoch_training = train_generator.n // train_generator.epcoh
+	steps_per_epoch_training = train_generator.n // args.epochs
 
 	start_time = time.time()
 	train_metrics = model.fit_generator(train_generator,
-	                                    epochs=args.epochs,
-	                                    workers=WORKERS,
-	                                    verbose=VERBOSE,
-	                                    steps_per_epoch=steps_per_epoch_training)
+										epochs=args.epochs,
+										workers=WORKERS,
+										verbose=VERBOSE,
+										steps_per_epoch=steps_per_epoch_training)
 
 	training_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
 	train_loss = train_metrics.history['loss']  # list
 	train_acc = train_metrics.history['accuracy']  # list
 
 	# test.
-	steps_per_epoch_testing = val_generator.n // val_generator.epcoh
+	steps_per_epoch_testing = val_generator.n // args.epochs
 	test_loss, test_acc = model.evaluate_generator(val_generator,
 	                                               workers=WORKERS,
 	                                               verbose=VERBOSE,
