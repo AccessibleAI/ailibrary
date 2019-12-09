@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-cnvrg_sklearn_helper.py
+regression_helper.py
 -----------------------
 This file performs training with or without cross-validation over SK-learn models.
 ==============================================================================

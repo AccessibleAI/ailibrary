@@ -1,5 +1,5 @@
 ---
-title: linear-regression
+title: logistic-regression
 command: python3 logistic_regression.py
 description: "AI library made by cnvrg.io data science team."
 version: 1.1.12
@@ -18,11 +18,33 @@ arguments:
   output_model:
     value: model.sav
 
+  penalty:
+    value: l2
+  dual:
+    value: False
+  tol:
+    value: 1e-4
+  C:
+    value: 1.0
   fit_intercept:
     value: True
-  normalize:
+  intercept_scaling:
+    value: 1
+  class_weight:
+    value: None
+  random_state:
+    value: None
+  solver:
+    value: lbfgs
+  max_iter:
+    value: 100
+  multi_class:
+    value: auto
+  verbose:
+    value: 0
+  warm_start:
     value: False
-  copy_X:
-    value: True
   n_jobs:
+    value: None
+  l1_ratio:
     value: None

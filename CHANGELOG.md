@@ -17,3 +17,9 @@ All notable changes to this project will be documented in this file.
 - TensorFlow Transfer Learning: DenseNet201
 - TensorFlow Transfer Learning: MobileNet v2
 - Changelog ;-)
+
+## [1.0] - 2019-12-09 #TBD
+
+### Added
+- logistic regression
+

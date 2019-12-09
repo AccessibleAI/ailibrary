@@ -9,7 +9,7 @@ Written by: Omer Liberman
 Last update: Oct 15, 2019
 Updated by: Omer Liberman
 
-linear_regression.py
+logistic_regression.py
 ==============================================================================
 """
 import argparse
@@ -18,7 +18,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
-from cnvrg_sklearn_helper import train_with_cross_validation, train_without_cross_validation
+from regression_helper import train_with_cross_validation, train_without_cross_validation
 
 
 def _cast_types(args):

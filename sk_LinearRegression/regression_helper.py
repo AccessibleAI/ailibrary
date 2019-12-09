@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-cnvrg_sklearn_helper.py
+regression_helper.py
 -----------------------
 This file performs training with or without cross-validation over SK-learn models.
 ==============================================================================
@@ -14,7 +14,7 @@ import numpy as np
 
 from cnvrg import Experiment
 from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 import warnings
 warnings.filterwarnings(action="ignore", category=RuntimeWarning)
@@ -33,7 +33,7 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	:param output_model_name: the name of the output model saved on the disk.
 	:return: nothing.
 	"""
-	train_acc, train_loss = [], []
+	train_loss_MSE, train_loss_MAE, train_loss_R2 = [], [], []
 	kf = KFold(n_splits=folds)
 	X, y = train_set
 
@@ -43,37 +43,46 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 		y_train, y_val = y.iloc[train_index], y.iloc[val_index]
 
 		model = model.fit(X_train, y_train)
-
 		y_hat = model.predict(X_val)  # y_hat is a.k.a y_pred
 
-		acc = accuracy_score(y_val, y_hat)
-		loss = mean_squared_error(y_val, y_hat)
+		mse = mean_squared_error(y_val, y_hat)
+		mae = mean_absolute_error(y_val, y_hat)
+		r2 = r2_score(y_val, y_hat)
 
-		train_acc.append(acc)
-		train_loss.append(loss)
+		train_loss_MSE.append(mse)
+		train_loss_MAE.append(mae)
+		train_loss_R2.append(r2)
 
 	# --- Testing.
 	X_test, y_test = test_set
 	y_pred = model.predict(X_test)
-	test_acc = accuracy_score(y_test, y_pred)
-	test_loss = mean_squared_error(y_test, y_pred)
+	test_loss_MSE = mean_squared_error(y_test, y_pred)
+	test_loss_MAE = mean_absolute_error(y_test, y_pred)
+	test_loss_R2 = r2_score(y_test, y_pred)
 
 	if not testing_mode:
 		exp = Experiment()
 		exp.log_param("model", output_model_name)
 		exp.log_param("folds", folds)
-		exp.log_metric("train_acc", train_acc)
-		exp.log_metric("train_loss", train_loss)
-		exp.log_param("test_acc", test_acc)
-		exp.log_param("test_loss", test_loss)
+
+		exp.log_metric("train_loss_MSE", train_loss_MSE)
+		exp.log_metric("train_loss_MAE", train_loss_MAE)
+		exp.log_metric("train_loss_R2", train_loss_R2)
+
+		exp.log_metric("test_loss_MSE", test_loss_MSE)
+		exp.log_metric("test_loss_MAE", test_loss_MAE)
+		exp.log_metric("test_loss_R2", test_loss_R2)
 	else:
 		print("Model: {model}\n"
 			  "Folds: {folds}\n"
-			  "train_acc={train_acc}\n"
-			  "train_loss={train_loss}\n"
-			  "test_acc={test_acc}\n"
-			  "test_loss={test_loss}".format(
-			model=output_model_name, folds=folds, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
+			  "train_loss_MSE={train_loss_MSE}\n"
+			  "train_loss_MAE={train_loss_MAE}\n"
+			  "train_loss_R2={train_loss_R2}\n"
+			  "test_loss_MSE={test_loss_MSE}\n"
+			  "test_loss_MAE={test_loss_MAE}\n"
+			  "test_loss_R2={test_loss_R2}".format(
+			model=output_model_name, folds=folds, train_loss_MSE=train_loss_MSE, train_loss_MAE=train_loss_MAE,
+		train_loss_R2=train_loss_R2, test_loss_MSE=test_loss_MSE, test_loss_MAE=test_loss_MAE, test_loss_R2=test_loss_R2))
 
 	# Save model.
 	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
@@ -96,33 +105,41 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	X_train, y_train = train_set
 
 	# --- Training.
-	model.fit(X_train, y_train)
-
+	model = model.fit(X_train, y_train)
 	y_hat = model.predict(X_train)  # y_hat is a.k.a y_pred
 
-	train_acc = accuracy_score(y_train, y_hat)
-	train_loss = mean_squared_error(y_train, y_hat)
+	train_loss_MSE = mean_squared_error(y_train, y_hat)
+	train_loss_MAE = mean_absolute_error(y_train, y_hat)
+	train_loss_R2 = r2_score(y_train, y_hat)
 
 	# --- Testing.
 	X_test, y_test = test_set
 	y_pred = model.predict(X_test)
-	test_acc = accuracy_score(y_test, y_pred)
-	test_loss = mean_squared_error(y_test, y_pred)
+	test_loss_MSE = mean_squared_error(y_test, y_pred)
+	test_loss_MAE = mean_absolute_error(y_test, y_pred)
+	test_loss_R2 = r2_score(y_test, y_pred)
 
 	if not testing_mode:
 		exp = Experiment()
 		exp.log_param("model", output_model_name)
-		exp.log_param("train_acc", train_acc)
-		exp.log_param("train_loss", train_loss)
-		exp.log_param("test_acc", test_acc)
-		exp.log_param("test_loss", test_loss)
+
+		exp.log_metric("train_loss_MSE", train_loss_MSE)
+		exp.log_metric("train_loss_MAE", train_loss_MAE)
+		exp.log_metric("train_loss_R2", train_loss_R2)
+
+		exp.log_metric("test_loss_MSE", test_loss_MSE)
+		exp.log_metric("test_loss_MAE", test_loss_MAE)
+		exp.log_metric("test_loss_R2", test_loss_R2)
 	else:
 		print("Model: {model}\n"
-			  "train_acc={train_acc}\n"
-			  "train_loss={train_loss}\n"
-			  "test_acc={test_acc}\n"
-			  "test_loss={test_loss}".format(
-			model=output_model_name, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
+			  "train_loss_MSE={train_loss_MSE}\n"
+			  "train_loss_MAE={train_loss_MAE}\n"
+			  "train_loss_R2={train_loss_R2}\n"
+			  "test_loss_MSE={test_loss_MSE}\n"
+			  "test_loss_MAE={test_loss_MAE}\n"
+			  "test_loss_R2={test_loss_R2}".format(
+			model=output_model_name, train_loss_MSE=train_loss_MSE, train_loss_MAE=train_loss_MAE,
+		train_loss_R2=train_loss_R2, test_loss_MSE=test_loss_MSE, test_loss_MAE=test_loss_MAE, test_loss_R2=test_loss_R2))
 
 	# Save model.
 	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name

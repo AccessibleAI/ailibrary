@@ -22,7 +22,7 @@ args = parser.parse_args()
 scripts = {
     'decision_tree': ('sk_DecisionTreesClassifier/decision_trees_classifier.py', 'sk_DecisionTreesClassifier'),
     'knn': ('sk_KNN/knn.py', 'sk_KNN'),
-    'linear_regression': ('sk_LinearRegression/linear_regression.py', 'sk_LinearRegression'),
+    'linear_regression': ('sk_LinearRegression/logistic_regression.py', 'sk_LinearRegression'),
     'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),
     'random_forest': ('sk_RandomForestClassifier/random_forest_classifier.py', 'sk_RandomForestClassifier'),
     'svm': ('sk_SVM/svm.py', 'sk_SVM'),
