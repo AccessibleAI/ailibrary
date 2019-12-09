@@ -2,7 +2,7 @@
 title: MobileNetV2
 command: python3 mobilenetv2.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.14
+version: 1.1.15
 docker_images: cnvrg
 compute: GPU
 data_type: image

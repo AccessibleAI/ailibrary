@@ -12,7 +12,7 @@ PATH = 'ailibrary/'
 
 A = '1'
 B = '1'
-C = '14'
+C = '15'
 NEW_VERSION = A + '.' + B + '.' + C
 
 yml_files = []
