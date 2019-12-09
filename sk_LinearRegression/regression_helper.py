@@ -69,9 +69,9 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 		exp.log_metric("train_loss_MAE", train_loss_MAE)
 		exp.log_metric("train_loss_R2", train_loss_R2)
 
-		exp.log_metric("test_loss_MSE", test_loss_MSE)
-		exp.log_metric("test_loss_MAE", test_loss_MAE)
-		exp.log_metric("test_loss_R2", test_loss_R2)
+		exp.log_param("test_loss_MSE", test_loss_MSE)
+		exp.log_param("test_loss_MAE", test_loss_MAE)
+		exp.log_param("test_loss_R2", test_loss_R2)
 	else:
 		print("Model: {model}\n"
 			  "Folds: {folds}\n"
@@ -123,13 +123,13 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 		exp = Experiment()
 		exp.log_param("model", output_model_name)
 
-		exp.log_metric("train_loss_MSE", train_loss_MSE)
-		exp.log_metric("train_loss_MAE", train_loss_MAE)
-		exp.log_metric("train_loss_R2", train_loss_R2)
+		exp.log_param("train_loss_MSE", train_loss_MSE)
+		exp.log_param("train_loss_MAE", train_loss_MAE)
+		exp.log_param("train_loss_R2", train_loss_R2)
 
-		exp.log_metric("test_loss_MSE", test_loss_MSE)
-		exp.log_metric("test_loss_MAE", test_loss_MAE)
-		exp.log_metric("test_loss_R2", test_loss_R2)
+		exp.log_param("test_loss_MSE", test_loss_MSE)
+		exp.log_param("test_loss_MAE", test_loss_MAE)
+		exp.log_param("test_loss_R2", test_loss_R2)
 	else:
 		print("Model: {model}\n"
 			  "train_loss_MSE={train_loss_MSE}\n"
