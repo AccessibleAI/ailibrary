@@ -78,4 +78,4 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train(args, model_name='densenet201')
+	train(args, model_name='inceptionv3')
