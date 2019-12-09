@@ -14,7 +14,7 @@ vgg16.py
 """
 import argparse
 
-from src.training import training
+from cnvrg_src.training import training
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""vgg16 Model""")

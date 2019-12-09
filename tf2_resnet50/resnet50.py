@@ -14,7 +14,7 @@ resnet50.py
 """
 import argparse
 
-from src.training import training
+from cnvrg_src.training import training
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""ResNet50 Model""")

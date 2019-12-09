@@ -15,9 +15,9 @@ import time
 import tensorflow as tf
 
 from cnvrg import Experiment
-from src.casting import cast_types
-from src.cnvrg_base_model import init_model
-from src.cnvrg_images_generator import load_images_to_generators, output_generator_dictionary
+from cnvrg_src.casting import cast_types
+from cnvrg_src.cnvrg_base_model import init_model
+from cnvrg_src.cnvrg_images_generator import load_images_to_generators, output_generator_dictionary
 
 VERBOSE = 1
 WORKERS = 1
