@@ -30,7 +30,7 @@ curr_dir = os.getcwd().split('tf_images_test.py')[0]
 SCRIPT_FILE, DIRECTORY = scripts[args.algo]
 SCRIPT_FILE = curr_dir + '/' + SCRIPT_FILE
 DIRECTORY = curr_dir + '/' + DIRECTORY
-DEF_DATA_PATH = "tf_image_test_data/" if args.data == 'default' else args.data
+DEF_DATA_PATH = "data_image_test/" if args.data == 'default' else args.data
 
 ENV = 'python3'
 TEST_MODE = ' --test_mode=True '

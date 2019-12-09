@@ -55,7 +55,7 @@ def train(args, model_name):
 	                   optimizer=args.optimizer)
 
 	# train.
-	steps_per_epoch_training = train_generator.n // train_generator.batch_size
+	steps_per_epoch_training = train_generator.n // train_generator.epcoh
 
 	start_time = time.time()
 	train_metrics = model.fit_generator(train_generator,
@@ -69,7 +69,7 @@ def train(args, model_name):
 	train_acc = train_metrics.history['accuracy']  # list
 
 	# test.
-	steps_per_epoch_testing = val_generator.n // val_generator.batch_size
+	steps_per_epoch_testing = val_generator.n // val_generator.epcoh
 	test_loss, test_acc = model.evaluate_generator(val_generator,
 	                                               workers=WORKERS,
 	                                               verbose=VERBOSE,

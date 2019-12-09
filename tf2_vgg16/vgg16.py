@@ -73,9 +73,6 @@ if __name__ == '__main__':
 	parser.add_argument('--output_layer_activation', action='store', default='softmax', dest='output_layer_activation',
 						help="""(String) (Default: 'softmax') The activation function of the output layer.""")
 
-	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
-						help="""--- For inner use of cnvrg.io ---""")
-
 	args = parser.parse_args()
 
 	train(args, model_name='vgg16')
