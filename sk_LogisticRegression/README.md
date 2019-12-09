@@ -48,7 +48,7 @@ the table built like: all the columns but the rightmost one are considered as fe
 	                     seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState 
 	                     instance used by np.random. Used when solver == ‘sag’ or ‘liblinear’.
 
-* ```--solver``` - str, {‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’}, optional (default=’lbfgs’)
+* ```--solver``` - str, {‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’}, optional (default=’liblinear’)
                    Algorithm to use in the optimization problem.
                    For small datasets, ‘liblinear’ is a good choice, whereas ‘sag’ and ‘saga’ are faster for large ones.
                    For multiclass problems, only ‘newton-cg’, ‘sag’, ‘saga’ and ‘lbfgs’ handle multinomial loss; ‘liblinear’ is limited to one-versus-rest schemes.

@@ -15,7 +15,7 @@ logistic_regression.py
 import argparse
 import pandas as pd
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
 from regression_helper import train_with_cross_validation, train_without_cross_validation
@@ -106,10 +106,23 @@ def main(args):
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=args.test_size)
 
 	# Initializing model with user input
-	model = LinearRegression(fit_intercept=args.fit_intercept,
-	                         normalize=args.normalize,
-	                         copy_X=args.copy_X,
-	                         n_jobs=args.n_jobs)
+	model = LogisticRegression(
+		penalty=args.penalty,
+		dual=args.dual,
+		tol=args.tol,
+		C=args.C,
+		fit_intercept=args.fit_intercept,
+		intercept_scaling=args.intercept_scaling,
+		class_weight=args.class_weight,
+		random_state=args.random_state,
+		solver=args.solver,
+		max_iter=args.max_iter,
+		multi_class=args.multi_class,
+		verbose=args.verbose,
+		warm_start=args.warm_start,
+		n_jobs=args.n_jobs,
+		l1_ratio=args.l1_ratio
+	)
 
 	# Training with cross validation.
 	if args.x_val is not None:
@@ -187,7 +200,7 @@ if __name__ == '__main__':
 	                     seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState 
 	                     instance used by np.random. Used when solver == ‘sag’ or ‘liblinear’.""")
 
-	parser.add_argument('--solver', action='store', default='lbfgs', dest='solver',
+	parser.add_argument('--solver', action='store', default='liblinear', dest='solver',
 	                    help="""str, {‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’}, optional (default=’lbfgs’)
 						Algorithm to use in the optimization problem.
 						For small datasets, ‘liblinear’ is a good choice, whereas ‘sag’ and ‘saga’ are faster for large ones.
