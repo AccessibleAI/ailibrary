@@ -9,7 +9,11 @@ _update_yml.py
 import os
 
 PATH = 'ailibrary/'
-NEW_VERSION = '1.1.10'
+
+A = '1'
+B = '1'
+C = '12'
+NEW_VERSION = A + '.' + B + '.' + C
 
 yml_files = []
 
