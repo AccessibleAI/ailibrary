@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-regression_helper.py
+cnvrg_sklearn_helper.py
 -----------------------
 This file performs training with or without cross-validation over SK-learn models.
 ==============================================================================
@@ -11,13 +11,155 @@ This file performs training with or without cross-validation over SK-learn model
 import os
 import pickle
 
-from cnvrg import Experiment
 from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.metrics import accuracy_score, mean_squared_error, classification_report, confusion_matrix
+
+from cnvrg import Experiment
+from cnvrg.charts import Barchart, Heatmap, Scatterplot
 
 import warnings
 warnings.filterwarnings(action="ignore", category=RuntimeWarning)
 warnings.filterwarnings(action='ignore', category=DeprecationWarning)
+
+# -----
+
+experiment = Experiment()
+
+def _plot_feature_importance(testing_mode, feature_names, importance):
+	"""
+	:param feature_names: the names of the features.
+	:param importance: the model.feature_importances_
+	:param testing_mode: boolean. for cnvrg inner test.
+	:return:
+	"""
+	global experiment
+	if testing_mode is False:
+		experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data = Barchart(x=feature_names, y=importance))
+	else:  # Testing.
+		print(importance)
+
+def __helper_plot_classification_report(classification_report_dict):
+	"""
+	Converts dictionary looks like:
+		{'label 1': {'precision':0.5,
+             'recall':1.0,
+             'f1-score':0.67,
+             'support':1},
+ 		'label 2': { ... },
+  		...
+		}
+
+	To array of arrays:
+	[['label', 'precision', 'recall', 'f1-score', 'support'],
+	 ['label 1', 0.5, 1.0, 0.67, 1],
+	 ['label 2', 0.6, 1.5, 0.71, 0],
+	 ...
+	]
+	"""
+	array = [['label', 'precision', 'recall', 'f1-score', 'support']]
+
+	for k, v in classification_report_dict.items():
+		line = [k] + v
+		array.append(line)
+
+	return array
+
+
+def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
+	"""
+	Plots the classification report.
+	:param testing_mode: boolean. for cnvrg inner test.
+	:param y_train: ndarray. the training labels.
+	:param y_train_pred: ndarray. the predicted training labels.
+	:param y_test: ndarray. the test set labels.
+	:param y_test_pred: ndarray. the test set predicted labels.
+	"""
+	global experiment
+
+	if y_train is not None and y_train_pred is not None:
+		training_report = classification_report(y_train, y_train_pred)  # string / dict
+		if testing_mode is False:
+			training_report_as_array = __helper_plot_classification_report(training_report)
+			experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array))
+		else:
+			print(training_report)
+
+	if y_test is not None and y_test_pred is not None:
+		test_report = classification_report(y_test, y_test_pred)  # string / dict
+		if testing_mode is False:
+			testing_report_as_array = __helper_plot_classification_report(test_report)
+			experiment.log_chart("Test Set - classification report", data=Heatmap(z=testing_report_as_array))
+		else:
+			print(test_report)
+
+def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
+	"""
+	Plots the confusion matrix.
+	:param testing_mode: boolean. for cnvrg inner test.
+	:param y_train: ndarray. the training labels.
+	:param y_train_pred: ndarray. the predicted training labels.
+	:param y_test: ndarray. the test set labels.
+	:param y_test_pred: ndarray. the test set predicted labels.
+	"""
+	global experiment
+
+	if y_train is not None and y_train_pred is not None:
+		confusion_mat_training = confusion_matrix(y_train, y_train_pred)  # array, shape = [n_classes, n_classes]
+		if testing_mode is False:
+			experiment.log_chart("Training Set - confusion matrix", data=Heatmap(z=confusion_mat_training))
+		else:
+			print(confusion_mat_training)
+
+	if y_test is not None and y_test_pred is not None:
+		confusion_mat_test = confusion_matrix(y_test, y_test_pred)  # array with shape [n_classes, n_classes]
+		if testing_mode is False:
+			experiment.log_chart("Test Set - confusion matrix", data=Heatmap(z=confusion_mat_test))
+		else:
+			print(confusion_mat_test)
+
+def _plot_accuracies_and_errors(testing_mode, cross_validation, **kwargs):
+	"""
+	:param testing_mode:
+	:param cross_validation:
+	:param kwargs:
+	:return:
+	"""
+	global experiment
+	if testing_mode is True:
+		print("Model: {model}\n"
+			  "train_acc={train_acc}\n"
+			  "train_loss={train_loss}\n"
+			  "test_acc={test_acc}\n"
+			  "test_loss={test_loss}".format(
+			model=kwargs['model'], train_acc=kwargs['train_acc'], train_loss=kwargs['train_loss'],
+			test_acc=kwargs['test_acc'], test_loss=kwargs['test_loss']))
+		if cross_validation is True:
+			print("Folds: {folds}\n".format(folds=kwargs['folds']))
+
+	if testing_mode is False:  # testing_mode is False
+		experiment.log_param("model", kwargs['model'])
+		experiment.log_metric("train_acc", kwargs['train_acc'])
+		experiment.log_metric("train_loss", kwargs['train_loss'])
+		experiment.log_param("test_acc", kwargs['test_acc'])
+		experiment.log_param("test_loss", kwargs['test_loss'])
+		if cross_validation is True:
+			experiment.log_param("folds", kwargs['folds'])
+
+def _plot_roc_auc_curve():
+	pass
+
+def _save_model(testing_mode, model_object, output_model_name):
+	"""
+	:param testing_mode:
+	:param model_object:
+	:param output_model_name:
+	:return:
+	"""
+	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
+	pickle.dump(model_object, open(output_file_name, 'wb'))
+
+	if not testing_mode:
+		os.system("ls -la {}".format(os.environ.get("CNVRG_PROJECT_PATH")))
 
 
 def train_with_cross_validation(model, train_set, test_set, folds, project_dir, output_model_name, testing_mode):
@@ -28,13 +170,17 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	:param train_set: tuple. (X_train, y_train). This is going to be used as a training set.
 	:param test_set: tuple. (X_test, y_test). This is going to be used as a test set.
 	:param folds: number of splits in the cross validation.
-	:param project_dir: the path to the directory which indicates where to save the model.
+	:param project_dir: (Deprecared) the path to the directory which indicates where to save the model.
 	:param output_model_name: the name of the output model saved on the disk.
+	:param testing_mode: boolean. for cnvrg inner testing.
 	:return: nothing.
 	"""
 	train_acc, train_loss = [], []
 	kf = KFold(n_splits=folds)
 	X, y = train_set
+
+	model.fit(X, y)
+	importance = model.feature_importances_
 
 	# --- Training.
 	for train_index, val_index in kf.split(X):
@@ -57,29 +203,22 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	if not testing_mode:
-		exp = Experiment()
-		exp.log_param("model", output_model_name)
-		exp.log_param("folds", folds)
-		exp.log_metric("train_acc", train_acc)
-		exp.log_metric("train_loss", train_loss)
-		exp.log_param("test_acc", test_acc)
-		exp.log_param("test_loss", test_loss)
-	else:
-		print("Model: {model}\n"
-			  "Folds: {folds}\n"
-			  "train_acc={train_acc}\n"
-			  "train_loss={train_loss}\n"
-			  "test_acc={test_acc}\n"
-			  "test_loss={test_loss}".format(
-			model=output_model_name, folds=folds, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
+	_plot_feature_importance(X.columns, importance, testing_mode)
+	_plot_classification_report(testing_mode, y_test=y_test, y_test_pred=y_pred)
+	_plot_confusion_matrix(testing_mode, y_test=y_test, y_test_pred=y_pred)
+
+	kwargs = {
+		'model': output_model_name,
+		'folds': folds,
+		'train_acc': train_acc,
+		'train_loss': train_loss,
+		'test_acc': test_acc,
+		'test_loss': test_loss
+	}
+	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=True, kwargs=kwargs)
 
 	# Save model.
-	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
-	pickle.dump(model, open(output_file_name, 'wb'))
-
-	if not testing_mode:
-		os.system("ls -la {}".format(os.environ.get("CNVRG_PROJECT_PATH")))
+	_save_model(testing_mode, model, output_model_name)
 
 
 def train_without_cross_validation(model, train_set, test_set, project_dir, output_model_name, testing_mode):
@@ -88,14 +227,18 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	:param model: SKlearn model object (initiated).
 	:param train_set: tuple. (X_train, y_train). This is going to be used as a training set.
 	:param test_set: tuple. (X_test, y_test). This is going to be used as a test set.
-	:param project_dir: the path to the directory which indicates where to save the model.
+	:param project_dir: (Deprecared) the path to the directory which indicates where to save the model.
 	:param output_model_name: the name of the output model saved on the disk.
+	:param testing_mode: boolean. for cnvrg inner testing.
 	:return: nothing.
 	"""
 	X_train, y_train = train_set
 
 	# --- Training.
 	model.fit(X_train, y_train)
+
+	# Plot feature importance map.
+	importance = model.feature_importances_
 
 	y_hat = model.predict(X_train)  # y_hat is a.k.a y_pred
 
@@ -108,24 +251,19 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	if not testing_mode:
-		exp = Experiment()
-		exp.log_param("model", output_model_name)
-		exp.log_param("train_acc", train_acc)
-		exp.log_param("train_loss", train_loss)
-		exp.log_param("test_acc", test_acc)
-		exp.log_param("test_loss", test_loss)
-	else:
-		print("Model: {model}\n"
-			  "train_acc={train_acc}\n"
-			  "train_loss={train_loss}\n"
-			  "test_acc={test_acc}\n"
-			  "test_loss={test_loss}".format(
-			model=output_model_name, train_acc=train_acc, train_loss=train_loss, test_acc=test_acc, test_loss=test_loss))
+	_plot_feature_importance(X_train.columns, importance, testing_mode)
+	_plot_classification_report(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
+	_plot_confusion_matrix(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
+
+	kwargs = {
+		'model': output_model_name,
+		'train_acc': train_acc,
+		'train_loss': train_loss,
+		'test_acc': test_acc,
+		'test_loss': test_loss
+	}
+	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=True, kwargs=kwargs)
 
 	# Save model.
-	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
-	pickle.dump(model, open(output_file_name, 'wb'))
+	_save_model(testing_mode, model, output_model_name)
 
-	if not testing_mode:
-		os.system("ls -la {}".format(os.environ.get("CNVRG_PROJECT_PATH")))
