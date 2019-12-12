@@ -2,7 +2,7 @@
 title: logistic-regression
 command: python3 logistic_regression.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.15
+version: 1.1.16
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
