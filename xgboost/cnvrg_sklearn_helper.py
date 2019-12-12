@@ -42,10 +42,11 @@ def __helper_plot_classification_report(classification_report_dict):
 	"""
 	Converts dictionary given by classification_report to list of lists.
 	"""
-	array = [['label', 'precision', 'recall', 'f1-score', 'support']]
-	for k, v in classification_report_dict.items():
-		line = [k] + v
-		array.append(line)
+	print("---The type is:" , type(classification_report_dict))
+	array = [['precision', 'recall', 'f1-score', 'support']]
+	for k in classification_report_dict:
+		for kk in classification_report_dict[k]:
+			array.append((k, kk, classification_report_dict[k][kk]))
 	return array
 
 
