@@ -12,7 +12,7 @@ import os
 import pickle
 
 from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score, mean_squared_error, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, mean_squared_error, classification_report, confusion_matrix, roc_curve
 
 from cnvrg import Experiment
 from cnvrg.charts import Bar as Barchart, Heatmap, Scatterplot
@@ -101,6 +101,21 @@ def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test
 		else:
 			print(confusion_mat_test)
 
+def _plot_roc_curve(testing_mode, y_test, y_test_pred):
+	global experiment
+	classes = set(y_test)
+
+	if len(classes) != 2:
+		return
+
+	fpr, tpr, _ = roc_curve(y_test, y_test_pred)
+	if testing_mode is False:
+		experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
+	else:
+		print("FPRs: ", fpr)
+		print("TPRs: ", tpr)
+
+
 def _plot_accuracies_and_errors(testing_mode, cross_validation, params_dict):
 	global experiment
 	if testing_mode is True:
@@ -179,6 +194,7 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	_plot_feature_importance(testing_mode, X.columns, importance)
 	_plot_classification_report(testing_mode, y_test=y_test, y_test_pred=y_pred)
 	_plot_confusion_matrix(testing_mode, y_test=y_test, y_test_pred=y_pred)
+	_plot_roc_curve(testing_mode, y_test=y_test, y_test_pred=y_pred)
 
 	params_dict = {
 		'model': output_model_name,
@@ -227,6 +243,7 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	_plot_feature_importance(testing_mode, X_train.columns, importance)
 	_plot_classification_report(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
 	_plot_confusion_matrix(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
+	_plot_roc_curve(testing_mode, y_test=y_test, y_test_pred=y_pred)
 
 	params_dict = {
 		'model': output_model_name,
