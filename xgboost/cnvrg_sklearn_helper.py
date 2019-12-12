@@ -40,40 +40,16 @@ def _plot_feature_importance(testing_mode, feature_names, importance):
 
 def __helper_plot_classification_report(classification_report_dict):
 	"""
-	Converts dictionary looks like:
-		{'label 1': {'precision':0.5,
-             'recall':1.0,
-             'f1-score':0.67,
-             'support':1},
- 		'label 2': { ... },
-  		...
-		}
-
-	To array of arrays:
-	[['label', 'precision', 'recall', 'f1-score', 'support'],
-	 ['label 1', 0.5, 1.0, 0.67, 1],
-	 ['label 2', 0.6, 1.5, 0.71, 0],
-	 ...
-	]
+	Converts dictionary given by classification_report to list of lists.
 	"""
 	array = [['label', 'precision', 'recall', 'f1-score', 'support']]
-
 	for k, v in classification_report_dict.items():
 		line = [k] + v
 		array.append(line)
-
 	return array
 
 
 def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
-	"""
-	Plots the classification report.
-	:param testing_mode: boolean. for cnvrg inner test.
-	:param y_train: ndarray. the training labels.
-	:param y_train_pred: ndarray. the predicted training labels.
-	:param y_test: ndarray. the test set labels.
-	:param y_test_pred: ndarray. the test set predicted labels.
-	"""
 	global experiment
 
 	if y_train is not None and y_train_pred is not None:
@@ -82,6 +58,7 @@ def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y
 			training_report_as_array = __helper_plot_classification_report(training_report)
 			experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array))
 		else:
+			print("---Prints: training_classification_report---")
 			print(training_report)
 
 	if y_test is not None and y_test_pred is not None:
@@ -90,17 +67,10 @@ def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y
 			testing_report_as_array = __helper_plot_classification_report(test_report)
 			experiment.log_chart("Test Set - classification report", data=Heatmap(z=testing_report_as_array))
 		else:
+			print("---Prints: test_classification_report---")
 			print(test_report)
 
 def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
-	"""
-	Plots the confusion matrix.
-	:param testing_mode: boolean. for cnvrg inner test.
-	:param y_train: ndarray. the training labels.
-	:param y_train_pred: ndarray. the predicted training labels.
-	:param y_test: ndarray. the test set labels.
-	:param y_test_pred: ndarray. the test set predicted labels.
-	"""
 	global experiment
 
 	if y_train is not None and y_train_pred is not None:
@@ -118,12 +88,6 @@ def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test
 			print(confusion_mat_test)
 
 def _plot_accuracies_and_errors(testing_mode, cross_validation, **kwargs):
-	"""
-	:param testing_mode:
-	:param cross_validation:
-	:param kwargs:
-	:return:
-	"""
 	global experiment
 	if testing_mode is True:
 		print("Model: {model}\n"
@@ -145,16 +109,8 @@ def _plot_accuracies_and_errors(testing_mode, cross_validation, **kwargs):
 		if cross_validation is True:
 			experiment.log_param("folds", kwargs['folds'])
 
-def _plot_roc_auc_curve():
-	pass
 
 def _save_model(testing_mode, model_object, output_model_name):
-	"""
-	:param testing_mode:
-	:param model_object:
-	:param output_model_name:
-	:return:
-	"""
 	output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
 	pickle.dump(model_object, open(output_file_name, 'wb'))
 
