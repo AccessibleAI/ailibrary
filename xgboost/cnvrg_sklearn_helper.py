@@ -15,7 +15,7 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score, mean_squared_error, classification_report, confusion_matrix
 
 from cnvrg import Experiment
-from cnvrg.charts import Barchart, Heatmap, Scatterplot
+from cnvrg.charts import Bar as Barchart, Heatmap, Scatterplot
 
 import warnings
 warnings.filterwarnings(action="ignore", category=RuntimeWarning)
@@ -23,7 +23,9 @@ warnings.filterwarnings(action='ignore', category=DeprecationWarning)
 
 # -----
 
-experiment = Experiment()
+# experiment = Experiment()
+experiment = Experiment.init("test_charts")
+
 
 def _plot_feature_importance(testing_mode, feature_names, importance):
 	"""
@@ -38,57 +40,68 @@ def _plot_feature_importance(testing_mode, feature_names, importance):
 	else:  # Testing.
 		print(importance)
 
-def __helper_plot_classification_report(classification_report_dict):
+def __helper_plot_classification_report(classification_report_dict, labels):
 	"""
 	Converts dictionary given by classification_report to list of lists.
 	"""
-	print("---The type is:" , type(classification_report_dict))
-	array = [['precision', 'recall', 'f1-score', 'support']]
-	for k in classification_report_dict:
-		for kk in classification_report_dict[k]:
-			array.append((k, kk, classification_report_dict[k][kk]))
-	return array
-
+	rows = []
+	for k, v in classification_report_dict.items():
+		if k in labels:
+			rows.append(list(v.values()))
+	values = []
+	for y in range(len(rows)):
+		for x in range(len(rows[y])):
+			values.append((x, y, rows[y][x]))
+	return values
 
 def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
 	global experiment
+	labels = set(y_train) if y_train is not None else set(y_test)
+	labels = [str(l) for l in labels]
 
-	if y_train is not None and y_train_pred is not None:
-		training_report = classification_report(y_train, y_train_pred, output_dict=True)  # string / dict
-		if testing_mode is False:
-			training_report_as_array = __helper_plot_classification_report(training_report)
-			experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array))
-		else:
-			print("---Prints: training_classification_report---")
-			print(training_report)
+	# if y_train is not None and y_train_pred is not None:
+	# 	training_report = classification_report(y_train, y_train_pred, output_dict=True)  # dict
+	# 	if testing_mode is False:
+	# 		training_report_as_array = __helper_plot_classification_report(training_report, labels)
+	# 		experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array), y_ticks=labels, x_ticks=["precision", "recall", "f1-score", "support"])
+	# 	else:
+	# 		print(training_report)
 
 	if y_test is not None and y_test_pred is not None:
-		test_report = classification_report(y_test, y_test_pred, output_dict=True)  # string / dict
+		test_report = classification_report(y_test, y_test_pred, output_dict=True)  # dict
 		if testing_mode is False:
-			testing_report_as_array = __helper_plot_classification_report(test_report)
-			experiment.log_chart("Test Set - classification report", data=Heatmap(z=testing_report_as_array))
+			testing_report_as_array = __helper_plot_classification_report(test_report, labels)
+			experiment.log_chart("Testing Set - classification report", data=Heatmap(z=testing_report_as_array), y_ticks=labels, x_ticks=["precision", "recall", "f1-score", "support"])
 		else:
-			print("---Prints: test_classification_report---")
 			print(test_report)
+
+def __helper_plot_confusion_matrix(confusion_matrix):
+	output = []
+	for y in range(len(confusion_matrix)):
+		for x in range(len(confusion_matrix[y])):
+			output.append((x, y, float(confusion_matrix[x][y])))
+	return output
 
 def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
 	global experiment
 
-	if y_train is not None and y_train_pred is not None:
-		confusion_mat_training = confusion_matrix(y_train, y_train_pred)  # array, shape = [n_classes, n_classes]
-		if testing_mode is False:
-			experiment.log_chart("Training Set - confusion matrix", data=Heatmap(z=confusion_mat_training))
-		else:
-			print(confusion_mat_training)
+	# if y_train is not None and y_train_pred is not None:
+	# 	confusion_mat_training = confusion_matrix(y_train, y_train_pred)  # array
+	# 	parsed_confusion = __helper_plot_confusion_matrix(confusion_mat_training)
+	# 	if testing_mode is False:
+	# 		experiment.log_chart("Training Set - confusion matrix", data=Heatmap(z=parsed_confusion))
+	# 	else:
+	# 		print(confusion_mat_training)
 
 	if y_test is not None and y_test_pred is not None:
-		confusion_mat_test = confusion_matrix(y_test, y_test_pred)  # array with shape [n_classes, n_classes]
+		confusion_mat_test = confusion_matrix(y_test, y_test_pred)  # array
+		confusion_mat_test = __helper_plot_confusion_matrix(confusion_mat_test)
 		if testing_mode is False:
 			experiment.log_chart("Test Set - confusion matrix", data=Heatmap(z=confusion_mat_test))
 		else:
 			print(confusion_mat_test)
 
-def _plot_accuracies_and_errors(testing_mode, cross_validation, **kwargs):
+def _plot_accuracies_and_errors(testing_mode, cross_validation, params_dict):
 	global experiment
 	if testing_mode is True:
 		print("Model: {model}\n"
@@ -96,19 +109,22 @@ def _plot_accuracies_and_errors(testing_mode, cross_validation, **kwargs):
 			  "train_loss={train_loss}\n"
 			  "test_acc={test_acc}\n"
 			  "test_loss={test_loss}".format(
-			model=kwargs['model'], train_acc=kwargs['train_acc'], train_loss=kwargs['train_loss'],
-			test_acc=kwargs['test_acc'], test_loss=kwargs['test_loss']))
+			model=params_dict['model'], train_acc=params_dict['train_acc'], train_loss=params_dict['train_loss'],
+			test_acc=params_dict['test_acc'], test_loss=params_dict['test_loss']))
 		if cross_validation is True:
-			print("Folds: {folds}\n".format(folds=kwargs['folds']))
+			print("Folds: {folds}\n".format(folds=params_dict['folds']))
 
 	if testing_mode is False:  # testing_mode is False
-		experiment.log_param("model", kwargs['model'])
-		experiment.log_metric("train_acc", kwargs['train_acc'])
-		experiment.log_metric("train_loss", kwargs['train_loss'])
-		experiment.log_param("test_acc", kwargs['test_acc'])
-		experiment.log_param("test_loss", kwargs['test_loss'])
+		experiment.log_param("model", params_dict['model'])
+		experiment.log_param("test_acc", params_dict['test_acc'])
+		experiment.log_param("test_loss", params_dict['test_loss'])
 		if cross_validation is True:
-			experiment.log_param("folds", kwargs['folds'])
+			experiment.log_param("folds", params_dict['folds'])
+			experiment.log_metric("train_acc", params_dict['train_acc'])
+			experiment.log_metric("train_loss", params_dict['train_loss'])
+			return
+		experiment.log_param("train_acc", params_dict['train_acc'])
+		experiment.log_param("train_loss", params_dict['train_loss'])
 
 
 def _save_model(testing_mode, model_object, output_model_name):
@@ -160,11 +176,11 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	_plot_feature_importance(X.columns, importance, testing_mode)
+	_plot_feature_importance(testing_mode, X.columns, importance)
 	_plot_classification_report(testing_mode, y_test=y_test, y_test_pred=y_pred)
 	_plot_confusion_matrix(testing_mode, y_test=y_test, y_test_pred=y_pred)
 
-	kwargs = {
+	params_dict = {
 		'model': output_model_name,
 		'folds': folds,
 		'train_acc': train_acc,
@@ -172,7 +188,7 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 		'test_acc': test_acc,
 		'test_loss': test_loss
 	}
-	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=True, kwargs=kwargs)
+	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=True, params_dict=params_dict)
 
 	# Save model.
 	_save_model(testing_mode, model, output_model_name)
@@ -208,18 +224,18 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	test_acc = accuracy_score(y_test, y_pred)
 	test_loss = mean_squared_error(y_test, y_pred)
 
-	_plot_feature_importance(X_train.columns, importance, testing_mode)
+	_plot_feature_importance(testing_mode, X_train.columns, importance)
 	_plot_classification_report(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
 	_plot_confusion_matrix(testing_mode, y_train=y_train, y_train_pred=y_hat, y_test=y_test, y_test_pred=y_pred)
 
-	kwargs = {
+	params_dict = {
 		'model': output_model_name,
 		'train_acc': train_acc,
 		'train_loss': train_loss,
 		'test_acc': test_acc,
 		'test_loss': test_loss
 	}
-	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=True, kwargs=kwargs)
+	_plot_accuracies_and_errors(testing_mode=testing_mode, cross_validation=False, params_dict=params_dict)
 
 	# Save model.
 	_save_model(testing_mode, model, output_model_name)
