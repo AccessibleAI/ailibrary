@@ -54,7 +54,7 @@ def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y
 	global experiment
 
 	if y_train is not None and y_train_pred is not None:
-		training_report = classification_report(y_train, y_train_pred)  # string / dict
+		training_report = classification_report(y_train, y_train_pred, output_dict=True)  # string / dict
 		if testing_mode is False:
 			training_report_as_array = __helper_plot_classification_report(training_report)
 			experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array))
@@ -63,7 +63,7 @@ def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y
 			print(training_report)
 
 	if y_test is not None and y_test_pred is not None:
-		test_report = classification_report(y_test, y_test_pred)  # string / dict
+		test_report = classification_report(y_test, y_test_pred, output_dict=True)  # string / dict
 		if testing_mode is False:
 			testing_report_as_array = __helper_plot_classification_report(test_report)
 			experiment.log_chart("Test Set - classification report", data=Heatmap(z=testing_report_as_array))
