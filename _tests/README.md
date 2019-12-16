@@ -1,8 +1,8 @@
 # Tests Readme
 
 There are two tests files:
-- _sk_test.py 
-- _tf_images_test.py
+- sklearn/_sk_test.py 
+- tensorflow/_tf_images_test.py
 
 The first one uses the file ```tester_data.csv```, the second uses the directory ```data_image_test.py```.
 In case you want to test some libraries:

@@ -10,10 +10,10 @@ import os
 
 PATH = 'ailibrary/'
 
-A = '1'
-B = '1'
-C = '23'
-NEW_VERSION = A + '.' + B + '.' + C
+TOP_VER = '1'
+MID_VER = '1'
+LEAST_VER = '24'
+NEW_VERSION = TOP_VER + '.' + MID_VER + '.' + LEAST_VER
 
 yml_files = []
 

@@ -48,7 +48,7 @@ MODEL_CREATED = "*** Sub-Test Result: Model created successfully. ***"
 TESTING_STARTS = "\n***** Testing Starts *****\n"
 ENDED_SUCCESSFULLY = "\n***** Test Result: Ended. Look for errors! *****\n"
 
-with open(DIRECTORY + '/' + '_params') as file:
+with open(DIRECTORY + '/' + '_docs/_params') as file:
     params_dict = yaml.load(file, Loader=yaml.FullLoader)
 
 """

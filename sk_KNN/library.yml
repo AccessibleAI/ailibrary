@@ -2,7 +2,7 @@
 title: k-nearest-neighbors
 command: python3 gradient_boosting.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.23
+version: 1.1.24
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
