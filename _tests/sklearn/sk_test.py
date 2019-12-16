@@ -21,13 +21,14 @@ args = parser.parse_args()
 # model_name : ( path_to_script, directory_name )
 scripts = {
     'decision_trees': ('sk_DecisionTreesClassifier/decision_trees_classifier.py', 'sk_DecisionTreesClassifier'),
-    'knn': ('sk_KNN/gradient_boosting.py', 'sk_KNN'),
+    'knn': ('sk_KNN/knn.py', 'sk_KNN'),
     'linear_regression': ('sk_LinearRegression/linear_regression.py', 'sk_LinearRegression'),
     'logistic_regression': ('sk_LogisticRegression/logistic_regression.py', 'sk_LogisticRegression'),
     'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),
     'random_forest': ('sk_RandomForestClassifier/random_forest_classifier.py', 'sk_RandomForestClassifier'),
     'svm': ('sk_SVM/svm.py', 'sk_SVM'),
     'xgboost': ('xgboost/xgb.py', 'xgboost'),
+    'gradient_boosting': ('sk_GradientBoostingClassifier/gradient_boosting.py', 'sk_GradientBoostingClassifier')
 }
 
 curr_dir = os.getcwd().split('sk_test.py')[0]
@@ -35,7 +36,7 @@ curr_dir = os.getcwd().split('sk_test.py')[0]
 SCRIPT_FILE, DIRECTORY = scripts[args.algo]
 SCRIPT_FILE = curr_dir + '/' + SCRIPT_FILE
 DIRECTORY = curr_dir + '/' + DIRECTORY
-DEF_DATA_PATH = "tester_data.csv" if args.data == 'default' else args.data
+DEF_DATA_PATH = os.getcwd() + "/_tests/sklearn/tester_data.csv" if args.data == 'default' else args.data
 
 ENV = 'python3'
 TEST_MODE = ' --test_mode=True '

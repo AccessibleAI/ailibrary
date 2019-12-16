@@ -1,0 +1,15 @@
+Things need to be done when adding new libraries: 
+
+1) Create a directory.
+
+2) Write the input script (usually named: <LIB_NAME>.py).
+
+3) Add any helper scripts. 
+
+4) Write readme.md file.
+
+5) Write library.yml file.
+
+6) Write requirements.txt file.
+
+7) Option - if you want to add it to the sk learn test, write _params.txt file.

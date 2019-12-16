@@ -10,18 +10,17 @@ This file performs training with or without cross-validation over SK-learn model
 """
 import os
 import pickle
+import pandas as pd
 
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score, mean_squared_error, classification_report, confusion_matrix, roc_curve
 
 from cnvrg import Experiment
+from cnvrg.charts.pandas_analyzer import PandasAnalyzer
 from cnvrg.charts import Bar as Barchart, Heatmap, Scatterplot
 
-import warnings
-warnings.filterwarnings(action="ignore", category=RuntimeWarning)
-warnings.filterwarnings(action='ignore', category=DeprecationWarning)
-
-# -----
+DIGITS_TO_ROUND = 3
+TRUE, FALSE = 1, 0
 
 # experiment = Experiment()
 experiment = Experiment.init("test_charts")
@@ -51,21 +50,13 @@ def __helper_plot_classification_report(classification_report_dict, labels):
 	values = []
 	for y in range(len(rows)):
 		for x in range(len(rows[y])):
-			values.append((x, y, rows[y][x]))
+			values.append((x, y, round(rows[y][x], DIGITS_TO_ROUND)))
 	return values
 
 def _plot_classification_report(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
 	global experiment
 	labels = set(y_train) if y_train is not None else set(y_test)
 	labels = [str(l) for l in labels]
-
-	# if y_train is not None and y_train_pred is not None:
-	# 	training_report = classification_report(y_train, y_train_pred, output_dict=True)  # dict
-	# 	if testing_mode is False:
-	# 		training_report_as_array = __helper_plot_classification_report(training_report, labels)
-	# 		experiment.log_chart("Training Set - classification report", data=Heatmap(z=training_report_as_array), y_ticks=labels, x_ticks=["precision", "recall", "f1-score", "support"])
-	# 	else:
-	# 		print(training_report)
 
 	if y_test is not None and y_test_pred is not None:
 		test_report = classification_report(y_test, y_test_pred, output_dict=True)  # dict
@@ -79,19 +70,11 @@ def __helper_plot_confusion_matrix(confusion_matrix):
 	output = []
 	for y in range(len(confusion_matrix)):
 		for x in range(len(confusion_matrix[y])):
-			output.append((x, y, float(confusion_matrix[x][y])))
+			output.append((x, y, round(float(confusion_matrix[x][y]), DIGITS_TO_ROUND)))
 	return output
 
 def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test=None, y_test_pred=None):
 	global experiment
-
-	# if y_train is not None and y_train_pred is not None:
-	# 	confusion_mat_training = confusion_matrix(y_train, y_train_pred)  # array
-	# 	parsed_confusion = __helper_plot_confusion_matrix(confusion_mat_training)
-	# 	if testing_mode is False:
-	# 		experiment.log_chart("Training Set - confusion matrix", data=Heatmap(z=parsed_confusion))
-	# 	else:
-	# 		print(confusion_mat_training)
 
 	if y_test is not None and y_test_pred is not None:
 		confusion_mat_test = confusion_matrix(y_test, y_test_pred)  # array
@@ -103,18 +86,33 @@ def _plot_confusion_matrix(testing_mode, y_train=None, y_train_pred=None, y_test
 
 def _plot_roc_curve(testing_mode, y_test, y_test_pred):
 	global experiment
-	classes = set(y_test)
+	n_classes = len(set(y_test))
 
-	if len(classes) != 2:
+	y_test = y_test.tolist()
+	y_test_pred = y_test_pred.tolist()
+
+	if n_classes != 2 or testing_mode is True:
 		return
 
-	fpr, tpr, _ = roc_curve(y_test, y_test_pred)
-	if testing_mode is False:
-		experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
-	else:
-		print("FPRs: ", fpr)
-		print("TPRs: ", tpr)
+	y_test, y_test_pred = list(y_test), list(y_test_pred)
 
+	FPRs, TPRs, _ = roc_curve(y_test, y_test_pred)
+
+	experiment.log_metric(key='ROC curve', Ys=TPRs.tolist(), Xs=FPRs.tolist())
+
+
+def _plot_cnvrg_dataframe_parser_plots(testing_mode, *args):
+	"""
+	*args might be:
+	1) X, y.
+	2) X_train, X_test, y_train, y_test.
+	"""
+	if len(args) == 2:
+		data = pd.concat([args[0], args[1]], axis=0)
+	else:  # len(args) == 4
+		data = pd.concat([pd.concat([args[0], args[1]], axis=1), pd.concat([args[2], args[3]], axis=1)], axis=0)
+
+	analyzer = PandasAnalyzer(data, experiment=experiment)
 
 def _plot_accuracies_and_errors(testing_mode, cross_validation, params_dict):
 	global experiment
@@ -166,6 +164,9 @@ def train_with_cross_validation(model, train_set, test_set, folds, project_dir, 
 	train_acc, train_loss = [], []
 	kf = KFold(n_splits=folds)
 	X, y = train_set
+
+	# --- Pre training plots.
+	_plot_cnvrg_dataframe_parser_plots(testing_mode, train_set[0], test_set[0], train_set[1], test_set[1])
 
 	model.fit(X, y)
 	importance = model.feature_importances_
@@ -223,6 +224,9 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 	"""
 	X_train, y_train = train_set
 
+	# --- Pre training plots.
+	_plot_cnvrg_dataframe_parser_plots(testing_mode, X_train, y_train)
+
 	# --- Training.
 	model.fit(X_train, y_train)
 
@@ -256,4 +260,6 @@ def train_without_cross_validation(model, train_set, test_set, project_dir, outp
 
 	# Save model.
 	_save_model(testing_mode, model, output_model_name)
+
+	experiment.finish()  # TODO don't forget to delete it.
 

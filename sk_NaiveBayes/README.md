@@ -1,4 +1,4 @@
-# MultinomialNB (Naive bayes)
+# MultinomialNB (Naive Bayes)
 
 ## General
 Naive Bayes classifier for multinomial models

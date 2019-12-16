@@ -1,6 +1,7 @@
 # XGBoost
 
 ## General
+XGBoost for classification.
 XGBoost is an open-source software library which provides a gradient boosting framework for C++, Java, Python, R, and Julia. It works on Linux, Windows, and macOS.
 From the project description, it aims to provide a scalable, portable and distributed gradient boosting library.
 

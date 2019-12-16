@@ -24,3 +24,8 @@ All notable changes to this project will be documented in this file.
 - logistic regression
 - InceptionV3
 
+## [1.0] - 2019-12-16 #TBD
+
+### Added
+- GradientBoostingClassifier
+

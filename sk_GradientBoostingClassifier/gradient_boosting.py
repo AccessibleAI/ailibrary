@@ -38,24 +38,82 @@ def _cast_types(args):
 	# test_size
 	args.test_size = float(args.test_size)
 
-	# n_neighbors.
-	args.n_neighbors = int(args.n_neighbors)
+	# learning_rate.
+	args.learning_rate = float(args.learning_rate)
 
-	# leaf_size.
-	args.leaf_size = int(args.leaf_size)
+	# n_estimators.
+	args.n_estimators = int(args.n_estimators)
 
-	# p.
-	args.p = int(args.p)
+	# subsample.
+	args.subsample = float(args.subsample)
 
-	# metric_params.
-	if args.metric_params == "None" or args.metric_params == 'None':
-		args.metric_params = None
+	# min_samples_split.
+	args.min_samples_split = int(args.min_samples_split)
 
-	# n_jobs.
-	if args.n_jobs == "None" or args.n_jobs == 'None':
-		args.n_jobs = None
+	# min_samples_leaf.
+	args.min_samples_leaf = int(args.min_samples_leaf)
+
+	# min_weight_fraction_leaf.
+	args.min_weight_fraction_leaf = float(args.min_weight_fraction_leaf)
+
+	# max_depth.
+	args.max_depth = int(args.max_depth)
+
+	# min_impurity_decrease.
+	args.min_impurity_decrease = float(args.min_impurity_decrease)
+
+	# min_impurity_split.
+	args.min_impurity_split = float(args.min_impurity_split)
+
+	# init (Problematic - might get an object).
+	if args.init == "None" or args.init == 'None':
+		args.init = None
+
+	# random_state.
+	if args.random_state == "None" or args.init == 'None':
+		args.random_state = None
 	else:
-		args.n_jobs = int(args.n_jobs)
+		args.random_state = int(args.random_state)
+
+	# max_features.
+	if args.max_features == "None" or args.max_features == 'None':
+		args.max_features = None
+	elif args.max_features.isdigit():
+		args.max_features = float(args.max_features)
+	else:  # its a string.
+		pass
+
+	# verbose.
+	args.verbose = int(args.verbose)
+
+	# max_leaf_nodes.
+	if args.max_leaf_nodes == "None" or args.max_leaf_nodes == 'None':
+		args.max_leaf_nodes = None
+	else:
+		args.max_leaf_nodes = int(args.max_leaf_nodes)
+
+	# warm_start.
+	args.warm_start = (args.warm_start == 'True')
+
+	# validation_fraction.
+	args.validation_fraction = float(args.validation_fraction)
+
+	# n_iter_no_change.
+	if args.n_iter_no_change == "None" or args.n_iter_no_change == 'None':
+		args.n_iter_no_change = None
+	else:
+		args.n_iter_no_change = int(args.n_iter_no_change)
+
+	# presort.
+	if args.presort == 'True':
+		args.presort = True
+	elif args.presort == 'False':
+		args.presort = False
+	else:
+		args.presort = 'auto'
+
+	# tol.
+	args.tol = float(args.tol)
 	#  --- ---------------------------------------- --- #
 	return args
 
@@ -213,7 +271,7 @@ if __name__ == '__main__':
 	parser.add_argument('--warm_start', action='store', default="False", dest='warm_start',
 						help="""bool, default: False. When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble, otherwise, just erase the previous solution""")
 
-	parser.add_argument('--presort', action='store', default="deprecated", dest='presort',
+	parser.add_argument('--presort', action='store', default="auto", dest='presort',
 						help="""deprecated, default=’deprecated’. This parameter is deprecated and will be removed in v0.24. """)
 
 	parser.add_argument('--validation_fraction', action='store', default="0.1", dest='validation_fraction',

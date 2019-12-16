@@ -109,7 +109,7 @@ def main(args):
 	args = _cast_types(args)
 
 	# Loading data set.
-	data = pd.read_csv(args.data)
+	data = pd.read_csv(args.data, index_col=0)
 	for col in data.columns:
 		if col.startswith('Unnamed'):
 			data = data.drop(columns=col, axis=1)
