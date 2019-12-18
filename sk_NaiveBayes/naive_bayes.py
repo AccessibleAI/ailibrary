@@ -15,10 +15,9 @@ logistic_regression.py
 import argparse
 import pandas as pd
 
+from SKTrainer import *
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
-
-from cnvrg_sklearn_helper import train_with_cross_validation, train_without_cross_validation
 
 
 def _cast_types(args):
@@ -73,24 +72,16 @@ def main(args):
 	                      fit_prior=args.fit_prior,
 	                      class_prior=args.class_prior)
 
-	# Training with cross validation.
-	if args.x_val is not None:
-		train_with_cross_validation(model=model,
-									train_set=(X_train, y_train),
-									test_set=(X_test, y_test),
-									folds=args.x_val,
-									project_dir=args.project_dir,
-									output_model_name=args.output_model,
-									testing_mode=args.test_mode)
+	folds = None if args.x_val is None else args.x_val
 
-	# Training without cross validation.
-	else:
-		train_without_cross_validation(model=model,
-										train_set=(X_train, y_train),
-										test_set=(X_test, y_test),
-										project_dir=args.project_dir,
-										output_model_name=args.output_model,
-										testing_mode=args.test_mode)
+	trainer = SKTrainer(model=model,
+						train_set=(X_train, y_train),
+						test_set=(X_test, y_test),
+						output_model_name=args.output_model,
+						testing_mode=args.test_mode,
+						folds=folds)
+
+	trainer.run()
 
 
 if __name__ == '__main__':
