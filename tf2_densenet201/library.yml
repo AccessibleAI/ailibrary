@@ -1,6 +1,6 @@
 ---
 title: DenseNet201
-command: python3 inceptionv3.py
+command: python3 densenet201.py
 description: "AI library made by cnvrg.io data science team."
 version: 1.1.24
 docker_images: cnvrg

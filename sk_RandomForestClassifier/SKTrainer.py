@@ -35,7 +35,9 @@ class SKTrainer:
 		self.__model.fit(self.__x_train, self.__y_train)
 		self.__importance = self.__model.feature_importances_
 
-		self.__experiment = Experiment()
+		# self.__experiment = Experiment()
+		self.__experiment = Experiment.init('test_charts')
+
 
 		self.__metrics = {'model': self.__output_model_name}
 		if self.__is_cross_val:

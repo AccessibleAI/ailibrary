@@ -28,9 +28,9 @@ set given in --data. Otherwise, it represents the size of the test set out of th
 
 ```--optimizer``` - (String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.
 
-```image_height``` - (int) (Default: 200) The height of the images.
+```image_height``` - (int) (Default: 128) The height of the images.
 
-```image_width``` - (int) (Default: 200) The width of the images.
+```image_width``` - (int) (Default: 128) The width of the images.
 
 ```conv_width``` - (int) (Default: 3) The width of the convolution window.
 

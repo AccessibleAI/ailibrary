@@ -36,7 +36,7 @@ arguments:
     description: "(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'."
   image_width:
     value: 128
-    description: "(int) (Default: 200) The width of the images."
+    description: "(int) (Default: 128) The width of the images."
   image_height:
     value: 128
     description: "(int) (Default: 128) The height of the images."
