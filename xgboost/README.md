@@ -5,9 +5,11 @@ XGBoost for classification.
 XGBoost is an open-source software library which provides a gradient boosting framework for C++, Java, Python, R, and Julia. It works on Linux, Windows, and macOS.
 From the project description, it aims to provide a scalable, portable and distributed gradient boosting library.
 
-## Note for this library
-The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
+## Notes for this library
+1) The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
 the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.
+2) The path given by ```--data``` must be a path to csv file which is already processed and ready for training. Means that 
+the csv must not contain: NaN values (= empty cells), strings and column names startswith 'Unnamed'.
 *** 
 The library uses the XGBClassifier (```from xgboost import XGBClassifier```).
 ***

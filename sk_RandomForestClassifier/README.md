@@ -5,11 +5,11 @@ Random forests or random decision forests are an ensemble learning method for cl
 that operates by constructing a multitude of decision trees at training time and outputting the class that is the mode 
 of the classes (classification) or mean prediction (regression) of the individual trees.
 
-## Note for this library
-The library enables to use the algorithm both with cross validation and without.
-By default the library doesn't perform cross validation.
-If the user wishes to perform cross validation, the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```,
-which is ```--x_val=None``` by default.
+## Notes for this library
+1) The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
+the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.
+2) The path given by ```--data``` must be a path to csv file which is already processed and ready for training. Means that 
+the csv must not contain: NaN values (= empty cells), strings and column names startswith 'Unnamed'.
 
 ## Parameters
 

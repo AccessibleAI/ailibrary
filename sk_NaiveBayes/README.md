@@ -5,9 +5,11 @@ Naive Bayes classifier for multinomial models
 The multinomial Naive Bayes classifier is suitable for classification with discrete features (e.g., word counts for text classification). The
 multinomial distribution normally requires integer feature counts. However,in practice, fractional counts such as tf-idf may also work.
 
-## Note for this library
-The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
+## Notes for this library
+1) The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
 the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.
+2) The path given by ```--data``` must be a path to csv file which is already processed and ready for training. Means that 
+the csv must not contain: NaN values (= empty cells), strings and column names startswith 'Unnamed'.
 
 ## Parameters
 ### cnvrg.io params
