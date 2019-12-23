@@ -35,6 +35,7 @@ class SKTrainer:
 		self.__model.fit(self.__x_train, self.__y_train)
 		self.__importance = self.__model.feature_importances_
 
+		# self.__experiment = Experiment.init("test_charts")
 		self.__experiment = Experiment()
 
 		self.__metrics = {'model': self.__output_model_name}
@@ -47,6 +48,7 @@ class SKTrainer:
 			self.__train_with_cross_validation()
 		else:
 			self.__train_without_cross_validation()
+		self.__save_model()
 
 	"""training & testing methods"""
 
@@ -75,6 +77,8 @@ class SKTrainer:
 		test_acc = accuracy_score(self.__y_test, y_pred)
 		test_loss = mean_squared_error(self.__y_test, y_pred)
 		self.__metrics.update({
+			'train_acc': train_acc,
+			'train_loss': train_loss,
 			'test_acc': test_acc,
 			'test_loss': test_loss
 		})
@@ -103,12 +107,14 @@ class SKTrainer:
 	"""Plotting methods"""
 
 	def __plot_feature_importance(self):
+		"""Plots the feature importance."""
 		if self.__testing_mode is False:
 			self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=self.__importance))
 		else:
 			print(self.__importance)
 
 	def __plot_classification_report(self, y_test_pred):
+		"""Plots the classification report."""
 		test_report = classification_report(self.__y_test, y_test_pred, output_dict=True)  # dict
 		if self.__testing_mode is False:
 			testing_report_as_array = self.__helper_plot_classification_report(test_report)
@@ -129,6 +135,7 @@ class SKTrainer:
 		return values
 
 	def __plot_confusion_matrix(self, y_test_pred=None):
+		"""Plots the confusion matrix."""
 		if self.__y_test is not None and y_test_pred is not None:
 			confusion_mat_test = confusion_matrix(self.__y_test, y_test_pred)  # array
 			confusion_mat_test = self.__helper_plot_confusion_matrix(confusion_mat_test)
@@ -138,6 +145,7 @@ class SKTrainer:
 				print(confusion_mat_test)
 
 	def __helper_plot_confusion_matrix(self, confusion_matrix):
+		"""Helper for plot_confusion_matrix."""
 		output = []
 		for y in range(len(confusion_matrix)):
 			for x in range(len(confusion_matrix[y])):
@@ -145,23 +153,55 @@ class SKTrainer:
 		return output
 
 	def __plot_roc_curve(self, y_test_pred):
-		n_classes = len(self.__labels)
+		"""Plots the ROC curve."""
+		TRUE, FALSE = [1, '1'], [0, '0']
 		y_test = self.__y_test.tolist()
-		y_test_pred = y_test_pred.tolist()
-		if n_classes != 2 or self.__testing_mode is True:
+		y_pred = y_test_pred.tolist()
+		if len(self.__labels) != 2 or self.__testing_mode is True or not (set(self.__labels) == {0, 1} or set(self.__labels) == {'0', '1'}):
 			return
-		y_test, y_test_pred = list(y_test), list(y_test_pred)
-		FPRs, TPRs, _ = roc_curve(y_test, y_test_pred)
-		self.__experiment.log_metric(key='ROC curve', Ys=TPRs.tolist(), Xs=FPRs.tolist())
+
+		TP, TN, FP, FN = 1, 1, 1, 1
+		TPRs, FPRs = [0], [0]
+		for ind in range(len(y_test)):
+			# TP, FN.
+			if y_test[ind] in TRUE:
+				if y_pred[ind] in TRUE: TP += 1
+				else:                   FN += 1
+			# TN, FP.
+			else:
+				if y_pred[ind] in TRUE: FP += 1
+				else:                   TN += 1
+			TPRs.append(TP / (TP + FN) if TP + FN != 0 else 0)
+			FPRs.append(FP / (FP + TN) if FP + TN != 0 else 0)
+		TPRs.append(1)
+		FPRs.append(1)
+		linearX, linearY = self.__plot_roc_curve_helper()
+		self.__experiment.log_metric(key='ROC curve',
+									 Ys=TPRs + linearY,
+									 Xs=FPRs + linearX,
+									 grouping=['roc'] * len(TPRs) + ['linear'] * len(linearX))
+
+	def __plot_roc_curve_helper(self):
+		"""Helper for the plot_roc_curve method. it creates the linear line values."""
+		num_of_elements = len(self.__y_test)
+		diff = 1 / num_of_elements
+		x_axis, y_axis = [0], [0]
+		for i in range(num_of_elements):
+			x_axis.append(diff * i)
+			y_axis.append(diff * i)
+		x_axis.append(1)
+		y_axis.append(1)
+		return x_axis, y_axis
 
 	def __plot_pandas_analyzer(self):
+		"""Plots the cnvrg's pandas analyzer plots."""
 		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
 		if self.__testing_mode is False:
 			PandasAnalyzer(data, experiment=self.__experiment)
 
 	def __plot_accuracies_and_errors(self):
+		"""Plots the metrics."""
 		self.__plot_accuracies_and_errors_helper()
-
 		if self.__testing_mode is True:
 			print("Model: {model}\n"
 				  "train_acc={train_acc}\n"
@@ -189,23 +229,26 @@ class SKTrainer:
 		"""Rounds all the values in self.__metrics"""
 		keys_to_round = ['train_acc', 'train_loss', 'test_acc', 'test_loss']
 		for key in keys_to_round:
-			self.__metrics[key] = round(self.__metrics[key], SKTrainer.DIGITS_TO_ROUND)
+			if key in self.__metrics.keys():
+				if isinstance(self.__metrics[key], list):
+					for ind in range(len(self.__metrics[key])):
+						self.__metrics[key][ind] = round(self.__metrics[key][ind], SKTrainer.DIGITS_TO_ROUND)
+				else:
+					self.__metrics[key] = round(self.__metrics[key], SKTrainer.DIGITS_TO_ROUND)
 
 	def __plot_all(self, y_test_pred):
-		"""
-		Runs all the plotting methods.
-		"""
+		"""Runs all the plotting methods."""
 		self.__plot_pandas_analyzer()
 		self.__plot_feature_importance()
 		self.__plot_classification_report(y_test_pred=y_test_pred)
 		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
 		self.__plot_roc_curve(y_test_pred=y_test_pred)
 		self.__plot_accuracies_and_errors()
-		self.__save_model()
 
 	"""technical methods"""
 
 	def __save_model(self):
+		"""Do the model saving."""
 		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__output_model_name if os.environ.get("CNVRG_PROJECT_PATH") \
 																									is not None else self.__output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
