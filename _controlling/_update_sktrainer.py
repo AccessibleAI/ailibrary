@@ -7,12 +7,14 @@ _update_sktrainer.py
 ==============================================================================
 """
 import os
+import shutil
 
 PATH = 'ailibrary/'
 NAME = 'SKTrainer.py'
-GOOD_FILE = 'ailibrary/xgboost/SKTrainer.py'
+GOOD_FILE = 'xgboost/SKTrainer.py'
 
 paths = []
+os.chdir('..')
 
 for d in os.listdir(os.getcwd()):
 	if os.path.isdir(d):
@@ -22,13 +24,6 @@ for d in os.listdir(os.getcwd()):
 				paths.append(full_path_to_f)
 
 for script in paths:
-	f = open(script, 'r')
-	lines = f.readlines()
-	for i, line in enumerate(lines):
-		if line.strip().startswith('version:'):
-			lines[i] = 'version: ' + NEW_VERSION + '\n'
-	os.remove(script)
-
-	f = open(script, 'w+')
-	f.writelines(lines)
-	f.close()
+	if script != GOOD_FILE:
+		shutil.copy(GOOD_FILE, script)
+		print('updated: {}'.format(script))

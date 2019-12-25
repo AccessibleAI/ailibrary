@@ -2,7 +2,7 @@
 title: ResNet50
 command: python3 resnet50.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.27
+version: 1.0.28
 docker_images: cnvrg
 compute: GPU
 data_type: image
