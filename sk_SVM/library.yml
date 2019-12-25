@@ -2,7 +2,7 @@
 title: svm
 command: python3 svm.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.28
+version: 1.0.30
 docker_images: cnvrg
 compute: CPU
 data_type: CSV
