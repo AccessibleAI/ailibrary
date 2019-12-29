@@ -114,10 +114,13 @@ class SKTrainer:
 
 	def __plot_feature_importance(self):
 		"""Plots the feature importance."""
-		if self.__testing_mode is False:
-			self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=self.__importance))
-		else:
-			print(self.__importance)
+		try:
+			if self.__testing_mode is False:
+				self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=self.__importance))
+			else:
+				print(self.__importance)
+		except AttributeError:
+			pass
 
 	def __plot_classification_report(self, y_test_pred):
 		"""Plots the classification report."""
@@ -205,7 +208,7 @@ class SKTrainer:
 	def __plot_all(self, y_test_pred):
 		self.__plot_pandas_analyzer()
 		# self.__plot_feature_importance()
-		# self.__plot_pandas_analyzer()
+		self.__plot_pandas_analyzer()
 		self.__plot_feature_importance()
 		self.__plot_classification_report(y_test_pred=y_test_pred)
 		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
