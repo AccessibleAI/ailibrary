@@ -17,8 +17,7 @@ import pandas as pd
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-
-from regression_helper import train_with_cross_validation, train_without_cross_validation
+from SKTrainerRegression import SKTrainerRegression
 
 
 def _cast_types(args):
@@ -81,24 +80,15 @@ def main(args):
 	                         copy_X=args.copy_X,
 	                         n_jobs=args.n_jobs)
 
-	# Training with cross validation.
-	if args.x_val is not None:
-		train_with_cross_validation(model=model,
-									train_set=(X_train, y_train),
-									test_set=(X_test, y_test),
-									folds=args.x_val,
-									project_dir=args.project_dir,
-									output_model_name=args.output_model,
-									testing_mode=args.test_mode)
 
-	# Training without cross validation.
-	else:
-		train_without_cross_validation(model=model,
-										train_set=(X_train, y_train),
-										test_set=(X_test, y_test),
-										project_dir=args.project_dir,
-										output_model_name=args.output_model,
-										testing_mode=args.test_mode)
+	trainer = SKTrainerRegression(model=model,
+								train_set=(X_train, y_train),
+								test_set=(X_test, y_test),
+								output_model_name=args.output_model,
+								testing_mode=args.test_mode,
+								folds=args.x_val)
+
+	trainer.run()
 
 
 if __name__ == '__main__':

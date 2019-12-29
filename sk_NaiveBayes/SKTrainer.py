@@ -38,8 +38,6 @@ class SKTrainer:
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
 
 		self.__model.fit(self.__x_train, self.__y_train)
-		# self.__importance = self.__model.feature_importances_
-
 		self.__experiment = Experiment()
 
 		self.__metrics = {'model': self.__output_model_name}
