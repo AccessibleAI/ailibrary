@@ -205,6 +205,8 @@ class SKTrainer:
 	def __plot_all(self, y_test_pred):
 		self.__plot_pandas_analyzer()
 		# self.__plot_feature_importance()
+		# self.__plot_pandas_analyzer()
+		self.__plot_feature_importance()
 		self.__plot_classification_report(y_test_pred=y_test_pred)
 		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
 		# self.__plot_roc_curve(y_test_pred=y_test_pred)

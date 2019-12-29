@@ -4,7 +4,7 @@ command: python3 xgb.py
 description: "xgboost - AI library made by cnvrg.io data science team."
 version: 1.0.30
 docker_images: cnvrg
-compute: CPU
+compute: small
 data_type: CSV
 icon: xgboost
 
