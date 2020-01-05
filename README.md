@@ -44,6 +44,8 @@ The metrics which it shows are: precision, recall, f1-score and support.
 
 Examples:
 
+![first](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report.png)
+
 
 #### Confusion Matrix
 Confusion Matrix is a table which evaluates accuracy by computing the confusion matrix with each row corresponding to the true class.\
