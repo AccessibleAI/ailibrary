@@ -44,8 +44,11 @@ The metrics which it shows are: precision, recall, f1-score and support.
 
 Examples:
 
-![first](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report.png)
+1) Iris data set (3 labels) - 
+![first_class_rep](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report.png)
 
+2) 2-labels data set - 
+![second_class_rep](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report_2.png)
 
 #### Confusion Matrix
 Confusion Matrix is a table which evaluates accuracy by computing the confusion matrix with each row corresponding to the true class.\
@@ -56,6 +59,12 @@ So, the confusion matrix is going to be 4 * 4 table where the y-axis describes t
 
 Examples:
 
+1) 2-labels data set -
+![first_conf_mat](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/confustion_matrix.png)
+
+2) 3-labels data set - 
+![second_conf_mat](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/confustion_matrix_2.png)
+
 
 #### Feature Importance
 Feature importance is a bars chars where the features names are the x-axis and the y-axis is a range of floats between 0 to 1 (or the opposite).\
@@ -63,5 +72,10 @@ Each bar, belongs the single feature, represents a float number which is the sco
 It can be used for feature selection, dimensionality reduction, improving estimators accuracy and boosting performance.
 
 Examples:
- 
+
+1) 
+![first_fea_imp](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/feature_importance.png)
+
+2) 
+![second_fea_imp]()
 
