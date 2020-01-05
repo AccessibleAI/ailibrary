@@ -34,7 +34,7 @@ Not all the libraries plot all the possible visualizations due to differences in
 Classification Report is a textual report shows some main classification metrics.\
 It is important to notice that classification report is relevant only for classification algorithms.\
 The metrics which it shows are: precision, recall, f1-score and support.
-* Precision -
+* Precision - 
 
 * Recall - 
 
@@ -44,10 +44,10 @@ The metrics which it shows are: precision, recall, f1-score and support.
 
 Examples:
 
-1) Iris data set (3 labels) - 
+1) Iris data set (3 labels) -\
 ![first_class_rep](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report.png)
 
-2) 2-labels data set - 
+2) 2-labels data set -\ 
 ![second_class_rep](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/classification_report_2.png)
 
 #### Confusion Matrix
@@ -59,10 +59,10 @@ So, the confusion matrix is going to be 4 * 4 table where the y-axis describes t
 
 Examples:
 
-1) 2-labels data set -
+1) 2-labels data set -\
 ![first_conf_mat](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/confustion_matrix.png)
 
-2) 3-labels data set - 
+2) 3-labels data set -\
 ![second_conf_mat](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/confustion_matrix_2.png)
 
 
@@ -73,9 +73,29 @@ It can be used for feature selection, dimensionality reduction, improving estima
 
 Examples:
 
-1) 
+1)
 ![first_fea_imp](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/feature_importance.png)
 
-2) 
-![second_fea_imp]()
+2)
+![second_fea_imp](https://github.com/AccessibleAI/ailibrary/blob/master/_docs/readme_images/feature_importance_3.png)
+
+
+#### ROC curve
+A ROC (receiver operating characteristic curve) is a graphical plot that illustrates the diagnostic ability of a binary classifier.\
+The ROC curve is created by plotting the true positive rate (TP/(TP+FN)) against the false positive rate (FP/(FP + TN)) at various threshold settings.
+Note: this implementation is restricted to the binary classification task.
+
+Examples:
+
+
+#### Correlation
+
+
+Examples:
+
+
+#### feature-against-feature
+
+
+Examples:
 
