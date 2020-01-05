@@ -8,12 +8,10 @@ SKTrainer.py
 """
 import os
 import pickle
-
-import numpy
-import pandas as pd
+import numpy as np
 
 from cnvrg import Experiment
-from cnvrg.charts import Heatmap, Bar
+from cnvrg.charts import Heatmap, Bar, Scatterplot
 from cnvrg.charts.pandas_analyzer import PandasAnalyzer
 
 from sklearn.model_selection import KFold
@@ -40,8 +38,9 @@ class SKTrainerRegression:
 		self.__model.fit(self.__x_train, self.__y_train)
 		self.__coef = self.__model.coef_
 		self.__intercept = self.__model.intercept_
+		self.__y_pred = None
 
-		self.__experiment = Experiment.init('test_charts')
+		self.__experiment = Experiment.init('test_charts')  # todo -> delete / replace with: self.__experiment = Experiment()
 
 		self.__metrics = {'model': self.__output_model_name}
 		if self.__is_cross_val:
@@ -82,9 +81,9 @@ class SKTrainerRegression:
 		val_err_cv_r2 = scores['test_r2']
 
 		self.__model = scores['estimator'][-1]
-		y_pred = self.__model.predict(self.__x_test)
-		test_acc = accuracy_score(self.__y_test, y_pred)
-		test_loss = mean_squared_error(self.__y_test, y_pred)
+		self.__y_pred = self.__model.predict(self.__x_test)
+		test_acc = accuracy_score(self.__y_test, self.__y_pred)
+		test_loss = mean_squared_error(self.__y_test, self.__y_pred)
 		self.__metrics.update({
 			'train_loss_mae': train_err_cv_mae,
 			'train_loss_mse': train_err_cv_mse,
@@ -96,7 +95,7 @@ class SKTrainerRegression:
 			'test_acc': test_acc,
 			'test_loss_mse': test_loss
 		})
-		self.__plot_all(y_pred)
+		self.__plot_all(self.__y_pred)
 
 	def __train_without_cross_validation(self):
 		"""
@@ -108,10 +107,10 @@ class SKTrainerRegression:
 		train_loss_MAE = mean_absolute_error(self.__y_train, y_hat)
 		train_loss_R2 = r2_score(self.__y_train, y_hat)
 
-		y_pred = self.__model.predict(self.__x_test)
-		test_loss_MSE = mean_squared_error(self.__y_test, y_pred)
-		test_loss_MAE = mean_absolute_error(self.__y_test, y_pred)
-		test_loss_R2 = r2_score(self.__y_test, y_pred)
+		self.__y_pred = self.__model.predict(self.__x_test)
+		test_loss_MSE = mean_squared_error(self.__y_test, self.__y_pred)
+		test_loss_MAE = mean_absolute_error(self.__y_test, self.__y_pred)
+		test_loss_R2 = r2_score(self.__y_test, self.__y_pred)
 
 		self.__metrics.update({
 			'train_loss_mae': train_loss_MAE,
@@ -121,10 +120,14 @@ class SKTrainerRegression:
 			'test_loss_mae': test_loss_MAE,
 			'test_loss_r2': test_loss_R2
 		})
-		self.__plot_all(y_pred)
+		self.__plot_all(self.__y_pred)
 
-	def __plot_coef_and_intercept(self):
-		pass
+	def __plot_true_against_prediction(self):
+		a, b = self.__coef[0], self.__intercept
+		x = np.linspace(0, len(self.__x_test), 1000)
+		y = a * x + b
+
+		self.__experiment.log_metric(key="Regression Line", Xs=x.tolist(), Ys=y.tolist())
 
 	def __plot_accuracies_and_errors(self):
 		"""Plots the metrics."""
@@ -141,14 +144,20 @@ class SKTrainerRegression:
 
 		else: # testing mode is off.
 			for k, v in self.__metrics.items():
+				self.__plot_accuracies_and_errors_helper()
 				if isinstance(v, list):
 					self.__experiment.log_metric(k, v)
 				else:
 					self.__experiment.log_param(k, v)
 
+	def __plot_accuracies_and_errors_helper(self):
+		for k, v in self.__metrics.items():
+			if isinstance(v, float):
+				self.__metrics[k] = round(self.__metrics[k], SKTrainerRegression.DIGITS_TO_ROUND)
 
 	def __plot_all(self, y_test_pred):
 		self.__plot_accuracies_and_errors()
+		self.__plot_true_against_prediction()
 
 	def __save_model(self):
 		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__output_model_name if os.environ.get("CNVRG_PROJECT_PATH") \

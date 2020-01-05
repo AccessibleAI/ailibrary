@@ -8,7 +8,6 @@ Writing differences and notes about each library.
 ###  sk_KNN
 1) doesn't have .importance_ - plot_feature_importance is disabled.
 
-
 ###  sk_NaiveBayes
 1) doesn't have .importance_ - plot_feature_importance is disabled.
 

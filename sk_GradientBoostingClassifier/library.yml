@@ -2,7 +2,7 @@
 title: gradient-boosting
 command: python3 gradient_boosting.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.31
+version: 1.0.32
 docker_images: cnvrg
 compute: small
 data_type: CSV
