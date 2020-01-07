@@ -71,8 +71,6 @@ class SKTrainer:
 		This method enables sk-learn algorithms to perform KFold-cross-validation.
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
-		train_acc, train_loss = [], []
-		kf = KFold(n_splits=self.__cross_val_folds)
 		scores = cross_validate(estimator=self.__model,
 								X=self.__x_train,
 								y=self.__y_train,

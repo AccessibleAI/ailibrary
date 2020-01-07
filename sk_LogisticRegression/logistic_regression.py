@@ -17,8 +17,7 @@ import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-
-from regression_helper import train_with_cross_validation, train_without_cross_validation
+from SKTrainerRegression import SKTrainerRegression
 
 
 def _cast_types(args):
@@ -121,31 +120,21 @@ def main(args):
 		verbose=args.verbose,
 		warm_start=args.warm_start,
 		n_jobs=args.n_jobs,
-		l1_ratio=args.l1_ratio
-	)
+		l1_ratio=args.l1_ratio)
 
-	# Training with cross validation.
-	if args.x_val is not None:
-		train_with_cross_validation(model=model,
-									train_set=(X_train, y_train),
-									test_set=(X_test, y_test),
-									folds=args.x_val,
-									project_dir=args.project_dir,
-									output_model_name=args.output_model,
-									testing_mode=args.test_mode)
+	trainer = SKTrainerRegression(model=model,
+								train_set=(X_train, y_train),
+								test_set=(X_test, y_test),
+								output_model_name=args.output_model,
+								testing_mode=args.test_mode,
+								folds=args.x_val,
+								regression_type=1)
 
-	# Training without cross validation.
-	else:
-		train_without_cross_validation(model=model,
-										train_set=(X_train, y_train),
-										test_set=(X_test, y_test),
-										project_dir=args.project_dir,
-										output_model_name=args.output_model,
-										testing_mode=args.test_mode)
+	trainer.run()
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""linear regression""")
+	parser = argparse.ArgumentParser(description="""logistic regression""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
 	                    help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)

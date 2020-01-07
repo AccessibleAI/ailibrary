@@ -80,13 +80,13 @@ def main(args):
 	                         copy_X=args.copy_X,
 	                         n_jobs=args.n_jobs)
 
-
 	trainer = SKTrainerRegression(model=model,
 								train_set=(X_train, y_train),
 								test_set=(X_test, y_test),
 								output_model_name=args.output_model,
 								testing_mode=args.test_mode,
-								folds=args.x_val)
+								folds=args.x_val,
+								regression_type=0)
 
 	trainer.run()
 
