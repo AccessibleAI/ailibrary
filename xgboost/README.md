@@ -21,7 +21,7 @@ rightmost one are considered as features columns (X), and the rightmost one is t
 
 ```--x_val``` - Integer. Number of folds for the cross-validation. Default is 5.
 
-```--test_split``` - Float. The portion of the data of testing. Default is 0.2.
+```--test_size``` - Float. The portion of the data of testing. Default is 0.2.
 
 ```--output_model``` - String. The name of the output file which is a trained model. Default is xgboost_model.sav .
 

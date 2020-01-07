@@ -23,16 +23,16 @@ arguments:
     value: 0.1
   n_estimators:
     value: 100
-  silent:
+  verbosity:
     value: True
   objective:
     value: 'binary:logistic'
   booster:
     value: 'gbtree'
+  tree_method:
+    value: 'auto'
   n_jobs:
     value: 1
-  nthread:
-    value: None
   gamma:
     value: 0
   min_child_weight:
@@ -45,6 +45,9 @@ arguments:
     value: 1
   colsample_bylevel:
     value: 1
+  colsample_bynode:
+    value: 1
+
   reg_alpha:
     value: 0
   reg_lambda:
@@ -55,3 +58,5 @@ arguments:
     value: 0.5
   random_state:
     value: 0
+  missing:
+    value: None

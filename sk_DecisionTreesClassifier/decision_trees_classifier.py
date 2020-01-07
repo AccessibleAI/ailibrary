@@ -26,65 +26,20 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = int(args.x_val) if args.x_val != 'None' else None
 	args.test_size = float(args.test_size)
-
-	# criterion
-
-	# splitter
-	# splitter
-
-	# max_depth
-	if args.max_depth == "None" or args.max_depth == 'None':
-		args.max_depth = None
-	else:
-		args.max_depth = float(args.max_depth)
-
-	# min_samples_split
+	# criterion (string)
+	# splitter (string)
+	args.max_depth = None if args.max_depth == 'None' else float(args.max_depth)
 	args.min_samples_split = int(args.min_samples_split)
-
-	# min_samples_leaf
 	args.min_samples_leaf = int(args.min_samples_leaf)
-
-	# min_weight_fraction_leaf
 	args.min_weight_fraction_leaf = float(args.min_weight_fraction_leaf)
-
-	# max_features
-	if args.max_features == "None" or args.max_features == 'None':
-		args.max_features = None
-	else:
-		args.max_features = float(args.max_features)
-
-	# random_state
-	if args.random_state == "None" or args.random_state == 'None':
-		args.random_state = None
-	else:
-		args.random_state = float(args.random_state)
-
-	# max_leaf_nodes
-	if args.max_leaf_nodes == "None" or args.max_leaf_nodes == 'None':
-		args.max_leaf_nodes = None
-	else:
-		args.max_leaf_nodes = float(args.max_leaf_nodes)
-
-	# min_impurity_decrease
+	args.max_features = None if args.max_features == 'None' else float(args.max_features)
+	args.random_state = None if args.random_state == 'None' else float(args.random_state)
+	args.max_leaf_nodes = None if args.max_leaf_nodes == 'None' else float(args.max_leaf_nodes)
 	args.min_impurity_decrease = float(args.min_impurity_decrease)
-
-	# class_weight
-	if args.class_weight == "None" or args.class_weight == 'None':
-		args.class_weight = None
-	else:
-		args.class_weight = float(args.class_weight)
-
-	# presort
-	args.presort = (args.presort in ['True', "True", 'true', "true"] )
-
+	args.class_weight = None if args.class_weight == 'None' else float(args.class_weight)
+	args.presort = (args.presort in ['True', 'true'] )
 	return args
 
 
