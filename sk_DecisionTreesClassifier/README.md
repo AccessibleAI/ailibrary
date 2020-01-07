@@ -2,9 +2,7 @@
 
 ## General
 
-Decision Trees Classifier is a simple and widely used classification technique. 
-It applies a straight forward idea to solve the classification problem. Decision Trees Classifier poses a series of carefully crafted questions about the attributes of the test record. 
-Each time it receives an answer, a follow-up question is asked until a conclusion about the class label of the record is reached.
+Decision Trees Classifier is a simple and widely used classification technique. It applies a straight forward idea to solve the classification problem. Decision Trees Classifier poses a series of carefully crafted questions about the attributes of the test record. Each time it receives an answer, a follow-up question is asked until a conclusion about the class label of the record is reached.
 
 ## Notes for this Component
 
@@ -14,7 +12,6 @@ the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```
    - NaN values (empty cells) 
    - Strings 
    - Columns whose names start with 'Unnamed'.
-
 
 ## Parameters
 
@@ -48,12 +45,12 @@ least min_samples_leaf training samples in each of the left and right branches. 
 
 ```--min_weight_fraction_leaf``` -  float, optional (default = 0). The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node. Samples have equal weight when sample_weight is not provided.
 
-```--max_features``` - int, float, string or None, optional (default = None).
+```--max_features``` - int, float, str or None, optional (default = None).
 The number of features to consider when looking for the best split:  
  - If int, then consider max_features features at each split.  
  - If float, then max_features is a fraction and `int(max_features * n_features)` features are considered at each split.  
  - If 'auto', then `max_features=sqrt(n_features)`.  
- - If 'sqrt', then `max_features=sqrt(n_features)`.  
+ - If 'sqrt', then `max_features=sqrt(n_features)` (same as “auto”).
  - If 'log2', then `max_features=log2(n_features)`.  
  - If None, then `max_features=n_features`.  
 Note: the search for a split does not stop until at least one valid partition of the node samples is found, even if it requires to effectively inspect more than max_features features.

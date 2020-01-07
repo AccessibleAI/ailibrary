@@ -2,9 +2,7 @@
 
 ## General
 
-Knn for classification.
-In pattern recognition, the k-nearest neighbors algorithm (k-NN) is a non-parametric method used for classification and regression.
-In both cases, the input consists of the k closest training examples in the feature space.
+An implementation of Knn for classification. In pattern recognition, the k-nearest neighbors algorithm (k-NN) is a non-parametric method used for classification and regression. In both cases, the input consists of the k closest training examples in the feature space.
 
 ## Notes for this Component
 
@@ -18,6 +16,7 @@ the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```
 ## Parameters
 
 ### cnvrg.io parameters
+
 ```--data``` - str, required. Path to `.csv` file (the dataset). Assumes that the files includes only integers and floats (no strings), and the table is built as such: all the columns but the 
 rightmost one are considered as features columns (x), and the rightmost one is the label column (y).
 
@@ -28,6 +27,7 @@ rightmost one are considered as features columns (x), and the rightmost one is t
 ```--output_model``` - str, optional (default = 'kNearestNeighborsModel.sav') The name of the output file which is a trained model. 
 
 ### algorithm parameters
+
 ```--n_neighbors``` - int, optional (default = 5). Number of neighbors to use by default for kneighbors queries.
 
 ```--weights``` - str or callable, optional (default = 'uniform'). Weight function used in prediction. Possible values:  

@@ -4,41 +4,43 @@
 XGBoost for classification.
 XGBoost is an open-source software library which provides a gradient boosting framework for C++, Java, Python, R, and Julia. It works on Linux, Windows, and macOS.
 From the project description, it aims to provide a scalable, portable and distributed gradient boosting library.
+## Notes for this Component
 
-## Notes for this library
-1) The library enables to use the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
-the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.
-2) The path given by ```--data``` must be a path to csv file which is already processed and ready for training. Means that 
-the csv must not contain: NaN values (= empty cells), strings and column names startswith 'Unnamed'.
-*** 
-The library uses the XGBClassifier (```from xgboost import XGBClassifier```).
-***
+1) The library enables the use of the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
+the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.  
+2) The path given by ```--data``` must be a path to a csv file which is already processed and ready for training. This means that the csv must not contain: 
+   - NaN values (empty cells) 
+   - Strings 
+   - Columns whose names start with 'Unnamed'.
 
 ## Parameters
-### cnvrg.io params
-```--data``` - Required param. String. Path to .csv file (the dataset). Assumes that the files includes only integers and floats (no strings), and the table built like: all the columns but the 
-rightmost one are considered as features columns (X), and the rightmost one is the label column (y).
 
-```--x_val``` - Integer. Number of folds for the cross-validation. Default is 5.
+### cnvrg.io parameters
 
-```--test_split``` - Float. The portion of the data of testing. Default is 0.2.
+```--data``` - str, required. Path to `.csv` file (the dataset). Assumes that the files includes only integers and floats (no strings), and the table is built as such: all the columns but the 
+rightmost one are considered as features columns (x), and the rightmost one is the label column (y).
 
-```--output_model``` - String. The name of the output file which is a trained model. Default is xgboost_model.sav .
+```--x_val``` - int, optional (default = 5). Number of folds for the cross-validation.
 
-### algorithm params
-```--max_depth``` - (int) – Maximum tree depth for base learners.
+```--test_split``` - float, optional (default = 0.2). The portion of the data for testing.
 
-```--learning_rate``` - (float) – Boosting learning rate (xgb’s “eta”)
+```--output_model``` - str, optional (default = 'xgboost_model.sav') The name of the output file which is a trained model. 
 
-```--n_estimators``` - (int) – Number of trees to fit.
+### algorithm parameters
 
-```--verbosity``` - (int) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug).
+```--max_depth``` - int (default = 3). The maximum tree depth for base learners.
 
-```--objective``` - (string or callable) – Specify the learning task and the corresponding learning objective or a custom objective function to be used (see note below).
+```--learning_rate``` - float (default = 0.1). Boosting learning rate (xgb’s “eta”).
 
-```--booster``` - (string) – Specify which booster to use: gbtree, gblinear or dart.
+```--n_estimators``` - int (default = 100). Number of trees to fit.
 
-```--tree_method``` - (string) – Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. It’s recommended to study this option from parameters document.
+```--verbosity``` - int (default = 0). The degree of verbosity. Valid values are 0 (silent) - 3 (debug).
+
+```--objective``` - str or callable (default = binary:logistic). Specify the learning task and the corresponding learning objective or a custom objective function to be used.
+
+```--booster``` - str (default = 'gbtree'). Specify which booster to use: 'gbtree', 'gblinear' or 'dart'.
+
+```--tree_method``` - str () – Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. It’s recommended to study this option from parameters document.
 
 ```--n_jobs``` - (int) – Number of parallel threads used to run xgboost.
 

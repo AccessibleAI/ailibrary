@@ -6,10 +6,10 @@ Gradient Boosting is used for classification. It builds an additive model in a f
 
 Binary classification is a special case where only a single regression tree is induced.
 
-## Notes for this library
+## Notes for this Component
 
 1) The library enables the use of the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
-the user needS to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.  
+the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.  
 2) The path given by ```--data``` must be a path to a csv file which is already processed and ready for training. This means that the csv must not contain: 
    - NaN values (empty cells) 
    - Strings 
@@ -39,7 +39,7 @@ rightmost one are considered as features columns (x), and the rightmost one is t
 
 ```--subsample``` - float, optional (default = 1.0). The fraction of samples to be used for fitting the individual base learners. If smaller than 1.0, this results in Stochastic Gradient Boosting. Subsample interacts with the parameter n_estimators. Choosing subsample < 1.0 leads to a reduction of variance and an increase in bias.
 
-```--criterion``` - string, optional (default = ”friedman_mse”). The function to measure the quality of a split. Supported criteria are “friedman_mse” for the mean squared error with improvement score by Friedman, “mse” for mean squared error, and “mae” for the mean absolute error. The default value of “friedman_mse” is generally the best as it can provide a better approximation in some cases.
+```--criterion``` - str, optional (default = ”friedman_mse”). The function to measure the quality of a split. Supported criteria are “friedman_mse” for the mean squared error with improvement score by Friedman, “mse” for mean squared error, and “mae” for the mean absolute error. The default value of “friedman_mse” is generally the best as it can provide a better approximation in some cases.
 
 ```--min_samples_split``` - int, float, optional (default = 2). The minimum number of samples required to split an internal node:
  - If int, then consider min_samples_split as the minimum number.
@@ -64,11 +64,11 @@ rightmost one are considered as features columns (x), and the rightmost one is t
  - If RandomState instance, random_state is the random number generator.
  - If None, the random number generator is the RandomState instance used by np.random.
 
-```--max_features``` - int, float, string or None, optional (default = None). The number of features to consider when looking for the best split:
+```--max_features``` - int, float, str or None, optional (default = None). The number of features to consider when looking for the best split:
  - If int, then consider max_features features at each split.
  - If float, then max_features is a fraction and `int(max_features * n_features)` features are considered at each split.
  - If “auto”, then `max_features=sqrt(n_features)`.
- - If “sqrt”, then `max_features=sqrt(n_features)`.
+ - If “sqrt”, then `max_features=sqrt(n_features)` (same as “auto”).
  - If “log2”, then `max_features=log2(n_features)`.
  - If None, then `max_features=n_features`.
 Choosing max_features < n_features leads to a reduction of variance and an increase in bias.
