@@ -26,57 +26,26 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# C
 	args.C = float(args.C)
-
 	# kernel
-
-	# degree
 	args.degree = int(args.degree)
-
 	# gamma
-
-	# coef0
 	args.coef0 = float(args.coef0)
-
-	# shrinking
 	args.shrinking = (args.shrinking in ['True', "True", 'true', "true"])
-
-	# probability
 	args.probability = (args.probability in ['True', "True", 'true', "true"])
-
-	# tol
 	args.tol = float(args.tol)
-
-	# cache_size
 	args.cache_size = float(args.cache_size)
 
 	# class_weight
 	if args.class_weight == "None" or args.class_weight == 'None':
 		args.class_weight = None
 
-	# verbose
 	args.verbose = (args.verbose in ['True', "True", 'true', "true"])
-
-	# max_iter
 	args.max_iter = int(args.max_iter)
-
 	# decision_function_shape
-
-	# random_state
-	if args.random_state == "None" or args.random_state == 'None':
-		args.random_state = None
-	else:
-		args.random_state = int(args.random_state)
+	args.random_state = None if args.random_state == 'None' else int(args.random_state)
 
 	return args
 

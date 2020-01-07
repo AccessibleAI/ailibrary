@@ -26,23 +26,10 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# n_estimators.
 	args.n_estimators = int(args.n_estimators)
-
-	# max_depth.
-	if args.max_depth == "None" or args.max_depth == 'None':
-		args.max_depth = None
-	else:
-		args.max_depth = int(args.max_depth)
+	args.max_depth = None if args.max_depth == 'None' else int(args.max_depth)
 
 	# min_samples_split.
 	try:
@@ -56,7 +43,6 @@ def _cast_types(args):
 	except ValueError:
 		args.min_samples_leaf = float(args.min_samples_leaf)
 
-	# min_weight_fraction_leaf.
 	args.min_weight_fraction_leaf = float(args.min_weight_fraction_leaf)
 
 	# max_features.
@@ -70,43 +56,14 @@ def _cast_types(args):
 		except ValueError:
 			args.max_features = int(args.max_features)
 
-	# max_leaf_nodes.
-	if args.max_leaf_nodes == "None" or args.max_leaf_nodes == 'None':
-		args.max_leaf_nodes = None
-	else:
-		args.max_leaf_nodes = int(args.max_leaf_nodes)
-
-	# min_impurity_decrease.
+	args.max_leaf_nodes = None if args.max_leaf_nodes == 'None' else int(args.max_leaf_nodes)
 	args.min_impurity_decrease = float(args.min_impurity_decrease)
-
-	# min_impurity_split.
-	if args.min_impurity_split == "None" or args.min_impurity_split == 'None':
-		args.min_impurity_split = None
-	else:
-		args.min_impurity_split = float(args.min_impurity_split)
-
-	# bootstrap.
+	args.min_impurity_split = None if args.min_impurity_split == 'None' else float(args.min_impurity_split)
 	args.bootstrap = (args.bootstrap in ['True', "True", 'true', "true"])
-
-	# oob_score.
 	args.oob_score = (args.oob_score in ['True', "True", 'true', "true"])
-
-	# n_jobs.
-	if args.n_jobs == "None" or args.n_jobs == 'None':
-		args.n_jobs = None
-	else:
-		args.n_jobs = int(args.n_jobs)
-
-	# random_state.
-	if args.random_state == "None" or args.random_state == 'None':
-		args.random_state = None
-	else:
-		args.random_state = int(args.random_state)
-
-	# verbose.
+	args.n_jobs = None if args.n_jobs == 'None' else int(args.n_jobs)
+	args.random_state = None if args.random_state == 'None' else int(args.random_state)
 	args.verbose = int(args.verbose)
-
-	# warm_start.
 	args.warm_start = (args.warm_start in ['True', "True", 'true', "true"])
 
 	# class_weight. (problematic)

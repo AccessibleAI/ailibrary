@@ -26,60 +26,20 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size.
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# dual.
 	args.dual = (args.dual in ['True', "True", 'true', "true"])
-
-	# tol.
 	args.tol = float(args.tol)
-
-	# C.
 	args.C = float(args.C)
-
-	# fit_intercept.
 	args.fit_intercept = (args.fit_intercept in ['True', "True", 'true', "true"])
-
-	# intercept_scaling.
 	args.intercept_scaling = float(args.intercept_scaling)
-
-	# class weight.
 	args.class_weight = None if args.class_weight == 'None' else {}
-
-	# random_state.
-	if args.random_state == 'None':
-		args.random_state = None
-	else:
-		args.random_state = int(args.random_state)
-
-	# max_iter.
+	args.random_state = None if args.random_state == 'None' else int(args.random_state)
 	args.max_iter = int(args.max_iter)
-
-	# verbose.
 	args.verbose = int(args.verbose)
-
-	# warm_start.
 	args.warm_start = (args.warm_start in ['True', "True", 'true', "true"])
-
-	# n_jobs.
-	if args.n_jobs == 'None':
-		args.n_jobs = None
-	else:
-		args.n_jobs = int(args.n_jobs)
-
-	# l1_ratio.
-	if args.l1_ratio == 'None':
-		args.l1_ratio = None
-	else:
-		args.l1_ratio = float(args.l1_ratio)
-
+	args.n_jobs = None if args.n_jobs == 'None' else int(args.n_jobs)
+	args.l1_ratio = None if args.l1_ratio == 'None' else float(args.l1_ratio)
 	# --------------- #
 	return args
 

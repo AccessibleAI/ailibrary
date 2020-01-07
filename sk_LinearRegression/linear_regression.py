@@ -26,30 +26,12 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size.
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# fit_intercept.
 	args.fit_intercept = (args.fit_intercept in ['True', "True", 'true', "true"])
-
-	# normalize.
 	args.normalize = (args.normalize in ['True', "True", 'true', "true"])
-
-	# copy_X.
 	args.copy_X = (args.copy_X in ['True', "True", 'true', "true"])
-
-	# n_jobs.
-	if args.n_jobs == 'None':
-		args.n_jobs = None
-	else:
-		args.n_jobs = int(args.n_jobs)
-
+	args.n_jobs = None if args.n_jobs == 'None' else int(args.n_jobs)
 	# --------------- #
 	return args
 

@@ -30,7 +30,7 @@ def _cast_types(args):
 	args.max_depth = int(args.max_depth)
 	args.learning_rate = float(args.learning_rate)
 	args.n_estimators = int(args.n_estimators)
-	args.verbosity = (args.verbosity in ['True', "True", 'true', "true"])
+	args.verbosity = int(args.verbosity)
 	# objective.
 	# booster.
 	# tree_method.
@@ -47,7 +47,7 @@ def _cast_types(args):
 	args.scale_pos_weight = float(args.scale_pos_weight)
 	args.base_score = float(args.base_score)
 	args.random_state = int(args.random_state)
-	args.missing = None if args.x_val == 'None' else float(args.x_val)
+	args.missing = None if args.missing == 'None' else float(args.missing)
 
 	return args
 
