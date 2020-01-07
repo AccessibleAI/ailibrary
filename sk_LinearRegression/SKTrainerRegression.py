@@ -54,6 +54,10 @@ class SKTrainerRegression:
 			self.__train_without_cross_validation()
 		self.__save_model()
 
+	def __plot_all(self, y_test_pred):
+		self.__plot_accuracies_and_errors()
+		self.__plot_true_against_prediction()
+
 	"""training & testing methods"""
 
 	def __train_with_cross_validation(self):
@@ -155,13 +159,7 @@ class SKTrainerRegression:
 			if isinstance(v, float):
 				self.__metrics[k] = round(self.__metrics[k], SKTrainerRegression.DIGITS_TO_ROUND)
 
-	def __plot_all(self, y_test_pred):
-		self.__plot_accuracies_and_errors()
-		self.__plot_true_against_prediction()
-
 	def __save_model(self):
 		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__output_model_name if os.environ.get("CNVRG_PROJECT_PATH") \
 																									is not None else self.__output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
-		if not self.__testing_mode:
-			os.system("ls -la {}".format(os.environ.get("CNVRG_PROJECT_PATH")))
