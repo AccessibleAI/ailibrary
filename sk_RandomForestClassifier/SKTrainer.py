@@ -9,12 +9,12 @@ SKTrainer.py
 import os
 import pickle
 
-import numpy
+import numpy as np
 import pandas as pd
 
 from cnvrg import Experiment
-from cnvrg.charts import Heatmap, Bar
-from cnvrg.charts.pandas_analyzer import PandasAnalyzer
+from cnvrg.charts import Heatmap, Bar, Scatterplot
+from cnvrg.charts.pandas_analyzer import PandasAnalyzer, MatrixHeatmap
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_validate
@@ -24,35 +24,45 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_curve, 
 class SKTrainer:
 	DIGITS_TO_ROUND = 3
 
-	def __init__(self, model, train_set, test_set, output_model_name, testing_mode, folds=None):
+	def __init__(self, model, train_set, test_set, output_name, testing_mode, folds=None):
 		self.__model = model
 		self.__x_train, self.__y_train = train_set
 		self.__train_set_size = len(self.__y_train)
 		self.__x_test, self.__y_test = test_set
 		self.__test_set_size = len(self.__y_test)
-		self.__output_model_name = output_model_name
 		self.__testing_mode = testing_mode
 		self.__cross_val_folds = folds
 		self.__is_cross_val = (folds is not None)
 		self.__features = list(self.__x_train.columns)
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
-
-		self.__model.fit(self.__x_train, self.__y_train)
-		self.__importance = self.__model.feature_importances_
-
+		self.__metrics = {'model': output_name}
 		self.__experiment = Experiment()
-
-		self.__metrics = {'model': self.__output_model_name}
-		if self.__is_cross_val:
-			self.__metrics['folds'] = self.__cross_val_folds
 
 	def run(self):
 		""" runs the training & testing methods. """
+		self.__model.fit(self.__x_train, self.__y_train)
+
+		if self.__is_cross_val:
+			self.__metrics['folds'] = self.__cross_val_folds
+
 		if self.__is_cross_val is True:
 			self.__train_with_cross_validation()
 		else:
 			self.__train_without_cross_validation()
 		self.__save_model()
+
+	def __plot_all(self, y_test_pred):
+		"""
+		This method controls the visualization and metrics outputs.
+		Hashtag something which you don't want to plot.
+		"""
+		self.__plot_correlation_matrix()
+		self.__plot_feature_vs_feature()
+		self.__plot_feature_importance()
+		self.__plot_classification_report(y_test_pred=y_test_pred)
+		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
+		self.__plot_roc_curve(y_test_pred=y_test_pred)
+		self.__plot_accuracies_and_errors()
 
 	"""training & testing methods"""
 
@@ -110,17 +120,17 @@ class SKTrainer:
 		})
 		self.__plot_all(y_pred)
 
-	"""Plotting methods"""
-
 	def __plot_feature_importance(self):
-		"""Plots the feature importance."""
-		if self.__testing_mode is False:
-			self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=self.__importance))
-		else:
-			print(self.__importance)
+		try:
+			importance = getattr(self.__model, "feature_importances_")
+			if self.__testing_mode is False:
+				self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=importance))
+			else:
+				print(importance)
+		except AttributeError:
+			pass
 
 	def __plot_classification_report(self, y_test_pred):
-		"""Plots the classification report."""
 		test_report = classification_report(self.__y_test, y_test_pred, output_dict=True)  # dict
 		if self.__testing_mode is False:
 			testing_report_as_array = self.__helper_plot_classification_report(test_report)
@@ -139,41 +149,38 @@ class SKTrainer:
 				print(confusion_mat_test)
 
 	def __plot_roc_curve(self, y_test_pred):
-		"""Plots the ROC curve."""
-		true_values, false_values = [1, '1'], [0, '0']
-		y_test = self.__y_test.tolist()
-		y_pred = y_test_pred.tolist()
-		if len(self.__labels) != 2 or self.__testing_mode is True or not (set(self.__labels) == {0, 1} or set(self.__labels) == {'0', '1'}):
-			return
+		if len(set(self.__y_test)) != 2: return
 
-		TP, TN, FP, FN = 0, 0, 0, 0
-		TPRs, FPRs = [0], [0]
-		for ind in range(len(y_test)):
-			if y_test[ind] in true_values:
-				if y_pred[ind] in true_values: TP += 1
-				else:                   FN += 1
-			else:
-				if y_pred[ind] in true_values: FP += 1
-				else:                   TN += 1
-			TPRs.append(TP / (TP + FN) if TP + FN != 0 else 0)
-			FPRs.append(FP / (FP + TN) if FP + TN != 0 else 0)
-		TPRs += [1]
-		FPRs += [1]
-		linearX, linearY = self.__plot_roc_curve_helper()
-		self.__experiment.log_metric(key='ROC curve',
-									 Ys=TPRs + linearY,
-									 Xs=FPRs + linearX,
-									 grouping=['roc'] * len(TPRs) + ['linear'] * len(linearX))
-
-
-	def __plot_pandas_analyzer(self):
-		"""Plots the cnvrg's pandas analyzer plots."""
-		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
+		fpr, tpr, _ = roc_curve(self.__y_test, y_test_pred)
 		if self.__testing_mode is False:
-			PandasAnalyzer(data, experiment=self.__experiment)
+			self.__experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
+		else:
+			print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
+
+	def __plot_correlation_matrix(self):
+		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
+		correlation = data.corr()
+		self.__experiment.log_chart("correlation", [MatrixHeatmap(np.round(correlation.values, 2))],
+									x_ticks=correlation.index.tolist(), y_ticks=correlation.index.tolist())
+
+	def __plot_feature_vs_feature(self):
+		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
+		indexes = data.select_dtypes(include=["number"]).columns
+		corr = data.corr()
+		for idx, i in enumerate(indexes):
+			for jdx, j in enumerate(indexes):
+				if i == j: continue
+				if jdx < idx: continue
+				corr_val = abs(corr[i][j])
+				if 1 == corr_val or corr_val < 0.5: continue
+				print("create", i, "against", j, "scatter chart")
+				droplines = data[[i, j]].notnull().all(1)
+				x, y = data[droplines][[i, j]].values.transpose()
+				self.__experiment.log_chart("{i}_against_{j}".format(i=i, j=j),
+											[Scatterplot(x=x.tolist(), y=y.tolist())],
+											title="{i} against {j}".format(i=i, j=j))
 
 	def __plot_accuracies_and_errors(self):
-		"""Plots the metrics."""
 		self.__plot_accuracies_and_errors_helper()
 		if self.__testing_mode is True:
 			print("Model: {model}\n"
@@ -185,7 +192,6 @@ class SKTrainer:
 				test_acc=self.__metrics['test_acc'], test_loss=self.__metrics['test_loss']))
 			if self.__is_cross_val is True:
 				print("Folds: {folds}\n".format(folds=self.__metrics['folds']))
-
 		else:  # testing_mode is False
 			self.__experiment.log_param("train set size", self.__train_set_size)
 			self.__experiment.log_param("test set size", self.__test_set_size)
@@ -202,25 +208,15 @@ class SKTrainer:
 			self.__experiment.log_param("train_acc", self.__metrics['train_acc'])
 			self.__experiment.log_param("train_loss", self.__metrics['train_loss'])
 
-	def __plot_all(self, y_test_pred):
-		# self.__plot_pandas_analyzer()
-		self.__plot_feature_importance()
-		self.__plot_classification_report(y_test_pred=y_test_pred)
-		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
-		# self.__plot_roc_curve(y_test_pred=y_test_pred)
-		self.__plot_accuracies_and_errors()
-
 	def __save_model(self):
-		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__output_model_name if os.environ.get("CNVRG_PROJECT_PATH") \
-																									is not None else self.__output_model_name
+		output_model_name = self.__metrics['model']
+		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
-		if not self.__testing_mode:
-			os.system("ls -la {}".format(os.environ.get("CNVRG_PROJECT_PATH")))
 
-	""" Helpers """
+	""" --- Helpers --- """
+
 	@staticmethod
 	def __helper_plot_confusion_matrix(confusion_matrix):
-		""" Helper for plot_confusion_matrix. """
 		output = []
 		for y in range(len(confusion_matrix)):
 			for x in range(len(confusion_matrix[y])):
@@ -228,7 +224,6 @@ class SKTrainer:
 		return output
 
 	def __plot_accuracies_and_errors_helper(self):
-		"""Rounds all the values in self.__metrics"""
 		keys_to_round = ['train_acc', 'train_loss', 'validation_acc', 'validation_loss', 'test_acc', 'test_loss']
 		for key in keys_to_round:
 			if key in self.__metrics.keys():
@@ -239,18 +234,6 @@ class SKTrainer:
 					self.__metrics[key] = self.__metrics[key].tolist()
 				else:
 					self.__metrics[key] = round(self.__metrics[key], SKTrainer.DIGITS_TO_ROUND)
-
-	def __plot_roc_curve_helper(self):
-		""" Helper for the plot_roc_curve method. it creates the linear line values. """
-		num_of_elements = len(self.__y_test)
-		diff = 1 / num_of_elements
-		x_axis, y_axis = [0], [0]
-		for i in range(num_of_elements):
-			x_axis.append(diff * i)
-			y_axis.append(diff * i)
-		x_axis.append(1)
-		y_axis.append(1)
-		return x_axis, y_axis
 
 	def __helper_plot_classification_report(self, classification_report_dict):
 		""" Converts dictionary given by classification_report to list of lists. """
