@@ -230,7 +230,7 @@ class SKTrainer:
 				if isinstance(self.__metrics[key], list) or isinstance(self.__metrics[key], numpy.ndarray):
 					for ind in range(len(self.__metrics[key])):
 						self.__metrics[key][ind] = round(self.__metrics[key][ind], SKTrainer.DIGITS_TO_ROUND)
-				if isinstance(self.__metrics[key], numpy.ndarray):
+				if isinstance(self.__metrics[key], np.ndarray):
 					self.__metrics[key] = self.__metrics[key].tolist()
 				else:
 					self.__metrics[key] = round(self.__metrics[key], SKTrainer.DIGITS_TO_ROUND)
