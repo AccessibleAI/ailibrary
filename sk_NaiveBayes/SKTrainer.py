@@ -24,18 +24,18 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_curve, 
 class SKTrainer:
 	DIGITS_TO_ROUND = 3
 
-	def __init__(self, model, train_set, test_set, output_name, testing_mode, folds=None):
+	def __init__(self, model, train_set, test_set, output_model_name, testing_mode, folds=None):
 		self.__model = model
 		self.__x_train, self.__y_train = train_set
-		self.__train_set_size = len(self.__y_train)
 		self.__x_test, self.__y_test = test_set
-		self.__test_set_size = len(self.__y_test)
 		self.__testing_mode = testing_mode
 		self.__cross_val_folds = folds
 		self.__is_cross_val = (folds is not None)
 		self.__features = list(self.__x_train.columns)
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
-		self.__metrics = {'model': output_name}
+		self.__metrics = {'model': output_model_name,
+						  'train set size': len(self.__y_train),
+						  'test set size': len(self.__y_test)}
 		self.__experiment = Experiment()
 
 	def run(self):
@@ -154,8 +154,7 @@ class SKTrainer:
 		fpr, tpr, _ = roc_curve(self.__y_test, y_test_pred)
 		if self.__testing_mode is False:
 			self.__experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
-		else:
-			print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
+		else: print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
 
 	def __plot_correlation_matrix(self):
 		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
@@ -193,17 +192,11 @@ class SKTrainer:
 			if self.__is_cross_val is True:
 				print("Folds: {folds}\n".format(folds=self.__metrics['folds']))
 		else:  # testing_mode is False
-			self.__experiment.log_param("train set size", self.__train_set_size)
-			self.__experiment.log_param("test set size", self.__test_set_size)
-			self.__experiment.log_param("model", self.__metrics['model'])
-			self.__experiment.log_param("test_acc", self.__metrics['test_acc'])
-			self.__experiment.log_param("test_loss", self.__metrics['test_loss'])
+			for p in ['model', 'test_acc', 'test_loss', 'train set size', 'test set size']: self.__experiment.log_param(p, self.__metrics[p])
 			if self.__is_cross_val is True:
 				self.__experiment.log_param("folds", self.__metrics['folds'])
-				self.__experiment.log_metric("train_acc", self.__metrics['train_acc'], grouping=['train_acc'] * len(self.__metrics['train_acc']))
-				self.__experiment.log_metric("train_loss", self.__metrics['train_loss'], grouping=['train_loss'] * len(self.__metrics['train_loss']))
-				self.__experiment.log_metric("validation_acc", self.__metrics['validation_acc'], grouping=['validation_acc'] * len(self.__metrics['validation_acc']))
-				self.__experiment.log_metric("validation_loss", self.__metrics['validation_loss'], grouping=['validation_loss'] * len(self.__metrics['validation_loss']))
+				metrics = ['train_acc', 'train_loss', 'validation_acc', 'validation_loss']
+				for m in metrics: self.__experiment.log_metric(m, self.__metrics[m], grouping=[m] * len(self.__metrics[m]))
 				return
 			self.__experiment.log_param("train_acc", self.__metrics['train_acc'])
 			self.__experiment.log_param("train_loss", self.__metrics['train_loss'])
@@ -227,7 +220,7 @@ class SKTrainer:
 		keys_to_round = ['train_acc', 'train_loss', 'validation_acc', 'validation_loss', 'test_acc', 'test_loss']
 		for key in keys_to_round:
 			if key in self.__metrics.keys():
-				if isinstance(self.__metrics[key], list) or isinstance(self.__metrics[key], numpy.ndarray):
+				if isinstance(self.__metrics[key], list) or isinstance(self.__metrics[key], np.ndarray):
 					for ind in range(len(self.__metrics[key])):
 						self.__metrics[key][ind] = round(self.__metrics[key][ind], SKTrainer.DIGITS_TO_ROUND)
 				if isinstance(self.__metrics[key], np.ndarray):
