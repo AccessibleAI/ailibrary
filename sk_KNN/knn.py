@@ -25,34 +25,18 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# n_neighbors.
 	args.n_neighbors = int(args.n_neighbors)
-
-	# leaf_size.
 	args.leaf_size = int(args.leaf_size)
-
-	# p.
 	args.p = int(args.p)
 
 	# metric_params.
 	if args.metric_params == "None" or args.metric_params == 'None':
 		args.metric_params = None
 
-	# n_jobs.
-	if args.n_jobs == "None" or args.n_jobs == 'None':
-		args.n_jobs = None
-	else:
-		args.n_jobs = int(args.n_jobs)
-	#  --- ---------------------------------------- --- #
+	args.n_jobs = None if args.n_jobs == 'None' else int(args.n_jobs)
+	#  --- ------------- --- #
 	return args
 
 

@@ -25,78 +25,29 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-
-	# learning_rate.
+	args.max_depth = int(args.max_depth)
 	args.learning_rate = float(args.learning_rate)
-
-	# n_estimators.
 	args.n_estimators = int(args.n_estimators)
-
-	# silent.
-	args.silent = (args.silent in ['True', "True", 'true', "true"])
-
-	# n_jobs.
-	if args.n_jobs == "None" or args.n_jobs == 'None':
-		args.n_jobs = None
-	else:
-		args.n_jobs = int(args.n_jobs)
-
-	# nthread.
-	if args.nthread == "None" or args.nthread == 'None':
-		args.nthread = None
-	else:
-		args.nthread = int(args.nthread)
-
-	# gamma.
-	args.gamma = int(args.gamma)
-
-	# min_child_weight.
+	args.verbosity = int(args.verbosity)
+	# objective.
+	# booster.
+	# tree_method.
+	args.n_jobs = int(args.n_jobs)
+	args.gamma = float(args.gamma)
 	args.min_child_weight = int(args.min_child_weight)
-
-	# max_delta_step.
 	args.max_delta_step = int(args.max_delta_step)
-
-	# subsample.
 	args.subsample = int(args.subsample)
-
-	# colsample_bytree.
-	args.colsample_bytree = int(args.colsample_bytree)
-
-	# colsample_bylevel.
-	args.colsample_bylevel = int(args.colsample_bylevel)
-
-	# reg_alpha.
-	args.reg_alpha = int(args.reg_alpha)
-
-	# reg_lambda.
-	args.reg_lambda = int(args.reg_lambda)
-
-	# scale_pos_weight.
-	args.scale_pos_weight = int(args.scale_pos_weight)
-
-	# base_score.
+	args.colsample_bytree = float(args.colsample_bytree)
+	args.colsample_bylevel = float(args.colsample_bylevel)
+	args.colsample_bynode = float(args.colsample_bynode)
+	args.reg_alpha = float(args.reg_alpha)
+	args.reg_lambda = float(args.reg_lambda)
+	args.scale_pos_weight = float(args.scale_pos_weight)
 	args.base_score = float(args.base_score)
-
-	# random_state.
 	args.random_state = int(args.random_state)
-
-	# seed.
-	if args.seed == "None" or args.seed == 'None':
-		args.seed = None
-	else:
-		args.seed = int(args.seed)
-
-	# missing.
-	if args.missing == "None" or args.missing == 'None':
-		args.missing = None
+	args.missing = None if args.missing == 'None' else float(args.missing)
 
 	return args
 
@@ -128,25 +79,24 @@ def main(args):
 		max_depth=args.max_depth,
 		learning_rate=args.learning_rate,
 		n_estimators=args.n_estimators,
-		silent=args.silent,
+		verbosity=args.verbosity,
 		objective=args.objective,
 		booster=args.booster,
+		tree_method=args.tree_method,
 		n_jobs=args.n_jobs,
-		nthread=args.nthread,
 		gamma=args.gamma,
 		min_child_weight=args.min_child_weight,
 		max_delta_step=args.max_delta_step,
 		subsample=args.subsample,
 		colsample_bytree=args.colsample_bytree,
 		colsample_bylevel=args.colsample_bylevel,
+		colsample_bynode=args.colsample_bynode,
 		reg_alpha=args.reg_alpha,
 		reg_lambda=args.reg_lambda,
 		scale_pos_weight=args.scale_pos_weight,
 		base_score=args.base_score,
 		random_state=args.random_state,
-		seed=args.seed,
-		missing=args.missing
-	)
+		missing=args.missing)
 
 	folds = None if args.x_val is None else args.x_val
 
@@ -187,69 +137,71 @@ if __name__ == '__main__':
 
 	# ----- model's params.
 	parser.add_argument('--max_depth', action='store', default="3", dest='max_depth',
-						help=""" --- .Default is 3""")
+						help="""(int) – Maximum tree depth for base learners. .Default is 3""")
 
 	parser.add_argument('--learning_rate', action='store', default="0.1", dest='learning_rate',
-						help=""" --- .Default is 0.1""")
+						help="""(float) – Boosting learning rate (xgb’s “eta”) .Default is 0.1""")
 
 	parser.add_argument('--n_estimators', action='store', default="100", dest='n_estimators',
-						help=""": --- . Default is 100""")
+						help="""(int) – Number of trees to fit. Default is 100""")
 
-	parser.add_argument('--silent', action='store', default="True", dest='silent',
-						help=""": --- . Default is True""")
+	parser.add_argument('--verbosity', action='store', default="1", dest='verbosity',
+						help="""(int) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug). Default is True""")
 
 	parser.add_argument('--objective', action='store', default='binary:logistic', dest='objective',
-						help=""": --- . Default is 'binary:logistic'""")
+						help=""": (string or callable) – Specify the learning task and the corresponding learning objective or a custom objective function to 
+						be used (see note below). . Default is 'binary:logistic'""")
 
 	parser.add_argument('--booster', action='store', default='gbtree', dest='booster',
-						help=""": --- . Default is 'gbtree'""")
+						help="""(string) – Specify which booster to use: gbtree, gblinear or dart.
+						 Default is 'gbtree'""")
+
+	parser.add_argument('--tree_method', action='store', default='auto', dest='tree_method',
+						help="""(string) – Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. 
+						It’s recommended to study this option from parameters document.""")
 
 	parser.add_argument('--n_jobs', action='store', default="1", dest='n_jobs',
-						help=""": --- . Default is 1""")
-	# Check Type
-	parser.add_argument('--nthread', action='store', default="None", dest='nthread',
-						help=""": --- . Default is None""")
+						help="""(int) – Number of parallel threads used to run xgboost. . Default is 1""")
 
 	parser.add_argument('--gamma', action='store', default="0", dest='gamma',
-						help=""": --- . Default is 0""")
+						help="""(float) – Minimum loss reduction required to make a further partition on a leaf node of the tree. . Default is 0""")
 
 	parser.add_argument('--min_child_weight', action='store', default="1", dest='min_child_weight',
-						help=""": --- . Default is 1""")
+						help="""min_child_weight (int) – Minimum sum of instance weight(hessian) needed in a child. . Default is 1""")
 
 	parser.add_argument('--max_delta_step', action='store', default="0", dest='max_delta_step',
-						help=""": --- . Default is 0""")
+						help="""(int) – Maximum delta step we allow each tree’s weight estimation to be. . Default is 0""")
 
 	parser.add_argument('--subsample', action='store', default="1", dest='subsample',
-						help=""": --- . Default is 1""")
+						help="""(float) – Subsample ratio of the training instance. Default is 1""")
 
 	parser.add_argument('--colsample_bytree', action='store', default="1", dest='colsample_bytree',
-						help=""": --- . Default is 1""")
+						help="""(float) – Subsample ratio of columns when constructing each tree. . Default is 1""")
 
 	parser.add_argument('--colsample_bylevel', action='store', default="1", dest='colsample_bylevel',
-						help=""": --- . Default is 1""")
+						help="""(float) – Subsample ratio of columns for each level. Default is 1""")
+
+	parser.add_argument('--colsample_bynode', action='store', default="1", dest='colsample_bynode',
+						help="""(float) – Subsample ratio of columns for each split. Default is 1""")
 
 	parser.add_argument('--reg_alpha', action='store', default="0", dest='reg_alpha',
-						help=""": --- . Default is 0""")
+						help="""(float (xgb's alpha)) – L1 regularization term on weights. Default is 0""")
 
 	parser.add_argument('--reg_lambda', action='store', default="1", dest='reg_lambda',
-						help=""": --- . Default is 1""")
+						help="""(float (xgb's lambda)) – L2 regularization term on weights. Default is 1""")
 
 	parser.add_argument('--scale_pos_weight', action='store', default="1", dest='scale_pos_weight',
-						help=""": --- . Default is 1""")
+						help="""(float) – Balancing of positive and negative weights. Default is 1""")
 
 	parser.add_argument('--base_score', action='store', default="0.5", dest='base_score',
-						help=""": --- . Default is 0.5""")
+						help="""The initial prediction score of all instances, global bias. . Default is 0.5""")
 
 	parser.add_argument('--random_state', action='store', default="0", dest='random_state',
-						help=""": --- . Default is 0""")
+						help=""" (int) – Random number seed.. Default is 0""")
 
-	# Type issue, Can't use here.
-	parser.add_argument('--seed', action='store', default="None", dest='seed',
-						help=""": --- . Default is None""")
-
-	# Type issue, Can't use here.
 	parser.add_argument('--missing', action='store', default="None", dest='missing',
-						help=""": --- . Default is None""")
+						help="""(float, optional) – Value in the data which needs to be present as a missing value. If None, defaults to
+						 np.nan. . Default is None""")
 
 	args = parser.parse_args()
 

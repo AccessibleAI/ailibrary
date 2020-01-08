@@ -26,51 +26,23 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = int(args.x_val) if args.x_val != 'None' else None
 	args.test_size = float(args.test_size)
-
-	# learning_rate.
 	args.learning_rate = float(args.learning_rate)
-
-	# n_estimators.
 	args.n_estimators = int(args.n_estimators)
-
-	# subsample.
 	args.subsample = float(args.subsample)
-
-	# min_samples_split.
 	args.min_samples_split = int(args.min_samples_split)
-
-	# min_samples_leaf.
 	args.min_samples_leaf = int(args.min_samples_leaf)
-
-	# min_weight_fraction_leaf.
 	args.min_weight_fraction_leaf = float(args.min_weight_fraction_leaf)
-
-	# max_depth.
 	args.max_depth = int(args.max_depth)
-
-	# min_impurity_decrease.
 	args.min_impurity_decrease = float(args.min_impurity_decrease)
-
-	# min_impurity_split.
 	args.min_impurity_split = float(args.min_impurity_split)
 
 	# init (Problematic - might get an object).
 	if args.init == "None" or args.init == 'None':
 		args.init = None
 
-	# random_state.
-	if args.random_state == "None" or args.init == 'None':
-		args.random_state = None
-	else:
-		args.random_state = int(args.random_state)
+	args.random_state = None if args.random_state == 'None' else int(args.random_state)
 
 	# max_features.
 	if args.max_features == "None" or args.max_features == 'None':
@@ -80,26 +52,11 @@ def _cast_types(args):
 	else:  # its a string.
 		pass
 
-	# verbose.
 	args.verbose = int(args.verbose)
-
-	# max_leaf_nodes.
-	if args.max_leaf_nodes == "None" or args.max_leaf_nodes == 'None':
-		args.max_leaf_nodes = None
-	else:
-		args.max_leaf_nodes = int(args.max_leaf_nodes)
-
-	# warm_start.
+	args.max_leaf_nodes = None if args.max_leaf_nodes == 'None' else int(args.max_leaf_nodes)
 	args.warm_start = (args.warm_start == 'True')
-
-	# validation_fraction.
 	args.validation_fraction = float(args.validation_fraction)
-
-	# n_iter_no_change.
-	if args.n_iter_no_change == "None" or args.n_iter_no_change == 'None':
-		args.n_iter_no_change = None
-	else:
-		args.n_iter_no_change = int(args.n_iter_no_change)
+	args.n_iter_no_change = None if args.n_iter_no_change == 'None' else int(args.n_iter_no_change)
 
 	# presort.
 	if args.presort == 'True':
@@ -109,7 +66,6 @@ def _cast_types(args):
 	else:
 		args.presort = 'auto'
 
-	# tol.
 	args.tol = float(args.tol)
 	#  --- ---------------------------------------- --- #
 	return args

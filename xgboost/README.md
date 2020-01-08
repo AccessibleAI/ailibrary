@@ -17,8 +17,12 @@ the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```
 
 ### cnvrg.io parameters
 
+
 ```--data``` - str, required. Path to `.csv` file (the dataset). Assumes that the files includes only integers and floats (no strings), and the table is built as such: all the columns but the 
 rightmost one are considered as features columns (x), and the rightmost one is the label column (y).
+
+```--test_size``` - Float. The portion of the data of testing. Default is 0.2.
+
 
 ```--x_val``` - int, optional (default = 5). Number of folds for the cross-validation.
 

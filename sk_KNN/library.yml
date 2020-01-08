@@ -1,10 +1,10 @@
 ---
 title: k-nearest-neighbors
-command: python3 gradient_boosting.py
+command: python3 knn.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.27
+version: 1.0.34
 docker_images: cnvrg
-compute: CPU
+compute: small
 data_type: CSV
 icon: sklearn
 

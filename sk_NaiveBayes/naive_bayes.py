@@ -26,26 +26,17 @@ def _cast_types(args):
 	:param args: argparse.ArgumentParser object.
 	:return: argparse.ArgumentParser object.
 	"""
-	# x_val.
-	if args.x_val != 'None':
-		args.x_val = int(args.x_val)
-	else:
-		args.x_val = None
-
-	# test_size
+	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-	# alpha
 	args.alpha = float(args.alpha)
-
-	# fit_prior
 	args.fit_prior = (args.fit_prior in ['True', "True", 'true', "true"])
 
 	# class_prior - array like type (problem to convert)
 	if args.class_prior == "None" or args.class_prior == 'None':
 		args.class_prior = None
 
+	# --------- #
 	return args
-
 
 def main(args):
 	args = _cast_types(args)
