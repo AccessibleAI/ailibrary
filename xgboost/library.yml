@@ -24,7 +24,7 @@ arguments:
   n_estimators:
     value: 100
   verbosity:
-    value: True
+    value: 1
   objective:
     value: 'binary:logistic'
   booster:

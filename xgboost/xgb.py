@@ -146,7 +146,7 @@ if __name__ == '__main__':
 						help="""(int) – Number of trees to fit. Default is 100""")
 
 	parser.add_argument('--verbosity', action='store', default="1", dest='verbosity',
-						help="""(int) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug). Default is True""")
+						help="""(int) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug). Default is 1""")
 
 	parser.add_argument('--objective', action='store', default='binary:logistic', dest='objective',
 						help=""": (string or callable) – Specify the learning task and the corresponding learning objective or a custom objective function to 

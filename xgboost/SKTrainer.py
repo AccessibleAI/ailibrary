@@ -57,7 +57,7 @@ class SKTrainer:
 		Hashtag something which you don't want to plot.
 		"""
 		self.__plot_correlation_matrix()
-		self.__plot_feature_vs_feature()
+		# self.__plot_feature_vs_feature()
 		self.__plot_feature_importance()
 		self.__plot_classification_report(y_test_pred=y_test_pred)
 		self.__plot_confusion_matrix(y_test_pred=y_test_pred)

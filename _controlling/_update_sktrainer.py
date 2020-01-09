@@ -10,7 +10,8 @@ import os
 import shutil
 
 PATH = 'ailibrary/'
-NAME = 'SKTrainer.py'
+NAME1 = 'SKTrainer.py'
+
 GOOD_FILE = 'xgboost/SKTrainer.py'
 
 paths = []
@@ -19,7 +20,7 @@ os.chdir('..')
 for d in os.listdir(os.getcwd()):
 	if os.path.isdir(d):
 		for f in os.listdir(d):
-			if f.endswith(NAME):
+			if f.endswith(NAME1):
 				full_path_to_f =  d + '/' + f
 				paths.append(full_path_to_f)
 
