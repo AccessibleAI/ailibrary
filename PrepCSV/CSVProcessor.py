@@ -6,12 +6,12 @@ All rights reserved to cnvrg.io
 CSVProcessor.py
 ==============================================================================
 """
-import json
+import yaml
 import numpy as np
 import pandas as pd
 
-class CSVProcessor:
 
+class CSVProcessor:
 	def __init__(self,
 				 path_to_csv,
 				 target_column=None,
@@ -34,10 +34,10 @@ class CSVProcessor:
 		self.__features = [f for f in list(self.__data.columns) if f != self.__target_column[0]]
 		self.__data = self.__data[self.__features]  #  remove the target column.
 
-		self.__normalize_list = [x.strip() for x in eval(normalize_list)] if isinstance(normalize_list, str) else normalize_list
-		self.__one_hot_list = [x.strip() for x in eval(one_hot_list)] if isinstance(one_hot_list, str) else one_hot_list
-		self.__missing_dict = eval(missing_dict) if isinstance(missing_dict, str) else missing_dict
-		self.__scale_dict = eval(scale_dict) if isinstance(scale_dict, str) else scale_dict
+		self.__normalize_list = CSVProcessor.__parse_list(normalize_list) if isinstance(normalize_list, str) else normalize_list
+		self.__one_hot_list = CSVProcessor.__parse_list(one_hot_list)  if isinstance(one_hot_list, str) else one_hot_list
+		self.__missing_dict = CSVProcessor.__parse_dict(missing_dict) if isinstance(missing_dict, str) else missing_dict
+		self.__scale_dict = CSVProcessor.__parse_dict(scale_dict) if isinstance(scale_dict, str) else scale_dict
 		self.__output_name = output_name if output_name is not None else path_to_csv.split('.csv')[0] + '_processed.csv'
 
 	def run(self):
@@ -123,3 +123,29 @@ class CSVProcessor:
 		min_val = float(min_val) if '.' in min_val else int(min_val)
 		max_val = float(max_val) if '.' in max_val else int(max_val)
 		return min_val, max_val
+
+	@staticmethod
+	def __parse_list(list_as_string):
+		if list_as_string == '[]': return []
+
+		list_without_parenthesis = list_as_string.strip()[1: -1]
+		parsed_list = [st.strip() for st in list_without_parenthesis.split(',')]
+
+		# Check if the values are columns numbers.
+		try: parsed_list = [int(st) for st in parsed_list]
+		except ValueError: pass
+
+		return parsed_list
+
+	@staticmethod
+	def __parse_dict(dict_as_string):
+		if dict_as_string == '{}': return {}
+		final_key = dict()
+		parsed_dict = yaml.safe_load(dict_as_string)
+		all_keys = parsed_dict.keys()
+		for k in all_keys:
+			true_key, true_value = k.split(':')
+			true_key = true_key.strip()
+			true_value = true_value.strip()
+			final_key[true_key] = true_value
+		return final_key
