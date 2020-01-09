@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	                    help='''(string) path to csv file (required parameter).''')
 	parser.add_argument('--target', action='store', default='None', dest='target',
 	                    help='''(string) The name of the target column. By default it takes the rightmost column in the given csv.''')
-	parser.add_argument('--missing_values', action='store', default='None', dest='missing_values',
+	parser.add_argument('--missing', action='store', default='None', dest='missing_values',
 	                    help='''(dict) Dictionary describes what to do with empty, nan or NaN values in specific column.
 						The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}** (the column name and the operation must be considered as strings even if they are numbers, dont worry - it is re-converted).
 						The available operations are:
@@ -43,14 +43,14 @@ if __name__ == '__main__':
 						- **avg** - sets the empty values in the column to the average of the column (the other values must be integers or floats).
 						- **med** - sets the empty values in the column to the median of the column (the other values must be integers or floats).
 						- **randint_A_B** - sets the empty values in the column to a random integer between A and B.''')
-	parser.add_argument('--scale_dict', action='store', default='None', dest='scale_dict',
+	parser.add_argument('--scale', action='store', default='None', dest='scale_dict',
 	                    help='''(dict) Dictionary describes a range which the user wants to scale the values of the column to.
 						The structure of the dictionary is **{COLUMN_NAME: RANGE}**, where **RANGE** looks like: **A:B** (A,B are integers or floats).''')
-	parser.add_argument('--normalize_list', action='store', default='None', dest='normalize_list',
-	                    help='''  ''')
-	parser.add_argument('--one_hot_list', action='store', default='None', dest='one_hot_list',
-	                    help='''  ''')
+	parser.add_argument('--normalize', action='store', default='None', dest='normalize_list',
+	                    help='''(list) list of columns names the user wants to scale to [0, 1] range.''')
+	parser.add_argument('--one_hot', action='store', default='None', dest='one_hot_list',
+	                    help='''(list) list of columns names the user wants to perform one hot encoding on.''')
 	parser.add_argument('--output', action='store', default='None', dest='output',
-	                    help='''   ''')
+	                    help='''(string) path for the output the csv file. By default it takes the given file path and add _processed to the name of it.''')
 	args = parser.parse_args()
 	main(args)
