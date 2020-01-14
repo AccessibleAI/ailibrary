@@ -15,6 +15,32 @@ with ImageNet weights, so when used they perform transfer learning.
 
 3) Directories begins with **'_'**: Those are not for user's use, but for internal testing at cnvrg.io and version control.
 
+## Metrics
+There are some metrics which are created in the libraries.  
+The metrics are changed between families of algorithm (e.g: classification and regression algorithms has different metrics).  
+
+### Classification Metrics
+```model``` - The name of the output model file.  
+```folds``` - The number of folds used in the cross validation (if demanded by the user).  
+```train_acc``` - float in (0, 1).  
+```train_loss``` - calculated by default by mean_squared_error.  
+```test_acc``` - float in (0, 1).  
+```test_loss``` - calculated by default by mean_squared_error.  
+Example:  
+
+
+### Regression Metrics
+```model``` - The name of the output model file.  
+```folds``` - The number of folds used in the cross validation (if demanded by the user).  
+```train_loss_MSE``` - The train error evaluated by mean squared error.  
+```train_loss_MAE``` - The train error evaluated by mean absolute error.  
+```train_loss_R2``` - The train error evaluated by R2.  
+```test_loss_MSE``` - The test error evaluated by mean squared error.  
+```test_loss_MAE``` - The test error evaluated by mean absolute error.  
+```test_loss_R2``` - The test error evaluated by R2.  
+Example:  
+
+
 ## Visualizations
 There are several types of visualizations which are built-in the libraries and are plotted automatically.  
 Not all the libraries plot all the possible visualizations due to differences in the the algorithms.  
