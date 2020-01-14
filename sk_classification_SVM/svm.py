@@ -100,7 +100,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""sk_SVM""")
+	parser = argparse.ArgumentParser(description="""sk_classification_SVM""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
 	                    help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)

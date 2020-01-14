@@ -44,8 +44,11 @@ class SKTrainerRegression:
 	def run(self):
 		self.__model.fit(self.__x_train, self.__y_train)
 
-		self.__coef = self.__model.coef_
-		self.__intercept = self.__model.intercept_
+		try: self.__coef = self.__model.coef_
+		except AttributeError: pass
+
+		try: self.__intercept = self.__model.intercept_
+		except AttributeError: pass
 
 		if self.__is_cross_val:
 			self.__metrics['folds'] = self.__cross_val_folds
@@ -61,7 +64,7 @@ class SKTrainerRegression:
 		# self.__plot_regression_function()
 		self.__plot_feature_importance()
 		self.__plot_correlation_matrix()
-		# self.__plot_feature_vs_feature()
+		self.__plot_feature_vs_feature()
 
 	def __train_with_cross_validation(self):
 		"""

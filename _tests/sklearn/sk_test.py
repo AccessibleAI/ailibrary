@@ -20,15 +20,15 @@ args = parser.parse_args()
 
 # model_name : ( path_to_script, directory_name )
 scripts = {
-    'decision_trees': ('sk_DecisionTreesClassifier/decision_trees_classifier.py', 'sk_DecisionTreesClassifier'),
-    'knn': ('sk_KNN/knn.py', 'sk_KNN'),
-    'linear_regression': ('sk_LinearRegression/linear_regression.py', 'sk_LinearRegression'),
-    'logistic_regression': ('sk_LogisticRegression/logistic_regression.py', 'sk_LogisticRegression'),
-    'naive_bayes': ('sk_NaiveBayes/naive_bayes.py', 'sk_NaiveBayes'),
-    'random_forest': ('sk_RandomForestClassifier/random_forest_classifier.py', 'sk_RandomForestClassifier'),
-    'svm': ('sk_SVM/svm.py', 'sk_SVM'),
+    'decision_trees': ('sk_classification_DecisionTrees/decision_trees_classifier.py', 'sk_classification_DecisionTrees'),
+    'knn': ('sk_classification_KNN/knn.py', 'sk_classification_KNN'),
+    'linear_regression': ('sk_regression_Linear/linear_regression.py', 'sk_regression_Linear'),
+    'logistic_regression': ('sk_regression_Logistic/logistic_regression.py', 'sk_regression_Logistic'),
+    'naive_bayes': ('sk_classification_NaiveBayes/naive_bayes.py', 'sk_classification_NaiveBayes'),
+    'random_forest': ('sk_classification_RandomForest/random_forest_classifier.py', 'sk_classification_RandomForest'),
+    'svm': ('sk_classification_SVM/svm.py', 'sk_classification_SVM'),
     'xgboost': ('xgboost/xgb.py', 'xgboost'),
-    'gradient_boosting': ('sk_GradientBoostingClassifier/gradient_boosting.py', 'sk_GradientBoostingClassifier')
+    'gradient_boosting': ('sk_classification_GradientBoosting/gradient_boosting.py', 'sk_classification_GradientBoosting')
 }
 
 curr_dir = os.getcwd().split('sk_test.py')[0]
