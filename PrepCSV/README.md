@@ -58,9 +58,8 @@ Output data set:
 |   6 |      207.457 |     0 |        1 | 0.166667 |        0 |        1 |         1 |         0 |         0 |           1 |
 
 
-2) House Prices Data Set
-
-Input data:
+2) House Prices Data Set  
+Input data:  
 
 |    |   bedrooms |   bathrooms |   sqft_living |   sqft_lot |   floors |   waterfront |   view |   condition |   grade |   sqft_above |   sqft_basement |   yr_built |   price |
 |---:|-----------:|------------:|--------------:|-----------:|---------:|-------------:|-------:|------------:|--------:|-------------:|----------------:|-----------:|--------:|
@@ -71,7 +70,7 @@ Input data:
 |  4 |          3 |        2    |          1680 |       8080 |        1 |            0 |      0 |           3 |       8 |         1680 |               0 |       1987 |  510000 |
 
 Given command: ```--data="~/house_data.csv" --scale="{'grade': '1.5:10'}" --one_hot=[bedrooms,floors,condition] --normalize=[sqft_living,yr_built] --target=price```  
-Output data:
+Output data:  
 
 |    |   bathrooms |   sqft_living |   sqft_lot |   waterfront |   view |   grade |   sqft_above |   sqft_basement |   yr_built |   bedrooms_0 |   bedrooms_1 |   bedrooms_2 |   bedrooms_3 |   bedrooms_4 |   bedrooms_5 |   bedrooms_6 |   bedrooms_7 |   bedrooms_8 |   bedrooms_9 |   bedrooms_10 |   bedrooms_11 |   bedrooms_33 |   floors_1.0 |   floors_1.5 |   floors_2.0 |   floors_2.5 |   floors_3.0 |   floors_3.5 |   condition_1 |   condition_2 |   condition_3 |   condition_4 |   condition_5 |   price |
 |---:|------------:|--------------:|-----------:|-------------:|-------:|--------:|-------------:|----------------:|-----------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|--------------:|--------------:|--------------:|-------------:|-------------:|-------------:|-------------:|-------------:|-------------:|--------------:|--------------:|--------------:|--------------:|--------------:|--------:|
@@ -81,9 +80,8 @@ Output data:
 |  3 |        3    |     0.123338  |       5000 |            0 |      0 | 5.75    |         1050 |             910 |  0.0322581 |            0 |            0 |            0 |            0 |            1 |            0 |            0 |            0 |            0 |            0 |             0 |             0 |             0 |            1 |            0 |            0 |            0 |            0 |            0 |             0 |             0 |             0 |             0 |             1 |  604000 |
 |  4 |        2    |     0.102659  |       8080 |            0 |      0 | 6.45833 |         1680 |               0 |  0.0431762 |            0 |            0 |            0 |            1 |            0 |            0 |            0 |            0 |            0 |            0 |             0 |             0 |             0 |            1 |            0 |            0 |            0 |            0 |            0 |             0 |             0 |             1 |             0 |             0 |  510000 |
 
-3) Churn From Banks Data Set (with empty values)
-
-Input data:
+3) Churn From Banks Data Set (with empty values)  
+Input data:  
 
 |   RowNumber |   CustomerId | Surname   |   CreditScore | Geography   | Gender   |   Age |   Tenure |   Balance |   NumOfProducts |   HasCrCard |   IsActiveMember |   EstimatedSalary |   Exited |
 |------------:|-------------:|:----------|--------------:|:------------|:---------|------:|---------:|----------:|----------------:|------------:|-----------------:|------------------:|---------:|
@@ -93,4 +91,11 @@ Input data:
 |           4 |     15701354 | **nan **  |           699 | France      | Female   |    39 |        1 |         0 |               2 |           0 |                0 |           93826.6 |        0 |
 |           5 |     15737888 | Mitchell  |           850 | Spain       | Female   |    43 |        2 |    125511 |               1 |           1 |                1 |           79084.1 |        0 |
 
-Given command: ```  ```
+Given command: ```--data="~/creditcard_empty.csv" --missing="{'Surname':'drop', 'Balance':'fill_0', 'EstimatedSalary':'randint_0_5'}```  
+
+|   RowNumber |   CustomerId | Surname   |   CreditScore | Geography   | Gender   |   Age |   Tenure |   Balance |   NumOfProducts |   HasCrCard |   IsActiveMember |   EstimatedSalary |   Exited |
+|------------:|-------------:|:----------|--------------:|:------------|:---------|------:|---------:|----------:|----------------:|------------:|-----------------:|------------------:|---------:|
+|           1 |     15634602 | Hargrave  |           619 | France      | Female   |    42 |        2 |         0 |               1 |           1 |                1 |          101349   |        1 |
+|           2 |     15647311 | Hill      |           608 | Spain       | Female   |    41 |        1 |         0 |               1 |           0 |                1 |          112543   |        0 |
+|           3 |     15619304 | Onio      |           502 | France      | Female   |    42 |        8 |    159661 |               3 |           1 |                0 |               2   |        1 |
+|           5 |     15737888 | Mitchell  |           850 | Spain       | Female   |    43 |        2 |    125511 |               1 |           1 |                1 |           79084.1 |        0 |

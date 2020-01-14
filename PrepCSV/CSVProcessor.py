@@ -131,7 +131,7 @@ class CSVProcessor:
 
 	def __check_nulls_before_output(self):
 		# Check empty and nan values to warn the user.
-		time.sleep(5)
+		time.sleep(8)
 		nulls_report = dict(self.__data.isnull().sum())
 		features_with_null_values = [k for k, v in nulls_report.items() if v != 0]
 		if len(features_with_null_values) != 0:
