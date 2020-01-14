@@ -36,7 +36,7 @@ class SKTrainer:
 		self.__metrics = {'model': output_model_name,
 						  'train set size': len(self.__y_train),
 						  'test set size': len(self.__y_test)}
-		self.__experiment = Experiment()
+		self.__experiment = Experiment.init("test_charts")
 
 	def run(self):
 		""" runs the training & testing methods. """

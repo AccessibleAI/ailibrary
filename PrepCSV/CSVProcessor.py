@@ -7,8 +7,11 @@ CSVProcessor.py
 ==============================================================================
 """
 import json
+import sys
+import time
 
 import yaml
+import warnings
 import numpy as np
 import pandas as pd
 
@@ -49,6 +52,7 @@ class CSVProcessor:
 		self.__set_target_column()
 		self.__save()
 		print('CSVProcessor: all tasks handled')
+		self.__check_nulls_before_output()
 
 	def __scale(self):
 		if self.__scale_dict is not None:
@@ -99,12 +103,11 @@ class CSVProcessor:
 					value = float(task[len('fill_'):]) if '.' in task[len('fill_'):] else int(task[len('fill_') :])
 					self.__data[col] = self.__data[col].fillna(value)
 				elif task.startswith('drop'):
-					# self.__data[col] = self.__data[~np.isnan(self.__data[col])]
-					self.__data = self.__data.drop(self.__data[self.__data[col] not in [np.nan, np.NaN]].index)
+					self.__data = self.__data[self.__data[col].notna()]
 				elif task.startswith('avg'):
-					self.__data[col] = self.__data[col].fillna(np.average(self.__data[col]))
+					self.__data[col] = self.__data[col].fillna(self.__data[col].mean())
 				elif task.startswith('med'):
-					self.__data[col] = self.__data[col].fillna(np.median(self.__data[col]))
+					self.__data[col] = self.__data[col].fillna(self.__data[col].median())
 				elif task.startswith('randint_'):
 					a, b = task[len('randint_'):].split('_')
 					a, b = float(a) if '.' in a else int(a), float(b) if '.' in b else int(b)
@@ -125,6 +128,15 @@ class CSVProcessor:
 		min_val = float(min_val) if '.' in min_val else int(min_val)
 		max_val = float(max_val) if '.' in max_val else int(max_val)
 		return min_val, max_val
+
+	def __check_nulls_before_output(self):
+		# Check empty and nan values to warn the user.
+		time.sleep(5)
+		nulls_report = dict(self.__data.isnull().sum())
+		features_with_null_values = [k for k, v in nulls_report.items() if v != 0]
+		if len(features_with_null_values) != 0:
+			warnings.warn("Null values or empty cells in the data set.", UserWarning)
+		return
 
 	@staticmethod
 	def __parse_list(list_as_string):
