@@ -30,13 +30,13 @@ def main(args):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser("""Pre-processing CSV""")
 
-	parser.add_argument('--path', action='store', required=True, dest='path',
+	parser.add_argument('--path', '--data', action='store', required=True, dest='path',
 	                    help='''(string) path to csv file (required parameter).''')
 	parser.add_argument('--target', action='store', default='None', dest='target',
 	                    help='''(string) The name of the target column. By default it takes the rightmost column in the given csv.''')
 	parser.add_argument('--missing', action='store', default='None', dest='missing_values',
 	                    help='''(dict) Dictionary describes what to do with empty, nan or NaN values in specific column.
-						The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}** (the column name and the operation must be considered as strings even if they are numbers, dont worry - it is re-converted).
+						The structure of the dictionary is **{"COLUMN_NAME": "ACTION"}** (the column name and the operation must be considered as strings even if they are numbers, dont worry - it is re-converted).
 						The available operations are:
 						- **fill_X** - where X is an integer or float number which the user wants to set the empty values to.
 						- **drop** - drops the **rows** which has empty values in the specific column.

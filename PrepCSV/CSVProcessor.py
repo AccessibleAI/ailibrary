@@ -10,7 +10,6 @@ import yaml
 import numpy as np
 import pandas as pd
 
-
 class CSVProcessor:
 	def __init__(self,
 				 path_to_csv,
@@ -29,7 +28,7 @@ class CSVProcessor:
 		:param one_hot_list: list
 		:param output_name: string
 		"""
-		self.__data = pd.read_csv(path_to_csv)
+		self.__data = pd.read_csv(path_to_csv, index_col=0)
 		self.__target_column = (target_column, self.__data[target_column]) if target_column is not None else (self.__data.columns[-1], self.__data[self.__data.columns[-1]])
 		self.__features = [f for f in list(self.__data.columns) if f != self.__target_column[0]]
 		self.__data = self.__data[self.__features]  #  remove the target column.
@@ -55,9 +54,9 @@ class CSVProcessor:
 			if set(self.__scale_dict.keys()) == set('all'): scale_all = True
 			columns_to_scale = self.__features if scale_all is True else self.__scale_dict.keys()
 			for col in columns_to_scale:
-				min_range, max_range = self.__data[col].min(), self.__data[col].max() if scale_all else self.__scale_helper(self.__scale_dict[col])
-				self.__data[col] -= min_range
-				self.__data[col] /= max_range
+				curr_min, curr_max = (self.__data[col].min(), self.__data[col].max())
+				new_min, new_max = (self.__data[col].min(), self.__data[col].max()) if scale_all else self.__scale_helper(self.__scale_dict[col])
+				self.__data[col] = (((new_max - new_min) * (self.__data[col] - curr_min)) / (curr_max - curr_min)) + new_min
 		print('CSVProcessor: scaling handled')
 
 	def __normalize(self):
@@ -75,7 +74,7 @@ class CSVProcessor:
 
 	def __one_hot_encoding(self):
 		if self.__one_hot_list is not None:
-			self.__data = pd.get_dummies(self.__data, columns=self.__one_hot_encoding())
+			self.__data = pd.get_dummies(self.__data, columns=self.__one_hot_list)
 		print('CSVProcessor: one-hot encoding handled')
 
 	def __handle_missing(self):
@@ -119,7 +118,7 @@ class CSVProcessor:
 		print('CSVProcessor: model saved.')
 
 	def __scale_helper(self, value):
-		min_val, max_val = value.split(':')
+		min_val, max_val = value.split(':') if isinstance(value, str) else value[0], value[1]
 		min_val = float(min_val) if '.' in min_val else int(min_val)
 		max_val = float(max_val) if '.' in max_val else int(max_val)
 		return min_val, max_val
@@ -142,10 +141,10 @@ class CSVProcessor:
 		if dict_as_string == '{}': return {}
 		final_key = dict()
 		parsed_dict = yaml.safe_load(dict_as_string)
+		if not isinstance(parsed_dict, dict): raise TypeError('Given a {} instead of dictionary.'.format(type(parsed_dict)))
 		all_keys = parsed_dict.keys()
 		for k in all_keys:
-			true_key, true_value = k.split(':')
+			true_key, true_value = k, parsed_dict[k].split(':')
 			true_key = true_key.strip()
-			true_value = true_value.strip()
 			final_key[true_key] = true_value
 		return final_key
