@@ -2,7 +2,7 @@
 title: DecisionTrees
 command: python3 decision_trees_classifier.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.0.34
+version: 1.0.35
 docker_images: cnvrg
 compute: small
 data_type: CSV
