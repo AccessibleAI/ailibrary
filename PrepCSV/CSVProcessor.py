@@ -6,6 +6,8 @@ All rights reserved to cnvrg.io
 CSVProcessor.py
 ==============================================================================
 """
+import json
+
 import yaml
 import numpy as np
 import pandas as pd
@@ -92,12 +94,13 @@ class CSVProcessor:
 			column_to_handle = self.__features if handle_all is True else self.__missing_dict.keys()
 
 			for col in column_to_handle:
-				task = task_all if task_all is not None else self.__missing_dict[col]
+				task = task_all if task_all is not None else self.__missing_dict[col][0]
 				if task.startswith('fill_'):
 					value = float(task[len('fill_'):]) if '.' in task[len('fill_'):] else int(task[len('fill_') :])
 					self.__data[col] = self.__data[col].fillna(value)
 				elif task.startswith('drop'):
-					self.__data[col] = self.__data[~np.isnan(self.__data[col])]
+					# self.__data[col] = self.__data[~np.isnan(self.__data[col])]
+					self.__data = self.__data.drop(self.__data[self.__data[col] not in [np.nan, np.NaN]].index)
 				elif task.startswith('avg'):
 					self.__data[col] = self.__data[col].fillna(np.average(self.__data[col]))
 				elif task.startswith('med'):
@@ -140,7 +143,7 @@ class CSVProcessor:
 	def __parse_dict(dict_as_string):
 		if dict_as_string == '{}': return {}
 		final_key = dict()
-		parsed_dict = yaml.safe_load(dict_as_string)
+		parsed_dict = eval(dict_as_string)
 		if not isinstance(parsed_dict, dict): raise TypeError('Given a {} instead of dictionary.'.format(type(parsed_dict)))
 		all_keys = parsed_dict.keys()
 		for k in all_keys:
