@@ -14,13 +14,13 @@ arguments:
   target_column_name:
     value: None
   columns_with_missing_values:
-    value: {}
+    value: None
   columns_to_scale:
-    value: {}
+    value: None
   columns_to_normalize:
-    value: []
+    value: None
   columns_to_dummy:
-    value: []
+    value: None
   output_file_path:
     value: None
   visualize:
