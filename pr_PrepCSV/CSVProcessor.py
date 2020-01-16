@@ -14,6 +14,9 @@ import yaml
 import warnings
 import numpy as np
 import pandas as pd
+from cnvrg import Experiment
+from cnvrg.charts import MatrixHeatmap
+
 
 class CSVProcessor:
 	def __init__(self,
@@ -23,7 +26,8 @@ class CSVProcessor:
 				 scale_dict=None,
 				 normalize_list=None,
 				 one_hot_list=None,
-				 output_name=None):
+				 output_name=None,
+				 plot_vis=False):
 		"""
 		:param path_to_csv: string
 		:param target_column: string
@@ -36,13 +40,16 @@ class CSVProcessor:
 		self.__data = pd.read_csv(path_to_csv, index_col=0)
 		self.__target_column = (target_column, self.__data[target_column]) if target_column is not None else (self.__data.columns[-1], self.__data[self.__data.columns[-1]])
 		self.__features = [f for f in list(self.__data.columns) if f != self.__target_column[0]]
-		self.__data = self.__data[self.__features]  #  remove the target column.
+		self.__data = self.__data[self.__features]  #  removes the target column.
+		self.__experiment = Experiment()
 
 		self.__normalize_list = CSVProcessor.__parse_list(normalize_list) if isinstance(normalize_list, str) else normalize_list
 		self.__one_hot_list = CSVProcessor.__parse_list(one_hot_list)  if isinstance(one_hot_list, str) else one_hot_list
 		self.__missing_dict = CSVProcessor.__parse_dict(missing_dict) if isinstance(missing_dict, str) else missing_dict
 		self.__scale_dict = CSVProcessor.__parse_dict(scale_dict) if isinstance(scale_dict, str) else scale_dict
 		self.__output_name = output_name if output_name is not None else path_to_csv.split('.csv')[0] + '_processed.csv'
+		self.__plot_vis = plot_vis
+
 
 	def run(self):
 		self.__handle_missing()
@@ -51,6 +58,8 @@ class CSVProcessor:
 		self.__normalize()
 		self.__set_target_column()
 		self.__save()
+		self.__plot_metrics()
+		self.__plot_visualization(plot_correlation=True)
 		print('CSVProcessor: all tasks handled')
 		self.__check_nulls_before_output()
 
@@ -61,7 +70,7 @@ class CSVProcessor:
 			columns_to_scale = self.__features if scale_all is True else self.__scale_dict.keys()
 			for col in columns_to_scale:
 				curr_min, curr_max = (self.__data[col].min(), self.__data[col].max())
-				new_min, new_max = (self.__data[col].min(), self.__data[col].max()) if scale_all else self.__scale_helper(self.__scale_dict[col])
+				new_min, new_max = (self.__data[col].min(), self.__data[col].max()) if scale_all else CSVProcessor.__scale_helper(self.__scale_dict[col])
 				self.__data[col] = (((new_max - new_min) * (self.__data[col] - curr_min)) / (curr_max - curr_min)) + new_min
 		print('CSVProcessor: scaling handled')
 
@@ -119,15 +128,18 @@ class CSVProcessor:
 		self.__data[self.__target_column[0]] = self.__target_column[1]
 		print('CSVProcessor: target columns handled.')
 
+	def __plot_metrics(self):
+		self.__experiment.log_param("output_file", self.__output_name)
+
+	def __plot_visualization(self, plot_correlation=True):
+		if self.__plot_vis is False: return
+
+		# Tasks:
+		if plot_correlation: self.__plot_correlation_matrix()
+
 	def __save(self):
 		self.__data.to_csv(self.__output_name)
 		print('CSVProcessor: model saved.')
-
-	def __scale_helper(self, value):
-		min_val, max_val = value.split(':') if isinstance(value, str) else value[0], value[1]
-		min_val = float(min_val) if '.' in min_val else int(min_val)
-		max_val = float(max_val) if '.' in max_val else int(max_val)
-		return min_val, max_val
 
 	def __check_nulls_before_output(self):
 		# Check empty and nan values to warn the user.
@@ -137,6 +149,10 @@ class CSVProcessor:
 		if len(features_with_null_values) != 0:
 			warnings.warn("Null values or empty cells in the data set.", UserWarning)
 		return
+
+	""" ------------------- """
+	""" ----- Helpers ----- """
+	""" ------------------- """
 
 	@staticmethod
 	def __parse_list(list_as_string):
@@ -163,3 +179,16 @@ class CSVProcessor:
 			true_key = true_key.strip()
 			final_key[true_key] = true_value
 		return final_key
+
+	@staticmethod
+	def __scale_helper(value):
+		min_val, max_val = value.split(':') if isinstance(value, str) else value[0], value[1]
+		min_val = float(min_val) if '.' in min_val else int(min_val)
+		max_val = float(max_val) if '.' in max_val else int(max_val)
+		return min_val, max_val
+
+
+	def __plot_correlation_matrix(self, digits_to_round=3):
+		correlation = self.__data.corr()
+		self.__experiment.log_chart("Correlation", [MatrixHeatmap(np.round(correlation.values, digits_to_round))],
+									x_ticks=correlation.index.tolist(), y_ticks=correlation.index.tolist())
