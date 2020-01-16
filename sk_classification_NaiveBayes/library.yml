@@ -2,7 +2,7 @@
 title: naive-bayes
 command: python3 naive_bayes.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.36
+version: 1.1.37
 docker_images: cnvrg
 compute: small
 data_type: CSV

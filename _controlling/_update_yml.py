@@ -12,7 +12,7 @@ PATH = 'ailibrary/'
 
 TOP_VER = '1'
 MID_VER = '1'
-LEAST_VER = '36'
+LEAST_VER = '37'
 NEW_VERSION = TOP_VER + '.' + MID_VER + '.' + LEAST_VER
 
 yml_files = []
