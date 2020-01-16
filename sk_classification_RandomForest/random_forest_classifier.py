@@ -78,18 +78,17 @@ def _cast_types(args):
 def main(args):
 	args = _cast_types(args)
 
-	# Loading dataset.
-	data = pd.read_csv(args.data)
-	for col in data.columns:
-		if col.startswith('Unnamed'):
-			data = data.drop(columns=col, axis=1)
+	# Minimal number of rows and columns in the csv file.
+	MINIMAL_NUM_OF_ROWS = 10
+	MINIMAL_NUM_OF_COLUMNS = 2
 
-	# Checking data sets sizes.
+	# Loading data, and splitting it to train and test based on user input
+	data = pd.read_csv(args.data, index_col=0)
+
+	# Check for unfit given dataset and splitting to X and y.
 	rows_num, cols_num = data.shape
-	if rows_num == 0:
-		raise Exception("Dataset Error: The given dataset has no examples.")
-	if cols_num < 2:
-		raise Exception("Dataset Error: Not enough columns.")
+	if rows_num < MINIMAL_NUM_OF_ROWS: raise ValueError("LibraryError: The given csv doesn't have enough rows (at least 10 examples must be given).")
+	if cols_num < MINIMAL_NUM_OF_COLUMNS: raise ValueError("DatasetError: Not enough columns in the csv (at least 2 columns must be given).")
 
 	# Split to X and y (train & test).
 	X = data.iloc[:, :-1]

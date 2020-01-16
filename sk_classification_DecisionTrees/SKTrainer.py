@@ -14,11 +14,10 @@ import pandas as pd
 
 from cnvrg import Experiment
 from cnvrg.charts import Heatmap, Bar, Scatterplot
-from cnvrg.charts.pandas_analyzer import PandasAnalyzer, MatrixHeatmap
+from cnvrg.charts.pandas_analyzer import MatrixHeatmap
 
-from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_validate
-from sklearn.metrics import classification_report, confusion_matrix, roc_curve, accuracy_score, mean_squared_error
+from sklearn.metrics import classification_report, confusion_matrix, roc_curve, accuracy_score, zero_one_loss
 
 
 class SKTrainer:
@@ -36,7 +35,8 @@ class SKTrainer:
 		self.__metrics = {'model': output_model_name,
 						  'train set size': len(self.__y_train),
 						  'test set size': len(self.__y_test)}
-		self.__experiment = Experiment.init("test_charts")
+		# self.__experiment = Experiment()
+		self.__experiment = Experiment.init('test_charts')
 
 	def run(self):
 		""" runs the training & testing methods. """
@@ -87,14 +87,14 @@ class SKTrainer:
 
 		y_pred = self.__model.predict(self.__x_test)
 		test_acc = accuracy_score(self.__y_test, y_pred)
-		test_loss = mean_squared_error(self.__y_test, y_pred)
+		test_loss = zero_one_loss(self.__y_test, y_pred)
 		self.__metrics.update({
 			'train_acc': train_acc_cv,
-			'train_loss': train_err_cv,
+			'train_loss_(mse)': train_err_cv,
 			'validation_acc': val_acc_cv,
-			'validation_loss': val_err_cv,
+			'validation_loss_(mse)': val_err_cv,
 			'test_acc': test_acc,
-			'test_loss': test_loss
+			'test_loss_(zero_one_loss)': test_loss
 		})
 		self.__plot_all(y_pred)
 
@@ -105,16 +105,16 @@ class SKTrainer:
 		y_hat = self.__model.predict(self.__x_train)  # y_hat is a.k.a y_pred
 
 		train_acc = accuracy_score(self.__y_train, y_hat)
-		train_loss = mean_squared_error(self.__y_train, y_hat)
+		train_loss = zero_one_loss(self.__y_train, y_hat)
 
 		y_pred = self.__model.predict(self.__x_test)
 		test_acc = accuracy_score(self.__y_test, y_pred)
-		test_loss = mean_squared_error(self.__y_test, y_pred)
+		test_loss = zero_one_loss(self.__y_test, y_pred)
 		self.__metrics.update({
 			'train_acc': train_acc,
-			'train_loss': train_loss,
+			'train_loss_(zero_one_loss)': train_loss,
 			'test_acc': test_acc,
-			'test_loss': test_loss
+			'test_loss_(zero_one_loss)': test_loss
 		})
 		self.__plot_all(y_pred)
 

@@ -19,6 +19,9 @@ from SKTrainer import *
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
+# Minimal number of rows and columns in the csv file.
+MINIMAL_NUM_OF_ROWS = 10
+MINIMAL_NUM_OF_COLUMNS = 2
 
 def _cast_types(args):
 	"""
@@ -47,17 +50,12 @@ def main(args):
 	args = _cast_types(args)
 
 	# Loading data, and splitting it to train and test based on user input
-	data = pd.read_csv(args.data)
-	for col in data.columns:
-		if col.startswith('Unnamed'):
-			data = data.drop(columns=col, axis=1)
+	data = pd.read_csv(args.data, index_col=0)
 
 	# Check for unfit given dataset and splitting to X and y.
 	rows_num, cols_num = data.shape
-	if rows_num == 0:
-		raise Exception("Library Error: The given dataset has no examples.")
-	if cols_num < 2:
-		raise Exception("Dataset Error: Not enough columns.")
+	if rows_num < MINIMAL_NUM_OF_ROWS: raise ValueError("LibraryError: The given csv doesn't have enough rows (at least 10 examples must be given).")
+	if cols_num < MINIMAL_NUM_OF_COLUMNS: raise ValueError("DatasetError: Not enough columns in the csv (at least 2 columns must be given).")
 
 	X = data.iloc[:, :-1]
 	y = data.iloc[:, -1]
@@ -86,7 +84,6 @@ def main(args):
 						output_model_name=args.output_model,
 						testing_mode=args.test_mode,
 						folds=folds)
-
 	trainer.run()
 
 
