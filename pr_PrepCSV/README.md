@@ -1,6 +1,3 @@
-# PrepCSV
-
-## General
 This library is made for making pre-processing for csv files.  
 The library enables you to deals with empty values, scale or normalize features and do one-hot encoding within a click.  
 

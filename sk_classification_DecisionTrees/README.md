@@ -1,7 +1,3 @@
-# Decision Trees Classifier
-
-## General
-
 Decision Trees Classifier is a simple and widely used classification technique. It applies a straight forward idea to solve the classification problem. Decision Trees Classifier poses a series of carefully crafted questions about the attributes of the test record. Each time it receives an answer, a follow-up question is asked until a conclusion about the class label of the record is reached.
 
 ## Notes for this Component

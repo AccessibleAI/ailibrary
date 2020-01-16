@@ -1,7 +1,3 @@
-# Gradient Boosting
-
-## General
-
 Gradient Boosting is used for classification. It builds an additive model in a forward stage-wise fashion and it allows for the optimization of arbitrary differentiable loss functions. In each stage n_classes_ regression trees are fit on the negative gradient of the binomial or multinomial deviance loss function. 
 
 Binary classification is a special case where only a single regression tree is induced.
