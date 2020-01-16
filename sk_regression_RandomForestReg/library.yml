@@ -2,7 +2,7 @@
 title: random-forest-regression
 command: python3 random_forest_regressor.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.37
+version: 1.1.38
 docker_images: cnvrg
 compute: small
 data_type: CSV

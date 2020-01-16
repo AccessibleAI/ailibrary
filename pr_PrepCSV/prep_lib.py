@@ -55,6 +55,6 @@ if __name__ == '__main__':
 	parser.add_argument('--output_file_path', '--output', action='store', default='None', dest='output',
 	                    help='''(string) path for the output the csv file. By default it takes the given file path and add _processed to the name of it.''')
 	parser.add_argument('--visualize', action='store', default='False', dest='visualize',
-	                    help='''(bool) boolean which indicates whether to plot visualization or not. Default value: False.''')
+	                    help='''(bool) indicates whether to plot visualization or not. Default value: False.''')
 	args = parser.parse_args()
 	main(args)
