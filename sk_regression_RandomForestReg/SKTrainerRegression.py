@@ -64,7 +64,7 @@ class SKTrainerRegression:
 		# self.__plot_regression_function()
 		self.__plot_feature_importance()
 		self.__plot_correlation_matrix()
-		self.__plot_feature_vs_feature()
+		# self.__plot_feature_vs_feature()
 
 	def __train_with_cross_validation(self):
 		"""
