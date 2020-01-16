@@ -6,12 +6,14 @@ Quickly execute across any kind of infrastructure and automatically track hyper-
 ## Content
 1) **'sk'** directories: Those include the AI libraries for machine learning which are backed by scikit learn.
 Scikit learn is a free software machine learning module in Python language. It features various classification, regression and clustering algorithms.
-In the cnvrg library we use mostly classification and regression algorithms.
+In the cnvrg library we use mostly classification, regression and clustering algorithms.
 
 2) **'tf2'** directories: Those include the AI libraries for deep learning. The purpose of those
 libraries is not to build or create models, but rather to leverage prepared model structures.  
 Currently, the library includes commonly known successful models structures like ResNet50 and vgg16, and they are imported
 with ImageNet weights, so when used they perform transfer learning.
+
+3) **'pr'** directories: Those include libraries which enables pre-processing of various types of files.
 
 3) Directories begins with **'_'**: Those are not for user's use, but for internal testing at cnvrg.io and version control.
 
@@ -39,6 +41,11 @@ Example:
 ```test_loss_MAE``` - The test error evaluated by mean absolute error.  
 ```test_loss_R2``` - The test error evaluated by R2.  
 Example:  
+
+
+### Clustering Metrics
+**SOON**  
+Example: 
 
 
 ## Visualizations
