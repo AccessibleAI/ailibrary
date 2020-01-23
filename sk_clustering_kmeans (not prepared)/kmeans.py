@@ -4,9 +4,9 @@ All rights reserved to cnvrg.io
 
 cnvrg.io - AI library
 
-Written by: Yishai Raswosky
+Written by: Omer Liberman
 
-Last update: Oct 06, 2019
+Last update: Jan 19th, 2020
 Updated by: Omer Liberman
 
 knn.py
@@ -19,10 +19,15 @@ import pandas as pd
 from cnvrg import Experiment
 from sklearn.cluster import KMeans
 from sklearn.model_selection import train_test_split
-
 from SKTrainerClustering import SKTrainerClustering
 
+# Minimal number of rows and columns in the csv file.
+MINIMAL_NUM_OF_ROWS = 10
+MINIMAL_NUM_OF_COLUMNS = 2
+
 def _cast_types(args):
+	args.y = (args.y == 'True' or args.y is True)
+	args.test_size = float(args.test_size)
 	args.folds = int(args.folds)
 	args.n_clusters = int(args.n_clusters)
 	args.n_init = int(args.n_init)
@@ -47,12 +52,11 @@ def _cast_types(args):
 def main(args):
 	args = _cast_types(args)
 
-	# Minimal number of rows and columns in the csv file.
-	MINIMAL_NUM_OF_ROWS = 10
-	MINIMAL_NUM_OF_COLUMNS = 2
-
 	# Loading data, and splitting it to train and test based on user input
 	data = pd.read_csv(args.data, index_col=0)
+
+	if args.y:
+		pass
 
 	# Check for unfit given dataset and splitting to X and y.
 	rows_num, cols_num = data.shape
@@ -80,13 +84,24 @@ def main(args):
 								  test_set=X_test,
 								  output_model_name=args.output_model,
 								  testing_mode=args.test_mode)
+
+	trainer.run()
     
     
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""sklearn_KMeans (not prepared)""")
 
-	parser.add_argument('--data',action='store',required=True,dest='data',
+	parser.add_argument('--data',action='store', required=True, dest='data',
 						help="""A path to the dataset. It should be a path to .csv file where the rightmost column is the target column and the other are the X. All columns should be numbers.""")
+
+	parser.add_argument('--includes_target', '-y', action='store', required=True, dest='y',
+						help="""(bool) indicates whether the given dataset includes target column in the rightmost column.""")
+
+	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
+	                    help="""Float. The portion of the data of testing. Default is 0.2""")
+
+	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
+	                    help="""String. The name of the output file which is a trained model. Default is model.sav""")
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir',
 						help="""String.. """)
@@ -94,17 +109,21 @@ if __name__ == '__main__':
 	parser.add_argument('--output_dir', action='store', dest='output_dir',
 						help="""String.. """)
 
-	parser.add_argument('--model',action='store',default="K-MeansModel.sav",dest='model',
-						help="""String. The name of the output file which is a trained random forests model.""")
-
 	parser.add_argument('--folds', action='store', default="5", dest='folds',
 						help="""Integer. Number of folds for the cross-validation. Default is 5.""")
+
+	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
+						help="""--- For inner use of cnvrg.io ---""")
+
+	# ----- model's params.
 
 	parser.add_argument('--n_clusters',action='store',default="8",dest='n_clusters',
 						help="""The number of clusters to form as well as the number of centroids to generate.""")
 
 	parser.add_argument('--init',action='store',default='k-means++',dest='init',
-						help="""Method for initialization, defaults to ‘k-means++’: ‘k-means++’ : selects initial cluster centers for k-mean clustering in a smart way to speed up convergence. See section Notes in k_init for more details. ‘random’: choose k observations (rows) at random from data for the initial centroids. If an ndarray is passed, it should be of shape (n_clusters, n_features) and gives the initial centers.""")
+						help="""Method for initialization, defaults to ‘k-means++’: ‘k-means++’ : selects initial cluster centers for k-mean clustering in a smart way to speed up convergence. 
+						See section Notes in k_init for more details. ‘random’: choose k observations (rows) at random from data for the initial centroids. If an ndarray is passed, it should be of 
+						shape (n_clusters, n_features) and gives the initial centers.""")
 
 	parser.add_argument('--n_init',action='store',default='10',dest='n_init',
 						help="""Number of time the k-means algorithm will be run with different centroid seeds. The final results will be the best output of n_init consecutive runs in terms of inertia.""")
@@ -116,7 +135,8 @@ if __name__ == '__main__':
 						help="""Relative tolerance with regards to inertia to declare convergence.""")
 
 	parser.add_argument('--precompute_distances',action='store',default='auto',dest='precompute_distances',
-						help="""Precompute distances (faster but takes more memory). ‘auto’ : do not precompute distances if n_samples * n_clusters > 12 million. This corresponds to about 100MB overhead per job using double precision. True : always precompute distances. False : never precompute distances.""")
+						help="""Precompute distances (faster but takes more memory). ‘auto’ : do not precompute distances if n_samples * n_clusters > 12 million. This corresponds to about 100MB 
+						overhead per job using double precision. True : always precompute distances. False : never precompute distances.""")
 
 	parser.add_argument('--verbose',action='store',default='0',dest='verbose',
 						help="""Verbosity mode.""")
@@ -125,14 +145,17 @@ if __name__ == '__main__':
 						help="""Determines random number generation for centroid initialization. Use an int to make the randomness deterministic.""")
 
 	parser.add_argument('--copy_x',action='store',default='True',dest='copy_x',
-						help="""When pre-computing distances it is more numerically accurate to center the data first. If copy_x is True (default), then the original data is not modified, ensuring X is C-contiguous. If False, the original data is modified, and put back before the function returns, but small numerical differences may be introduced by subtracting and then adding the data mean, in this case it will also not ensure that data is C-contiguous which may cause a significant slowdown.""")
+						help="""When pre-computing distances it is more numerically accurate to center the data first. If copy_x is True (default), then the original data is not modified, 
+						ensuring X is C-contiguous. If False, the original data is modified, and put back before the function returns, but small numerical differences may be introduced by 
+						subtracting and then adding the data mean, in this case it will also not ensure that data is C-contiguous which may cause a significant slowdown.""")
 
 	parser.add_argument('--n_jobs',action='store',default='None',dest='n_jobs',
-						help="""The number of jobs to use for the computation. This works by computing each of the n_init runs in parallel. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details.""")
+						help="""The number of jobs to use for the computation. This works by computing each of the n_init runs in parallel. None means 1 unless in a joblib.parallel_backend context.
+						 -1 means using all processors. See Glossary for more details.""")
 
 	parser.add_argument('--algorithm',action='store',default='auto',dest='algorithm',
-						help="""K-means algorithm to use. The classical EM-style algorithm is “full”. The “elkan” variation is more efficient by using the triangle inequality, but currently doesn’t support sparse data. “auto” chooses “elkan” for dense data and “full” for sparse data.""")
+						help="""K-means algorithm to use. The classical EM-style algorithm is “full”. The “elkan” variation is more efficient by using the triangle inequality, but currently 
+						doesn’t support sparse data. “auto” chooses “elkan” for dense data and “full” for sparse data.""")
 
 	args = parser.parse_args()
-
 	main(args)
