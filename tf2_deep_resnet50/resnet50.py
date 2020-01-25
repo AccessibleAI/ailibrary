@@ -14,7 +14,7 @@ resnet50.py
 """
 import argparse
 
-from cnvrg_src.training import train
+from _src.training import train_and_test
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""ResNet50 Model""")
@@ -26,10 +26,10 @@ if __name__ == '__main__':
 						help="""(String) (Default: None) Path to a local directory which contains sub-directories, each for a single class. The data is used for testing.""")
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir',
-	                    help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
+						help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
 
 	parser.add_argument('--output_dir', action='store', dest='output_dir',
-	                    help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
+						help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
@@ -38,7 +38,7 @@ if __name__ == '__main__':
 						help="""(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file.""")
 
 	parser.add_argument('--val_size', action='store', default="0.2", dest='test_size',
-	                    help="""(float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise, it represents the size of the test set out of the data set given in --data.""")
+						help="""(float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise, it represents the size of the test set out of the data set given in --data.""")
 
 	parser.add_argument('--epochs', action='store', default="3", dest='epochs',
 						help="""(int) (Default: 1) The number of epochs the algorithm performs in the training phase.""")
@@ -47,10 +47,16 @@ if __name__ == '__main__':
 						help="""(int) (Default: 256) The number of images the generator downloads in each step.""")
 
 	parser.add_argument('--image_color', action='store', dest='image_color', default='rgb',
-	                    help="""(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.""")
+						help="""(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.""")
+
+	parser.add_argument('--loss', action='store', dest='loss', default='cross_entropy',
+						help="""(String) (Default: 'crossentropy') The loss function of the model. By default its binary_crossentropy or categorical_crossentropy, depended of the classes number.""")
+
+	parser.add_argument('--dropout', action='store', dest='dropout', default='0.3',
+						help="""(float) (Default: 0.3) The dropout of the added fully connected layers.""")
 
 	parser.add_argument('--optimizer', action='store', dest='optimizer', default='adam',
-	                    help="""(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.""")
+						help="""(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.""")
 
 	parser.add_argument('--image_width', action='store', default="224", dest='image_width',
 						help="""(int) (Default: 224) The width of the images.""")
@@ -64,10 +70,10 @@ if __name__ == '__main__':
 	parser.add_argument('--conv_height', action='store', default="3", dest='conv_height',
 						help="""(int) (Default: 3) The height of the convolution window.""")
 
-	parser.add_argument('--pool_width', action='store', default="2", dest='pool_width',
+	parser.add_argument('--pooling_width', action='store', default="2", dest='pool_width',
 						help="""(int) (Default: 2) The width of the pooling window.""")
 
-	parser.add_argument('--pool_height', action='store', default="2", dest='pool_height',
+	parser.add_argument('--pooling_height', action='store', default="2", dest='pool_height',
 						help="""(int) (Default: 2) The height of the pooling window.""")
 
 	parser.add_argument('--hidden_layer_activation', action='store', default='relu', dest='hidden_layer_activation',
@@ -78,4 +84,4 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train(args, model_name='resnet50')
+	train_and_test(args, model_name='resnet50')

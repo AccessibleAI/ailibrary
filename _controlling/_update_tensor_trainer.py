@@ -11,7 +11,7 @@ import shutil
 
 PATH = 'ailibrary/'
 NAME = 'TensorTrainer.py'
-GOOD_FILE = 'TEST_DEEP/cnvrg_src/TensorTrainer.py'
+GOOD_FILE = 'TEST_DEEP/_src/TensorTrainer.py'
 
 paths = []
 os.chdir('..')

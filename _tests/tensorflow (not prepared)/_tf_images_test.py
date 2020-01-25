@@ -21,7 +21,7 @@ args = parser.parse_args()
 scripts = {
     'densenet201': ('tf2_densenet201/inceptionv3.py', 'tf2_densenet201'),
     'mobilenetv2': ('tf2_mobilenetv2/mobilenetv2.py', 'tf2_mobilenetv2'),
-    'resnet50': ('tf2_resnet50/resnet50.py', 'tf2_resnet50'),
+    'resnet50': ('tf2_deep_resnet50/resnet50.py', 'tf2_deep_resnet50'),
     'vgg16': ('tf2_vgg16/vgg16.py', 'tf2_vgg16'),
     'inceptionv3': ('tf2_inceptionv3/inceptionv3.py', 'tf2_inceptionv3')
 }

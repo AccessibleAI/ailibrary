@@ -19,29 +19,33 @@ If the user is also interested in supplying test set, it can be given to the par
 
 ```--output_model``` - (String) (Default: 'resnet50_model.h5') The name of the output model file. It is recommended to use '.h5' file.
 
-```test_size``` - (float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data 
+```--val_size``` - (float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data 
 set given in --data. Otherwise, it represents the size of the test set out of the data set given in --data.
 
-```epochs``` - (int) (Default: 1) The number of epochs the algorithm performs in the training phase.
+```--epochs``` - (int) (Default: 3) The number of epochs the algorithm performs in the training phase.
 
-```batch_size``` - (int) (Default: 256) The number of images the generator downloads in each step.
+```--batch_size``` - (int) (Default: 256) The number of images the generator downloads in each step.
 
-```image_color``` - (String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.
+```--image_color``` - (String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.
+
+```--loss``` - (String) (Default: 'crossentropy') The loss function of the model. By default its binary_crossentropy or categorical_crossentropy, depended of the classes number.
+
+```--dropout``` - (float) (Default: 0.3) The dropout of the added fully connected layers.
 
 ```--optimizer``` - (String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.
 
-```image_height``` - (int) (Default: 128) The height of the images.
+```--image_height``` - (int) (Default: 128) The height of the images.
 
-```image_width``` - (int) (Default: 128) The width of the images.
+```--image_width``` - (int) (Default: 128) The width of the images.
 
-```conv_width``` - (int) (Default: 3) The width of the convolution window.
+```--conv_width``` - (int) (Default: 3) The width of the convolution window.
 
-```conv_height``` - (int) (Default: 3) The height of the convolution window.
+```--conv_height``` - (int) (Default: 3) The height of the convolution window.
 
-```pool_width``` - (int) (Default: 2) The width of the pooling window.
+```--pooling_width``` - (int) (Default: 2) The width of the pooling window.
 
-```pool_height``` - (int) (Default: 2) The height of the pooling window.
+```--pooling_height``` - (int) (Default: 2) The height of the pooling window.
 
-```hidden_layer_activation``` - (String) (Default: 'relu') The activation function of the hidden layers.
+```--hidden_layer_activation``` - (String) (Default: 'relu') The activation function of the hidden layers.
 
-```output_layer_activation``` - (String) (Default: 'softmax') The activation function of the output layer.
+```--output_layer_activation``` - (String) (Default: 'softmax') The activation function of the output layer.
