@@ -1,16 +1,16 @@
-# ResNet50
-
+# VGG16
 ## General
-ResNet, short for Residual Networks is a classic neural network used as a backbone for many computer vision tasks. This model was the winner of ImageNet challenge in 2015. The fundamental breakthrough
- with ResNet was it allowed us to train extremely deep neural networks with 150+layers successfully. Prior to ResNet training very deep neural networks was difficult due to the problem of vanishing 
- gradients.
 
 ## Note for this library
-The library is a wrapper for the ``Tensorflow2`` implementation of the ResNet50 module. The library enables the user to create deep neural network based on ResNet50.
-It might be used both for colored ('rgb') images and for black-white image ('grayscale') by the parameter ```--image_color```.
-The library also enables the user to load the images directly from the local directory. By default, the library needs the recive single path (``--data``) for a local directory.
-When doing this, the library splits the content of the directory to train set and validation/test set according to the parameter ```--test_size``` which by default equals 0.2.
-If the user is also interested in supplying test set, it can be given to the parameter ```--data_test```. If the user supplied it, the library performs: training, validation and testing.
+The library is a wrapper for the Tensorflow2 implementation of the VGG16 module.  
+The library enables the user to create deep neural network based on VGG16.  
+It might be used both for colored ('rgb') images and for black-white image ('grayscale') by the parameter --image_color.   
+The library also enables the user to load the images directly from the local directory.  
+By default, the library needs the recive single path (--data) for a local directory.  
+When doing this, the library splits the content of the directory to train set and validation/test set according to the parameter --test_size which by 
+default equals 0.2. If the user is also interested in supplying test set, it can be given to the parameter --data_test.   
+If the user supplied it, the library performs: training, validation and testing.  
+
 
 ## Parameters
 ```--data``` - (String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation.
