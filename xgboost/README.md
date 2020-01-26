@@ -41,35 +41,35 @@ rightmost one are considered as features columns (x), and the rightmost one is t
 
 ```--booster``` - str (default = 'gbtree'). Specify which booster to use: 'gbtree', 'gblinear' or 'dart'.
 
-```--tree_method``` - str () – Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. It’s recommended to study this option from parameters document.
+```--tree_method``` - str (default = 'auto'). Specify which tree method to use. Default to auto. If this parameter is set to default, XGBoost will choose the most conservative option available. Go to the xgboost documentation at the link below for more information.
 
-```--n_jobs``` - (int) – Number of parallel threads used to run xgboost.
+```--n_jobs``` - int (default = '1'). Number of parallel threads used to run xgboost.
 
-```--gamma``` - (float) – Minimum loss reduction required to make a further partition on a leaf node of the tree.
+```--gamma``` - float (default = '0'). Minimum loss reduction required to make a further partition on a leaf node of the tree.
 
-```--min_child_weight``` - (int) – Minimum sum of instance weight(hessian) needed in a child.
+```--min_child_weight``` - int (default = '1'). Minimum sum of instance weight(hessian) needed in a child.
 
-```--max_delta_step``` - (int) – Maximum delta step we allow each tree’s weight estimation to be.
+```--max_delta_step``` - int (default = '0'). Maximum delta step to allow each tree’s weight estimation to be.
 
-```--subsample``` - (float) – Subsample ratio of the training instance.
+```--subsample``` - float (default = '1'). Subsample ratio of the training instance.
 
-```--colsample_bytree``` - (float) – Subsample ratio of columns when constructing each tree.
+```--colsample_bytree``` - float (default = '1'). Subsample ratio of columns when constructing each tree.
 
-```--colsample_bylevel``` - (float) – Subsample ratio of columns for each level.
+```--colsample_bylevel``` - float (default = '1'). Subsample ratio of columns for each level.
 
-```--colsample_bynode``` - (float) – Subsample ratio of columns for each split.
+```--colsample_bynode``` - float (default = '1'). Subsample ratio of columns for each split.
 
-```--reg_alpha``` - (float (xgb's alpha)) – L1 regularization term on weights.
+```--reg_alpha``` - float (default = '0'). xgb's alpha. L1 regularization term on weights.
 
-```--reg_lambda``` - (float (xgb's lambda)) – L2 regularization term on weights.
+```--reg_lambda``` - float (default = '1'). xgb's lambda. L2 regularization term on weights.
 
-```--scale_pos_weight``` - (float) – Balancing of positive and negative weights.
+```--scale_pos_weight``` - float (default = '1'). Balancing of positive and negative weights.
 
-```--base_score``` - The initial prediction score of all instances, global bias.
+```--base_score``` - float (default = '0.5'). The initial prediction score of all instances, global bias.
 
-```--random_state``` - (int) – Random number seed.
+```--random_state``` - int (default = '0'). Random number seed.
 
-```--missing``` - (float, optional) – Value in the data which needs to be present as a missing value. If None, defaults to np.nan.
+```--missing``` - float, optional (default = None). Value in the data which needs to be present as a missing value. If None, defaults to np.nan.
 
 ## Link
 https://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn

@@ -1,11 +1,10 @@
-This library is made for making pre-processing for csv files.  
-The library enables you to deals with empty values, scale or normalize features and do one-hot encoding within a click.  
+This library is made for pre-processing csv files.  
 
 ## Notes for this library
-Command to run:  
-```python3 prep_lib.py --path=PATH --target=TARGET --missing=MISSING --scale=SCALE --normalize=NORMALIZE --one_hot=ONE_HOT --output=OUTPUT```
+The library enables you to deals with empty values, scale or normalize features and do one-hot encoding.
 
 ## Parameters
+
 1) ```--csv``` - (string) path to csv file (required parameter).
 
 2) ```--target_column_name``` - (string) The name of the target column. By default it takes the rightmost column in the given csv.
