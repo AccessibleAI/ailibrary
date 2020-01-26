@@ -9,7 +9,7 @@ Created by: Omer Liberman
 Last update: Jan 26th, 2020
 Updated by: Omer Liberman
 
-vgg16.py
+resnet50.py
 ==============================================================================
 """
 import argparse
