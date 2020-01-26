@@ -5,29 +5,29 @@ The library enables you to deals with empty values, scale or normalize features 
 
 ## Parameters
 
-1) ```--csv``` - (string) path to csv file (required parameter).
+```--csv``` - string, required. The path to the csv file.
 
-2) ```--target_column_name``` - (string) The name of the target column. By default it takes the rightmost column in the given csv.
+```--target_column_name``` - string (default = None). The name of the target column. By default it takes the rightmost column in the given csv.
 
-3) ```--columns_with_missing_values``` - (dict) Dictionary describes what to do with empty, nan or NaN values in specific column.  
-The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}** (the column name and the operation must be considered as strings even if they are numbers, dont worry - it is re-converted).\
+```--columns_with_missing_values``` - dict (default = None). A dictionary that describes what to do with empty or NaN values in specific column.  
+The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}**. The column name and the operation must be considered as strings even if they are numbers.
 The available operations are:
 - **fill_X** - where X is an integer or float number which the user wants to set the empty values to.
-- **drop** - drops the **rows** which has empty values in the specific column.
+- **drop** - drops the **rows** which have empty values in the specific column.
 - **avg** - sets the empty values in the column to the average of the column (the other values must be integers or floats).
 - **med** - sets the empty values in the column to the median of the column (the other values must be integers or floats).
 - **randint_A_B** - sets the empty values in the column to a random integer between A and B.
 
-4) ```--columns_to_scale``` - (dict) Dictionary describes a range which the user wants to scale the values of the column to.  
-The structure of the dictionary is **{COLUMN_NAME: RANGE}**, where **RANGE** looks like: **A:B** (A,B are integers or floats).
+```--columns_to_scale``` - dict (default = None). A dictionary that describes a range which the user wants to scale the values of the column to.  
+The structure of the dictionary is **{COLUMN_NAME: RANGE}**, where **RANGE** is in the format: **A:B** (A,B are integers or floats).
 
-5) ```--columns_to_normalize``` - (list) list of columns names the user wants to scale to [0, 1] range.
+```--columns_to_normalize``` - list (default = None). A list of column names the user wants to scale to the range [0, 1].
 
-6) ```--columns_to_dummy``` - (list) list of columns names the user wants to perform one hot encoding on.
+```--columns_to_dummy``` - list (default = None). A list of column names the user wants to perform one-hot encoding on.
 
-7) ```--output_file_path``` - (string) path for the output the csv file. By default it takes the given file path and add `_processed` to the name of it.
+```--output_file_path``` - str (default = None). The path for the output the csv file. By default it takes the given file path and adds `_processed` to the file name.
 
-8) ```--visualize``` - (bool) indicates whether to plot visualization or not. Default value: False.
+```--visualize``` - bool (default = False). Indicates whether to plot visualizations or not.
 
 ## Examples
 1) Tips Data Set
