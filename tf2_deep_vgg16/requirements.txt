@@ -1,0 +1,4 @@
+json5>=0.8.5
+numpy>=1.18.0
+tensorflow>=2.0.0
+cnvrg>=0.1.7.6

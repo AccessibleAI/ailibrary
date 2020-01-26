@@ -43,6 +43,10 @@ Example:
 Example:  
 
 
+### Deep Learning Metrics
+**SOON**
+
+
 ### Clustering Metrics
 **SOON**  
 Example: 

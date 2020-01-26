@@ -17,7 +17,7 @@ import argparse
 from _src.training import train_and_test
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""ResNet50 Model""")
+	parser = argparse.ArgumentParser(description="""VGG16 Model""")
 
 	parser.add_argument('--data', action='store', dest='data', required=True,
 						help="""(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation.""")
@@ -84,4 +84,4 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train_and_test(args, model_name='resnet50')
+	train_and_test(args, model_name='vgg16')
