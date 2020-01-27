@@ -13,7 +13,10 @@ inceptionv3.py
 ==============================================================================
 """
 import argparse
+import tensorflow as tf
 
+from _src.TensorflowTrainer import TensorflowTrainer
+from _src.types import _cast
 from _src.training import train_and_test
 
 if __name__ == '__main__':
@@ -84,4 +87,9 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train_and_test(args, model_name='InceptionV3')
+	args = _cast(args)
+	channels = 3 if args.image_color == 'rgb' else 1
+	base_model = tf.keras.applications.InceptionV3(weights='imagenet', include_top=False,
+												input_shape=(args.image_height, args.image_width, channels))
+	trainer = TensorflowTrainer(args, 'InceptionV3', base_model)
+	trainer.run()

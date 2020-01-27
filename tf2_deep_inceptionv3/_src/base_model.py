@@ -12,8 +12,8 @@ base_model.py
 """
 import tensorflow as tf
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D
-from tensorflow.keras.losses import BinaryCrossentropy, CategoricalCrossentropy
-
+from tensorflow.keras.losses import BinaryCrossentropy, CategoricalCrossentropy, CosineSimilarity, \
+	Huber, MeanAbsoluteError, MeanSquaredError
 
 
 class ModelGenerator:
@@ -76,5 +76,15 @@ class ModelGenerator:
 	def __get_loss(loss, num_of_classes):
 		if loss == 'cross_entropy':  # default value.
 			return CategoricalCrossentropy() # if num_of_classes != 2 else BinaryCrossentropy()
-		return loss
+		elif loss == 'binary_cross_entropy"':
+			return BinaryCrossentropy()
+		elif loss == 'cosine_similarity':
+			return CosineSimilarity()
+		elif loss == 'mean_absolute_error':
+			return MeanAbsoluteError()
+		elif loss == 'mean_squared_error':
+			return MeanSquaredError()
+		elif loss == 'huber':
+			return Huber()
+		else: raise ValueError('loss type does not exist.')
 

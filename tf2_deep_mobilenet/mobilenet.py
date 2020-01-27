@@ -13,11 +13,14 @@ inceptionv3.py
 ==============================================================================
 """
 import argparse
+import tensorflow as tf
 
+from _src.types import _cast
 from _src.training import train_and_test
+from _src.TensorflowTrainer import TensorflowTrainer
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""InceptionV3 Model""")
+	parser = argparse.ArgumentParser(description="""MobileNet Model""")
 
 	parser.add_argument('--data', action='store', dest='data', required=True,
 						help="""(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation.""")
@@ -84,4 +87,9 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	train_and_test(args, model_name='MobileNet')
+	args = _cast(args)
+	channels = 3 if args.image_color == 'rgb' else 1
+	base_model = tf.keras.applications.MobileNet(weights='imagenet', include_top=False,
+												input_shape=(args.image_height, args.image_width, channels))
+	trainer = TensorflowTrainer(args, 'MobileNet', base_model)
+	trainer.run()

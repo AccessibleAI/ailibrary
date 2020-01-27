@@ -1,0 +1,135 @@
+"""
+All rights reserved to cnvrg.io
+
+     http://www.cnvrg.io
+
+TensorflowTrainer.py
+==============================================================================
+"""
+import os
+import time
+import json
+import numpy as np
+import tensorflow as tf
+
+from cnvrg import Experiment
+from cnvrg.charts import Heatmap
+from sklearn.metrics import confusion_matrix
+
+from _src.types import _cast
+from _src.base_model import ModelGenerator
+from _src.generator import load_generator, parse_classes
+
+tf.compat.v1.disable_eager_execution()
+
+class TensorflowTrainer:
+	GRAYSCALE_CHANNELS, RGB_CHANNELS = 1, 3
+	VERBOSE = 1
+	WORKERS = 1
+	fully_connected_layers = [1024, 512, 256]
+
+	def __init__(self, arguments, model_name, base_model):
+		self.__arguments = _cast(arguments)
+		self.__shape = (arguments.image_height, arguments.image_width)
+		self.__classes = parse_classes(arguments.data)
+		self.__channels = TensorflowTrainer.RGB_CHANNELS if arguments.image_color == 'rgb' \
+			else TensorflowTrainer.GRAYSCALE_CHANNELS
+		self.__model = ModelGenerator(base_model=base_model,
+					   num_of_classes=len(self.__classes),
+					   fully_connected_layers=TensorflowTrainer.fully_connected_layers,
+					   loss_function=arguments.loss,
+					   dropout=arguments.dropout,
+					   activation_hidden_layers=arguments.hidden_layer_activation,
+					   activation_output_layers=arguments.output_layer_activation,
+					   optimizer=arguments.optimizer).get_model()
+		self.__experiment = Experiment()
+		self.__metrics = {'tensorflow local version': tf.__version__,
+						  'GPUs found': len(tf.config.experimental.list_physical_devices('GPU')),
+						  'Model': model_name,
+						  'Classes list': self.__classes}
+
+	def run(self):
+		self.__plot_metrics(status='pre-training')
+		self.__train()
+		self.__test()
+		self.__plot_metrics(status='post-test')
+		self.__plot_all()
+		self.__export_model()
+
+	def __plot_all(self):
+		self.__plot_confusion_matrix(self.__labels, self.__predictions)
+
+	def __train(self):
+		train_generator, val_generator = load_generator(self.__arguments.data, self.__shape,
+														self.__arguments.test_size, self.__arguments.image_color, self.__arguments.batch_size)
+		steps_per_epoch_training = train_generator.n // self.__arguments.epochs
+		steps_per_epoch_validation = val_generator.n // self.__arguments.epochs
+		start_time = time.time()
+		self.__model.fit(train_generator,
+						epochs=self.__arguments.epochs,
+						workers=TensorflowTrainer.WORKERS,
+						verbose=TensorflowTrainer.VERBOSE,
+						steps_per_epoch=steps_per_epoch_training,
+						validation_data=val_generator,
+						validation_steps=steps_per_epoch_validation)
+
+		training_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
+		self.__metrics['training_time'] = training_time
+
+	def __test(self):
+		if self.__arguments.data_test is None: return
+		test_gen = load_generator(self.__arguments.data_test, self.__shape, image_color=self.__arguments.image_color,
+								  batch_size=self.__arguments.batch_size, generate_test_set=True)
+		self.__predictions = np.argmax(self.__model.predict(test_gen), axis=1)
+		self.__labels = test_gen.classes
+
+		steps_per_epoch_testing = test_gen.n
+		test_loss, test_acc = self.__model.evaluate_generator(test_gen, workers=TensorflowTrainer.WORKERS,
+															  verbose=TensorflowTrainer.VERBOSE, steps=steps_per_epoch_testing)
+		test_acc, test_loss = round(float(test_acc), 3), round(float(test_loss), 3)
+		self.__metrics['test_acc'] = test_acc
+		self.__metrics['test_loss'] = test_loss
+
+
+	def __plot_metrics(self, status='pre'):
+		"""
+		:param training_status: (String) either 'pre' or 'post'.
+		"""
+		if status == 'pre-training':
+			for k, v in self.__metrics.items():
+				self.__experiment.log_param(k, v)
+		elif status == 'post-test':
+			for k, v in self.__metrics.items():
+				if 'test' in k: self.__experiment.log_param(k, v)
+		else: raise ValueError('Unrecognized status.')
+
+	def __export_model(self):
+		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
+			else self.__arguments.output_model
+		self.__model.save(output_file_name)
+		TensorflowTrainer.export_labels_dictionary(self.__classes)
+
+	def __plot_confusion_matrix(self, labels, predictions):
+		""" Plots the confusion matrix. """
+		confusion_mat_test = confusion_matrix(labels, predictions)  # array
+		confusion_mat_test = TensorflowTrainer.__helper_plot_confusion_matrix(confusion_mat_test, mat_x_ticks=self.__classes, mat_y_ticks=self.__classes)
+		self.__experiment.log_chart("confusion matrix", data=Heatmap(z=confusion_mat_test))
+
+	@staticmethod
+	def __helper_plot_confusion_matrix(confusion_matrix, mat_x_ticks=None, mat_y_ticks=None, digits_to_round=3):
+		"""
+		:param confusion_matrix: the values in the matrix.
+		:param mat_x_ticks, mat_y_ticks: ticks for the axis of the matrix.
+		"""
+		output = []
+		for y in range(len(confusion_matrix)):
+			for x in range(len(confusion_matrix[y])):
+				x_val = x if mat_x_ticks is None else mat_x_ticks[x]
+				y_val = y if mat_y_ticks is None else mat_y_ticks[y]
+				output.append((x_val, y_val, round(float(confusion_matrix[x][y]), digits_to_round)))
+		return output
+
+	@staticmethod
+	def export_labels_dictionary(classes):
+		with open('labels.json', 'w') as fp:
+			json.dump(classes, fp)
