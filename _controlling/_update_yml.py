@@ -12,10 +12,12 @@ PATH = 'ailibrary/'
 
 TOP_VER = '1'
 MID_VER = '1'
-LEAST_VER = '39'
+LEAST_VER = '40'
 NEW_VERSION = TOP_VER + '.' + MID_VER + '.' + LEAST_VER
 
 yml_files = []
+
+os.chdir('..')
 
 for d in os.listdir(os.getcwd()):
 	if os.path.isdir(d):
@@ -30,6 +32,7 @@ for yml_file in yml_files:
 	for i, line in enumerate(lines):
 		if line.strip().startswith('version:'):
 			lines[i] = 'version: ' + NEW_VERSION + '\n'
+	print('Updated: {}', yml_file)
 	os.remove(yml_file)
 
 	f = open(yml_file, 'w+')

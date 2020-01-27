@@ -2,7 +2,7 @@
 title: Linear Regression
 command: python3 linear_regression.py
 description: "Linear Regression AI library made for regression by cnvrg.io data science team."
-version: 1.1.39
+version: 1.1.40
 docker_images: cnvrg
 compute: small
 data_type: CSV
