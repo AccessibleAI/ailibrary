@@ -61,13 +61,14 @@ class TensorflowTrainer:
 
 	def __train(self):
 		train_generator, val_generator = load_generator(self.__arguments.data, self.__shape,
-														self.__arguments.test_size, self.__arguments.image_color, self.__arguments.batch_size)
+														self.__arguments.test_size, self.__arguments.image_color,
+														self.__arguments.batch_size)
 		steps_per_epoch_training = train_generator.n // self.__arguments.epochs
 		steps_per_epoch_validation = val_generator.n // self.__arguments.epochs
 
 		start_time = time.time()
 		print("---start training---")
-		self.__model.fit(train_generator,
+		self.__model.fit_generator(train_generator,
 						epochs=self.__arguments.epochs,
 						workers=TensorflowTrainer.WORKERS,
 						verbose=TensorflowTrainer.VERBOSE,
