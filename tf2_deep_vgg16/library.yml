@@ -2,7 +2,7 @@
 title: VGG16
 command: python3 vgg16.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.40
+version: 1.1.41
 docker_images: cnvrg
 compute: GPU
 data_type: image

@@ -12,7 +12,7 @@ PATH = 'ailibrary/'
 
 TOP_VER = '1'
 MID_VER = '1'
-LEAST_VER = '40'
+LEAST_VER = '41'
 NEW_VERSION = TOP_VER + '.' + MID_VER + '.' + LEAST_VER
 
 yml_files = []
@@ -32,7 +32,7 @@ for yml_file in yml_files:
 	for i, line in enumerate(lines):
 		if line.strip().startswith('version:'):
 			lines[i] = 'version: ' + NEW_VERSION + '\n'
-	print('Updated: {}', yml_file)
+	print('Updated: ', yml_file)
 	os.remove(yml_file)
 
 	f = open(yml_file, 'w+')

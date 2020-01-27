@@ -15,9 +15,8 @@ inceptionv3.py
 import argparse
 import tensorflow as tf
 
-from _src.TensorflowTrainer import TensorflowTrainer
 from _src.types import _cast
-from _src.training import train_and_test
+from _src.TensorflowTrainer import TensorflowTrainer
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""InceptionV3 Model""")
