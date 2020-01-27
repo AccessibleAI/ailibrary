@@ -1,9 +1,8 @@
-# VGG16
 ## General
 
 ## Note for this library
-The library is a wrapper for the Tensorflow2 implementation of the VGG16 module.  
-The library enables the user to create deep neural network based on VGG16.  
+The library is a wrapper for the Tensorflow2 implementation of the MobileNet module.  
+The library enables the user to create deep neural network based on MobileNet.  
 It might be used both for colored ('rgb') images and for black-white image ('grayscale') by the parameter --image_color.   
 The library also enables the user to load the images directly from the local directory.  
 By default, the library needs the recive single path (--data) for a local directory.  
