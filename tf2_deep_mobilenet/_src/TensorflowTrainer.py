@@ -91,16 +91,20 @@ class TensorflowTrainer:
 		self.__metrics['test_loss'] = test_loss
 
 
-	def __plot_metrics(self, status='pre'):
+	def __plot_metrics(self, status='pre-training'):
 		"""
 		:param training_status: (String) either 'pre' or 'post'.
 		"""
 		if status == 'pre-training':
+			print('Plotting pre-training metrics:')
 			for k, v in self.__metrics.items():
-				self.__experiment.log_param(k, v)
+				if k not in ['test_acc', 'test_loss']:
+					self.__experiment.log_param(k, v)
 		elif status == 'post-test':
+			print('Plotting post-test metrics:')
 			for k, v in self.__metrics.items():
-				if 'test' in k: self.__experiment.log_param(k, v)
+				if k in ['test_acc', 'test_loss']:
+					self.__experiment.log_param(k, v)
 		else: raise ValueError('Unrecognized status.')
 
 	def __export_model(self):

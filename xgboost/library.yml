@@ -2,7 +2,7 @@
 title: XGBoost
 command: python3 xgb.py
 description: "XGBoost AI library made for classification by cnvrg.io data science team."
-version: 1.1.41
+version: 1.1.42
 docker_images: cnvrg
 compute: small
 data_type: CSV
