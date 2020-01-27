@@ -64,7 +64,9 @@ class TensorflowTrainer:
 														self.__arguments.test_size, self.__arguments.image_color, self.__arguments.batch_size)
 		steps_per_epoch_training = train_generator.n // self.__arguments.epochs
 		steps_per_epoch_validation = val_generator.n // self.__arguments.epochs
+
 		start_time = time.time()
+		print("---start training---")
 		self.__model.fit(train_generator,
 						epochs=self.__arguments.epochs,
 						workers=TensorflowTrainer.WORKERS,
@@ -72,12 +74,13 @@ class TensorflowTrainer:
 						steps_per_epoch=steps_per_epoch_training,
 						validation_data=val_generator,
 						validation_steps=steps_per_epoch_validation)
-
+		print("---End training---")
 		training_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
 		self.__metrics['training_time'] = training_time
 
 	def __test(self):
-		if self.__arguments.data_test is None: return
+		if self.__arguments.data_test is None:
+			return
 		test_gen = load_generator(self.__arguments.data_test, self.__shape, image_color=self.__arguments.image_color,
 								  batch_size=self.__arguments.batch_size, generate_test_set=True)
 		self.__predictions = np.argmax(self.__model.predict(test_gen), axis=1)
