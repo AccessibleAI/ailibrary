@@ -49,15 +49,18 @@ class TensorflowTrainer:
 						  'Classes list': self.__classes}
 
 	def run(self):
-		self.__plot_metrics(status='pre-training')
+		self.__plot_all(status='pre-training')
 		self.__train()
 		self.__test()
-		self.__plot_metrics(status='post-test')
 		self.__plot_all()
 		self.__export_model()
 
-	def __plot_all(self):
-		self.__plot_confusion_matrix(self.__labels, self.__predictions)
+	def __plot_all(self, status='post-test'):
+		if status == 'pre-training':
+			self.__plot_metrics(status='pre-training')
+		elif status == 'post-test':
+			self.__plot_metrics(status='post-test')
+			self.__plot_confusion_matrix(self.__labels, self.__predictions)
 
 	def __train(self):
 		train_generator, val_generator = load_generator(self.__arguments.data, self.__shape,
@@ -68,7 +71,7 @@ class TensorflowTrainer:
 
 		start_time = time.time()
 		print("---start training---")
-		self.__model.fit_generator(train_generator,
+		self.__model.fit(train_generator,
 						epochs=self.__arguments.epochs,
 						workers=TensorflowTrainer.WORKERS,
 						verbose=TensorflowTrainer.VERBOSE,
@@ -94,7 +97,13 @@ class TensorflowTrainer:
 		self.__metrics['test_acc'] = test_acc
 		self.__metrics['test_loss'] = test_loss
 
+	def __export_model(self):
+		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
+			else self.__arguments.output_model
+		self.__model.save(output_file_name)
+		TensorflowTrainer.export_labels_dictionary(self.__classes)
 
+	""" Cnvrg metrics output """
 	def __plot_metrics(self, status='pre-training'):
 		"""
 		:param training_status: (String) either 'pre' or 'post'.
@@ -110,12 +119,6 @@ class TensorflowTrainer:
 				if k in ['test_acc', 'test_loss']:
 					self.__experiment.log_param(k, v)
 		else: raise ValueError('Unrecognized status.')
-
-	def __export_model(self):
-		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
-			else self.__arguments.output_model
-		self.__model.save(output_file_name)
-		TensorflowTrainer.export_labels_dictionary(self.__classes)
 
 	def __plot_confusion_matrix(self, labels, predictions):
 		""" Plots the confusion matrix. """
