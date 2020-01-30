@@ -16,6 +16,8 @@ The attached yaml file describes a cnvrg flow build for image classification con
 (2) Set the paths to the directories in the models tasks.  
 ![set_paths](https://github.com/AccessibleAI/ailibrary/blob/master/Recipes/_docs/readme%20images/set_data_path.png)  
 
+(2.5) Set the other params as well: images shape, color, epochs, batch_size, etc.  
+
 (3) Repeat those steps for all tasks.  
 
 (4) Push the play button.  
