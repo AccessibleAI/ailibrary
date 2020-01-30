@@ -6,6 +6,15 @@ The attached yaml file describes a cnvrg flow build for image classification con
 1) ResNet50  
 2) VGG16  
 3) InceptionV3  
-And then: 
-In order to maximize the of the following flow, the user should attach data-set task and connect it to the models tasks.
-After connecting the tasks visually, the user should set the paths to the directories in the models tasks.  
+![unlinked](https://github.com/AccessibleAI/ailibrary/blob/master/Recipes/_docs/readme%20images/unliked_tasks.png)  
+
+Steps:  
+(1) Add data-set task and connect it to the models tasks.  
+![connect](https://github.com/AccessibleAI/ailibrary/blob/master/Recipes/_docs/readme%20images/data_linked_to_tasks.png)  
+(2) Set the paths to the directories in the models tasks.  
+![set_paths](https://github.com/AccessibleAI/ailibrary/blob/master/Recipes/_docs/readme%20images/set_data_path.png)  
+(3) Repeat those steps for all tasks.  
+(4) Push the play button.  
+
+
+
