@@ -1,0 +1,184 @@
+---
+tasks:
+- input: python3 vgg16.py
+  params:
+  - key: data
+    value: []
+  - key: data_test
+    value:
+    - None
+  - key: output_model
+    value:
+    - model.h5
+  - key: val_size
+    value: 0.2
+  - key: epochs
+    value: 3
+  - key: batch_size
+    value: 256
+  - key: image_color
+    value:
+    - rgb
+  - key: loss
+    value:
+    - cross_entropy
+  - key: dropout
+    value: 0.3
+  - key: optimizer
+    value:
+    - adam
+  - key: image_width
+    value: 224
+  - key: image_height
+    value: 224
+  - key: conv_width
+    value: 3
+  - key: conv_height
+    value: 3
+  - key: pooling_width
+    value: 2
+  - key: pooling_height
+    value: 2
+  - key: hidden_layer_activation
+    value:
+    - relu
+  - key: output_layer_activation
+    value:
+    - softmax
+  computes:
+  - gpu
+  image: cnvrg_gpu
+  description:
+  type: exec
+  git_commit:
+  git_branch:
+  mount_folders: []
+  icon: tensorflow
+  library: vgg16
+  output_dir: output
+  title: VGG16
+  top: 88
+  left: 315
+  conditions: []
+- input: python3 resnet50.py
+  params:
+  - key: data
+    value: []
+  - key: data_test
+    value:
+    - None
+  - key: output_model
+    value:
+    - model.h5
+  - key: val_size
+    value: 0.2
+  - key: epochs
+    value: 3
+  - key: batch_size
+    value: 256
+  - key: image_color
+    value:
+    - rgb
+  - key: loss
+    value:
+    - cross_entropy
+  - key: dropout
+    value: 0.3
+  - key: optimizer
+    value:
+    - adam
+  - key: image_width
+    value: 224
+  - key: image_height
+    value: 224
+  - key: conv_width
+    value: 3
+  - key: conv_height
+    value: 3
+  - key: pooling_width
+    value: 2
+  - key: pooling_height
+    value: 2
+  - key: hidden_layer_activation
+    value:
+    - relu
+  - key: output_layer_activation
+    value:
+    - softmax
+  computes:
+  - gpu
+  image: cnvrg_gpu
+  description:
+  type: exec
+  git_commit:
+  git_branch:
+  mount_folders: []
+  icon: tensorflow
+  library: resnet50
+  output_dir: output
+  title: ResNet50
+  top: 176
+  left: 314
+  conditions: []
+- input: python3 inceptionv3.py
+  params:
+  - key: data
+    value: []
+  - key: data_test
+    value:
+    - None
+  - key: output_model
+    value:
+    - model.h5
+  - key: val_size
+    value: 0.2
+  - key: epochs
+    value: 3
+  - key: batch_size
+    value: 256
+  - key: image_color
+    value:
+    - rgb
+  - key: loss
+    value:
+    - cross_entropy
+  - key: dropout
+    value: 0.3
+  - key: optimizer
+    value:
+    - adam
+  - key: image_width
+    value: 224
+  - key: image_height
+    value: 224
+  - key: conv_width
+    value: 3
+  - key: conv_height
+    value: 3
+  - key: pooling_width
+    value: 2
+  - key: pooling_height
+    value: 2
+  - key: hidden_layer_activation
+    value:
+    - relu
+  - key: output_layer_activation
+    value:
+    - softmax
+  computes:
+  - gpu
+  image: cnvrg_gpu
+  description:
+  type: exec
+  git_commit:
+  git_branch:
+  mount_folders: []
+  icon: tensorflow
+  library: inceptionv3
+  output_dir: output
+  title: InceptionV3
+  top: 264
+  left: 314
+  conditions: []
+relations: []
+flow: Flow 2
