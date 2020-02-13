@@ -2,7 +2,7 @@
 title: MobileNet
 command: python3 mobilenet.py
 description: "AI library made by cnvrg.io data science team."
-version: 1.1.45
+version: 1.1.46
 docker_images: cnvrg
 compute: GPU
 data_type: image
