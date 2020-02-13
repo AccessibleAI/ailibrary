@@ -10,7 +10,7 @@ import os
 
 PATH = 'ailibrary/'
 
-versions = {
+packages = {
 	'json5': ('>=', '0.8.5'),
 	'numpy': ('>=', '1.18.0'),
 	'pandas': ('>=', '0.25.0'),
@@ -22,26 +22,32 @@ versions = {
 
 }
 
-yml_files = []
+print("=== Running: updating requirements.txt files ===")
+
+req_files = []
 
 os.chdir('..')
 
 for d in os.listdir(os.getcwd()):
 	if os.path.isdir(d):
 		for f in os.listdir(d):
-			if f.endswith('yml'):
+			if f.endswith('requirements.txt'):
 				full_path_to_f =  d + '/' + f
-				yml_files.append(full_path_to_f)
+				req_files.append(full_path_to_f)
 
-for yml_file in yml_files:
-	f = open(yml_file, 'r')
+for req_file in req_files:
+	f = open(req_file, 'r')
 	lines = f.readlines()
 	for i, line in enumerate(lines):
-		if line.strip().startswith('version:'):
-			lines[i] = 'version: ' + NEW_VERSION + '\n'
-	print('Updated: ', yml_file)
-	os.remove(yml_file)
+		for package, version in packages.items():
+			if package in line:
+				lines[i] = package + version[0] + version[1] + '\n'
+	print('Updated: ', req_file)
+	os.remove(req_file)
 
-	f = open(yml_file, 'w+')
+	f = open(req_file, 'w+')
 	f.writelines(lines)
 	f.close()
+
+
+print("=== Finished. ===")
