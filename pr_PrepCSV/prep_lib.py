@@ -34,6 +34,14 @@ if __name__ == '__main__':
 
 	parser.add_argument('--csv', '--data', action='store', required=True, dest='path',
 	                    help='''(string) path to csv file (required parameter).''')
+
+        parser.add_argument('--project_dir', action='store', dest='project_dir',
+	                    help="""--- For inner use of cnvrg.io ---""")
+
+	parser.add_argument('--output_dir', action='store', dest='output_dir',
+	                    help="""--- For inner use of cnvrg.io ---""")
+
+
 	parser.add_argument('--target_column_name', action='store', default='None', dest='target',
 	                    help='''(string) The name of the target column. By default it takes the rightmost column in the given csv.''')
 	parser.add_argument('--columns_with_missing_values', '--missing', action='store', default='None', dest='missing_values',
