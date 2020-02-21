@@ -2,7 +2,7 @@
 title: CSV Pre-processing
 command: python3 prep_lib.py
 description: "AI library made by cnvrg.io data science team in order to make pre-processing for csv files."
-version: 1.1.39
+version: 1.1.40
 docker_images: cnvrg
 compute: small
 data_type: CSV
