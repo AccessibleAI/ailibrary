@@ -2,15 +2,21 @@ Random forests or random decision forests are an ensemble learning method for cl
 that operates by constructing a multitude of decision trees at training time and outputting the class that is the mode 
 of the classes (classification) or mean prediction (regression) of the individual trees.
 
-## Note for this library
-The library enables to use the algorithm both with cross validation and without.
-By default the library doesn't perform cross validation.
-If the user wishes to perform cross validation, the user need to use the parameter: ```--x_val=NUMBER_OF_FOLDS```,
-which is ```--x_val=None``` by default.
+## Notes for this Component
+
+1) The library enables the use of the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
+the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.  
+2) The path given by ```--data``` must be a path to a csv file which is already processed and ready for training. This means that the csv must not contain: 
+   
+   - NaN values (empty cells) 
+  
+   - Strings 
+  
+   - Columns whose names start with 'Unnamed'.
 
 ## Parameters
 
-### cnvrg.io params
+### cnvrg.io parameters
 
 * ```--data``` - Required param. String. Path to .csv file (the dataset). Assumes that the files includes only integers and floats (no strings), and 
 the table built like: all the columns but the rightmost one are considered as features columns (X), and the rightmost one is the label column (y).
@@ -21,7 +27,8 @@ the table built like: all the columns but the rightmost one are considered as fe
 
 * ```--output_model``` - String. The name of the output file which is a trained random forests model. Default is random_forest_regressor.sav
 
-### algorithm params
+### Algorithm parameters
+
 ```--n_estimators``` - integer, optional (default=10). The number of trees in the forest.
 Changed in version 0.20: The default value of n_estimators will change from 10 in version 0.20 to 100 in version 0.22.
 

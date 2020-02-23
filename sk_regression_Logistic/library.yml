@@ -1,7 +1,7 @@
 ---
 title: Logistic Regression
 command: python3 logistic_regression.py
-description: "Logistic Regression AI library made for regression by cnvrg.io data science team."
+description: " - model probability using Logistic Regression. Built by cnvrg."
 version: 1.1.46
 docker_images: cnvrg
 compute: small

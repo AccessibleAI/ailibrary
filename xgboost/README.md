@@ -6,8 +6,11 @@ From the project description, it aims to provide a scalable, portable and distri
 1) The library enables the use of the algorithm both with cross validation and without. By default the library doesn't perform cross validation. If the user wishes to perform cross validation, 
 the user needs to use the parameter: ```--x_val=NUMBER_OF_FOLDS```, which is ```--x_val=None``` by default.  
 2) The path given by ```--data``` must be a path to a csv file which is already processed and ready for training. This means that the csv must not contain: 
+   
    - NaN values (empty cells) 
+  
    - Strings 
+  
    - Columns whose names start with 'Unnamed'.
 
 ## Parameters
@@ -27,7 +30,7 @@ rightmost one are considered as features columns (x), and the rightmost one is t
 
 ```--output_model``` - str, optional (default = 'xgboost_model.sav') The name of the output file which is a trained model. 
 
-### algorithm parameters
+### Algorithm parameters
 
 ```--max_depth``` - int (default = 3). The maximum tree depth for base learners.
 
