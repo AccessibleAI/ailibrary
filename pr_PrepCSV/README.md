@@ -13,7 +13,7 @@ The library enables you to deals with empty values, scale or normalize features 
 The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}**. The column name and the operation must be considered as strings even if they are numbers.
 The available operations are:
 - **fill_X** - where X is an integer or float number which the user wants to set the empty values to.
-- **drop** - drops the **rows** which have empty values in the specific column.
+- **drop** - drops the rows which have empty values in the specific column.
 - **avg** - sets the empty values in the column to the average of the column (the other values must be integers or floats).
 - **med** - sets the empty values in the column to the median of the column (the other values must be integers or floats).
 - **randint_A_B** - sets the empty values in the column to a random integer between A and B.

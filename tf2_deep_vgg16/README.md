@@ -1,15 +1,9 @@
-# VGG16
-## General
+## Note for this Component
+The library is a wrapper for the ``Tensorflow2`` implementation of the ResNet50 module. The library enables the user to create a deep neural network based on ResNet50.
 
-## Note for this library
-The library is a wrapper for the Tensorflow2 implementation of the VGG16 module.  
-The library enables the user to create deep neural network based on VGG16.  
-It might be used both for colored ('rgb') images and for black-white image ('grayscale') by the parameter --image_color.   
-The library also enables the user to load the images directly from the local directory.  
-By default, the library needs the recive single path (--data) for a local directory.  
-When doing this, the library splits the content of the directory to train set and validation/test set according to the parameter --val_size which by 
-default equals 0.2. If the user is also interested in supplying test set, it can be given to the parameter --data_test.   
-If the user supplied it, the library performs: training, validation and testing.  
+It can be used both for colored ('rgb') images and for black-white image ('grayscale') by modifying the parameter ```--image_color```.
+
+The library also enables the user to load the images directly from the local directory. By default the library needs the receive a single path (``--data``) for a local directory. The library splits the content of the directory to train set and validation/test set according to the parameter ```--test_size``` which by default equals 0.2. If you are also interested in supplying a test set, it can be given through the parameter ```--data_test```. If you supply it, the library performs training, validation and testing.
 
 
 ## Parameters
