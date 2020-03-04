@@ -8,10 +8,12 @@ CSVProcessor.py
 """
 import time
 import warnings
+import cnvrg
 import numpy as np
 import pandas as pd
 from cnvrg import Experiment
 from cnvrg.charts import MatrixHeatmap
+from sklearn.preprocessing import MinMaxScaler
 
 
 class CSVProcessor:
@@ -33,42 +35,45 @@ class CSVProcessor:
 		:param one_hot_list: list
 		:param output_name: string
 		"""
+		self.__cnvrg_env = True  ### When testing locally, it is turned False.
 		self.__data = pd.read_csv(path_to_csv, index_col=0)
 		self.__target_column = (target_column, self.__data[target_column]) if target_column is not None else (self.__data.columns[-1], self.__data[self.__data.columns[-1]])
 		self.__features = [f for f in list(self.__data.columns) if f != self.__target_column[0]]
 		self.__data = self.__data[self.__features]  #  removes the target column.
-		self.__experiment = Experiment()
+		try: self.__experiment = Experiment()
+		except cnvrg.modules.errors.UserError: self.__cnvrg_env = False
 
 		self.__normalize_list = CSVProcessor.__parse_list(normalize_list) if isinstance(normalize_list, str) else normalize_list
 		self.__one_hot_list = CSVProcessor.__parse_list(one_hot_list)  if isinstance(one_hot_list, str) else one_hot_list
-		self.__missing_dict = CSVProcessor.__parse_dict(missing_dict) if isinstance(missing_dict, str) else missing_dict
-		self.__scale_dict = CSVProcessor.__parse_dict(scale_dict) if isinstance(scale_dict, str) else scale_dict
 		self.__output_name = output_name if output_name is not None else path_to_csv.split('.csv')[0] + '_processed.csv'
 		self.__plot_vis = plot_vis
 
+		### changed to list of lists instead of dictionary:
+		self.__scale_dict = CSVProcessor.__parse_2d_list(scale_dict) if isinstance(scale_dict, str) else scale_dict
+		self.__missing_dict = CSVProcessor.__parse_2d_list(missing_dict) if isinstance(missing_dict, str) else missing_dict
 
 	def run(self):
 		self.__handle_missing()
-		self.__one_hot_encoding()
+		self.__one_hot_encoding_aka_dummy()
 		self.__scale()
 		self.__normalize()
 		self.__set_target_column()
 		self.__save()
-		self.__plot_metrics()
-		self.__plot_visualization(plot_correlation=True)
-		print('CSVProcessor: all tasks handled')
+		if self.__cnvrg_env:
+			self.__plot_metrics()  ### using cnvrg.
+			self.__plot_visualization(plot_correlation=True)  ### using cnvrg.
 		self.__check_nulls_before_output()
 
 	def __scale(self):
+		scale = lambda m, r_min, r_max, t_min, t_max: (((m - r_min) / (r_max - r_min)) * (t_max - t_min)) + t_min
+
 		if self.__scale_dict is not None:
 			scale_all = False
 			if set(self.__scale_dict.keys()) == set('all'): scale_all = True
 			columns_to_scale = self.__features if scale_all is True else self.__scale_dict.keys()
 			for col in columns_to_scale:
-				curr_min, curr_max = (self.__data[col].min(), self.__data[col].max())
-				new_min, new_max = (self.__data[col].min(), self.__data[col].max()) if scale_all else CSVProcessor.__scale_helper(self.__scale_dict[col])
-				self.__data[col] = (((new_max - new_min) * (self.__data[col] - curr_min)) / (curr_max - curr_min)) + new_min
-		print('CSVProcessor: scaling handled')
+				y, x = (self.__data[col].min(), self.__data[col].max()) if scale_all else CSVProcessor.__scale_helper(self.__scale_dict[col])
+				self.__data[col] = scale(self.__data[col], self.__data[col].min(), self.__data[col].max(), y, x)
 
 	def __normalize(self):
 		if self.__normalize_list is not None:
@@ -79,14 +84,14 @@ class CSVProcessor:
 			for col in columns_to_scale:
 				min_range, max_range = self.__data[col].min(), self.__data[col].max()
 				self.__data[col] -= min_range
-				self.__data[col] /= max_range
-		print('CSVProcessor: normalization handled')
+				self.__data[col] /= (max_range - min_range)
 
-
-	def __one_hot_encoding(self):
+	def __one_hot_encoding_aka_dummy(self):
+		"""
+		Handles dummys.
+		"""
 		if self.__one_hot_list is not None:
 			self.__data = pd.get_dummies(self.__data, columns=self.__one_hot_list)
-		print('CSVProcessor: one-hot encoding handled')
 
 	def __handle_missing(self):
 		"""
@@ -103,7 +108,7 @@ class CSVProcessor:
 			column_to_handle = self.__features if handle_all is True else self.__missing_dict.keys()
 
 			for col in column_to_handle:
-				task = task_all if task_all is not None else self.__missing_dict[col][0]
+				task = task_all if task_all is not None else self.__missing_dict[col]
 				if task.startswith('fill_'):
 					value = float(task[len('fill_'):]) if '.' in task[len('fill_'):] else int(task[len('fill_') :])
 					self.__data[col] = self.__data[col].fillna(value)
@@ -117,12 +122,10 @@ class CSVProcessor:
 					a, b = task[len('randint_'):].split('_')
 					a, b = float(a) if '.' in a else int(a), float(b) if '.' in b else int(b)
 					self.__data[col] = self.__data[col].fillna(np.random.randint(a, b))
-				else: raise Exception('MissingValuesHandlingError: Undefined task.')
-		print('CSVProcessor: missing values handled.')
+				else: raise ValueError('Missing Values Handling - Undefined task.')
 
 	def __set_target_column(self):
 		self.__data[self.__target_column[0]] = self.__target_column[1]
-		print('CSVProcessor: target columns handled.')
 
 	def __plot_metrics(self):
 		self.__experiment.log_param("output_file", self.__output_name)
@@ -135,20 +138,35 @@ class CSVProcessor:
 
 	def __save(self):
 		self.__data.to_csv(self.__output_name)
-		print('CSVProcessor: model saved.')
 
 	def __check_nulls_before_output(self):
 		# Check empty and nan values to warn the user.
 		time.sleep(8)
 		nulls_report = dict(self.__data.isnull().sum())
 		features_with_null_values = [k for k, v in nulls_report.items() if v != 0]
-		if len(features_with_null_values) != 0:
-			warnings.warn("Null values or empty cells in the data set.", UserWarning)
+		# if len(features_with_null_values) != 0:
+		# 	warnings.warn("Null values or empty cells in the data set.", UserWarning)
 		return
 
 	""" ------------------- """
 	""" ----- Helpers ----- """
 	""" ------------------- """
+
+	@staticmethod
+	def __parse_2d_list(as_string):
+		final_dict = {}
+		trimmed = as_string.replace(' ', '')
+		commans_idxs = [0] + [i for i in range(1, len(trimmed)) if trimmed[i] == ',' and trimmed[i-1] == ']' and trimmed[i+1] == '['] + [len(trimmed) - 1] ### if its 0, we have single array.
+		sub_lists = [trimmed[commans_idxs[i-1] + 1: commans_idxs[i]] for i in range(1, len(commans_idxs))] if len(commans_idxs) > 2 else [trimmed[1: -1]]
+
+		for sub_list in sub_lists:
+			parsed = CSVProcessor.__parse_list(sub_list)
+			try:
+				final_dict[parsed[0]] = (parsed[1], parsed[2])   ### for scaling.
+			except IndexError:
+				final_dict[parsed[0]] = parsed[1]   ### for filling empty values.
+
+		return final_dict
 
 	@staticmethod
 	def __parse_list(list_as_string):
