@@ -9,7 +9,7 @@ The library enables you to deals with empty values, scale or normalize features 
 
 ```--target_column_name``` - string (default = None). The name of the target column. By default it takes the rightmost column in the given csv.
 
-```--columns_with_missing_values``` - dict (default = None). A dictionary that describes what to do with empty or NaN values in specific column.  
+```--columns_with_missing_values``` - 2d list (default = None). list of sub lists which looks like: [COL_NAME,Operation], avoid spaces!!!.
 The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}**. The column name and the operation must be considered as strings even if they are numbers.
 The available operations are:
 - **fill_X** - where X is an integer or float number which the user wants to set the empty values to.
@@ -18,10 +18,9 @@ The available operations are:
 - **med** - sets the empty values in the column to the median of the column (the other values must be integers or floats).
 - **randint_A_B** - sets the empty values in the column to a random integer between A and B.
 
-```--columns_to_scale``` - dict (default = None). A dictionary that describes a range which the user wants to scale the values of the column to.  
-The structure of the dictionary is **{COLUMN_NAME: RANGE}**, where **RANGE** is in the format: **A:B** (A,B are integers or floats).
+```--columns_to_scale``` - 2d list (default = None). list of lists where each sublist looks like: [COL_NAME,lower_range,higher_range], avoid spaces!!!.
 
-```--columns_to_normalize``` - list (default = None). A list of column names the user wants to scale to the range [0, 1].
+```--columns_to_normalize``` - list (default = None). A list of column names the user wants to scale to the range [0, 1], avoid spaces!!!.
 
 ```--columns_to_dummy``` - list (default = None). A list of column names the user wants to perform one-hot encoding on.
 
