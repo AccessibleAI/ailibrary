@@ -1,7 +1,7 @@
 ---
 title: XGBoost
 command: python3 xgb.py
-version: 1.1.49
+version: 1.1.50
 description: " - Build a model using XGBoost gradient boosting. Built by cnvrg."
 docker_images: cnvrg
 compute: small
