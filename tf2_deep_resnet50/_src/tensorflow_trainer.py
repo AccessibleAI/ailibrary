@@ -8,7 +8,7 @@ TensorflowTrainer.py
 """
 import os
 import time
-import json
+import cnvrg
 import numpy as np
 import tensorflow as tf
 
@@ -16,9 +16,8 @@ from cnvrg import Experiment
 from cnvrg.charts import Heatmap
 from sklearn.metrics import confusion_matrix
 
-from _src.types import _cast
-from _src.base_model import ModelGenerator
-from _src.generator import load_generator, parse_classes
+from _src.tensor_trainer_utils import *
+from _src.model_generator import ModelGenerator
 
 tf.compat.v1.disable_eager_execution()
 
@@ -29,7 +28,8 @@ class TensorflowTrainer:
 	fully_connected_layers = [1024, 512, 256]
 
 	def __init__(self, arguments, model_name, base_model):
-		self.__arguments = _cast(arguments)
+		self.__cnvrg_env = True
+		self.__arguments = cast_input_types(arguments)
 		self.__shape = (arguments.image_height, arguments.image_width)
 		self.__classes = parse_classes(arguments.data)
 		self.__channels = TensorflowTrainer.RGB_CHANNELS if arguments.image_color == 'rgb' \
@@ -42,18 +42,20 @@ class TensorflowTrainer:
 					   activation_hidden_layers=arguments.hidden_layer_activation,
 					   activation_output_layers=arguments.output_layer_activation,
 					   optimizer=arguments.optimizer).get_model()
-		self.__experiment = Experiment()
+		try: self.__experiment = Experiment()
+		except cnvrg.modules.UserError: self.__cnvrg_env = False
 		self.__metrics = {'tensorflow local version': tf.__version__,
 						  'GPUs found': len(tf.config.experimental.list_physical_devices('GPU')),
 						  'Model': model_name,
 						  'Classes list': self.__classes}
 
 	def run(self):
-		self.__plot_all(status='pre-training')
+		if self.__cnvrg_env: self.__plot_all(status='pre-training')   ### using cnvrg.
 		self.__train()
 		self.__test()
-		self.__plot_all()
-		self.__export_model()
+		if self.__cnvrg_env:
+			self.__plot_all()    ### using cnvrg.
+			self.__export_model()    ### using cnvrg.
 
 	def __plot_all(self, status='post-test'):
 		if status == 'pre-training':
@@ -101,7 +103,7 @@ class TensorflowTrainer:
 		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
 			else self.__arguments.output_model
 		self.__model.save(output_file_name)
-		TensorflowTrainer.export_labels_dictionary(self.__classes)
+		export_labels_dictionary(self.__classes)
 
 	""" Cnvrg metrics output """
 	def __plot_metrics(self, status='pre-training'):
@@ -140,7 +142,3 @@ class TensorflowTrainer:
 				output.append((x_val, y_val, round(float(confusion_matrix[x][y]), digits_to_round)))
 		return output
 
-	@staticmethod
-	def export_labels_dictionary(classes):
-		with open('labels.json', 'w') as fp:
-			json.dump(classes, fp)
