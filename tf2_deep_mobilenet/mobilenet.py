@@ -15,8 +15,8 @@ inceptionv3.py
 import argparse
 import tensorflow as tf
 
-from _src.types import _cast
-from _src.TensorflowTrainer import TensorflowTrainer
+from _src.tensor_trainer_utils import *
+from _src.tensorflow_trainer import *
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""MobileNet Model""")
@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
 	args = parser.parse_args()
 
-	args = _cast(args)
+	args = cast_input_types(args)
 	channels = 3 if args.image_color == 'rgb' else 1
 	base_model = tf.keras.applications.MobileNet(weights='imagenet', include_top=False,
 												input_shape=(args.image_height, args.image_width, channels))

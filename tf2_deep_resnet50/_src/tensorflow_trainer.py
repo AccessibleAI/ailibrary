@@ -8,7 +8,6 @@ TensorflowTrainer.py
 """
 import os
 import time
-import json
 import cnvrg
 import numpy as np
 import tensorflow as tf
@@ -17,9 +16,8 @@ from cnvrg import Experiment
 from cnvrg.charts import Heatmap
 from sklearn.metrics import confusion_matrix
 
-from _src.types import _cast
-from _src.base_model import ModelGenerator
-from _src.generator import load_generator, parse_classes
+from _src.tensor_trainer_utils import *
+from _src.model_generator import ModelGenerator
 
 tf.compat.v1.disable_eager_execution()
 
@@ -31,7 +29,7 @@ class TensorflowTrainer:
 
 	def __init__(self, arguments, model_name, base_model):
 		self.__cnvrg_env = True
-		self.__arguments = _cast(arguments)
+		self.__arguments = cast_input_types(arguments)
 		self.__shape = (arguments.image_height, arguments.image_width)
 		self.__classes = parse_classes(arguments.data)
 		self.__channels = TensorflowTrainer.RGB_CHANNELS if arguments.image_color == 'rgb' \
@@ -105,7 +103,7 @@ class TensorflowTrainer:
 		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
 			else self.__arguments.output_model
 		self.__model.save(output_file_name)
-		TensorflowTrainer.export_labels_dictionary(self.__classes)
+		export_labels_dictionary(self.__classes)
 
 	""" Cnvrg metrics output """
 	def __plot_metrics(self, status='pre-training'):
@@ -144,7 +142,3 @@ class TensorflowTrainer:
 				output.append((x_val, y_val, round(float(confusion_matrix[x][y]), digits_to_round)))
 		return output
 
-	@staticmethod
-	def export_labels_dictionary(classes):
-		with open('labels.json', 'w') as fp:
-			json.dump(classes, fp)

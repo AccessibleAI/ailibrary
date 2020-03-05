@@ -47,7 +47,8 @@ class ModelGenerator:
 		return self.__model
 
 	@staticmethod
-	def __create_model(base_model, num_of_classes, fully_connected_layers, loss_function, dropout, activation_func_hidden_layers, activation_func_output_layer, optimizer):
+	def __create_model(base_model, num_of_classes, fully_connected_layers, loss_function, dropout,
+					   activation_func_hidden_layers, activation_func_output_layer, optimizer):
 		for layer in base_model.layers:
 			layer.trainable = False
 
