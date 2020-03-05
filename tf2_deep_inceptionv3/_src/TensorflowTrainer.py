@@ -9,6 +9,7 @@ TensorflowTrainer.py
 import os
 import time
 import json
+import cnvrg
 import numpy as np
 import tensorflow as tf
 
@@ -29,6 +30,7 @@ class TensorflowTrainer:
 	fully_connected_layers = [1024, 512, 256]
 
 	def __init__(self, arguments, model_name, base_model):
+		self.__cnvrg_env = True
 		self.__arguments = _cast(arguments)
 		self.__shape = (arguments.image_height, arguments.image_width)
 		self.__classes = parse_classes(arguments.data)
@@ -42,18 +44,20 @@ class TensorflowTrainer:
 					   activation_hidden_layers=arguments.hidden_layer_activation,
 					   activation_output_layers=arguments.output_layer_activation,
 					   optimizer=arguments.optimizer).get_model()
-		self.__experiment = Experiment()
+		try: self.__experiment = Experiment()
+		except cnvrg.modules.UserError: self.__cnvrg_env = False
 		self.__metrics = {'tensorflow local version': tf.__version__,
 						  'GPUs found': len(tf.config.experimental.list_physical_devices('GPU')),
 						  'Model': model_name,
 						  'Classes list': self.__classes}
 
 	def run(self):
-		self.__plot_all(status='pre-training')
+		if self.__cnvrg_env: self.__plot_all(status='pre-training')   ### using cnvrg.
 		self.__train()
 		self.__test()
-		self.__plot_all()
-		self.__export_model()
+		if self.__cnvrg_env:
+			self.__plot_all()    ### using cnvrg.
+			self.__export_model()    ### using cnvrg.
 
 	def __plot_all(self, status='post-test'):
 		if status == 'pre-training':
