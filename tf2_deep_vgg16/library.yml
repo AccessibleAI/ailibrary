@@ -2,7 +2,7 @@
 title: VGG16
 command: python3 vgg16.py
 description: " - create a deep neural network based on VGG16. Built by cnvrg."
-version: 1.1.54
+version: 1.1.55
 docker_images: cnvrg
 compute: GPU
 data_type: image
