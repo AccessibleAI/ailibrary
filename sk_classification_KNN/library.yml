@@ -2,7 +2,7 @@
 title:  K Nearest Neighbors
 command: python3 knn.py
 description: " - an implementation of KNN classification. Built by cnvrg."
-version: 1.1.51
+version: 1.1.56
 docker_images: cnvrg
 compute: small
 data_type: CSV
