@@ -60,7 +60,7 @@ class TensorflowTrainer:
 	def __plot_all(self, status='post-test'):
 		if status == 'pre-training':
 			self.__plot_metrics(status='pre-training')
-		elif status == 'post-test':
+		elif status == 'post-test' and self.__arguments.data_test is not None:
 			self.__plot_metrics(status='post-test')
 			self.__plot_confusion_matrix(self.__labels, self.__predictions)
 
