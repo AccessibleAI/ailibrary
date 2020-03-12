@@ -24,7 +24,7 @@ tf.compat.v1.disable_eager_execution()
 
 class TensorflowTrainer:
 	GRAYSCALE_CHANNELS, RGB_CHANNELS = 1, 3
-	VERBOSE = 1
+	VERBOSE = 0
 	WORKERS = 3
 	fully_connected_layers = [1024, 512, 256]
 
