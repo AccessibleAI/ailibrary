@@ -2,7 +2,7 @@
 title: Random Forest Regression
 command: python3 random_forest_regressor.py
 description: " - Random forest for regression. Built by cnvrg."
-version: 1.1.60
+version: 1.1.61
 docker_images: cnvrg
 compute: small
 data_type: CSV

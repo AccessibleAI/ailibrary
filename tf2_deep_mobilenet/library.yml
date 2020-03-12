@@ -2,7 +2,7 @@
 title: MobileNet
 command: python3 mobilenet.py
 description: " - create a deep neural network based on MobileNet. Built by cnvrg."
-version: 1.1.60
+version: 1.1.61
 docker_images: cnvrg
 compute: GPU
 data_type: image
