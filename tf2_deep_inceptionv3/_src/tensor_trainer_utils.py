@@ -11,6 +11,7 @@ import json
 import tensorflow as tf
 
 def cast_input_types(args):
+	args.data_test = None if args.data_test == 'None' else args.data_test
 	args.test_size = float(args.test_size)
 	args.epochs = int(args.epochs)
 	args.steps_per_epoch = int(args.steps_per_epoch)
@@ -32,7 +33,6 @@ def export_labels_dictionary_from_generator(generator):
 	classes = generator.class_indices
 	with open('labels.json', 'w') as fp:
 		json.dump(classes, fp)
-
 
 def parse_classes(top_dir):
 	subdirs = os.listdir(top_dir)
