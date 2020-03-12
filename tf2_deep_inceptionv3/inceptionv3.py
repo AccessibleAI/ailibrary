@@ -42,11 +42,14 @@ if __name__ == '__main__':
 	parser.add_argument('--val_size', action='store', default="0.2", dest='test_size',
 						help="""(float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise, it represents the size of the test set out of the data set given in --data.""")
 
-	parser.add_argument('--epochs', action='store', default="3", dest='epochs',
-						help="""(int) (Default: 1) The number of epochs the algorithm performs in the training phase.""")
+	parser.add_argument('--epochs', action='store', default="10", dest='epochs',
+						help="""(int) (Default: 10) The number of epochs the algorithm performs in the training phase.""")
 
-	parser.add_argument('--batch_size', action='store', default="256", dest='batch_size',
-						help="""(int) (Default: 256) The number of images the generator downloads in each step.""")
+	parser.add_argument('--steps_per_epoch', action='store', default='10',
+						help="""(int) (Default: 10) The number of batches done in each epoch.""")
+
+	parser.add_argument('--batch_size', action='store', default="10", dest='batch_size',
+						help="""(int) (Default: 10) The number of images the generator downloads in each step.""")
 
 	parser.add_argument('--image_color', action='store', dest='image_color', default='rgb',
 						help="""(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.""")

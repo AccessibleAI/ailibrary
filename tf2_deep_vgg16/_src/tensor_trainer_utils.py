@@ -13,6 +13,7 @@ import tensorflow as tf
 def cast_input_types(args):
 	args.test_size = float(args.test_size)
 	args.epochs = int(args.epochs)
+	args.steps_per_epoch = int(args.steps_per_epoch)
 	args.batch_size = int(args.batch_size)
 	args.image_width = int(args.image_width)
 	args.image_height = int(args.image_height)
