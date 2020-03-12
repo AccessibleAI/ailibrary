@@ -2,7 +2,7 @@
 title: Decision Trees
 command: python3 decision_trees_classifier.py
 description: " - a simple and widely used classification technique. Built by cnvrg."
-version: 1.1.56
+version: 1.1.57
 docker_images: cnvrg
 compute: small
 data_type: CSV
