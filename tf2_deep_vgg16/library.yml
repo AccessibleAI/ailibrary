@@ -2,7 +2,7 @@
 title: VGG16
 command: python3 vgg16.py
 description: " - create a deep neural network based on VGG16. Built by cnvrg."
-version: 1.1.57
+version: 1.1.58
 docker_images: cnvrg
 compute: GPU
 data_type: image
@@ -23,11 +23,14 @@ arguments:
     description: "(float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise,
     it represents the size of the test set out of the data set given in --data."
   epochs:
-    value: 3
-    description: "(int) (Default: 1) The number of epochs the algorithm performs in the training phase."
+    value: 10
+    description: "(int) (Default: 10) The number of epochs the algorithm performs in the training phase."
+  steps_per_epoch:
+    value: 10
+    description: ""
   batch_size:
-    value: 256
-    description: "(int) (Default: 256) The number of images the generator downloads in each step."
+    value: 10
+    description: "(int) (Default: 10) The number of images the generator downloads in each step."
   image_color:
     value: rgb
     description: "(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'."

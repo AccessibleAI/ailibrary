@@ -6,6 +6,7 @@ All rights reserved to cnvrg.io
 TensorflowTrainer.py
 ==============================================================================
 """
+import multiprocessing
 import os
 import time
 import cnvrg
@@ -24,7 +25,7 @@ tf.compat.v1.disable_eager_execution()
 class TensorflowTrainer:
 	GRAYSCALE_CHANNELS, RGB_CHANNELS = 1, 3
 	VERBOSE = 1
-	WORKERS = 1
+	WORKERS = 3
 	fully_connected_layers = [1024, 512, 256]
 
 	def __init__(self, arguments, model_name, base_model):
@@ -68,18 +69,20 @@ class TensorflowTrainer:
 		train_generator, val_generator = load_generator(self.__arguments.data, self.__shape,
 														self.__arguments.test_size, self.__arguments.image_color,
 														self.__arguments.batch_size)
-		steps_per_epoch_training = train_generator.n // self.__arguments.epochs
-		steps_per_epoch_validation = val_generator.n // self.__arguments.epochs
+
+		steps_per_epoch_training = self.__arguments.steps_per_epoch
+		steps_per_epoch_validation = self.__arguments.steps_per_epoch
 
 		start_time = time.time()
 		print("---start training---")
 		self.__model.fit(train_generator,
 						epochs=self.__arguments.epochs,
-						workers=TensorflowTrainer.WORKERS,
+						workers=multiprocessing.cpu_count() - 1,
 						verbose=TensorflowTrainer.VERBOSE,
 						steps_per_epoch=steps_per_epoch_training,
 						validation_data=val_generator,
-						validation_steps=steps_per_epoch_validation)
+						validation_steps=steps_per_epoch_validation,
+						use_multiprocessing=True)
 		print("---End training---")
 		training_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
 		self.__metrics['training_time'] = training_time
