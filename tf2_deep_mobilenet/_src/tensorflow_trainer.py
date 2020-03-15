@@ -56,7 +56,7 @@ class TensorflowTrainer:
 		self.__test()
 		if self.__cnvrg_env:
 			self.__plot_all()    ### using cnvrg.
-			self.__export_model()    ### using cnvrg.
+		self.__export_model()    ### using cnvrg.
 
 	def __plot_all(self, status='post-test'):
 		if status == 'pre-training':
