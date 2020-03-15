@@ -103,7 +103,7 @@ class TensorflowTrainer:
 		self.__metrics['test_loss'] = test_loss
 
 	def __export_model(self):
-		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_PROJECT_PATH") is not None \
+		output_file_name = os.environ.get("CNVRG_WORKDIR") + "/" + self.__arguments.output_model if os.environ.get("CNVRG_WORKDIR") is not None \
 			else self.__arguments.output_model
 		self.__model.save(output_file_name)
 		export_labels_dictionary_from_classes_list(self.__classes)

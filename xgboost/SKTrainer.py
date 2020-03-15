@@ -201,7 +201,7 @@ class SKTrainer:
 
 	def __save_model(self):
 		output_model_name = self.__metrics['model']
-		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") is not None else output_model_name
+		output_file_name = os.environ.get("CNVRG_WORKDIR") + "/" + output_model_name if os.environ.get("CNVRG_WORKDIR") is not None else output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
 
 	""" --- Helpers --- """

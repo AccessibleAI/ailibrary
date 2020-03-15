@@ -2,7 +2,7 @@
 title: Naive Bayes
 command: python3 naive_bayes.py
 description: " - Naive Bayes classifier for multinomial models. Built by cnvrg."
-version: 1.1.61
+version: 1.1.62
 docker_images: cnvrg
 compute: small
 data_type: CSV

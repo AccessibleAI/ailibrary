@@ -36,7 +36,7 @@ class SKTrainerRegression:
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
 		self.__metrics = {'model': output_model_name}
 		self.__y_pred = None
-		self.__experiment = Experiment.init('test_charts')  # replace with: self.__experiment = Experiment()
+		self.__experiment = Experiment()
 		self.__regression_type = SKTrainerRegression.REGRESSION_TYPE[regression_type]
 
 		self.__coef, self.__intercept = None, None
@@ -172,7 +172,7 @@ class SKTrainerRegression:
 
 	def __save_model(self):
 		output_model_name = self.__metrics['model']
-		output_file_name = os.environ.get("CNVRG_PROJECT_PATH") + "/" + output_model_name if os.environ.get("CNVRG_PROJECT_PATH") \
+		output_file_name = os.environ.get("CNVRG_WORKDIR") + "/" + output_model_name if os.environ.get("CNVRG_WORKDIR") \
 																				is not None else output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
 
