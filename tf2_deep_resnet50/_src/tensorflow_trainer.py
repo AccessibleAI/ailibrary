@@ -18,6 +18,7 @@ from cnvrg.charts import Heatmap
 from sklearn.metrics import confusion_matrix
 
 from _src.tensor_trainer_utils import *
+from _src.time_history import TimeHistory
 from _src.model_generator import ModelGenerator
 
 tf.compat.v1.disable_eager_execution()
@@ -74,6 +75,8 @@ class TensorflowTrainer:
 		steps_per_epoch_validation = self.__arguments.steps_per_epoch
 
 		start_time = time.time()
+		time_callback = TimeHistory()
+
 		print("---start training---")
 		self.__model.fit(train_generator,
 						epochs=self.__arguments.epochs,
@@ -82,10 +85,17 @@ class TensorflowTrainer:
 						steps_per_epoch=steps_per_epoch_training,
 						validation_data=val_generator,
 						validation_steps=steps_per_epoch_validation,
-						use_multiprocessing=True)
+						use_multiprocessing=True,
+						callbacks=[time_callback])
 		print("---End training---")
+
 		training_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
 		self.__metrics['training_time'] = training_time
+
+		if self.__cnvrg_env:
+			self.__experiment.log_metric(Ys=time_callback.times, Xs=[i for i in range(1, self.__arguments.epochs + 1)], key="Epochs Times",
+										 x_axis="Epoch Number", y_axis="time (seconds)")
+
 
 	def __test(self):
 		if self.__arguments.data_test is None:
