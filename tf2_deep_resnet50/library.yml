@@ -2,7 +2,7 @@
 title: ResNet50
 command: python3 resnet50.py
 description: " - create a deep neural network based on ResNet50. Built by cnvrg."
-version: 1.1.63
+version: 1.1.64
 docker_images: cnvrg
 compute: GPU
 data_type: image
@@ -29,8 +29,8 @@ arguments:
     value: 10
     description: ""
   batch_size:
-    value: 10
-    description: "(int) (Default: 10) The number of images the generator downloads in each step."
+    value: 32
+    description: "(int) (Default: 32) The number of images the generator downloads in each step."
   image_color:
     value: rgb
     description: "(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'."
