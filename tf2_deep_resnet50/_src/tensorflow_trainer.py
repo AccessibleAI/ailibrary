@@ -80,12 +80,10 @@ class TensorflowTrainer:
 		print("---start training---")
 		self.__model.fit(train_generator,
 						epochs=self.__arguments.epochs,
-						workers=multiprocessing.cpu_count() - 1,
 						verbose=TensorflowTrainer.VERBOSE,
 						steps_per_epoch=steps_per_epoch_training,
 						validation_data=val_generator,
 						validation_steps=steps_per_epoch_validation,
-						use_multiprocessing=True,
 						callbacks=[time_callback])
 		print("---End training---")
 
@@ -93,9 +91,9 @@ class TensorflowTrainer:
 		self.__metrics['training_time'] = training_time
 
 		if self.__cnvrg_env:
-			self.__experiment.log_metric(key="Epoch Times", Ys=time_callback.times, Xs=[i for i in range(1, self.__arguments.epochs + 1)],
+			self.__experiment.log_metric(key="Epoch duration", Ys=time_callback.times, Xs=[i for i in range(1, self.__arguments.epochs + 1)],
 										x_axis="Epoch", y_axis="Time (Seconds)")
-
+            
 	def __test(self):
 		if self.__arguments.data_test is None:
 			return

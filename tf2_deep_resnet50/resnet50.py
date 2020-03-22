@@ -48,8 +48,8 @@ if __name__ == '__main__':
 	parser.add_argument('--steps_per_epoch', action='store', default='10',
 						help="""(int) (Default: 10) The number of batches done in each epoch.""")
 
-	parser.add_argument('--batch_size', action='store', default="10", dest='batch_size',
-						help="""(int) (Default: 10) The number of images the generator downloads in each step.""")
+	parser.add_argument('--batch_size', action='store', default="32", dest='batch_size',
+						help="""(int) (Default: 32) The number of images the generator downloads in each step.""")
 
 	parser.add_argument('--image_color', action='store', dest='image_color', default='rgb',
 						help="""(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.""")
