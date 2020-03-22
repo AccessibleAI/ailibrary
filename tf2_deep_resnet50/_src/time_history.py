@@ -1,8 +1,6 @@
 """
 All rights reserved to cnvrg.io
-
      http://www.cnvrg.io
-
 time_history.py
 ==============================================================================
 """

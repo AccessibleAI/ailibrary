@@ -1,8 +1,6 @@
 """
 All rights reserved to cnvrg.io
-
      http://www.cnvrg.io
-
 types.py
 ==============================================================================
 """
@@ -94,22 +92,3 @@ def load_test_generator(data, image_size, image_color, batch_size, class_mode, c
 		classes=classes,
 		shuffle=True)
 	return test_gen
-
-
-class Metric:
-	def __init__(self, key, Ys, Xs, x_axis, y_axis):
-		self.key = key
-		self.Ys = Ys
-		self.Xs = [i for i in range(1, len(Ys) + 1)] if Xs == 'from_1' else Xs
-		self.x_axis = x_axis
-		self.y_axis = y_axis
-
-	def __repr__(self):
-		string_rep = \
-			"Key: {key} \n " \
-			"Ys: {Ys}\n" \
-			"Xs: {Xs}\n" \
-			"x_axis: {x_axis}\n" \
-			"y_axis: {y_axis}\n".format(key=self.key, Ys=self.Ys, Xs=self.Xs, x_axis=self.x_axis, y_axis=self.y_axis)
-		return string_rep
-
