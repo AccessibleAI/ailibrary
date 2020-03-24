@@ -18,19 +18,28 @@ arguments:
   output_model:
     value: model.h5
     description: "(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file."
-  val_size:
-    value: 0.2
-    description: "(float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise,
+  validation_split:
+    value: 0.
+    description: "(float) (Default: 0.) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data set given in --data. Otherwise,
     it represents the size of the test set out of the data set given in --data."
   epochs:
-    value: 10
+    value: 1
     description: "(int) (Default: 10) The number of epochs the algorithm performs in the training phase."
   steps_per_epoch:
-    value: 10
-    description: ""
+    value: None
+    description: "(int or None) (Default: None) If its None -> num of samples / batch_size, otherwise -> The number of batches done in each epoch."
   batch_size:
-    value: 10
-    description: "(int) (Default: 10) The number of images the generator downloads in each step."
+    value: 32
+    description: "(int) (Default: 32) The number of images the generator downloads in each step."
+  workers:
+    value: 1
+    description: "(int) (Default: 1) The number of workers which are used."
+  multi_processing:
+    value: False
+    description: "(boolean) (Default: False) Indicates whether to run multi processing."
+  verbose:
+    value: 1
+    description: "(integer) (Default: 1) can be either 1 or 0."
   image_color:
     value: rgb
     description: "(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'."
@@ -44,11 +53,11 @@ arguments:
     value: adam
     description: "(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'."
   image_width:
-    value: 224
-    description: "(int) (Default: 224) The width of the images."
+    value: 256
+    description: "(int) (Default: 256) The width of the images."
   image_height:
-    value: 224
-    description: "(int) (Default: 224) The height of the images."
+    value: 256
+    description: "(int) (Default: 256) The height of the images."
   conv_width:
     value: 3
     description: "(int) (Default: 3) The width of the convolution window."
