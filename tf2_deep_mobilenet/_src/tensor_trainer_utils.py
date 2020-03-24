@@ -15,7 +15,6 @@ def cast_input_types(args):
 	args.data_test = None if args.data_test == 'None' else args.data_test
 	args.test_size = float(args.test_size)   # validation_split
 	args.epochs = int(args.epochs)
-	args.steps_per_epoch = None if args.steps_per_epoch == 'None' else int(args.steps_per_epoch)
 	args.batch_size = int(args.batch_size)
 	args.image_width = int(args.image_width)
 	args.image_height = int(args.image_height)
@@ -27,6 +26,7 @@ def cast_input_types(args):
 	args.workers = int(args.workers)
 	args.multi_processing = False if args.multi_processing == 'False' else True
 	args.verbose = int(args.verbose)
+	args.steps_per_epoch = None if args.steps_per_epoch == 'None' else int(args.steps_per_epoch)
 	return args
 
 

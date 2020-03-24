@@ -46,7 +46,7 @@ if __name__ == '__main__':
 	parser.add_argument('--epochs', action='store', default="1", dest='epochs',
 						help="""(int) (Default: 1) The number of epochs the algorithm performs in the training phase.""")
 
-	parser.add_argument('--steps_per_epoch', action='store', default='None',
+	parser.add_argument('--steps_per_epoch', action='store', default="None",
 						help="""(int or None) (Default: None) If its None -> num of samples / batch_size, otherwise -> The number of batches done in each epoch.""")
 
 	parser.add_argument('--batch_size', action='store', default="32", dest='batch_size',

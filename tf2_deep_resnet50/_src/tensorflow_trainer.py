@@ -52,7 +52,7 @@ class TensorflowTrainer:
 
 	def __init__(self, arguments, model_name, base_model):
 		self.__cnvrg_env = True
-		self.__arguments = cast_input_types(arguments)
+		self.__arguments = arguments
 		self.__shape = (arguments.image_height, arguments.image_width)
 		self.__classes = parse_classes(arguments.data)
 		self.__channels = TensorflowTrainer.RGB_CHANNELS if arguments.image_color == 'rgb' \
@@ -67,8 +67,10 @@ class TensorflowTrainer:
 									activation_output_layers=arguments.output_layer_activation,
 									optimizer=arguments.optimizer).get_model()
 		try:
+			print("Trying to launch an experiment in cnvrg environment.")
 			self.__experiment = Experiment()
-		except cnvrg.modules.UserError:
+		except Exception:
+			print("Not in cnvrg environment.")
 			self.__cnvrg_env = False
 
 		self.__metrics = {
@@ -117,8 +119,8 @@ class TensorflowTrainer:
 			epochs=self.__arguments.epochs,
 			verbose=self.__arguments.verbose,
 			steps_per_epoch=self.__arguments.steps_per_epoch,
-			validation_data=val_generator,
-			validation_steps=self.__arguments.steps_per_epoch,
+			validation_data=val_generator if self.__arguments.test_size != 0. else None,
+			validation_steps=self.__arguments.steps_per_epoch if self.__arguments.test_size != 0. else None,
 			callbacks=[time_callback])
 
 		print("--- Ends training ---")
@@ -127,11 +129,13 @@ class TensorflowTrainer:
 		self.__metrics['training_time'] = training_time
 		self.__metrics['epochs_duration'] = Metric(key='Epochs Duration', Ys=time_callback.times, Xs='from_1', x_axis='epochs', y_axis='time (seconds)')
 		self.__metrics['avg_time_per_epoch'] = round(sum(time_callback.times) / len(time_callback.times), 3)
-		self.__metrics['time_per_step'] = Metric(
-												key='Time per Step',
-												Ys=[round(time_callback.times[i] / steps_per_epoch_training, 3) for i in range(self.__arguments.epochs)],
-												Xs='from_1', x_axis='epochs',
-												y_axis='time (ms)/step')
+
+		if self.__arguments.steps_per_epoch is not None:
+			self.__metrics['time_per_step'] = Metric(
+													key='Time per Step',
+													Ys=[round(time_callback.times[i] / self.__arguments.steps_per_epoch, 3) for i in range(self.__arguments.epochs)],
+													Xs='from_1', x_axis='epochs',
+													y_axis='time (ms)/step')
 
 	def __test(self):
 		if self.__arguments.data_test is None:
