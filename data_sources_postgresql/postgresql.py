@@ -7,9 +7,17 @@ postgresql.py
 ==============================================================================
 """
 import argparse
+from database_connection import *
+
+"""
+COMMAND FOR DEBUGGING:
+
+--sql="SELECT * FROM types;" --database="types" --host="localhost" --port="5432"
+"""
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Connect to a PostgreSQL database')
+
 	parser.add_argument('--sql', help='SQL query', default='')
 	parser.add_argument('--database', help='', default='users')
 	parser.add_argument('--host', help='', default='127.0.0.1')
@@ -17,7 +25,9 @@ if __name__ == '__main__':
 	parser.add_argument('--pg_env', help='env variable for password', default='PG_PW')
 	parser.add_argument('--password_env', help='env variable for password', default='PG_PW')
 	parser.add_argument('--username_env', help='env variable for username', default='PG_UN')
+
 	args = parser.parse_args()
+	connect_and_save(args)
 
 
 
