@@ -6,8 +6,9 @@ All rights reserved to cnvrg.io
 database_connection.py
 ==============================================================================
 """
+import json
 import os
-import pymongo
+from pymongo import *
 
 
 class MongoDBConnector:
@@ -16,14 +17,17 @@ class MongoDBConnector:
 		self.__successfully_connected = False
 		self.__host = credentials.host
 		self.__port = int(credentials.port)
-		self.__query = credentials.query
 		self.__db_name = credentials.db_name
-		self.__table_name = credentials.table_name
+		self.__collection = credentials.__collection
 		self.__cnvrg_ds = credentials.cnvrg_ds
-		self.__output_csv = '{db_name}_{table_name}.csv'.format(db_name=self.__db_name,
-																table_name=self.__table_name)
+		self.__output_json = '{db_name}_{table_name}.json'.format(db_name=self.__db_name,
+																table_name=self.__collection)
 		#self.__password = os.environ[credentials.password_env]
 		#self.__username =  os.environ[credentials.username_env]
+		try:
+			self.__query = json.loads(credentials.query)
+		except json.decoder.JSONDecodeError:
+			raise ValueError("Bad format of query. Should be: """"{ "key" : "value" }""""")
 
 	def run(self):
 		self.__connect()
@@ -35,11 +39,7 @@ class MongoDBConnector:
 	def __connect(self):
 		try:
 			print('Trying to connect to database')
-			conn = psycopg2.connect("host={host} port={port} dbname={db_name}".format(
-																					host=self.__host,
-																					port=self.__port,
-																					db_name=self.__db_name))
-			self.__connection = conn
+			self.__mongo_client = MongoClient(host=self.__host, port=self.__port)
 			self.__successfully_connected = True
 			print("Connection has been done successfully!")
 		except:
@@ -47,15 +47,14 @@ class MongoDBConnector:
 			print("terminating...")
 
 	def __terminate_conn(self):
-		self.__connection.close()
+		self.__mongo_client.close()
 
 	def __run_query(self):
-		# Create a cursor object
-		cur = self.__connection.cursor()
 		print('Running query: ', self.__query)
+		self.__db = self.__mongo_client.get_database(self.__db_name)
+		collection = self.__db.get_collection(self.__collection)
 
-		copy_to_csv_query = "COPY (" + self.__query + ") TO STDOUT WITH CSV DELIMITER ','"
-		with open("{}".format(self.__output_csv), "w") as file:
+		with open("{}".format(self.__output_json), "w") as file:
 			print('Saving query results to {}'.format(self.__output_csv))
 			print('cnvrg_tag_data_path: {}'.format(self.__output_csv))
 			cur.copy_expert(copy_to_csv_query, file)

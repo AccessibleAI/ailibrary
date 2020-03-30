@@ -8,7 +8,7 @@ compute: small
 icon:
 
 arguments:
-  sql_query:
+  query:
     value:
     description: '(String) SQL query to run over the data set.'
   database:

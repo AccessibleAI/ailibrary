@@ -7,30 +7,25 @@ postgresql.py
 ==============================================================================
 """
 import argparse
-from postgres_connector import *
+from mongodb_connector import *
 
-"""
-COMMAND FOR DEBUGGING:
-
---sql="SELECT * FROM types;" --database="types" --host="localhost" --port="5432" --cnvrg_dataset_url="https://app.cnvrg.io/AIintern/datasets/from_postgres"
-"""
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Connect to a PostgreSQL database')
 
-	parser.add_argument('--sql_query', action='store', dest='query', required=True,
+	parser.add_argument('--query', action='store', dest='query', required=True,
 						help='(String) SQL query to run over the data set.')
 
-	parser.add_argument('--database', action='store', dest='db_name', required=True,
+	parser.add_argument('--database', '--db', action='store', dest='db_name', required=True,
 						help='(String) the name of the PostgreSQL.')
 
-	parser.add_argument('--table_name', action='store', dest='table_name', required=True,
-						help='(String) the name of the specific table in the data set.')
+	parser.add_argument('--collection', action='store', dest='collection', required=True,
+						help='(String) the name of the specific collection in the data set.')
 
 	parser.add_argument('--host', action='store', dest='host', default='127.0.0.1',
 						help='(String) IP number.')
 
-	parser.add_argument('--port', action='store', dest='port', default='5432',
+	parser.add_argument('--port', action='store', dest='port', default='27017',
 						help='(int) the port number.')
 
 	parser.add_argument('--cnvrg_dataset_url', action='store', dest='cnvrg_ds', required=True,
@@ -46,7 +41,7 @@ if __name__ == '__main__':
 						help='(String) env variable for username')
 
 	args = parser.parse_args()
-	connector = PostgresConnector(args)
+	connector = MongoDBConnector(args)
 	connector.run()
 
 

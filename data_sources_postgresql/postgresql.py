@@ -18,10 +18,10 @@ COMMAND FOR DEBUGGING:
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Connect to a PostgreSQL database')
 
-	parser.add_argument('--sql_query', action='store', dest='query', required=True,
+	parser.add_argument('--query', action='store', dest='query', required=True,
 						help='(String) SQL query to run over the data set.')
 
-	parser.add_argument('--database', action='store', dest='db_name', required=True,
+	parser.add_argument('--database', '--db', action='store', dest='db_name', required=True,
 						help='(String) the name of the PostgreSQL.')
 
 	parser.add_argument('--table_name', action='store', dest='table_name', required=True,
