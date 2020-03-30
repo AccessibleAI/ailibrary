@@ -1,0 +1,32 @@
+---
+title:  PostgreSQL
+command: python3 postgresql.py
+description: " - a connector to PostgreSQL database."
+version: 1.1.63
+docker_images: cnvrg
+compute: small
+icon:
+
+arguments:
+  sql_query:
+    value:
+    description: '(String) SQL query to run over the data set.'
+  database:
+    value:
+    description: '(String) the name of the PostgreSQL.'
+  table_name:
+    value:
+    description: '(String) url of the data set at cnvrg platform.'
+  cnvrg_dataset_url:
+    value:
+    description: '(String) url of the data set at cnvrg platform.'
+  pg_env:
+    value: 'PG_PW'
+    description: '(String) env variable for password'
+  password_env:
+    value: 'PG_PW'
+    description: '(String) env variable for password'
+  username_env:
+    value: 'PG_UN'
+    description: '(String) env variable for username'
+
