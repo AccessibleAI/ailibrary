@@ -8,6 +8,8 @@ database_connection.py
 """
 import json
 import os
+import shutil
+
 from pymongo import *
 
 
@@ -18,16 +20,13 @@ class MongoDBConnector:
 		self.__host = credentials.host
 		self.__port = int(credentials.port)
 		self.__db_name = credentials.db_name
-		self.__collection = credentials.__collection
+		self.__collection_name = credentials.collection
 		self.__cnvrg_ds = credentials.cnvrg_ds
 		self.__output_json = '{db_name}_{table_name}.json'.format(db_name=self.__db_name,
-																table_name=self.__collection)
+																table_name=self.__collection_name)
+		self.__query = MongoDBConnector.preprocess_query(credentials.query)
 		#self.__password = os.environ[credentials.password_env]
 		#self.__username =  os.environ[credentials.username_env]
-		try:
-			self.__query = json.loads(credentials.query)
-		except json.decoder.JSONDecodeError:
-			raise ValueError("Bad format of query. Should be: """"{ "key" : "value" }""""")
 
 	def run(self):
 		self.__connect()
@@ -52,16 +51,44 @@ class MongoDBConnector:
 	def __run_query(self):
 		print('Running query: ', self.__query)
 		self.__db = self.__mongo_client.get_database(self.__db_name)
-		collection = self.__db.get_collection(self.__collection)
+		self.__collection = self.__db.get_collection(self.__collection_name)
+		result = self.__collection.find(self.__query)
 
-		with open("{}".format(self.__output_json), "w") as file:
-			print('Saving query results to {}'.format(self.__output_csv))
-			print('cnvrg_tag_data_path: {}'.format(self.__output_csv))
-			cur.copy_expert(copy_to_csv_query, file)
-		cur.close()
+		try:
+			os.mkdir('query_results')
+		except FileExistsError:
+			shutil.rmtree('query_results')
+			os.mkdir('query_results')
+
+		self.__jsons_created = False
+		results_counter = 0
+		for record in result:
+			record['_id'] = str(record['_id'])
+			with open('query_results/{}.json'.format(record['_id']), 'w') as jf:
+				json.dump(record, jf)
+			results_counter += 1
+			self.__jsons_created = True
+		print('{} results for the query.'.format(results_counter))
 
 	def __push_to_app(self):
-		os.system('cnvrg data put {url} {exported_file}'.format(url=self.__cnvrg_ds, exported_file=self.__output_csv))
+		if self.__jsons_created:
+			print('Saving query results to {}'.format(self.__cnvrg_ds))
+
+			os.chdir('query_results')
+			os.system('cnvrg data put {url} *.json '.format(url=self.__cnvrg_ds))
+			os.chdir('..')
+			shutil.rmtree('query_results')
+		else:
+			print("No result for query.")
 
 	def visualize(self):
 		pass
+
+	@staticmethod
+	def preprocess_query(query):
+		colon = query[1: -1].find(':')
+		left_paren = query.find('{')
+		right_paren = query.find('}')
+		key = query[left_paren + 1 : colon + 1]
+		value = query[colon + 2: right_paren]
+		return { key : value }
