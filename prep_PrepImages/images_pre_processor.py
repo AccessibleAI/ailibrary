@@ -10,7 +10,7 @@ import os
 
 import cv2
 import numpy as np
-
+from pathlib import Path
 from imageio import imsave
 from skimage.util import random_noise
 from utils import types_casting, get_generator
@@ -79,14 +79,22 @@ class ImagesPreProcessor:
 		self.__operate_on_all_images(self.__do_blurring)
 
 	def __zip(self):
-		print('Zipping (if required) ...')
-		self.__zip_images()
+		if self.__zip_arg:
+			print('Zipping ...')
+			os.chdir(self.__path)
+			dir_name = Path(self.__path).parts[-1]
+			zip_name = self.__path + '/' + dir_name + '.zip'
+			os.system('zip -r {zip_name} *'.format(zip_name=zip_name, dir_name=dir_name))
+			self.__zip_created = zip_name
+		else:
+			self.__zip_created = None
 
 	def __push_to_cnvrg_dataset(self):
 		if self.__cnvrg_ds is not None:
 			print('Pushing dataset to cnvrg url: {}'.format(self.__cnvrg_ds))
 			os.chdir(self.__path)
-			os.system('cnvrg data put {url} .'.format(url=self.__cnvrg_ds))
+			to_push = '.' if self.__zip_created is None else self.__zip_created
+			os.system('cnvrg data put {url} {to_push}'.format(url=self.__cnvrg_ds, to_push=to_push))
 
 	###############################################################
 
@@ -146,6 +154,3 @@ class ImagesPreProcessor:
 		# kernel_size = (self.__gaussian_blur_kernel_size, self.__gaussian_blur_kernel_size)
 		# image = cv2.medianBlur(image, self.__gaussian_blur_kernel_size)
 		return image
-
-	def __zip_images(self):
-		pass
