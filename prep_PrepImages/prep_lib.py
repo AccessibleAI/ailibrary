@@ -41,14 +41,12 @@ if __name__ == '__main__':
 	                    help='''(String) (Default: None) Represents types of noises can be added to images. 
 	                    Options are:''')
 
-	parser.add_argument('--denoise', '--d', action='store', dest='denoise', default='False',
-	                    help='''(bool) (Default: False) if the value is True, it runs de-noising algorithm over all images.''')
-
-	parser.add_argument('--segmentation', '--s', action='store', dest='segmentation', default='False',
-	                    help='''(bool) (Default: False) if the value is True, it runs segmentation algorithm over all images.''')
-
 	parser.add_argument('--blur', '--b', action='store', dest='blur', default='0',
 	                    help='''(int) (Default: 0) Size of the squared kernel for gaussian blur.''')
+
+	parser.add_argument('--convolve', action='store', dest='convolve', default='None',
+	                    help='''(List) (Default: None) long list of lists of numbers which represents 2d squared array for the 
+	                    convolution to apply.''')
 
 	parser.add_argument('--zip', '--z', action='store', dest='zip_all', default='False',
 	                    help='''(bool) (Default: False) if the value is True, it zips all the images to a zip named by the given directory name.''')

@@ -1,0 +1,4 @@
+matplotlib
+imageio
+scikit-image
+numpy

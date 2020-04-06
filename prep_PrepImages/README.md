@@ -7,17 +7,18 @@ Options the library supports:
 
 2. add noise
     --add_noise
-        'gaussian', 's&p', ''
     
 3. Remove noise (De-noising)
     --denoise
-
-4. Segmentation (smoothing edges)
-    --segmentation
 
 5. blurring
     --blur
 
 6. zip (true/false)
     --zip_all
+    
+6.5 convolution
+    --convolve (list of lists)
+    
+7. pushing to cnvrg dataset
  

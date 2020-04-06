@@ -3,13 +3,11 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-CSVProcessor.py
 ==============================================================================
 """
 import os
-
-import cv2
 import numpy as np
+
 from pathlib import Path
 from imageio import imsave
 from skimage.util import random_noise
@@ -30,12 +28,10 @@ class ImagesPreProcessor:
 		self.__grayscale = args.grayscale
 		# add noise.
 		self.__noise_arg = args.noise
-		# de-noising.
-		self.__denoise_arg = args.denoise
-		# segmentation.
-		self.__segmentation_arg = args.segmentation
 		# blurring.
 		self.__gaussian_blur_kernel_size = args.blur
+		# convolution.
+		self.__convolve_arg = args.convolve
 		# zip.
 		self.__zip_arg = args.zip_all
 		# cnvrg dataset.
@@ -45,10 +41,9 @@ class ImagesPreProcessor:
 		self.__load_images()
 		self.__resize()
 		self.__noise()
-		self.__denoise()  ## doesn't work
-		self.__segmentation()  ## doesn't work
-		self.__blur()
-		self.__zip()   ## doesn't work
+		self.__blur()  # doesn't work
+		self.__convolution()
+		self.__zip()
 		self.__push_to_cnvrg_dataset()
 
 		print("All tasks are done.")
@@ -66,17 +61,13 @@ class ImagesPreProcessor:
 		print('Adding noising (if required) ...')
 		self.__operate_on_all_images(self.__add_noise_to_image)
 
-	def __denoise(self):
-		print('De-noising (if required) ...')
-		self.__operate_on_all_images(self.__de_noising)
-
-	def __segmentation(self):
-		print('Segmenting (if required) ...')
-		self.__operate_on_all_images(self.__do_segmentation)
-
 	def __blur(self):
 		print('Blurring (if required) ...')
 		self.__operate_on_all_images(self.__do_blurring)
+
+	def __convolution(self):
+		print('Convolving (if required) ...')
+		self.__operate_on_all_images(self.__convolve)
 
 	def __zip(self):
 		if self.__zip_arg:
@@ -144,13 +135,9 @@ class ImagesPreProcessor:
 				raise ValueError('Unsupported type of noise.')
 			return img
 
-	def __de_noising(self, image):
-		pass
-
-	def __do_segmentation(self, image):
-		pass
-
 	def __do_blurring(self, image):
-		# kernel_size = (self.__gaussian_blur_kernel_size, self.__gaussian_blur_kernel_size)
-		# image = cv2.medianBlur(image, self.__gaussian_blur_kernel_size)
+		## doesn't work so far
 		return image
+
+	def __convolve(self, image):
+		return np.convolve(image, self.__convolve_arg)
