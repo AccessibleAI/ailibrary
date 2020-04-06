@@ -8,6 +8,7 @@ utils.py
 """
 import os
 from PIL import Image
+import numpy as np
 
 
 def types_casting(args):
@@ -29,7 +30,7 @@ def get_generator(dir_path):
 	for path in paths:
 		full_path = dir_path + '/' + path
 		try:
-			img = Image.open(full_path)
+			img = np.asarray(Image.open(full_path)).astype(np.float64)
 			yield (full_path, img)
 		except OSError:  # catching file which is not an image.
 			pass

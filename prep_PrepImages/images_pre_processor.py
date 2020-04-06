@@ -12,11 +12,13 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from skimage.color import rgb2gray
 import numpy as np
+from imageio import imsave
+
 
 
 class ImagesPreProcessor:
 	MEAN_GAUSS = 0
-	VAR_GAUSS = 1
+	VAR_GAUSS = 25
 
 	def __init__(self, args):
 		types_casting(args)
@@ -70,18 +72,31 @@ class ImagesPreProcessor:
 	def __operate_on_all_images(self, func):
 		for (path, img) in self.__gen:
 			img = func(img)
-			if isinstance(img, Image.Image):
-				img.save(path)
+			if isinstance(img, np.ndarray):
+				imsave(path, img)
 		self.__gen = get_generator(self.__path)
 
-	def __resizing(self, img):
-		curr_w, curr_h = img.size
+	def __resizing(self, image):
+		is_rgb = (len(image.shape) == 3)
+		is_grayscale = (len(image.shape) == 1)
 
-		new_w = curr_w if self.__width is None else self.__width
-		new_h = curr_h if self.__height is None else self.__height
+		if is_rgb:
+			w, h, c = image.shape
+			new_w = w if self.__width is None else self.__width
+			new_h = h if self.__height is None else self.__height
+			resized = image.resize((new_w, new_h, c))
+			return resized
 
-		resized = img.resize((new_w, new_h))
-		return resized
+		elif is_grayscale:
+			w, h = image.shape
+			new_w = w if self.__width is None else self.__width
+			new_h = h if self.__height is None else self.__height
+			resized = image.resize((new_w, new_h))
+			return resized
+
+		else:
+			raise Exception('Unrecognized num of channels.')
+
 
 	def __add_noise(self, img):
 		if self.__noise is not None:
@@ -100,21 +115,15 @@ class ImagesPreProcessor:
 		"""
 		mean = 0, variance = 1.
 		"""
-		as_np_array = np.array(image)
-		as_np_array /= 255.
-		x, y, z = as_np_array.shape
-
+		x, y, z = image.shape
 		gauss = np.random.normal(
 			ImagesPreProcessor.MEAN_GAUSS,
 			ImagesPreProcessor.VAR_GAUSS,
 			(x, y, z))
 		gauss = gauss.reshape((x, y, z))
-		as_np_array = as_np_array + gauss
-
-		as_np_array *= 255.
-		as_np_array = np.ceil(as_np_array)
-
-		return Image(as_np_array)
+		as_np_array = image + gauss
+		as_np_array = np.ceil(as_np_array).astype(np.float64)
+		return as_np_array
 
 	@staticmethod
 	def __noise_salt_pepper(image):
