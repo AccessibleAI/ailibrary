@@ -47,11 +47,14 @@ if __name__ == '__main__':
 	parser.add_argument('--segmentation', '--s', action='store', dest='segmentation', default='False',
 	                    help='''(bool) (Default: False) if the value is True, it runs segmentation algorithm over all images.''')
 
-	parser.add_argument('--blur', '--b', action='store', dest='blur', default='False',
-	                    help='''(bool) (Default: False) if the value is True, it runs blurring algorithm over all images.''')
+	parser.add_argument('--blur', '--b', action='store', dest='blur', default='0',
+	                    help='''(int) (Default: 0) Size of the squared kernel for gaussian blur.''')
 
-	parser.add_argument('--zip_all', '--z', action='store', dest='zip_all', default='False',
+	parser.add_argument('--zip', '--z', action='store', dest='zip_all', default='False',
 	                    help='''(bool) (Default: False) if the value is True, it zips all the images to a zip named by the given directory name.''')
+
+	parser.add_argument('--cnvrg_dataset_url', action='store', dest='cnvrg_ds', default='None',
+	                    help='''(String) (Default: None) cnvrg dataset url to push to created images to.''')
 
 	args = parser.parse_args()
 	main(args)

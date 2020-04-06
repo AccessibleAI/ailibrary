@@ -20,8 +20,9 @@ def types_casting(args):
 	args.noise = None if args.noise == 'None' else args.noise
 	args.denoise = (args.denoise == 'True')
 	args.segmentation = (args.segmentation == 'True')
-	args.blur = (args.blur == 'True')
+	args.blur = int(args.blur)
 	args.zip_all = (args.zip_all == 'True')
+	args.cnvrg_ds = None if args.cnvrg_ds == 'None' else args.cnvrg_ds
 
 
 def get_generator(dir_path, grayscale=False):

@@ -6,6 +6,9 @@ All rights reserved to cnvrg.io
 CSVProcessor.py
 ==============================================================================
 """
+import os
+
+import cv2
 import numpy as np
 
 from imageio import imsave
@@ -26,32 +29,27 @@ class ImagesPreProcessor:
 		# channels.
 		self.__grayscale = args.grayscale
 		# add noise.
-		self.__noise = args.noise
+		self.__noise_arg = args.noise
 		# de-noising.
-		self.__denoise = args.denoise
+		self.__denoise_arg = args.denoise
 		# segmentation.
-		self.__segmentation = args.segmentation
+		self.__segmentation_arg = args.segmentation
 		# blurring.
-		self.__blur = args.blur
+		self.__gaussian_blur_kernel_size = args.blur
 		# zip.
-		self.__zip = args.zip_all
+		self.__zip_arg = args.zip_all
+		# cnvrg dataset.
+		self.__cnvrg_ds = args.cnvrg_ds
 
 	def run(self):
 		self.__load_images()
 		self.__resize()
 		self.__noise()
-
-		print('De-noising (if required) ...')
-		self.__operate_on_all_images(self.__de_noising)
-
-		print('Segmenting (if required) ...')
-		self.__operate_on_all_images(self.__do_segmentation)
-
-		print('Blurring (if required) ...')
-		self.__operate_on_all_images(self.__do_blurring)
-
-		print('Zipping (if required) ...')
-		self.__zip_images()
+		self.__denoise()  ## doesn't work
+		self.__segmentation()  ## doesn't work
+		self.__blur()
+		self.__zip()   ## doesn't work
+		self.__push_to_cnvrg_dataset()
 
 		print("All tasks are done.")
 
@@ -67,6 +65,30 @@ class ImagesPreProcessor:
 	def __noise(self):
 		print('Adding noising (if required) ...')
 		self.__operate_on_all_images(self.__add_noise_to_image)
+
+	def __denoise(self):
+		print('De-noising (if required) ...')
+		self.__operate_on_all_images(self.__de_noising)
+
+	def __segmentation(self):
+		print('Segmenting (if required) ...')
+		self.__operate_on_all_images(self.__do_segmentation)
+
+	def __blur(self):
+		print('Blurring (if required) ...')
+		self.__operate_on_all_images(self.__do_blurring)
+
+	def __zip(self):
+		print('Zipping (if required) ...')
+		self.__zip_images()
+
+	def __push_to_cnvrg_dataset(self):
+		if self.__cnvrg_ds is not None:
+			print('Pushing dataset to cnvrg url: {}'.format(self.__cnvrg_ds))
+			os.chdir(self.__path)
+			os.system('cnvrg data put {url} .'.format(url=self.__cnvrg_ds))
+
+	###############################################################
 
 	def __operate_on_all_images(self, func):
 		for (path, img) in self.__gen:
@@ -101,14 +123,14 @@ class ImagesPreProcessor:
 			raise ValueError('Unrecognized num of channels.')
 
 	def __add_noise_to_image(self, img):
-		if self.__noise is not None:
-			if self.__noise == 'gaussian':
+		if self.__noise_arg is not None:
+			if self.__noise_arg == 'gaussian':
 				img = random_noise(img, mode='gaussian', mean=ImagesPreProcessor.MEAN_GAUSS, var=ImagesPreProcessor.VAR_GAUSS)
-			elif self.__noise == 's&p':
+			elif self.__noise_arg == 's&p':
 				img = random_noise(img, mode='s&p')
-			elif self.__noise == 'speckle':
+			elif self.__noise_arg == 'speckle':
 				img = random_noise(img, mode='speckle')
-			elif self.__noise == 'poisson':
+			elif self.__noise_arg == 'poisson':
 				img = random_noise(img, mode='poisson')
 			else:
 				raise ValueError('Unsupported type of noise.')
@@ -121,7 +143,9 @@ class ImagesPreProcessor:
 		pass
 
 	def __do_blurring(self, image):
-		pass
+		# kernel_size = (self.__gaussian_blur_kernel_size, self.__gaussian_blur_kernel_size)
+		# image = cv2.medianBlur(image, self.__gaussian_blur_kernel_size)
+		return image
 
 	def __zip_images(self):
 		pass

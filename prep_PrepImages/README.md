@@ -7,7 +7,7 @@ Options the library supports:
 
 2. add noise
     --add_noise
-        'gaussian' (mean-0, variance-25)
+        'gaussian', 's&p', ''
     
 3. Remove noise (De-noising)
     --denoise
