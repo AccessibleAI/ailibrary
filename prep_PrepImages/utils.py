@@ -9,6 +9,8 @@ utils.py
 import os
 from PIL import Image
 import numpy as np
+from skimage.color import rgb2gray
+import matplotlib.pyplot as plt
 
 
 def types_casting(args):
@@ -22,7 +24,7 @@ def types_casting(args):
 	args.zip_all = (args.zip_all == 'True')
 
 
-def get_generator(dir_path):
+def get_generator(dir_path, grayscale=False):
 	"""
 	returns generator object of images.
 	"""
@@ -30,7 +32,10 @@ def get_generator(dir_path):
 	for path in paths:
 		full_path = dir_path + '/' + path
 		try:
-			img = np.asarray(Image.open(full_path)).astype(np.float64)
+			img_obj = plt.imread(full_path)
+			if grayscale:
+				img_obj = rgb2gray(img_obj)
+			img = np.asarray(img_obj).astype(np.float64)
 			yield (full_path, img)
 		except OSError:  # catching file which is not an image.
 			pass

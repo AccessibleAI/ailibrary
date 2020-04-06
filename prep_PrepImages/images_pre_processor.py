@@ -6,19 +6,16 @@ All rights reserved to cnvrg.io
 CSVProcessor.py
 ==============================================================================
 """
-import cnvrg
-from utils import types_casting, get_generator
-import matplotlib.pyplot as plt
-from PIL import Image
-from skimage.color import rgb2gray
 import numpy as np
-from imageio import imsave
 
+from imageio import imsave
+from skimage.util import random_noise
+from utils import types_casting, get_generator
 
 
 class ImagesPreProcessor:
 	MEAN_GAUSS = 0
-	VAR_GAUSS = 25
+	VAR_GAUSS = 1
 
 	def __init__(self, args):
 		types_casting(args)
@@ -40,17 +37,9 @@ class ImagesPreProcessor:
 		self.__zip = args.zip_all
 
 	def run(self):
-		print("Loading images ...")
 		self.__load_images()
-
-		print("Resizing (if required) ...")
-		self.__operate_on_all_images(self.__resizing)
-
-		print('Changing to grayscale (if required) ...')
-		self.__operate_on_all_images(self.__convert_grayscale)
-
-		print('Adding noising (if required) ...')
-		self.__operate_on_all_images(self.__add_noise)
+		self.__resize()
+		self.__noise()
 
 		print('De-noising (if required) ...')
 		self.__operate_on_all_images(self.__de_noising)
@@ -67,18 +56,29 @@ class ImagesPreProcessor:
 		print("All tasks are done.")
 
 	def __load_images(self):
-		self.__gen = get_generator(self.__path)
+		print("Loading images ...")
+		print('Changing to grayscale (if required) ...')
+		self.__gen = get_generator(self.__path, self.__grayscale)
+
+	def __resize(self):
+		print("Resizing (if required) ...")
+		self.__operate_on_all_images(self.__resize_image)
+
+	def __noise(self):
+		print('Adding noising (if required) ...')
+		self.__operate_on_all_images(self.__add_noise_to_image)
 
 	def __operate_on_all_images(self, func):
 		for (path, img) in self.__gen:
 			img = func(img)
 			if isinstance(img, np.ndarray):
 				imsave(path, img)
-		self.__gen = get_generator(self.__path)
+		self.__gen = get_generator(self.__path, self.__grayscale)
 
-	def __resizing(self, image):
+	def __resize_image(self, image):
 		is_rgb = (len(image.shape) == 3)
-		is_grayscale = (len(image.shape) == 1)
+		is_grayscale = (len(image.shape) == 2)
+		is_rgba = (len(image.shape) == 4)
 
 		if is_rgb:
 			w, h, c = image.shape
@@ -94,44 +94,25 @@ class ImagesPreProcessor:
 			resized = image.resize((new_w, new_h))
 			return resized
 
+		elif is_rgba:
+			raise ValueError("Still Doesn't work for rgba")
+
 		else:
-			raise Exception('Unrecognized num of channels.')
+			raise ValueError('Unrecognized num of channels.')
 
-
-	def __add_noise(self, img):
+	def __add_noise_to_image(self, img):
 		if self.__noise is not None:
 			if self.__noise == 'gaussian':
-				img = ImagesPreProcessor.__noise_gaussian(img)
-			elif self.__noise == 'salt&pepper':
-				img = ImagesPreProcessor.__noise_salt_pepper(img)
+				img = random_noise(img, mode='gaussian', mean=ImagesPreProcessor.MEAN_GAUSS, var=ImagesPreProcessor.VAR_GAUSS)
+			elif self.__noise == 's&p':
+				img = random_noise(img, mode='s&p')
+			elif self.__noise == 'speckle':
+				img = random_noise(img, mode='speckle')
 			elif self.__noise == 'poisson':
-				img = ImagesPreProcessor.__noise_poisson(img)
+				img = random_noise(img, mode='poisson')
 			else:
 				raise ValueError('Unsupported type of noise.')
 			return img
-
-	@staticmethod
-	def __noise_gaussian(image):
-		"""
-		mean = 0, variance = 1.
-		"""
-		x, y, z = image.shape
-		gauss = np.random.normal(
-			ImagesPreProcessor.MEAN_GAUSS,
-			ImagesPreProcessor.VAR_GAUSS,
-			(x, y, z))
-		gauss = gauss.reshape((x, y, z))
-		as_np_array = image + gauss
-		as_np_array = np.ceil(as_np_array).astype(np.float64)
-		return as_np_array
-
-	@staticmethod
-	def __noise_salt_pepper(image):
-		return image
-
-	@staticmethod
-	def __noise_poisson(image):
-		return image
 
 	def __de_noising(self, image):
 		pass
@@ -144,8 +125,3 @@ class ImagesPreProcessor:
 
 	def __zip_images(self):
 		pass
-
-	def __convert_grayscale(self, image):
-		if self.__grayscale:
-			return image.convert('L')
-
