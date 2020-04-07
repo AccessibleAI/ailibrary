@@ -13,10 +13,12 @@ from imageio import imsave
 from skimage.util import random_noise
 from utils import types_casting, get_generator
 
+MEAN_GAUSS = 0
+VAR_GAUSS = 1
+RGB_CHANNELS = 3
+GRAYSCALE_CHANNELS = 1
 
 class ImagesPreProcessor:
-	MEAN_GAUSS = 0
-	VAR_GAUSS = 1
 
 	def __init__(self, args):
 		types_casting(args)
@@ -41,8 +43,8 @@ class ImagesPreProcessor:
 		self.__load_images()
 		self.__resize()
 		self.__noise()
-		self.__blur()  # doesn't work
-		self.__convolution()
+		self.__blur()   ## doesn't work
+		self.__convolution()   ## doesn't work
 		self.__zip()
 		self.__push_to_cnvrg_dataset()
 
@@ -124,7 +126,7 @@ class ImagesPreProcessor:
 	def __add_noise_to_image(self, img):
 		if self.__noise_arg is not None:
 			if self.__noise_arg == 'gaussian':
-				img = random_noise(img, mode='gaussian', mean=ImagesPreProcessor.MEAN_GAUSS, var=ImagesPreProcessor.VAR_GAUSS)
+				img = random_noise(img, mode='gaussian', mean=MEAN_GAUSS, var=VAR_GAUSS)
 			elif self.__noise_arg == 's&p':
 				img = random_noise(img, mode='s&p')
 			elif self.__noise_arg == 'speckle':
@@ -140,4 +142,13 @@ class ImagesPreProcessor:
 		return image
 
 	def __convolve(self, image):
-		return np.convolve(image, self.__convolve_arg)
+		rgb_img = (len(image.shape) == 3)
+		grayscale_img = (len(image.shape) == 1)
+
+		# if grayscale_img: return np.convolve(image, self.__convolve_arg)
+		# elif rgb_img:
+		# 	for c in range(RGB_CHANNELS):
+		# 		image[:,:,c] = np.convolve(image[:,:,c], self.__convolve_arg)
+		# else: raise Exception("Can't perform convolution.")
+
+		return image

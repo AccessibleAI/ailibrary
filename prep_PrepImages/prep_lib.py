@@ -34,12 +34,12 @@ if __name__ == '__main__':
 	parser.add_argument('--width', '--w', action='store', dest='width', default='None',
 	                    help='''(int) (Default: None) new width for resizing.''')
 
-	parser.add_argument('--grayscale', '--g', action='store', dest='grayscale', default='None',
+	parser.add_argument('--grayscale', '--g', action='store', dest='grayscale', default='False',
 	                    help='''(bool) (Default: False) if the value is True, it turns all images to grayscale.''')
 
 	parser.add_argument('--noise', action='store', dest='noise', default='None',
 	                    help='''(String) (Default: None) Represents types of noises can be added to images. 
-	                    Options are:''')
+	                    Options are: (1) gaussian (2) s&p (3) speckle (4) poisson.''')
 
 	parser.add_argument('--blur', '--b', action='store', dest='blur', default='0',
 	                    help='''(int) (Default: 0) Size of the squared kernel for gaussian blur.''')
