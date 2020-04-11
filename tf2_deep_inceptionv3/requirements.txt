@@ -1,5 +1,5 @@
-json5>=0.8.5
+json5>=0.9.3
 numpy>=1.18.0
-cnvrg>=0.1.7.6
+cnvrg>=0.1.8.96
 scikit-learn>=0.21.3
 Pillow

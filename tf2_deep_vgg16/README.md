@@ -13,12 +13,22 @@ The library also enables the user to load the images directly from the local dir
 
 ```--output_model``` - (String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file.
 
-```--val_size``` - (float) (Default: 0.2) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data 
+```--validation_split``` - (float) (Default: 0.) The size of the validation / test set. If test set supplied, it represents the size of the validation set out of the data 
 set given in --data. Otherwise, it represents the size of the test set out of the data set given in --data.
 
-```--epochs``` - (int) (Default: 3) The number of epochs the algorithm performs in the training phase.
+```--epochs``` - (int) (Default: 1) The number of epochs the algorithm performs in the training phase.
 
 ```--batch_size``` - (int) (Default: 256) The number of images the generator downloads in each step.
+
+```--steps_per_epoch``` - (int or None) (Default: None) If its None -> num of samples / batch_size, otherwise -> The number of batches done in each epoch.
+
+```--batch_size``` - (int) (Default: 32) The number of images the generator downloads in each step.
+
+```--workers``` - (int) (Default: 1) The number of workers which are used.
+
+```--multi_processing``` - (boolean) (Default: False) Indicates whether to run multi processing.
+
+```--verbose``` - (integer) (Default: 1) can be either 1 or 0.
 
 ```--image_color``` - (String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'.
 
@@ -28,9 +38,9 @@ set given in --data. Otherwise, it represents the size of the test set out of th
 
 ```--optimizer``` - (String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'.
 
-```--image_height``` - (int) (Default: 224) The height of the images.
+```--image_height``` - (int) (Default: 256) The height of the images.
 
-```--image_width``` - (int) (Default: 224) The width of the images.
+```--image_width``` - (int) (Default: 256) The width of the images.
 
 ```--conv_width``` - (int) (Default: 3) The width of the convolution window.
 
