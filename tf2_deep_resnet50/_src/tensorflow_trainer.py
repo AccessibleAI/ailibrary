@@ -113,6 +113,10 @@ class TensorflowTrainer:
 		time_callback = TimeHistory()
 
 		print("--- Starts Training ---")
+		
+		# Keras Issue: https://github.com/keras-team/keras/issues/5475
+		from PIL import ImageFile
+		ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 		self.__model.fit(
 			train_generator,
