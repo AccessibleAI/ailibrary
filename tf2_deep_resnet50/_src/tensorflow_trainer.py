@@ -118,7 +118,7 @@ class TensorflowTrainer:
 		from PIL import ImageFile
 		ImageFile.LOAD_TRUNCATED_IMAGES = True
 		""""""
-		
+
 		self.__model.fit(
 			train_generator,
 			epochs=self.__arguments.epochs,
