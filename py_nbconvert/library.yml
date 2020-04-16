@@ -1,8 +1,8 @@
 ---
 title: Jupyter nbconvert
 command: python3 jup_nbconvert.py
-description: " -  Easily run ipynb files or convert them."
-version: 1.1.89
+description: " -  Easily execute ipynb files or convert them."
+version: 1.1.90
 docker_images: cnvrg
 compute: small
 data_type: ipynb

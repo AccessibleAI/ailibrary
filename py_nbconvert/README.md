@@ -1,76 +1,40 @@
-This library is made for pre-processing csv files.  
+This library is made to use `jupyter nbconvert` to execute or convert `ipynb` files.  
 
 ## Notes for this library
-The library enables you to deals with empty values, scale or normalize features and do one-hot encoding.
+This library supports exporting to many different formats (see below). It expects to receive the path to a `ipynb` file relative to the workdir (`/cnvrg`).
+
+For example, if you have a file at a certain path from the workdir, type out that path in the `--notebooks` field.
+
+Multiple notebooks can be converted at once by adding all the paths/notebooks space-separated in the `--notebooks` field.
 
 ## Parameters
 
-```--csv``` - string, required. The path to the csv file.
+```--notebooks``` - string, required. The path/s to the notebook/s. More than one notebook can be converted by including all their paths in the field separated by spaces.
 
-```--target_column_name``` - string (default = None). The name of the target column. By default it takes the rightmost column in the given csv.
+```--to``` - string (default = "notebook"). The type of format to convert the notebook into.
+    The available options are:
+    - notebook (Default): runs the notebook and saves output as a notebook.
+    - html: exports the notebook as an html page.
+    - latex: Latex export. This generates `NOTEBOOK_NAME.tex` file, ready for export. Images are output as .png files in a folder.
+    - pdf: Generates a PDF via latex. 
+    - slides: This generates a Reveal.js HTML slideshow.
+    - markdown: Simple markdown output. Markdown cells are unaffected, and code cells indented 4 spaces. Images are output as .png files in a folder.
+    - asciidoc: Ascii output. Images are output as .png files in a folder.
+    - rst: Basic reStructuredText output. Useful as a starting point for embedding notebooks in Sphinx docs. Images are output as .png files in a folder.
+    - script: Convert a notebook to an executable script. This is the simplest way to get a Python (or other language, depending on the kernel) script out of a notebook. If there were any magics in an Jupyter notebook, this may only be executable from a Jupyter session.
 
-```--columns_with_missing_values``` - 2d list (default = None). list of sub lists which looks like: [COL_NAME,Operation], avoid spaces!!!.
-The structure of the dictionary is **{"COLUMN_NAME": "OPERATION"}**. The column name and the operation must be considered as strings even if they are numbers.
-The available operations are:
-- **fill_X** - where X is an integer or float number which the user wants to set the empty values to.
-- **drop** - drops the rows which have empty values in the specific column.
-- **avg** - sets the empty values in the column to the average of the column (the other values must be integers or floats).
-- **med** - sets the empty values in the column to the median of the column (the other values must be integers or floats).
-- **randint_A_B** - sets the empty values in the column to a random integer between A and B.
+```--template``` - string (default = None). For some formats, you can choose a specific template to use.
+    The available options are:
+        - When using html format:
+          - full (Default): A full static HTML render of the notebook. This looks very similar to the interactive view.
+          - basic: Simplified HTML, useful for embedding in webpages, blogs, etc. This excludes HTML headers.
+        - When using latex or pdf format:
+          - article (Default): Latex article, derived from Sphinx’s howto template.
+          - basic: Latex report, providing a table of contents and chapters.
 
-```--columns_to_scale``` - 2d list (default = None). list of lists where each sublist looks like: [COL_NAME,lower_range,higher_range], avoid spaces!!!.
+```--inplace``` - boolean (default = False). Overwrites input notebook with output. Only relevant for converting to notebook.
 
-```--columns_to_normalize``` - list (default = None). A list of column names the user wants to scale to the range [0, 1], avoid spaces!!!.
+```--allow-errors``` - boolean (default = False). Continues conversion if errors encountered. 
 
-```--columns_to_dummy``` - list (default = None). A list of column names the user wants to perform one-hot encoding on.
-
-```--output_file_path``` - str (default = None). The path for the output the csv file. By default it takes the given file path and adds `_processed` to the file name.
-
-```--visualize``` - bool (default = False). Indicates whether to plot visualizations or not.
-
-## Examples
-1) Tips Data Set
-Input data set:  
-
-|     |   total_bill |   sex |   smoker |   day |   time |   size |   tip > 12% |
-|----:|-------------:|------:|---------:|------:|-------:|-------:|------------:|
-|   0 |        16.99 |     1 |        1 |     1 |      2 |      2 |           0 |
-|   1 |        10.34 |     0 |        1 |     1 |      2 |      3 |           1 |
-|   2 |        21.01 |     0 |        1 |     1 |      2 |      3 |           1 |
-|   3 |        23.68 |     0 |        1 |     1 |      2 |      2 |           1 |
-|   4 |        24.59 |     1 |        1 |     1 |      2 |      4 |           1 |
-|   5 |        25.29 |     0 |        1 |     1 |      2 |      4 |           1 |
-|   6 |         8.77 |     0 |        1 |     1 |      2 |      2 |           1 |
-
-Given the command: ```--data="~/tips.csv" --scale="{'total_bill': '100:1000'}" --one_hot=[time,day] --normalize=[size]```  
-Output data set:
-
-|     |   total_bill |   sex |   smoker |     size |   time_1 |   time_2 |   day_1.0 |   day_6.0 |   day_7.0 |   tip > 12% |
-|----:|-------------:|------:|---------:|---------:|---------:|---------:|----------:|----------:|----------:|------------:|
-|   0 |      362.421 |     1 |        1 | 0.166667 |        0 |        1 |         1 |         0 |         0 |           0 |
-|   1 |      237.055 |     0 |        1 | 0.333333 |        0 |        1 |         1 |         0 |         0 |           1 |
-|   2 |      438.207 |     0 |        1 | 0.333333 |        0 |        1 |         1 |         0 |         0 |           1 |
-|   3 |      488.542 |     0 |        1 | 0.166667 |        0 |        1 |         1 |         0 |         0 |           1 |
-|   4 |      505.698 |     1 |        1 | 0.5      |        0 |        1 |         1 |         0 |         0 |           1 |
-|   5 |      518.894 |     0 |        1 | 0.5      |        0 |        1 |         1 |         0 |         0 |           1 |
-|   6 |      207.457 |     0 |        1 | 0.166667 |        0 |        1 |         1 |         0 |         0 |           1 |
-
-2) Churn From Banks Data Set (with empty values)  
-Input data:  
-
-|   RowNumber |   CustomerId | Surname   |   CreditScore | Geography   | Gender   |   Age |   Tenure |   Balance |   NumOfProducts |   HasCrCard |   IsActiveMember |   EstimatedSalary |   Exited |
-|------------:|-------------:|:----------|--------------:|:------------|:---------|------:|---------:|----------:|----------------:|------------:|-----------------:|------------------:|---------:|
-|           1 |     15634602 | Hargrave  |           619 | France      | Female   |    42 |        2 |         0 |               1 |           1 |                1 |          101349   |        1 |
-|           2 |     15647311 | Hill      |           608 | Spain       | Female   |    41 |        1 |   **nan** |               1 |           0 |                1 |          112543   |        0 |
-|           3 |     15619304 | Onio      |           502 | France      | Female   |    42 |        8 |    159661 |               3 |           1 |                0 |         **nan**   |        1 |
-|           4 |     15701354 | **nan **  |           699 | France      | Female   |    39 |        1 |         0 |               2 |           0 |                0 |           93826.6 |        0 |
-|           5 |     15737888 | Mitchell  |           850 | Spain       | Female   |    43 |        2 |    125511 |               1 |           1 |                1 |           79084.1 |        0 |
-
-Given command: ```--data="~/creditcard_empty.csv" --missing="{'Surname':'drop', 'Balance':'fill_0', 'EstimatedSalary':'randint_0_5'}```  
-
-|   RowNumber |   CustomerId | Surname   |   CreditScore | Geography   | Gender   |   Age |   Tenure |   Balance |   NumOfProducts |   HasCrCard |   IsActiveMember |   EstimatedSalary |   Exited |
-|------------:|-------------:|:----------|--------------:|:------------|:---------|------:|---------:|----------:|----------------:|------------:|-----------------:|------------------:|---------:|
-|           1 |     15634602 | Hargrave  |           619 | France      | Female   |    42 |        2 |         0 |               1 |           1 |                1 |          101349   |        1 |
-|           2 |     15647311 | Hill      |           608 | Spain       | Female   |    41 |        1 |         0 |               1 |           0 |                1 |          112543   |        0 |
-|           3 |     15619304 | Onio      |           502 | France      | Female   |    42 |        8 |    159661 |               3 |           1 |                0 |               2   |        1 |
-|           5 |     15737888 | Mitchell  |           850 | Spain       | Female   |    43 |        2 |    125511 |               1 |           1 |                1 |           79084.1 |        0 |
+## Links
+https://nbconvert.readthedocs.io/en/latest/usage.html#
