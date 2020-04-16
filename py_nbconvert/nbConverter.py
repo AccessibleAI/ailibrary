@@ -13,14 +13,17 @@ class nbConverter:
 	def __init__(self,
 				 input,
 				 to,
+				 template,
 				 inplace,
 				 allow_errors):
 		self.__cnvrg_env = True  ### When testing locally, it is turned False.
 		try: self.__experiment = Experiment()
 		except cnvrg.modules.errors.UserError: self.__cnvrg_env = False
+		self.__experiment.log_param("template", template)
 
 
 	def run(self):
+		self.__experiment.log("Configuring nbconvert options")
 		run_string=''
 		if self.allow_errors == False:
 			if self.template == None:
@@ -42,4 +45,7 @@ class nbConverter:
 					run_string = "jupyter nbconvert --allow-errors --to notebook {}".format(self.input)
 			else:
 				run_string = "jupyter nbconvert --allow-errors --to {} -template {} {}".format(self.to, self.template, self.input)
+		log_string = "Running command: {}".format(run_string)
+		self.__experiment.log(log_string)		
 		os.system(run_string)
+		self.__experiment.log("Conversion finished")	
