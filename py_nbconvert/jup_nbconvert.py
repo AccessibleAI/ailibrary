@@ -7,14 +7,19 @@ jup_nbconvert.py
 ==============================================================================
 """
 import argparse
-
 from nbConverter import nbConverter
+
 
 def main(args):
 	args.format = 'notebook' if args.format == 'None' else args.format
 	if (args.template == 'None' and args.format == 'html'):
+<<<<<<< HEAD
 		args.template = 'full' 
 	elif (args.template == 'None' and (args.format == 'latex' or args.format == 'pdf')):
+=======
+		args.template = 'full'
+	elif args.template == 'None' and (args.format == 'latex' or args.format == 'pdf'):
+>>>>>>> 045d70866e53c196f7faa2fadc8bcf5dc3e5c113
 		args.template = 'article'
 	else:
 		args.template = None
@@ -26,11 +31,12 @@ def main(args):
 							allow_errors=args.errors)
 	converter.run()
 
+
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser("""Pre-processing CSV""")
 
 	parser.add_argument('--notebook', '--data', action='store', required=True, dest='path',
-	                    help='''(string) path to ipynb file (required parameter). Can be multiple, specified with spaces in-between.''')
+						help='''(string) path to ipynb file (required parameter). Can be multiple, specified with spaces in-between.''')
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir', help="""--- For inner use of cnvrg.io ---""")
 
@@ -56,7 +62,6 @@ if __name__ == '__main__':
 						 - When using latex or pdf format:
 						 	- article (Default): Latex article, derived from Sphinx’s howto template.
 							- basic: Latex report, providing a table of contents and chapters.""")
-
 
 	parser.add_argument('--inplace', action='store', dest='inplace', default=False, help="""Overwrites input notebook with output. Only relevant for converting to notebook. Default is False.""")
 
