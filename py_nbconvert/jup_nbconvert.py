@@ -48,7 +48,7 @@ if __name__ == '__main__':
 						- rst: Basic reStructuredText output. Useful as a starting point for embedding notebooks in Sphinx docs. Images are output as .png files in a folder.
 						- script: Convert a notebook to an executable script. This is the simplest way to get a Python (or other language, depending on the kernel) script out of a notebook. If there were any magics in an Jupyter notebook, this may only be executable from a Jupyter session.""")
 
-	parser.add_argument('--template', action='store', dest='format', default='None', help="""(string) For some formats, you can choose a specific template to use.
+	parser.add_argument('--template', action='store', dest='template', default='None', help="""(string) For some formats, you can choose a specific template to use.
 						The available options are:
 						 - When using html format:
 						 	- full (Default): A full static HTML render of the notebook. This looks very similar to the interactive view.

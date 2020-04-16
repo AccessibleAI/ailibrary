@@ -16,6 +16,7 @@ class nbConverter:
 				 template,
 				 inplace,
 				 allow_errors):
+		print("test1")
 		self.__cnvrg_env = True  ### When testing locally, it is turned False.
 		try: self.__experiment = Experiment()
 		except cnvrg.modules.errors.UserError: self.__cnvrg_env = False
