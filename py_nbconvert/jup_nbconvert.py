@@ -29,7 +29,7 @@ def main(args):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser("""Pre-processing CSV""")
 
-	parser.add_argument('--input', '--data', action='store', required=True, dest='path',
+	parser.add_argument('--notebook', '--data', action='store', required=True, dest='path',
 	                    help='''(string) path to ipynb file (required parameter). Can be multiple, specified with spaces in-between.''')
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir', help="""--- For inner use of cnvrg.io ---""")
