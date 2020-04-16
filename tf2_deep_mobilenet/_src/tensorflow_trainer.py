@@ -1,8 +1,6 @@
 """
 All rights reserved to cnvrg.io
-
      http://www.cnvrg.io
-
 TensorflowTrainer.py
 ==============================================================================
 """
@@ -113,6 +111,9 @@ class TensorflowTrainer:
 		time_callback = TimeHistory()
 
 		print("--- Starts Training ---")
+
+		from PIL import ImageFile
+		ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 		self.__model.fit(
 			train_generator,
