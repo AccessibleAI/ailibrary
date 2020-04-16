@@ -18,6 +18,14 @@ def main(args):
 		args.template = 'article'
 	else:
 		args.template = None
+	if args.errors == 'false':
+		args.errors = False
+	elif args.errors == 'true':
+		args.errors = True
+	if args.inplace == 'false':
+		args.inplace = False
+	elif args.inplace == 'true':
+		args.inplace= True
 
 	converter = NbConverter(
 		input=args.path,
