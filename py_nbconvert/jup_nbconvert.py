@@ -7,23 +7,26 @@ jup_nbconvert.py
 ==============================================================================
 """
 import argparse
-from nbConverter import nbConverter
+from nbConverter import NbConverter
 
 
 def main(args):
 	args.format = 'notebook' if args.format == 'None' else args.format
-	if (args.template == 'None' and args.format == 'html'):
+	if args.template == 'None' and args.format == 'html':
+		args.template = 'full'
+	elif args.template == 'None' and (args.format == 'latex' or args.format == 'pdf'):
 		args.template = 'full'
 	elif args.template == 'None' and (args.format == 'latex' or args.format == 'pdf'):
 		args.template = 'article'
 	else:
 		args.template = None
 
-	converter = nbConverter(input=args.path,
-							to=args.format,
-							template=args.template,
-							inplace=args.inplace,
-							allow_errors=args.errors)
+	converter = NbConverter(
+		input=args.path,
+		to=args.format,
+		template=args.template,
+		inplace=args.inplace,
+		allow_errors=args.errors)
 	converter.run()
 
 
