@@ -63,7 +63,7 @@ class NbConverter:
 		if self.__cnvrg_env:
 			self.__experiment.log(log_string)
 		try:
-			subprocess.call([run_string])
+			subprocess.call(['cd ~/cnvrg',run_string])
 		except OSError:
 			print('jupyter nbconvert was unsuccessful. Please check your file path and parameters.')
 			exit(1)
