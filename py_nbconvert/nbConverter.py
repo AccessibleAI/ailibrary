@@ -8,7 +8,7 @@ nbConverter.py
 """
 import cnvrg
 import nbconvert
-import os
+import subprocess
 from cnvrg import Experiment
 from cnvrg.modules import UserError, CnvrgError
 
@@ -38,7 +38,6 @@ class NbConverter:
 	def run(self):
 		if self.__cnvrg_env:
 			self.__experiment.log("Configuring nbconvert options")
-		print("Configuring nbconvert options")
 		run_string = ''
 		if self.allow_errors is False:
 			if self.template is None:
@@ -63,7 +62,10 @@ class NbConverter:
 		log_string = "Running command: {}".format(run_string)
 		if self.__cnvrg_env:
 			self.__experiment.log(log_string)
-		print(log_string)
-		os.system(run_string)
+		try:
+     		subprocess.call([run_string])
+ 		except OSError:
+     		print('jupyter nbconvert was unsuccessful. Please check your fule path and parameters.')
+			exit(1)
 		if self.__cnvrg_env:
 			self.__experiment.log("Conversion finished")
