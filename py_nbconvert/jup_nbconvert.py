@@ -8,7 +8,7 @@ jup_nbconvert.py
 """
 import argparse
 
-from NBProcessor import NBProcessor
+from nbConverter import nbConverter
 
 def main(args):
 	args.format = 'notebook' if args.format == 'None' else args.format
