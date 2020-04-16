@@ -15,7 +15,7 @@ import tensorflow as tf
 
 from cnvrg import Experiment
 from cnvrg.charts import Heatmap
-from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import confusion_matrix
 
 from _src.tensor_trainer_utils import *
 from _src.time_history import TimeHistory
@@ -114,10 +114,12 @@ class TensorflowTrainer:
 
 		print("--- Starts Training ---")
 		
-		# Keras Issue: https://github.com/keras-team/keras/issues/5475
 		from PIL import ImageFile
 		ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+		from _src.acc_callback import MySuperDetailedAccuracy
+		my_acc_cb = MySuperDetailedAccuracy()
+		my_acc_cb.set_experiment(self.__experiment)
 		self.__model.fit(
 			train_generator,
 			epochs=self.__arguments.epochs,
@@ -125,7 +127,7 @@ class TensorflowTrainer:
 			steps_per_epoch=self.__arguments.steps_per_epoch,
 			validation_data=val_generator if self.__arguments.test_size != 0. else None,
 			validation_steps=self.__arguments.steps_per_epoch if self.__arguments.test_size != 0. else None,
-			callbacks=[time_callback])
+			callbacks=[time_callback, my_acc_cb])
 
 		print("--- Ends training ---")
 
