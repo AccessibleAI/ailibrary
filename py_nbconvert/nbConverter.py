@@ -10,17 +10,23 @@ import cnvrg
 import nbconvert
 import os
 from cnvrg import Experiment
+from cnvrg.modules import UserError
 
 
-class nbConverter:
+class NbConverter:
 	def __init__(self,
 				 input,
 				 to,
 				 template,
 				 inplace,
 				 allow_errors):
-		print("test1")
 		self.__cnvrg_env = True  # When testing locally, it is turned False.
+		self.input = input
+		self.to = to
+		self.template = template
+		self.inplace = inplace
+		self.allow_errors = allow_errors
+
 		try:
 			self.__experiment = Experiment()
 		except cnvrg.modules.errors.UserError:

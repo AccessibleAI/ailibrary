@@ -13,13 +13,8 @@ from nbConverter import nbConverter
 def main(args):
 	args.format = 'notebook' if args.format == 'None' else args.format
 	if (args.template == 'None' and args.format == 'html'):
-<<<<<<< HEAD
-		args.template = 'full' 
-	elif (args.template == 'None' and (args.format == 'latex' or args.format == 'pdf')):
-=======
 		args.template = 'full'
 	elif args.template == 'None' and (args.format == 'latex' or args.format == 'pdf'):
->>>>>>> 045d70866e53c196f7faa2fadc8bcf5dc3e5c113
 		args.template = 'article'
 	else:
 		args.template = None
