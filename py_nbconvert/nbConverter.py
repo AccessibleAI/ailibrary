@@ -10,7 +10,7 @@ import cnvrg
 import nbconvert
 import os
 from cnvrg import Experiment
-from cnvrg.modules import UserError
+from cnvrg.modules import UserError, CnvrgError
 
 
 class NbConverter:
@@ -29,7 +29,7 @@ class NbConverter:
 
 		try:
 			self.__experiment = Experiment()
-		except cnvrg.modules.errors.UserError:
+		except:
 			self.__cnvrg_env = False
 
 		if self.__cnvrg_env:
