@@ -2,7 +2,7 @@
 title: SVM
 command: python3 svm.py
 description: " - an implementation of SVM for classification. Built by cnvrg."
-version: 1.1.63
+version: 1.1.70
 docker_images: cnvrg
 compute: small
 data_type: CSV
