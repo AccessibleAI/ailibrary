@@ -67,6 +67,6 @@ class NbConverter:
 		#except OSError:
 	#		print('jupyter nbconvert was unsuccessful. Please check your file path and parameters.')
 #			exit(1)
-		subprocess.call([run_string], cwd="~/cnvrg")
+		subprocess.run([run_string], cwd="~/cnvrg")
 		if self.__cnvrg_env:
 			self.__experiment.log("Conversion finished")
