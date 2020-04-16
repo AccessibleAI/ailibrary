@@ -1,3 +1,2 @@
 nbconvert
 cnvrg>=0.2.2
-subprocess
