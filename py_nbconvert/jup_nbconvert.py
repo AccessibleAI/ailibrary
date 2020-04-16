@@ -16,7 +16,8 @@ def main(args):
 		args.template = 'full' 
 	elif (args.template == 'None' & (args.format == 'latex' | args.format == 'pdf')):
 		args.template = 'article'
-	else args.template
+	else:
+		args.template = None
 
 	converter = nbConverter(input=args.path,
 							to=args.format,
