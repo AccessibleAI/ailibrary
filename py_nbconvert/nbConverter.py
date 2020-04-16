@@ -24,6 +24,7 @@ class nbConverter:
 
 	def run(self):
 		self.__experiment.log("Configuring nbconvert options")
+		print("Configuring nbconvert options")
 		run_string=''
 		if self.allow_errors == False:
 			if self.template == None:
@@ -46,6 +47,7 @@ class nbConverter:
 			else:
 				run_string = "jupyter nbconvert --allow-errors --to {} -template {} {}".format(self.to, self.template, self.input)
 		log_string = "Running command: {}".format(run_string)
-		self.__experiment.log(log_string)		
+		self.__experiment.log(log_string)	
+		print(log_string)	
 		os.system(run_string)
 		self.__experiment.log("Conversion finished")	
