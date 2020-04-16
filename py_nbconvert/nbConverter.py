@@ -31,7 +31,7 @@ class nbConverter:
 			if self.template == None:
 				if self.to != 'notebook':
 					run_string = "jupyter nbconvert --to {} {}".format(self.to, self.input)
-				elif (self.inplace == True & self.to == 'notebook'):
+				elif (self.inplace == True and self.to == 'notebook'):
 					run_string = "jupyter nbconvert --inplace --to {} {}".format(self.to, self.input)
 				else:
 					run_string = "jupyter nbconvert --to notebook {}".format(self.input)
@@ -41,7 +41,7 @@ class nbConverter:
 			if self.template == None:
 				if self.to != 'notebook':
 					run_string = "jupyter nbconvert --allow-errors --to {} {}".format(self.to, self.input)
-				elif (self.inplace == True & self.to == 'notebook'):
+				elif (self.inplace == True and self.to == 'notebook'):
 					run_string = "jupyter nbconvert --allow-errors --inplace --to {} {}".format(self.to, self.input)
 				else:
 					run_string = "jupyter nbconvert --allow-errors --to notebook {}".format(self.input)

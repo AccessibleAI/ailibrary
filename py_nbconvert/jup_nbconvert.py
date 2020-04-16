@@ -12,9 +12,9 @@ from nbConverter import nbConverter
 
 def main(args):
 	args.format = 'notebook' if args.format == 'None' else args.format
-	if (args.template == 'None' & args.format == 'html'):
+	if (args.template == 'None' and args.format == 'html'):
 		args.template = 'full' 
-	elif (args.template == 'None' & (args.format == 'latex' | args.format == 'pdf')):
+	elif (args.template == 'None' and (args.format == 'latex' or args.format == 'pdf')):
 		args.template = 'article'
 	else:
 		args.template = None
