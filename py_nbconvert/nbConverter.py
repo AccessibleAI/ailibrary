@@ -42,7 +42,7 @@ class NbConverter:
 		if self.allow_errors is False:
 			if self.template is None:
 				if self.to != 'notebook':
-					run_string = "jupyter nbconvert --to {} {}'".format(self.to, self.input)
+					run_string = "jupyter nbconvert --to {} {}".format(self.to, self.input)
 				elif self.inplace is True and self.to == 'notebook':
 					run_string = "jupyter nbconvert --inplace --to {} {}".format(self.to, self.input)
 				else:
