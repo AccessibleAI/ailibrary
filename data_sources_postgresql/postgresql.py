@@ -7,13 +7,7 @@ postgresql.py
 ==============================================================================
 """
 import argparse
-from postgres_connector import *
-
-"""
-COMMAND FOR DEBUGGING:
-
---sql="SELECT * FROM types;" --database="types" --host="localhost" --port="5432" --cnvrg_dataset_url="https://app.cnvrg.io/AIintern/datasets/from_postgres"
-"""
+from postgres_connector import PostgresConnector
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Connect to a PostgreSQL database')
@@ -28,26 +22,17 @@ if __name__ == '__main__':
 						help='(String) the name of the specific table in the data set.')
 
 	parser.add_argument('--host', action='store', dest='host', default='127.0.0.1',
-						help='(String) IP number.')
+						help='(String) (Default: 127.0.0.1) IP number.')
 
 	parser.add_argument('--port', action='store', dest='port', default='5432',
-						help='(int) the port number.')
+						help='(int) (Default: 5432) the port number.')
 
-	parser.add_argument('--cnvrg_dataset_url', action='store', dest='cnvrg_ds', required=True,
-						help='(String) url of the data set at cnvrg platform.')
+	parser.add_argument('--dataset', action='store', dest='cnvrg_ds', required=True,
+						help='(String) the name of the dataset at cnvrg.')
 
-	parser.add_argument('--pg_env', action='store', dest='pg_env', default='PG_PW',
-						help='(String) env variable for password')
-
-	parser.add_argument('--password_env', action='store', dest='password_env', default='PG_PW',
-						help='(String) env variable for password')
-
-	parser.add_argument('--username_env', action='store', dest='username_env', default='PG_UN',
-						help='(String) env variable for username')
+	parser.add_argument('--visualize', action='store', dest='visualize', default='False',
+						help='(bool) (Default: False) if true -> displays a sample of the data.')
 
 	args = parser.parse_args()
 	connector = PostgresConnector(args)
 	connector.run()
-
-
-
