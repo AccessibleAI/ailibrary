@@ -17,16 +17,16 @@ def main(args):
 	args.normalize_list = None if args.normalize_list == 'None' else args.normalize_list
 	args.one_hot_list = None if args.one_hot_list == 'None' else args.one_hot_list
 	args.output = None if args.output == 'None' else args.output
-	args.visualize = (args.visualize == 'True')
+	args.__visualize = (args.__visualize == 'True')
 
 	processor = CSVProcessor(path_to_csv=args.path,
-							target_column=args.target,
-							missing_dict=args.missing_values,
-							scale_dict=args.scale_dict,
-							normalize_list=args.normalize_list,
-							one_hot_list=args.one_hot_list,
-							output_name=args.output,
-							plot_vis=args.visualize)
+							 target_column=args.target,
+							 missing_dict=args.missing_values,
+							 scale_dict=args.scale_dict,
+							 normalize_list=args.normalize_list,
+							 one_hot_list=args.one_hot_list,
+							 output_name=args.output,
+							 plot_vis=args.__visualize)
 	processor.run()
 
 if __name__ == '__main__':
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 	                    help='''(list) list of columns names the user wants to perform one hot encoding on.''')
 	parser.add_argument('--output_file_path', '--output', action='store', default='None', dest='output',
 	                    help='''(string) path for the output the csv file. By default it takes the given file path and add _processed to the name of it.''')
-	parser.add_argument('--visualize', action='store', default='False', dest='visualize',
+	parser.add_argument('--__visualize', action='store', default='False', dest='__visualize',
 	                    help='''(bool) indicates whether to plot visualization or not. Default value: False.''')
 	args = parser.parse_args()
 	main(args)
