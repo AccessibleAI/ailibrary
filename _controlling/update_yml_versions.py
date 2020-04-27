@@ -7,13 +7,24 @@ _update_yml.py
 ==============================================================================
 """
 import os
+import platform
 
 PATH = 'ailibrary/'
+slash = '\\' if platform.system() == 'Windows' else '/'
 
-TOP_VER = '1'
-MID_VER = '1'
-LEAST_VER = '70'
-NEW_VERSION = TOP_VER + '.' + MID_VER + '.' + LEAST_VER
+
+def get_new_version(previous_version: str):
+	if previous_version.startswith('version:'):
+		previous_version = previous_version[len('version:'):].strip()
+
+	top_ver = previous_version[:previous_version.find('.')]
+	previous_version = previous_version[previous_version.find('.') + 1:]
+	mid_ver = previous_version[:previous_version.find('.')]
+	previous_version = previous_version[previous_version.find('.') + 1:]
+	least_ver = previous_version[previous_version.find('.') + 1:]
+
+	return top_ver + "." + mid_ver + "." + str(int(least_ver) + 1)
+
 
 yml_files = []
 
@@ -23,19 +34,18 @@ for d in os.listdir(os.getcwd()):
 	if os.path.isdir(d):
 		for f in os.listdir(d):
 			if f.endswith('yml'):
-				full_path_to_f = d + '/' + f
+				full_path_to_f = os.getcwd() + slash + d + slash + f
 				yml_files.append(full_path_to_f)
 
 for yml_file in yml_files:
-	f = open(yml_file, 'r')
+	f = open(yml_file, 'w+')
 	lines = f.readlines()
 	for i, line in enumerate(lines):
 		if line.strip().startswith('version:'):
-			lines[i] = 'version: ' + NEW_VERSION + '\n'
-	os.remove(yml_file)
+			prev_version = line.strip()
+			new_version = get_new_version(prev_version)
+			lines[i] = 'version: ' + new_version + '\n'
 
-	f = open(yml_file, 'w+')
 	f.writelines(lines)
 	f.close()
 	print('Updated: ', yml_file)
-
