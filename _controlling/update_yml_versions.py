@@ -23,6 +23,10 @@ def get_new_version(previous_version: str):
 	previous_version = previous_version[previous_version.find('.') + 1:]
 	least_ver = previous_version[previous_version.find('.') + 1:]
 
+	if int(least_ver) + 1 > 99:
+		mid_ver = str(int(mid_ver) + 1)
+		least_ver = (str(1))
+
 	return top_ver + "." + mid_ver + "." + str(int(least_ver) + 1)
 
 
