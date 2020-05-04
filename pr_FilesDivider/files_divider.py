@@ -50,15 +50,15 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--path_to_data', action='store', required=True, dest='path_to_data',
-		help='''(string) path_to_data to directory contains the files (required parameter).''')
+		help='''(string) (required) path_to_data to directory contains the files (required parameter).''')
 
 	parser.add_argument(
 		'--files_type', action='store', required=True, dest='files_type',
-		help='''(string) The type of the files (required parameter).''')
+		help='''(string) (required) The type of the files (required parameter).''')
 
 	parser.add_argument(
-		'--test_size', action='store', default='0.2', dest='test_size',
-		help='''(float) (Default: 0.2) size of the test set, float number in [0, 1].''')
+		'--test_size', action='store', default='0.', dest='test_size',
+		help='''(float) (Default: 0.) size of the test set, float number in [0, 1].''')
 
 	parser.add_argument(
 		'--validation_size', action='store', default='0.', dest='validation_size',
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 		sub-directories depended by giving the --validation_size param.''')
 
 	parser.add_argument(
-		'--divide_sub_directories_to_two_directories', action='store', default='0.', dest='divide_sub_directories_to_two_directories',
+		'--divide_sub_directories_to_two_directories', action='store', default='False', dest='divide_sub_directories_to_two_directories',
 		help='''(bool) (Default: False) If True -> it splits directory with sub-directories to
 		two/three sub-directories depended by giving the --validation_size param where each contains
 		the original sub directories with relative amount of files.''')

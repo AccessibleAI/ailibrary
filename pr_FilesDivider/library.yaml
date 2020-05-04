@@ -1,0 +1,44 @@
+---
+title:  Files Pre-Processing
+command: python3 files_divider.py
+description: " - a preprocessing script which enables
+ multiple options to change the order of the files in the given directory. Built by cnvrg."
+version: 1.1.1
+docker_images: cnvrg
+compute: small
+data_type: string
+icon: python
+
+arguments:
+  path_to_data:
+    value:
+    description: '''(string) path_to_data to directory contains the files (required parameter).'''
+
+  files_type:
+    value:
+    description: '''(string) The type of the files (required parameter).'''
+
+  test_size:
+    value: 0.
+    description: '''(float) (Default: 0.2) size of the test set, float number in [0, 1].'''
+
+  validation_size:
+    value: 0.
+    description: '''(float) (Default: 0.) size of the validation set, float number in [0, 1].'''
+
+  divide_files_to_two_directories:
+    value: False
+    description: '''(bool) (Default: False) If True -> it splits directory with files to two/three
+    sub-directories depended by giving the --validation_size param.'''
+
+  divide_sub_directories_to_two_directories:
+    value: False
+    description: '''(bool) (Default: False) If True -> it splits directory with sub-directories to
+    two/three sub-directories depended by giving the --validation_size param where each contains
+    the original sub directories with relative amount of files.'''
+
+  group_files_to_directories_by_prefix:
+    value: False
+    description: '''(bool) (Default: False)  Groups files to directories by given prefixes.
+    Example: [dog,cat] -> would create 2 sub directories of dog and cat and each would contain all
+    the images starts with the directory name.'''

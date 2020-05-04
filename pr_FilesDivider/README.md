@@ -1,5 +1,7 @@
+An implementation of package which enables the user to change the content of the data directories at the
+pre-process stage.
 
-functionality:
+Parameters
 ---
 ```--path``` - (string) path to directory contains the files (required parameter).
 
@@ -22,7 +24,7 @@ the original sub directories with relative amount of files.
         dir/b     ->    dir/test  -> dir/test/a  , dir/test/b  , dir/test/c
         dir/c
 
-```--group_files_to_directories_by_prefix``` - (string) (Default: None)  Groups files to directories by given prefixes. Example: ['dog','cat'] ->
+```--group_files_to_directories_by_prefix``` - (bool) (Default: False)  Groups files to directories by given prefixes. Example: ['dog','cat'] ->
 would create 2 sub directories of 'dog' and 'cat' and each would contain all the images 
 starts with the directory name.
 3) group files by prefix to directories.
