@@ -7,29 +7,50 @@ prep_lib.py
 ==============================================================================
 """
 import argparse
-from utils import parse_list
+import utils
 
 
 def main(args):
-	path = args.path
+	data_dir = args.path_to_data
 	file_type = args.files_type
 	test_size = float(args.test_size)
 	validation_size = float(args.validation_size)
-	divide_files_to_two_directories = \
-		True if args.divide_files_to_two_directories == 'True' else False
-	divide_sub_directories_to_two_directories = \
-		True if args.divide_sub_directories_to_two_directories == 'True' else False
-	group_files_to_directories_by_prefix = \
-		None if args.group_files_to_directories_by_prefix == 'None' \
-			else parse_list(args.group_files_to_directories_by_prefix)
+	divide_files_to_two_directories = True if args.divide_files_to_two_directories == 'True' else False
+	divide_sub_directories_to_two_directories = True if args.divide_sub_directories_to_two_directories == 'True' else False
+	group_files_to_directories_by_prefix = True if args.group_files_to_directories_by_prefix == 'True' else False
+
+	if divide_files_to_two_directories:
+		utils.divide_files_to_two_directories(
+			data_dir=data_dir,
+			file_type=file_type,
+			test_size=test_size,
+			validation_size=validation_size)
+		return
+
+	elif divide_sub_directories_to_two_directories:
+		utils.divide_sub_directories_to_two_directories(
+			data_dir=data_dir,
+			file_type=file_type,
+			test_size=test_size,
+			validation_size=validation_size)
+		return
+
+	elif group_files_to_directories_by_prefix:
+		utils.group_files_to_directories_by_prefix(
+			data_dir=data_dir,
+			file_type=file_type)
+		return
+
+	else:
+		print("No operation has been conducted.")
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser("""Pre-processing CSV""")
+	parser = argparse.ArgumentParser("""Files Divider""")
 
 	parser.add_argument(
-		'--path', action='store', required=True, dest='path',
-		help='''(string) path to directory contains the files (required parameter).''')
+		'--path_to_data', action='store', required=True, dest='path_to_data',
+		help='''(string) path_to_data to directory contains the files (required parameter).''')
 
 	parser.add_argument(
 		'--files_type', action='store', required=True, dest='files_type',
@@ -40,7 +61,7 @@ if __name__ == '__main__':
 		help='''(float) (Default: 0.2) size of the test set, float number in [0, 1].''')
 
 	parser.add_argument(
-		'--validation_size', action='store', default='0.', dest='test_size',
+		'--validation_size', action='store', default='0.', dest='validation_size',
 		help='''(float) (Default: 0.) size of the validation set, float number in [0, 1].''')
 
 	parser.add_argument(
@@ -55,8 +76,8 @@ if __name__ == '__main__':
 		the original sub directories with relative amount of files.''')
 
 	parser.add_argument(
-		'--group_files_to_directories_by_prefix', action='store', default='None', dest='group_files_to_directories_by_prefix',
-		help='''(string) (Default: None)  Groups files to directories by given prefixes. Example: ['dog','cat'] ->
+		'--group_files_to_directories_by_prefix', action='store', default='False', dest='group_files_to_directories_by_prefix',
+		help='''(bool) (Default: False)  Groups files to directories by given prefixes. Example: ['dog','cat'] ->
 		would create 2 sub directories of 'dog' and 'cat' and each would contain all the images 
 		starts with the directory name.''')
 
