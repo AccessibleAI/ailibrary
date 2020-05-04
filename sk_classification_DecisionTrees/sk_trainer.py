@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-SKTrainer.py
+sk_trainer.py
 ==============================================================================
 """
 import os
@@ -41,8 +41,10 @@ class SKTrainer:
 
 		if self.__is_cross_val: self.__metrics['folds'] = self.__cross_val_folds
 
-		if self.__is_cross_val is True: self.__train_with_cross_validation()
-		else: self.__train_without_cross_validation()
+		if self.__is_cross_val is True:
+			self.__train_with_cross_validation()
+		else:
+			self.__train_without_cross_validation()
 
 		self.__save_model()
 
@@ -151,7 +153,8 @@ class SKTrainer:
 		fpr, tpr, _ = roc_curve(self.__y_test, y_test_pred)
 		if self.__testing_mode is False:
 			self.__experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
-		else: print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
+		else:
+			print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
 
 	def __plot_correlation_matrix(self):
 		data = self.__all_data_concatenated
@@ -209,17 +212,17 @@ class SKTrainer:
 
 	def __plot_accuracies_and_errors_helper_rounding(self, digits_to_round=3):
 		for key in self.__metrics.keys():
-				# Skip strings.
-				if isinstance(self.__metrics[key], str):
-					continue
-				# Lists & Arrays.
-				elif isinstance(self.__metrics[key], list) or isinstance(self.__metrics[key], np.ndarray):
-					if isinstance(self.__metrics[key], np.ndarray): self.__metrics[key] = self.__metrics[key].tolist()
-					for ind in range(len(self.__metrics[key])):
-						self.__metrics[key][ind] = round(self.__metrics[key][ind], digits_to_round)
-				# int & floats.
-				else:
-					self.__metrics[key] = round(self.__metrics[key], digits_to_round)
+			# Skip strings.
+			if isinstance(self.__metrics[key], str):
+				continue
+			# Lists & Arrays.
+			elif isinstance(self.__metrics[key], list) or isinstance(self.__metrics[key], np.ndarray):
+				if isinstance(self.__metrics[key], np.ndarray): self.__metrics[key] = self.__metrics[key].tolist()
+				for ind in range(len(self.__metrics[key])):
+					self.__metrics[key][ind] = round(self.__metrics[key][ind], digits_to_round)
+			# int & floats.
+			else:
+				self.__metrics[key] = round(self.__metrics[key], digits_to_round)
 
 	def __plot_accuracies_and_errors_helper_testing_mode(self, digits_to_round=3):
 		print("Model: {model}\n"

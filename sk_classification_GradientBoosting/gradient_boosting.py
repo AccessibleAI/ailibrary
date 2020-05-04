@@ -15,7 +15,7 @@ gradient_boosting.py
 import argparse
 import pandas as pd
 
-from SKTrainer import *
+from sk_trainer import *
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 
@@ -126,46 +126,45 @@ def main(args):
 	trainer.run()
 
 
-
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""K-Nearest-Neighbors Classifier""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
-	                    help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)
+						help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir',
-	                    help="""--- For inner use of cnvrg.io ---""")
+						help="""--- For inner use of cnvrg.io ---""")
 
 	parser.add_argument('--output_dir', action='store', dest='output_dir',
-	                    help="""--- For inner use of cnvrg.io ---""")
+						help="""--- For inner use of cnvrg.io ---""")
 
 	parser.add_argument('--x_val', action='store', default="None", dest='x_val',
-	                    help="""Integer. Number of folds for the cross-validation. Default is None.""")
+						help="""Integer. Number of folds for the cross-validation. Default is None.""")
 
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
-	                    help="""Float. The portion of the data of testing. Default is 0.2""")
+						help="""Float. The portion of the data of testing. Default is 0.2""")
 
 	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
-	                    help="""String. The name of the output file which is a trained random forests model """)
+						help="""String. The name of the output file which is a trained random forests model """)
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
 
 	# ----- model's params.
 	parser.add_argument('--loss', action='store', default="deviance", dest='loss',
-	                    help="""{‘deviance’, ‘exponential’}, optional (default=’deviance’) loss function to be optimized. ‘deviance’ refers to deviance (= logistic regression) for classification with probabilistic outputs. For loss ‘exponential’ gradient boosting recovers the AdaBoost algorithm.""")
+						help="""{‘deviance’, ‘exponential’}, optional (default=’deviance’) loss function to be optimized. ‘deviance’ refers to deviance (= logistic regression) for classification with probabilistic outputs. For loss ‘exponential’ gradient boosting recovers the AdaBoost algorithm.""")
 
 	parser.add_argument('--learning_rate', action='store', default="0.1", dest='learning_rate',
-	                    help="""float, optional (default=0.1) learning rate shrinks the contribution of each tree by learning_rate. There is a trade-off between learning_rate and n_estimators.""")
+						help="""float, optional (default=0.1) learning rate shrinks the contribution of each tree by learning_rate. There is a trade-off between learning_rate and n_estimators.""")
 
 	parser.add_argument('--n_estimators', action='store', default="100", dest='n_estimators',
-	                    help="""int (default=100) The number of boosting stages to perform. Gradient boosting is fairly robust to over-fitting so a large number usually results in better performance.""")
+						help="""int (default=100) The number of boosting stages to perform. Gradient boosting is fairly robust to over-fitting so a large number usually results in better performance.""")
 
 	parser.add_argument('--subsample', action='store', default="1.0", dest='subsample',
-	                    help="""float, optional (default=1.0) The fraction of samples to be used for fitting the individual base learners. If smaller than 1.0 this results in Stochastic Gradient Boosting. subsample interacts with the parameter n_estimators. Choosing subsample < 1.0 leads to a reduction of variance and an increase in bias.""")
+						help="""float, optional (default=1.0) The fraction of samples to be used for fitting the individual base learners. If smaller than 1.0 this results in Stochastic Gradient Boosting. subsample interacts with the parameter n_estimators. Choosing subsample < 1.0 leads to a reduction of variance and an increase in bias.""")
 
 	parser.add_argument('--criterion', action='store', default="friedman_mse", dest='criterion',
-	                    help="""string, optional (default=”friedman_mse”) The function to measure the quality of a split. Supported criteria are “friedman_mse” for the mean squared error with improvement score by Friedman, “mse” for mean squared error, and “mae” for the mean absolute error. The default value of “friedman_mse” is generally the best as it can provide a better approximation in some cases.""")
+						help="""string, optional (default=”friedman_mse”) The function to measure the quality of a split. Supported criteria are “friedman_mse” for the mean squared error with improvement score by Friedman, “mse” for mean squared error, and “mae” for the mean absolute error. The default value of “friedman_mse” is generally the best as it can provide a better approximation in some cases.""")
 
 	parser.add_argument('--min_samples_split', action='store', default="2", dest='min_samples_split',
 						help="""int, float, optional (default=2) The minimum number of samples required to split an internal node:

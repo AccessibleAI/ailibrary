@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-CSVProcessor.py
+csv_preprocessor.py
 ==============================================================================
 """
 import time
@@ -39,12 +39,14 @@ class CSVProcessor:
 		self.__data = pd.read_csv(path_to_csv, index_col=0)
 		self.__target_column = (target_column, self.__data[target_column]) if target_column is not None else (self.__data.columns[-1], self.__data[self.__data.columns[-1]])
 		self.__features = [f for f in list(self.__data.columns) if f != self.__target_column[0]]
-		self.__data = self.__data[self.__features]  #  removes the target column.
-		try: self.__experiment = Experiment()
-		except cnvrg.modules.errors.UserError: self.__cnvrg_env = False
+		self.__data = self.__data[self.__features]  # removes the target column.
+		try:
+			self.__experiment = Experiment()
+		except cnvrg.modules.errors.UserError:
+			self.__cnvrg_env = False
 
 		self.__normalize_list = CSVProcessor.__parse_list(normalize_list) if isinstance(normalize_list, str) else normalize_list
-		self.__one_hot_list = CSVProcessor.__parse_list(one_hot_list)  if isinstance(one_hot_list, str) else one_hot_list
+		self.__one_hot_list = CSVProcessor.__parse_list(one_hot_list) if isinstance(one_hot_list, str) else one_hot_list
 		self.__output_name = output_name if output_name is not None else path_to_csv.split('.csv')[0] + '_processed.csv'
 		self.__plot_vis = plot_vis
 
@@ -110,7 +112,7 @@ class CSVProcessor:
 			for col in column_to_handle:
 				task = task_all if task_all is not None else self.__missing_dict[col]
 				if task.startswith('fill_'):
-					value = float(task[len('fill_'):]) if '.' in task[len('fill_'):] else int(task[len('fill_') :])
+					value = float(task[len('fill_'):]) if '.' in task[len('fill_'):] else int(task[len('fill_'):])
 					self.__data[col] = self.__data[col].fillna(value)
 				elif task.startswith('drop'):
 					self.__data = self.__data[self.__data[col].notna()]
@@ -122,7 +124,8 @@ class CSVProcessor:
 					a, b = task[len('randint_'):].split('_')
 					a, b = float(a) if '.' in a else int(a), float(b) if '.' in b else int(b)
 					self.__data[col] = self.__data[col].fillna(np.random.randint(a, b))
-				else: raise ValueError('Missing Values Handling - Undefined task.')
+				else:
+					raise ValueError('Missing Values Handling - Undefined task.')
 
 	def __set_target_column(self):
 		self.__data[self.__target_column[0]] = self.__target_column[1]
@@ -156,15 +159,15 @@ class CSVProcessor:
 	def __parse_2d_list(as_string):
 		final_dict = {}
 		trimmed = as_string.replace(' ', '')
-		commans_idxs = [0] + [i for i in range(1, len(trimmed)) if trimmed[i] == ',' and trimmed[i-1] == ']' and trimmed[i+1] == '['] + [len(trimmed) - 1] ### if its 0, we have single array.
-		sub_lists = [trimmed[commans_idxs[i-1] + 1: commans_idxs[i]] for i in range(1, len(commans_idxs))] if len(commans_idxs) > 2 else [trimmed[1: -1]]
+		commans_idxs = [0] + [i for i in range(1, len(trimmed)) if trimmed[i] == ',' and trimmed[i - 1] == ']' and trimmed[i + 1] == '['] + [len(trimmed) - 1]  ### if its 0, we have single array.
+		sub_lists = [trimmed[commans_idxs[i - 1] + 1: commans_idxs[i]] for i in range(1, len(commans_idxs))] if len(commans_idxs) > 2 else [trimmed[1: -1]]
 
 		for sub_list in sub_lists:
 			parsed = CSVProcessor.__parse_list(sub_list)
 			try:
-				final_dict[parsed[0]] = (parsed[1], parsed[2])   ### for scaling.
+				final_dict[parsed[0]] = (parsed[1], parsed[2])  ### for scaling.
 			except IndexError:
-				final_dict[parsed[0]] = parsed[1]   ### for filling empty values.
+				final_dict[parsed[0]] = parsed[1]  ### for filling empty values.
 
 		return final_dict
 
@@ -176,8 +179,10 @@ class CSVProcessor:
 		parsed_list = [st.strip() for st in list_without_parenthesis.split(',')]
 
 		# Check if the values are columns numbers.
-		try: parsed_list = [int(st) for st in parsed_list]
-		except ValueError: pass
+		try:
+			parsed_list = [int(st) for st in parsed_list]
+		except ValueError:
+			pass
 
 		return parsed_list
 
@@ -200,7 +205,6 @@ class CSVProcessor:
 		min_val = float(min_val) if '.' in min_val else int(min_val)
 		max_val = float(max_val) if '.' in max_val else int(max_val)
 		return min_val, max_val
-
 
 	def __plot_correlation_matrix(self, digits_to_round=3):
 		correlation = self.__data.corr()

@@ -15,7 +15,7 @@ random_forest_classifier.py
 import argparse
 import pandas as pd
 
-from SKTrainer import *
+from sk_trainer import *
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 

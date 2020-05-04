@@ -15,7 +15,7 @@ xgb.py
 import argparse
 import pandas as pd
 
-from SKTrainer import *
+from sk_trainer import *
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 

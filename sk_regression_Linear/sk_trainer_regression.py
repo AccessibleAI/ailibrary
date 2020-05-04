@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-SKTrainer.py
+sk_trainer.py
 ==============================================================================
 """
 import os
@@ -36,7 +36,7 @@ class SKTrainerRegression:
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
 		self.__metrics = {'model': output_model_name}
 		self.__y_pred = None
-		self.__experiment = Experiment.init('test_charts')  # replace with: self.__experiment = Experiment()
+		self.__experiment = Experiment()
 		self.__regression_type = SKTrainerRegression.REGRESSION_TYPE[regression_type]
 
 		self.__coef, self.__intercept = None, None

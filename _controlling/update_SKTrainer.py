@@ -10,9 +10,9 @@ import os
 import shutil
 
 PATH = 'ailibrary/'
-NAME1 = 'SKTrainer.py'
+NAME1 = 'sk_trainer.py'
 
-GOOD_FILE = 'xgboost/SKTrainer.py'
+GOOD_FILE = 'xgboost/sk_trainer.py'
 
 paths = []
 os.chdir('..')

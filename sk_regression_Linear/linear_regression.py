@@ -17,7 +17,7 @@ import pandas as pd
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from SKTrainerRegression import SKTrainerRegression
+from sk_trainer_regression import SKTrainerRegression
 
 
 def _cast_types(args):
@@ -58,17 +58,17 @@ def main(args):
 
 	# Initializing model with user input
 	model = LinearRegression(fit_intercept=args.fit_intercept,
-	                         normalize=args.normalize,
-	                         copy_X=args.copy_X,
-	                         n_jobs=args.n_jobs)
+							 normalize=args.normalize,
+							 copy_X=args.copy_X,
+							 n_jobs=args.n_jobs)
 
 	trainer = SKTrainerRegression(model=model,
-								train_set=(X_train, y_train),
-								test_set=(X_test, y_test),
-								output_model_name=args.output_model,
-								testing_mode=args.test_mode,
-								folds=args.x_val,
-								regression_type=0)
+								  train_set=(X_train, y_train),
+								  test_set=(X_test, y_test),
+								  output_model_name=args.output_model,
+								  testing_mode=args.test_mode,
+								  folds=args.x_val,
+								  regression_type=0)
 
 	trainer.run()
 
@@ -77,38 +77,38 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description="""linear regression""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
-	                    help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)
+						help="""String. path to csv file: The data set for the classifier. Assumes the last column includes the labels. """)
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir',
-	                    help="""--- For inner use of cnvrg.io ---""")
+						help="""--- For inner use of cnvrg.io ---""")
 
 	parser.add_argument('--output_dir', action='store', dest='output_dir',
-	                    help="""--- For inner use of cnvrg.io ---""")
+						help="""--- For inner use of cnvrg.io ---""")
 
 	parser.add_argument('--x_val', action='store', default="None", dest='x_val',
-	                    help="""Integer. Number of folds for the cross-validation. Default is None.""")
+						help="""Integer. Number of folds for the cross-validation. Default is None.""")
 
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
-	                    help="""Float. The portion of the data of testing. Default is 0.2""")
+						help="""Float. The portion of the data of testing. Default is 0.2""")
 
 	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
-	                    help="""String. The name of the output file which is a trained model. Default is linear_regression_model.sav""")
+						help="""String. The name of the output file which is a trained model. Default is linear_regression_model.sav""")
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
 
 	# ----- model's params.
 	parser.add_argument('--fit_intercept', action='store', default='True', dest='fit_intercept',
-	                    help="""boolean, optional, default True. whether to calculate the intercept for this model. If set to False, no intercept will be used in calculations (e.g. data is expected to be already centered).""")
+						help="""boolean, optional, default True. whether to calculate the intercept for this model. If set to False, no intercept will be used in calculations (e.g. data is expected to be already centered).""")
 
 	parser.add_argument('--normalize', action='store', default='False', dest='normalize',
-	                    help="""boolean, optional, default False. This parameter is ignored when fit_intercept is set to False. If True, the regressors X will be normalized before regression by subtracting the mean and dividing by the l2-norm. If you wish to standardize, please use sklearn.preprocessing.StandardScaler before calling fit on an estimator with normalize=False.""")
+						help="""boolean, optional, default False. This parameter is ignored when fit_intercept is set to False. If True, the regressors X will be normalized before regression by subtracting the mean and dividing by the l2-norm. If you wish to standardize, please use sklearn.preprocessing.StandardScaler before calling fit on an estimator with normalize=False.""")
 
 	parser.add_argument('--copy_X', action='store', default='True', dest='copy_X',
-	                    help="""boolean, optional, default True. If True, X will be copied; else, it may be overwritten.""")
+						help="""boolean, optional, default True. If True, X will be copied; else, it may be overwritten.""")
 
 	parser.add_argument('--n_jobs', action='store', default='None', dest='n_jobs',
-	                    help="""int or None, optional (default=None). The number of jobs to use for the computation. This will only provide speedup for n_targets > 1 and sufficient large problems. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details.""")
+						help="""int or None, optional (default=None). The number of jobs to use for the computation. This will only provide speedup for n_targets > 1 and sufficient large problems. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details.""")
 
 	args = parser.parse_args()
 

@@ -3,7 +3,7 @@ All rights reserved to cnvrg.io
 
      http://www.cnvrg.io
 
-SKTrainer.py
+sk_trainer.py
 ==============================================================================
 """
 import os
