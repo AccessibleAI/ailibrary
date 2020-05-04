@@ -14,15 +14,26 @@ def all_tests() -> None:
 	_test_2_1()
 	_test_2_2()
 	_test_3_1()
+	_after_test()
 
 
 def _before_test() -> None:
+	try:
+		os.mkdir(path_to_data)
+	except FileExistsError:
+		pass
+
 	# before testing:
 	for f in os.listdir(path_to_data):
 		if os.path.isdir(path_to_data + slash + f):
 			shutil.rmtree(path_to_data + slash + f, ignore_errors=True)
 		else:
 			os.remove(path_to_data + slash + f)
+	return
+
+
+def _after_test() -> None:
+	shutil.rmtree(path_to_data)
 	return
 
 
