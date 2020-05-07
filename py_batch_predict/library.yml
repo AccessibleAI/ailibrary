@@ -2,7 +2,7 @@
 title: Batch Predict
 command: python3 batch.py
 description: " -  Easily batch predict.  Built by cnvrg."
-version: 1.2.8
+version: 1.2.9
 docker_images: cnvrg
 compute: small
 data_type: ipynb
