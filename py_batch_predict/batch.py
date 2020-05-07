@@ -15,6 +15,7 @@ try:
     output_file = args.output
     
     e = Endpoint(slug)
+    e.link_experiment()
     
     e.scale_up()
     
