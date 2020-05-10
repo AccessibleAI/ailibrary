@@ -65,7 +65,8 @@ try:
     ## Output file should be absulut path in /cnvrg
     with open(output_file, 'w') as file:
         writer = csv.writer(file)
-        writer.writerow(row_list)
+        for row in row_list:
+            writer.writerow(row)
 
     print("uploading {output_csv} file to dataset {dataset_slug}".format(output_csv=output_file, dataset_slug=dataset))
 
