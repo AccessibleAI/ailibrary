@@ -17,10 +17,13 @@ try:
     input_file = args.input
     output_file = args.output
     dataset = args.dataset
+    
+    ## checking that input file exists otherwise theres no point to scale up the endpoint
+    f = open(input_file, "r")
 
     #fetch endpoint details
-    e = Endpoint(slug)
-    if e is None:
+    endpoint = Endpoint(slug)
+    if endpoint is None:
         print("Can't find Endpoint {endpoint_id}").format(endpoint_id=slug)
         exit(1)
     #fetch dataset details
@@ -30,16 +33,16 @@ try:
         exit(1)
     ds_url = ds.get_full_url()
 
-    e.link_experiment()
+    endpoint.link_experiment()
 
     print("Endpoint is scaling up")
-    e.scale_up()
+    endpoint.scale_up()
     
-    is_running = e.is_deployment_running()
+    is_running = endpoint.is_deployment_running()
     while not is_running:
         print("Endpoint is not running yet waiting 10 seconds")
         time.sleep(10)
-        is_running = e.is_deployment_running()
+        is_running = endpoint.is_deployment_running()
     print("Endpoint is online starting batch predict")
     
     row_list=[]
@@ -51,7 +54,7 @@ try:
         csv_reader = csv.reader(read_obj)
         for row in csv_reader:
             try:
-                resp = e.predict(row)
+                resp = endpoint.predict(row)
                 row_list.append([row, resp.get("prediction")])
             except Exception as e:
                 print(e)
@@ -66,9 +69,9 @@ try:
     os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file))
 
     print("Batch predict has finished, scaling down endpoint")
-    e.scale_down()
+    endpoint.scale_down()
 
 except Exception as e:
-    e.scale_down()
+    endpoint.scale_down()
     print(e)
     exit(1)
