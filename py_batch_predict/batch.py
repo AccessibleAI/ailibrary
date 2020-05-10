@@ -18,14 +18,18 @@ try:
     output_file = args.output
     dataset = args.dataset
     
-    ## checking that input file exists otherwise theres no point to scale up the endpoint
+    ## checking that input file exists and not empty otherwise theres no point to scale up the endpoint
     f = open(input_file, "r")
+    if os.path.getsize(input_file) == 0:
+        print("input file is empty")
+        exit(0)
 
     #fetch endpoint details
     endpoint = Endpoint(slug)
     if endpoint is None:
         print("Can't find Endpoint {endpoint_id}").format(endpoint_id=slug)
         exit(1)
+        
     #fetch dataset details
     ds = Dataset(dataset)
     if ds is None:
@@ -45,11 +49,10 @@ try:
         is_running = endpoint.is_deployment_running()
     print("Endpoint is online starting batch predict")
     
-    row_list=[]
-    
     time.sleep(20)
     
     ## Input file should be absulut path
+    row_list=[]
     with open(input_file, 'r') as read_obj:
         csv_reader = csv.reader(read_obj)
         for row in csv_reader:
@@ -60,7 +63,9 @@ try:
                 print(e)
     
     ## create output file tree if not exists
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    dirname = os.path.dirname(output_file)
+    if dirname:
+        os.makedirs(dirname, exist_ok=True)
     
     ## Output file should be absulut path in /cnvrg
     with open(output_file, 'w') as file:
@@ -76,6 +81,7 @@ try:
     endpoint.scale_down()
 
 except Exception as e:
-    endpoint.scale_down()
+    if endpoint:
+        endpoint.scale_down()
     print(e)
     exit(1)
