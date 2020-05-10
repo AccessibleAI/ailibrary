@@ -70,6 +70,7 @@ try:
     ## Output file should be absulut path in /cnvrg
     with open(output_file, 'w') as file:
         writer = csv.writer(file)
+        writer.writerow(["input", "prediction"])
         for row in row_list:
             writer.writerow(row)
 
