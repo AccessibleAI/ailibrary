@@ -1,5 +1,5 @@
 ---
-title: CSV Pre-processing
+title: CSV Preprocessing
 command: python3 prep_lib.py
 description: " -  Easily pre-process CSV files. Built by cnvrg."
 version: 1.1.70
