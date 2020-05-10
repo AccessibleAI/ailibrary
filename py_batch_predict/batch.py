@@ -59,6 +59,9 @@ try:
             except Exception as e:
                 print(e)
     
+    ## create output file tree if not exists
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
     ## Output file should be absulut path in /cnvrg
     with open(output_file, 'w') as file:
         writer = csv.writer(file)
