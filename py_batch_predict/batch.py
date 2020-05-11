@@ -21,19 +21,19 @@ try:
     ## checking that input file exists and not empty otherwise theres no point to scale up the endpoint
     f = open(input_file, "r")
     if os.path.getsize(input_file) == 0:
-        print("input file is empty")
+        print(f"Input file: {input_file} is empty")
         exit(0)
 
     #fetch endpoint details
     endpoint = Endpoint(slug)
     if endpoint is None:
-        print("Can't find Endpoint {endpoint_id}.").format(endpoint_id=slug)
+        print(f"Can't find Endpoint {slug}.")
         exit(1)
         
     #fetch dataset details
     ds = Dataset(dataset)
     if ds is None:
-        print("Can't find Dataset {dataset}.").format(dataset=dataset)
+        print(f"Can't find Dataset {dataset}.")
         exit(1)
     ds_url = ds.get_full_url()
 
@@ -74,9 +74,9 @@ try:
         for row in row_list:
             writer.writerow(row)
 
-    print("Uploading {output_csv} file to dataset {dataset_slug}.".format(output_csv=output_file, dataset_slug=dataset))
+    print(f"Uploading {output_file} file to dataset {dataset}."
 
-    os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file))
+    os.system(f"cnvrg data put {ds_url} {output_file}")
 
     print("Batch prediction has finished. Scaling down endpoint.")
     endpoint.scale_down()
