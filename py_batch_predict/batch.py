@@ -21,8 +21,8 @@ try:
     ## checking that input file exists and not empty otherwise theres no point to scale up the endpoint
     f = open(input_file, "r")
     if os.path.getsize(input_file) == 0:
-        print(f"Input file: {input_file} is empty")
-        exit(0)
+        print(f"Input file: {input_file} is empty. Aborting.")
+        exit(1)
 
     #fetch endpoint details
     endpoint = Endpoint(slug)
