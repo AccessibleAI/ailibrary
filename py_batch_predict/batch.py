@@ -76,7 +76,7 @@ try:
 
     print(f"Uploading {output_file} file to dataset {dataset}."
 
-    os.system(f"cnvrg data put {ds_url} {output_file}")
+    os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file))
 
     print("Batch prediction has finished. Scaling down endpoint.")
     endpoint.scale_down()
