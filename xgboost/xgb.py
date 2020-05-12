@@ -69,8 +69,8 @@ def main(args):
 		raise Exception("Dataset Error: Not enough columns.")
 
 	# Split to X and y.
-	X = data.iloc[:, :-1].values
-	y = data.iloc[:, -1].values
+	X = data.iloc[:, :-1]
+	y = data.iloc[:, -1]
 
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=args.test_size)
 
