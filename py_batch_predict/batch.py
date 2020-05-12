@@ -4,6 +4,7 @@ import time
 import csv
 import argparse
 import os
+import pandas as pd
 
 try:
     parser = argparse.ArgumentParser(description='set input arguments')
@@ -53,14 +54,14 @@ try:
     
     ## Input file should be absulut path
     row_list=[]
-    with open(input_file, 'r') as read_obj:
-        csv_reader = csv.reader(read_obj)
-        for row in csv_reader:
-            try:
-                resp = endpoint.predict(row)
-                row_list.append([row, resp.get("prediction")])
-            except Exception as e:
-                print(e)
+    data = pd.read_csv(input_file, header=0)
+    for row in data.values:
+        try:
+            r_list = row.tolist()
+            resp = endpoint.predict(r_list)
+            row_list.append([r_list, resp.get("prediction")])
+        except Exception as e:
+            print(e)
     
     ## create output file tree if not exists
     dirname = os.path.dirname(output_file)
