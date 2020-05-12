@@ -1,0 +1,15 @@
+---
+title: Rollback
+command: python3 rollback.py
+description: " - Rollback a model. Built by cnvrg."
+version: 1.3.9
+docker_images: cnvrg
+compute: small
+data_type: 
+icon: python
+
+arguments:
+  endpoint_id:
+    value: ''
+  model_id:
+    value: ''
