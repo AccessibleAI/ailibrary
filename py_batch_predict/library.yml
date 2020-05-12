@@ -5,7 +5,7 @@ description: " -  Easily batch predict.  Built by cnvrg."
 version: 1.4.0
 docker_images: cnvrg
 compute: small
-data_type: ipynb
+data_type: CSV
 icon: python
 
 arguments:
