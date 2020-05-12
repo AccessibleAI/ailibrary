@@ -20,5 +20,6 @@ if endpoint is None:
 #resp = endpoint.rollback(model_id)
 
 print(f"Rolling back Model in Endpoint {endpoint_id}.")
-resp = endpoint.rollback()
-print(resp)
+#resp = endpoint.rollback()
+#print(resp)
+endpoint.rollback()
