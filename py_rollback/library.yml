@@ -1,7 +1,7 @@
 ---
 title: Rollback
 command: python3 rollback.py
-description: " - Rollback a model. Built by cnvrg."
+description: " - Roll back a model. Built by cnvrg."
 version: 1.3.10
 docker_images: cnvrg
 compute: small
