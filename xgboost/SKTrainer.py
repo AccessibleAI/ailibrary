@@ -10,13 +10,11 @@ import os
 import pickle
 
 import numpy as np
-import pandas as pd
 
 from cnvrg import Experiment
-from cnvrg.charts import Heatmap, Bar, Scatterplot
-from cnvrg.charts.pandas_analyzer import PandasAnalyzer, MatrixHeatmap
+from cnvrg.charts import Heatmap, Bar
+from cnvrg.charts.pandas_analyzer import MatrixHeatmap
 
-from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, accuracy_score, mean_squared_error
 
@@ -26,21 +24,28 @@ class SKTrainer:
 
 	def __init__(self, model, train_set, test_set, output_model_name, testing_mode, folds=None):
 		self.__model = model
-		self.__x_train, self.__y_train = train_set
-		self.__x_test, self.__y_test = test_set
+		self.__features = list(train_set[0].columns)
+		self.__x_train, self.__y_train = np.array(train_set[0]), np.array(train_set[1])
+		self.__x_test, self.__y_test = np.array(test_set[0]), np.array(test_set[1])
 		self.__testing_mode = testing_mode
 		self.__cross_val_folds = folds
 		self.__is_cross_val = (folds is not None)
-		self.__features = list(self.__x_train.columns)
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
-		self.__metrics = {'model': output_model_name,
-						  'train set size': len(self.__y_train),
-						  'test set size': len(self.__y_test)}
-		self.__experiment = Experiment()
+		self.__metrics = {
+						'model': output_model_name,
+						'train set size': len(self.__y_train),
+						'test set size': len(self.__y_test)}
+
+		try:
+			print("Trying to launch an experiment in cnvrg environment.")
+			self.__experiment = Experiment()
+		except Exception:
+			print("Not in cnvrg environment.")
+			self.__cnvrg_env = False
 
 	def run(self):
 		""" runs the training & testing methods. """
-		self.__model.fit(self.__x_train.values, self.__y_train.values)
+		self.__model.fit(self.__x_train, self.__y_train)
 
 		if self.__is_cross_val:
 			self.__metrics['folds'] = self.__cross_val_folds
@@ -56,13 +61,14 @@ class SKTrainer:
 		This method controls the visualization and metrics outputs.
 		Hashtag something which you don't want to plot.
 		"""
-		self.__plot_correlation_matrix()
-		# self.__plot_feature_vs_feature()
-		self.__plot_feature_importance()
-		self.__plot_classification_report(y_test_pred=y_test_pred)
-		self.__plot_confusion_matrix(y_test_pred=y_test_pred)
-		self.__plot_roc_curve(y_test_pred=y_test_pred)
-		self.__plot_accuracies_and_errors()
+		if self.__cnvrg_env:
+			self.__plot_correlation_matrix()
+			# self.__plot_feature_vs_feature()
+			self.__plot_feature_importance()
+			self.__plot_classification_report(y_test_pred=y_test_pred)
+			self.__plot_confusion_matrix(y_test_pred=y_test_pred)
+			self.__plot_roc_curve(y_test_pred=y_test_pred)
+			self.__plot_accuracies_and_errors()
 
 	"""training & testing methods"""
 
@@ -71,7 +77,8 @@ class SKTrainer:
 		This method enables sk-learn algorithms to perform KFold-cross-validation.
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
-		scores = cross_validate(estimator=self.__model,
+		scores = cross_validate(
+								estimator=self.__model,
 								X=self.__x_train,
 								y=self.__y_train,
 								cv=self.__cross_val_folds,
@@ -102,12 +109,12 @@ class SKTrainer:
 		"""
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
-		y_hat = self.__model.predict(self.__x_train.values)  # y_hat is a.k.a y_pred
+		y_hat = self.__model.predict(self.__x_train)  # y_hat is a.k.a y_pred
 
 		train_acc = accuracy_score(self.__y_train, y_hat)
 		train_loss = mean_squared_error(self.__y_train, y_hat)
 
-		y_pred = self.__model.predict(self.__x_test.values)
+		y_pred = self.__model.predict(self.__x_test)
 		test_acc = accuracy_score(self.__y_test, y_pred)
 		test_loss = mean_squared_error(self.__y_test, y_pred)
 		self.__metrics.update({
@@ -122,7 +129,8 @@ class SKTrainer:
 		try:
 			importance = getattr(self.__model, "feature_importances_")
 			if self.__testing_mode is False:
-				self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance', data=Bar(x=self.__features, y=importance))
+				self.__experiment.log_chart('Feature Importance', x_axis='Features', y_axis='Importance',
+											data=Bar(x=self.__features, y=importance))
 			else:
 				print(importance)
 		except AttributeError:
@@ -132,7 +140,8 @@ class SKTrainer:
 		test_report = classification_report(self.__y_test, y_test_pred, output_dict=True)  # dict
 		if self.__testing_mode is False:
 			testing_report_as_array = self.__helper_plot_classification_report(test_report)
-			self.__experiment.log_chart("Test Set - Classification Report", data=Heatmap(z=testing_report_as_array), y_ticks=self.__labels, x_ticks=["precision", "recall", "f1-score", "support"])
+			self.__experiment.log_chart("Test Set - Classification Report", data=Heatmap(z=testing_report_as_array),
+										y_ticks=self.__labels, x_ticks=["precision", "recall", "f1-score", "support"])
 		else:
 			print(test_report)
 
@@ -155,27 +164,27 @@ class SKTrainer:
 		else: print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
 
 	def __plot_correlation_matrix(self):
-		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
-		correlation = data.corr()
-		self.__experiment.log_chart("correlation", [MatrixHeatmap(np.round(correlation.values, 2))],
-									x_ticks=correlation.index.tolist(), y_ticks=correlation.index.tolist())
+		x = np.concatenate((self.__x_train, self.__x_test), axis=0)
+		y = np.concatenate((self.__y_train, self.__y_test), axis=0)
+		correlation = np.corrcoef(x, y)
+		self.__experiment.log_chart("correlation", [MatrixHeatmap(np.round(correlation, 2))])
 
-	def __plot_feature_vs_feature(self):
-		data = pd.concat([pd.concat([self.__x_train, self.__x_test], axis=0), pd.concat([self.__y_train, self.__y_test], axis=0)], axis=1)
-		indexes = data.select_dtypes(include=["number"]).columns
-		corr = data.corr()
-		for idx, i in enumerate(indexes):
-			for jdx, j in enumerate(indexes):
-				if i == j: continue
-				if jdx < idx: continue
-				corr_val = abs(corr[i][j])
-				if 1 == corr_val or corr_val < 0.5: continue
-				print("create", i, "against", j, "scatter chart")
-				droplines = data[[i, j]].notnull().all(1)
-				x, y = data[droplines][[i, j]].values.transpose()
-				self.__experiment.log_chart("{i}_against_{j}".format(i=i, j=j),
-											[Scatterplot(x=x.tolist(), y=y.tolist())],
-											title="{i} against {j}".format(i=i, j=j))
+	# def __plot_feature_vs_feature(self):
+	# 	data = pd.concat((np.concatenate((self.__x_train, self.__x_test), axis=0), np.concatenate((self.__y_train, self.__y_test), axis=0)), axis=1)
+	# 	indexes = data.select_dtypes(include=["number"]).columns
+	# 	corr = data.corr()
+	# 	for idx, i in enumerate(indexes):
+	# 		for jdx, j in enumerate(indexes):
+	# 			if i == j: continue
+	# 			if jdx < idx: continue
+	# 			corr_val = abs(corr[i][j])
+	# 			if 1 == corr_val or corr_val < 0.5: continue
+	# 			print("create", i, "against", j, "scatter chart")
+	# 			droplines = data[[i, j]].notnull().all(1)
+	# 			x, y = data[droplines][[i, j]].values.transpose()
+	# 			self.__experiment.log_chart("{i}_against_{j}".format(i=i, j=j),
+	# 										[Scatterplot(x=x.tolist(), y=y.tolist())],
+	# 										title="{i} against {j}".format(i=i, j=j))
 
 	def __plot_accuracies_and_errors(self):
 		self.__plot_accuracies_and_errors_helper()
