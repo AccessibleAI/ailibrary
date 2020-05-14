@@ -42,17 +42,14 @@ for d in os.listdir(os.getcwd()):
 				yml_files.append(full_path_to_f)
 
 for yml_file in yml_files:
-	f = open(yml_file, 'r')
+	f = open(yml_file, 'w+')
 	lines = f.readlines()
 	for i, line in enumerate(lines):
 		if line.strip().startswith('version:'):
 			prev_version = line.strip()
 			new_version = get_new_version(prev_version)
 			lines[i] = 'version: ' + new_version + '\n'
+
+	f.writelines(lines)
 	f.close()
-
-	new_f = open(yml_file, 'w')
-	new_f.writelines(lines)
-	new_f.close()
-
 	print('Updated: ', yml_file)
