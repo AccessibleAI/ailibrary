@@ -72,8 +72,8 @@ class SKTrainer:
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
 		scores = cross_validate(estimator=self.__model,
-								X=self.__x_train,
-								y=self.__y_train,
+								X=self.__x_train.values,
+								y=self.__y_train.values,
 								cv=self.__cross_val_folds,
 								return_train_score=True,
 								scoring=['neg_mean_squared_error', 'accuracy'],
