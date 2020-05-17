@@ -76,9 +76,7 @@ try:
         for row in row_list:
             writer.writerow(row)
 
-    print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset
-                                                                     ))
-
+    print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
     os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file))
 
     print("Batch prediction has finished, scaling down")
