@@ -22,7 +22,7 @@ if endpoint is None:
 print(f"Rolling back Model in Endpoint {endpoint_id}.")
 resp = endpoint.rollback()
 if resp.get("status") == 200:
-    print("Model rolled back successfully.")
+    print("Model rolled back initiated.")
 else:
     print("Could not roll back model.")
 
