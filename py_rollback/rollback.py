@@ -16,9 +16,6 @@ if endpoint is None:
     print(f"Can't find Endpoint {endpoint_id}.")
     exit(1)
 
-#print(f"Rolling back Model {model_id} in Endpoint {endpoint_id}.")
-#resp = endpoint.rollback(model_id)
-
 print(f"Rolling back Model in Endpoint {endpoint_id}.")
 resp = endpoint.rollback()
 if resp.get("status") == 200:
