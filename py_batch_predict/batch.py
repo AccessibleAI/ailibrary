@@ -27,7 +27,8 @@ try:
 
     #fetch endpoint details
     endpoint = Endpoint(slug)
-    if endpoint is None:
+    endpoint_data = endpoint.data
+    if endpoint_data is None:
         print('Can\'t find Endpoint {slug}'.format(slug=slug))
         exit(1)
         
