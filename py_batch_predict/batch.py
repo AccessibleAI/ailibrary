@@ -59,11 +59,14 @@ try:
     for row in data.values:
         try:
             r_list = row.tolist()
+            print(r_list)
             resp = endpoint.predict(r_list)
+            print(resp)
             row_list.append([r_list, resp.get("prediction")])
+            print("wrote to csv")
         except Exception as e:
             print(e)
-
+    print("done reading")
     ## create output file tree if not exists
     dirname = os.path.dirname(output_file)
     if dirname:
