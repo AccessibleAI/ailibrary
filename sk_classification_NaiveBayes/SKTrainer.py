@@ -19,6 +19,11 @@ from cnvrg.charts.pandas_analyzer import MatrixHeatmap
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, accuracy_score, zero_one_loss
 
+"""
+Used in the self.__metrics dictionary.
+Each value is a tuple: (TYPE, VALUE).
+"""
+TYPE, VALUE = 0, 1
 
 class SKTrainer:
 	def __init__(self, model, train_set, test_set, output_model_name, testing_mode, folds=None):
@@ -32,17 +37,23 @@ class SKTrainer:
 		self.__is_cross_val = (folds is not None)
 		self.__features = list(self.__x_train.columns)
 		self.__labels = [str(l) for l in list(set(self.__y_train).union(set(self.__y_test)))]
-		self.__metrics = {'model': ('p', output_model_name), 'train set size': ('p', len(self.__y_train)), 'test set size': ('p', len(self.__y_test))}
+		self.__metrics = {
+			'model': (str, output_model_name),
+			'train set size': (int, len(self.__y_train)),
+			'test set size': (int, len(self.__y_test))
+		}
 		self.__experiment = Experiment()
 
 	def run(self):
 		""" runs the training & testing methods. """
 		self.__model.fit(self.__x_train, self.__y_train)
 
-		if self.__is_cross_val: self.__metrics['folds'] = ('p', self.__cross_val_folds)
+		if self.__is_cross_val: self.__metrics['folds'] = (int, self.__cross_val_folds)
 
-		if self.__is_cross_val is True: self.__train_with_cross_validation()
-		else: self.__train_without_cross_validation()
+		if self.__is_cross_val is True:
+			self.__train_with_cross_validation()
+		else:
+			self.__train_without_cross_validation()
 
 		self.__save_model()
 
@@ -84,15 +95,15 @@ class SKTrainer:
 		test_acc = accuracy_score(self.__y_test, y_pred)
 		test_loss = zero_one_loss(self.__y_test, y_pred)
 		self.__metrics.update({
-			'train_acc': ('m', train_acc_cv),
-			'train_loss': ('m', train_err_cv),
-			'train_loss_type': ('p', 'MSE'),
-			'validation_acc': ('m', val_acc_cv),
-			'validation_loss': ('m', val_err_cv),
-			'validation_loss_type': ('p', 'MSE'),
-			'test_acc': ('p', test_acc),
-			'test_loss': ('p', test_loss),
-			'test_loss_type': ('p', 'zero_one_loss')
+			'train_acc': (list, train_acc_cv),
+			'train_loss': (list, train_err_cv),
+			'train_loss_type': (str, 'MSE'),
+			'validation_acc': (list, val_acc_cv),
+			'validation_loss': (list, val_err_cv),
+			'validation_loss_type': (str, 'MSE'),
+			'test_acc': (float, test_acc),
+			'test_loss': (float, test_loss),
+			'test_loss_type': (str, 'zero_one_loss')
 		})
 		self.__plot_all(y_pred)
 
@@ -109,12 +120,12 @@ class SKTrainer:
 		test_acc = accuracy_score(self.__y_test, y_pred)
 		test_loss = zero_one_loss(self.__y_test, y_pred)
 		self.__metrics.update({
-			'train_acc': ('p', train_acc),
-			'train_loss': ('p', train_loss),
-			'train_loss_type': ('p', 'zero_one_loss'),
-			'test_acc': ('p', test_acc),
-			'test_loss': ('p', test_loss),
-			'test_loss_type': ('p', 'zero_one_loss')
+			'train_acc': (float, train_acc),
+			'train_loss': (float, train_loss),
+			'train_loss_type': (str, 'zero_one_loss'),
+			'test_acc': (float, test_acc),
+			'test_loss': (float, test_loss),
+			'test_loss_type': (str, 'zero_one_loss')
 		})
 		self.__plot_all(y_pred)
 
@@ -151,7 +162,8 @@ class SKTrainer:
 		fpr, tpr, _ = roc_curve(self.__y_test, y_test_pred)
 		if self.__testing_mode is False:
 			self.__experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
-		else: print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
+		else:
+			print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
 
 	def __plot_correlation_matrix(self):
 		data = self.__all_data_concatenated
@@ -182,14 +194,14 @@ class SKTrainer:
 
 		for element in self.__metrics:
 			# param
-			if self.__metrics[element][0] == 'p':
-				self.__experiment.log_param(element, self.__metrics[element][1])
+			if self.__metrics[element][TYPE] != list:
+				self.__experiment.log_param(element, self.__metrics[element][VALUE])
 			# metric
 			else:
-				self.__experiment.log_metric(element, self.__metrics[element][1], grouping=[element] * len(self.__metrics[element][1]))
+				self.__experiment.log_metric(element, self.__metrics[element][VALUE], grouping=[element] * len(self.__metrics[element][VALUE]))
 
 	def __save_model(self):
-		output_model_name = self.__metrics['model'][1]
+		output_model_name = self.__metrics['model'][VALUE]
 		output_file_name = os.environ.get("CNVRG_WORKDIR") + "/" + output_model_name if os.environ.get("CNVRG_WORKDIR") is not None else output_model_name
 		pickle.dump(self.__model, open(output_file_name, 'wb'))
 
@@ -205,24 +217,24 @@ class SKTrainer:
 
 	def __plot_accuracies_and_errors_helper_rounding(self, digits_to_round=3):
 		for key in self.__metrics.keys():
-				# Skip strings.
-				if isinstance(self.__metrics[key][1], str):
-					continue
+			# Skip strings.
+			if isinstance(self.__metrics[key][VALUE], str):
+				continue
 
-				# Lists & Arrays.
-				elif isinstance(self.__metrics[key][1], list) or isinstance(self.__metrics[key][1], np.ndarray):
-					if isinstance(self.__metrics[key][1], np.ndarray):
-						cnvrg_type = self.__metrics[key][0]
-						value = self.__metrics[key][1].tolist()
-						self.__metrics[key] = (cnvrg_type, value)
-					for ind in range(len(self.__metrics[key][1])):
-						self.__metrics[key][1][ind] = round(self.__metrics[key][1][ind], digits_to_round)
+			# Lists & Arrays.
+			elif isinstance(self.__metrics[key][VALUE], list) or isinstance(self.__metrics[key][VALUE], np.ndarray):
+				if isinstance(self.__metrics[key][VALUE], np.ndarray):
+					_type = self.__metrics[key][TYPE]
+					value = self.__metrics[key][VALUE].tolist()
+					self.__metrics[key] = (_type, value)
+				for ind in range(len(self.__metrics[key][VALUE])):
+					self.__metrics[key][VALUE][ind] = round(self.__metrics[key][VALUE][ind], digits_to_round)
 
-				# int & floats.
-				else:
-					cnvrg_type = self.__metrics[key][0]
-					value = round(self.__metrics[key][1], digits_to_round)
-					self.__metrics[key] = (cnvrg_type, value)
+			# int & floats.
+			else:
+				cnvrg_type = self.__metrics[key][TYPE]
+				value = round(self.__metrics[key][VALUE], digits_to_round)
+				self.__metrics[key] = (cnvrg_type, value)
 
 	def __plot_accuracies_and_errors_helper_testing_mode(self, digits_to_round=3):
 		print("Model: {model}\n"
@@ -230,10 +242,10 @@ class SKTrainer:
 			  "train_loss={train_loss}\n"
 			  "test_acc={test_acc}\n"
 			  "test_loss={test_loss}".format(
-			model=self.__metrics['model'][1], train_acc=self.__metrics['train_acc'][1], train_loss=self.__metrics['train_loss'][1],
-			test_acc=self.__metrics['test_acc'][1], test_loss=self.__metrics['test_loss'][1]))
+			model=self.__metrics['model'][VALUE], train_acc=self.__metrics['train_acc'][VALUE], train_loss=self.__metrics['train_loss'][VALUE],
+			test_acc=self.__metrics['test_acc'][VALUE], test_loss=self.__metrics['test_loss'][VALUE]))
 		if self.__is_cross_val is True:
-			print("Folds: {folds}\n".format(folds=self.__metrics['folds'][1]))
+			print("Folds: {folds}\n".format(folds=self.__metrics['folds'][VALUE]))
 
 	def __helper_plot_classification_report(self, classification_report_dict, digits_to_round=3):
 		""" Converts dictionary given by classification_report to list of lists. """
@@ -246,6 +258,3 @@ class SKTrainer:
 			for x in range(len(rows[y])):
 				values.append((x, y, round(rows[y][x], digits_to_round)))
 		return values
-
-
-# min_impurity_decrease
