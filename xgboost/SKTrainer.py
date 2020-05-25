@@ -37,7 +37,7 @@ class SKTrainer:
 
 	def run(self):
 		""" runs the training & testing methods. """
-		self.__model.fit(self.__x_train, self.__y_train)
+		self.__model.fit(self.__x_train.values, self.__y_train.values)
 
 		if self.__is_cross_val: self.__metrics['folds'] = self.__cross_val_folds
 
@@ -67,8 +67,8 @@ class SKTrainer:
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
 		scores = cross_validate(estimator=self.__model,
-								X=self.__x_train,
-								y=self.__y_train,
+								X=self.__x_train.values,
+								y=self.__y_train.values,
 								cv=self.__cross_val_folds,
 								return_train_score=True,
 								scoring=['neg_mean_squared_error', 'accuracy'],
@@ -80,9 +80,9 @@ class SKTrainer:
 		val_err_cv = (-1) * scores['test_neg_mean_squared_error']
 		self.__model = scores['estimator'][-1]
 
-		y_pred = self.__model.predict(self.__x_test)
-		test_acc = accuracy_score(self.__y_test, y_pred)
-		test_loss = zero_one_loss(self.__y_test, y_pred)
+		y_pred = self.__model.predict(self.__x_test.values)
+		test_acc = accuracy_score(self.__y_test.values, y_pred)
+		test_loss = zero_one_loss(self.__y_test.values, y_pred)
 		self.__metrics.update({
 			'train_acc': train_acc_cv,
 			'train_loss': train_err_cv,
@@ -100,12 +100,12 @@ class SKTrainer:
 		"""
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
-		y_hat = self.__model.predict(self.__x_train)  # y_hat is a.k.a y_pred
+		y_hat = self.__model.predict(self.__x_train.values)  # y_hat is a.k.a y_pred
 
 		train_acc = accuracy_score(self.__y_train, y_hat)
 		train_loss = zero_one_loss(self.__y_train, y_hat)
 
-		y_pred = self.__model.predict(self.__x_test)
+		y_pred = self.__model.predict(self.__x_test.values)
 		test_acc = accuracy_score(self.__y_test, y_pred)
 		test_loss = zero_one_loss(self.__y_test, y_pred)
 		self.__metrics.update({
