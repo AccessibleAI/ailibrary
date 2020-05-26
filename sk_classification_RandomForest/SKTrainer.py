@@ -67,8 +67,8 @@ class SKTrainer:
 		The method also initiates the cnvrg experiment with all its metrics.
 		"""
 		scores = cross_validate(estimator=self.__model,
-								X=self.__x_train,
-								y=self.__y_train,
+								X=self.__x_train.values,
+								y=self.__y_train.values,
 								cv=self.__cross_val_folds,
 								return_train_score=True,
 								scoring=['neg_mean_squared_error', 'accuracy'],
@@ -81,8 +81,8 @@ class SKTrainer:
 		self.__model = scores['estimator'][-1]
 
 		y_pred = self.__model.predict(self.__x_test.values)
-		test_acc = accuracy_score(self.__y_test, y_pred)
-		test_loss = zero_one_loss(self.__y_test, y_pred)
+		test_acc = accuracy_score(self.__y_test.values, y_pred)
+		test_loss = zero_one_loss(self.__y_test.values, y_pred)
 		self.__metrics.update({
 			'train_acc': train_acc_cv,
 			'train_loss': train_err_cv,
@@ -179,12 +179,13 @@ class SKTrainer:
 		self.__plot_accuracies_and_errors_helper_rounding()
 		if self.__testing_mode is True: self.__plot_accuracies_and_errors_helper_testing_mode()
 
-		for p in ['model', 'test_acc', 'test_loss', 'test_loss_type', 'train set size', 'test set size']:
+		for p in ['model', 'test_acc', 'test_loss', 'test_loss_type', 'train set size', 'test set size', 'train_loss_type']:
 			self.__experiment.log_param(p, self.__metrics[p])
 
 		if self.__is_cross_val is True:
 			self.__experiment.log_param("folds", self.__metrics['folds'])
-			metrics = ['train_acc', 'train_loss', 'train_loss_type', 'validation_acc', 'validation_loss', 'validation_loss_type']
+			self.__experiment.log_param("validation_loss_type", self.__metrics['validation_loss_type'])
+			metrics = ['train_acc', 'train_loss', 'validation_acc', 'validation_loss']
 			for m in metrics: self.__experiment.log_metric(m, self.__metrics[m], grouping=[m] * len(self.__metrics[m]))
 			return
 
