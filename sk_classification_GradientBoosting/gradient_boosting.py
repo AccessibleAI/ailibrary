@@ -6,18 +6,15 @@ cnvrg.io - AI library
 
 Written by: Omer Liberman
 
-Last update: Oct 06, 2019
+Last update: Jun 01, 2020
 Updated by: Omer Liberman
 
 gradient_boosting.py
 ==============================================================================
 """
 import argparse
-import pandas as pd
-
-from SKTrainer import *
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
+from utils.scikit_learn.sk_trainer import SKTrainerClassification
 
 
 def _cast_types(args):
@@ -28,6 +25,7 @@ def _cast_types(args):
 	"""
 	args.x_val = int(args.x_val) if args.x_val != 'None' else None
 	args.test_size = float(args.test_size)
+	args.digits_to_round = int(args.digits_to_round)
 	args.learning_rate = float(args.learning_rate)
 	args.n_estimators = int(args.n_estimators)
 	args.subsample = float(args.subsample)
@@ -36,7 +34,7 @@ def _cast_types(args):
 	args.min_weight_fraction_leaf = float(args.min_weight_fraction_leaf)
 	args.max_depth = int(args.max_depth)
 	args.min_impurity_decrease = float(args.min_impurity_decrease)
-	args.min_impurity_split = float(args.min_impurity_split)
+	args.min_impurity_split = None if args.min_impurity_split == 'None' else float(args.min_impurity_split)
 
 	# init (Problematic - might get an object).
 	if args.init == "None" or args.init == 'None':
@@ -71,63 +69,7 @@ def _cast_types(args):
 	return args
 
 
-def main(args):
-	args = _cast_types(args)
-
-	# Minimal number of rows and columns in the csv file.
-	MINIMAL_NUM_OF_ROWS = 10
-	MINIMAL_NUM_OF_COLUMNS = 2
-
-	# Loading data, and splitting it to train and test based on user input
-	data = pd.read_csv(args.data, index_col=0)
-
-	# Check for unfit given dataset and splitting to X and y.
-	rows_num, cols_num = data.shape
-	if rows_num < MINIMAL_NUM_OF_ROWS: raise ValueError("LibraryError: The given csv doesn't have enough rows (at least 10 examples must be given).")
-	if cols_num < MINIMAL_NUM_OF_COLUMNS: raise ValueError("DatasetError: Not enough columns in the csv (at least 2 columns must be given).")
-
-	X = data.iloc[:, :-1]
-	y = data.iloc[:, -1]
-	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=args.test_size)
-
-	model = GradientBoostingClassifier(
-		loss=args.loss,
-		learning_rate=args.learning_rate,
-		n_estimators=args.n_estimators,
-		subsample=args.subsample,
-		criterion=args.criterion,
-		min_samples_split=args.min_samples_split,
-		min_samples_leaf=args.min_samples_leaf,
-		min_weight_fraction_leaf=args.min_weight_fraction_leaf,
-		max_depth=args.max_depth,
-		min_impurity_decrease=args.min_impurity_decrease,
-		min_impurity_split=args.min_impurity_split,
-		init=args.init,
-		random_state=args.random_state,
-		max_features=args.max_features,
-		verbose=args.verbose,
-		max_leaf_nodes=args.max_leaf_nodes,
-		warm_start=args.warm_start,
-		presort=args.presort,
-		validation_fraction=args.validation_fraction,
-		n_iter_no_change=args.n_iter_no_change,
-		tol=args.tol
-	)
-
-	folds = None if args.x_val is None else args.x_val
-
-	trainer = SKTrainer(model=model,
-						train_set=(X_train, y_train),
-						test_set=(X_test, y_test),
-						output_model_name=args.output_model,
-						testing_mode=args.test_mode,
-						folds=folds)
-
-	trainer.run()
-
-
-
-if __name__ == '__main__':
+def _parse_arguments():
 	parser = argparse.ArgumentParser(description="""K-Nearest-Neighbors Classifier""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
@@ -145,8 +87,17 @@ if __name__ == '__main__':
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
 	                    help="""Float. The portion of the data of testing. Default is 0.2""")
 
-	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
-	                    help="""String. The name of the output file which is a trained random forests model """)
+	parser.add_argument('--train_loss_type', action='store', default='MSE', dest='train_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, MAE, R2.')
+
+	parser.add_argument('--test_loss_type', action='store', default='MSE', dest='test_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, MAE, R2, zero_one_loss.')
+
+	parser.add_argument('--digits_to_round', action='store', default='4', dest='digits_to_round',
+						help="""(int) (default: 4) the number of decimal numbers to round.""")
+
+	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model_name',
+	                    help="""String. The name of the output file which is a trained model. """)
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
@@ -186,8 +137,8 @@ if __name__ == '__main__':
 	parser.add_argument('--min_impurity_decrease', action='store', default="0.", dest='min_impurity_decrease',
 						help="""float, optional (default=0.) A node will be split if this split induces a decrease of the impurity greater than or equal to this value.""")
 
-	parser.add_argument('--min_impurity_split', action='store', default="1e-7", dest='min_impurity_split',
-						help="""float, (default=1e-7) Threshold for early stopping in tree growth. A node will split if its impurity is above the threshold, otherwise it is a leaf.""")
+	parser.add_argument('--min_impurity_split', action='store', default="None", dest='min_impurity_split',
+						help="""float, (default=None) Warning: The min_impurity_split parameter is deprecated. Its default value will change from 1e-7 to 0 in version 0.23, and it will be removed in 0.25. Use the min_impurity_decrease parameter instead.""")
 
 	parser.add_argument('--init', action='store', default="None", dest='init',
 						help="""estimator or ‘zero’, optional (default=None) An estimator object that is used to compute the initial predictions. init has to provide fit and predict_proba. If ‘zero’, the initial raw predictions are set to zero. By default, a DummyEstimator predicting the classes priors is used. """)
@@ -228,5 +179,51 @@ if __name__ == '__main__':
 						help="""float, optional, default 1e-4. Tolerance for the early stopping. When the loss is not improving by at least tol for n_iter_no_change iterations (if set to a number), the training stops. """)
 
 	args = parser.parse_args()
+	return args
 
+
+def main(args):
+	args = _cast_types(args)
+
+	# Initializing classifier with user input
+	model = GradientBoostingClassifier(
+		loss=args.loss,
+		learning_rate=args.learning_rate,
+		n_estimators=args.n_estimators,
+		subsample=args.subsample,
+		criterion=args.criterion,
+		min_samples_split=args.min_samples_split,
+		min_samples_leaf=args.min_samples_leaf,
+		min_weight_fraction_leaf=args.min_weight_fraction_leaf,
+		max_depth=args.max_depth,
+		min_impurity_decrease=args.min_impurity_decrease,
+		min_impurity_split=args.min_impurity_split,
+		init=args.init,
+		random_state=args.random_state,
+		max_features=args.max_features,
+		verbose=args.verbose,
+		max_leaf_nodes=args.max_leaf_nodes,
+		warm_start=args.warm_start,
+		presort=args.presort,
+		validation_fraction=args.validation_fraction,
+		n_iter_no_change=args.n_iter_no_change,
+		tol=args.tol
+	)
+
+	folds = None if args.x_val is None else args.x_val
+
+	trainer = SKTrainerClassification(sk_learn_model_object=model,
+									  path_to_csv_file=args.data,
+									  test_size=args.test_size,
+									  output_model_name=args.output_model_name,
+									  train_loss_type=args.train_loss_type,
+									  test_loss_type=args.test_loss_type,
+									  digits_to_round=args.digits_to_round,
+									  folds=folds)
+
+	trainer.run()
+
+
+if __name__ == '__main__':
+	args = _parse_arguments()
 	main(args)

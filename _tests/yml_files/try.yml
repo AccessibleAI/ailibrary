@@ -1,0 +1,89 @@
+---
+flow: Try from pycharm
+recurring:
+tasks:
+- input: python3 vgg16.py
+  params:
+  - key: data
+    value:
+    - "/data/mini"
+  - key: data_test
+    value:
+    - None
+  - key: output_model
+    value:
+    - model.h5
+  - key: validation_split
+    value: 0
+  - key: epochs
+    value: 1
+  - key: steps_per_epoch
+    value:
+    - None
+  - key: batch_size
+    value: 32
+  - key: workers
+    value: 1
+  - key: multi_processing
+    value: false
+  - key: verbose
+    value: 1
+  - key: image_color
+    value:
+    - rgb
+  - key: loss
+    value:
+    - cross_entropy
+  - key: dropout
+    value: 0.3
+  - key: optimizer
+    value:
+    - adam
+  - key: image_width
+    value: 256
+  - key: image_height
+    value: 256
+  - key: conv_width
+    value: 3
+  - key: conv_height
+    value: 3
+  - key: pooling_width
+    value: 2
+  - key: pooling_height
+    value: 2
+  - key: hidden_layer_activation
+    value:
+    - relu
+  - key: output_layer_activation
+    value:
+    - softmax
+  computes:
+  - gpu
+  image: tensorflow:19.12-tf2-py3
+  description:
+  type: exec
+  git_commit:
+  git_branch:
+  mount_folders: []
+  icon: tensorflow
+  library: vgg16
+  output_dir: output
+  confirmation: false
+  title: VGG16
+  top: 86
+  left: 508
+  conditions: []
+  commit: 9761ed29253e5962e161b649c869167aba9a60aa
+- title: mini
+  top: 100
+  left: 100
+  description:
+  conditions: []
+  type: data
+  dataset: mini
+  data_commit:
+  data_query:
+  use_cached: true
+relations:
+- from: mini
+  to: VGG16

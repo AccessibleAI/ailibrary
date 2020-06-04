@@ -6,7 +6,7 @@ cnvrg.io - AI library
 
 Created by: Omer Liberman
 
-Last update: Jan 26th, 2020
+Last update: Jun 01, 2020
 Updated by: Omer Liberman
 
 resnet50.py
@@ -14,18 +14,21 @@ resnet50.py
 """
 import argparse
 import tensorflow as tf
+from utils.tensorflow.image_classification.tensor_flow_trainer_image_classification \
+	import TensorFlowTrainerImageClassification
+from utils.tensorflow.image_classification.tensor_trainer_utils import cast_input_types
 
-from _src.tensor_trainer_utils import *
-from _src.tensorflow_trainer import *
 
-if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description="""ResNet50 Model""")
+def _parse_arguments():
+	parser = argparse.ArgumentParser(description="""InceptionV3 Model""")
 
 	parser.add_argument('--data', action='store', dest='data', required=True,
-						help="""(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation.""")
+						help="""(String) (Required param) Path to a local directory which contains sub-directories, 
+						each for a single class. The data is used for training and validation.""")
 
 	parser.add_argument('--data_test', action='store', dest='data_test', default=None,
-						help="""(String) (Default: None) Path to a local directory which contains sub-directories, each for a single class. The data is used for testing.""")
+						help="""(String) (Default: None) Path to a local directory which contains sub-directories, 
+						each for a single class. The data is used for testing.""")
 
 	parser.add_argument('--project_dir', action='store', dest='project_dir',
 						help="""String. (String) cnvrg.io parameter. NOT used by the user!""")
@@ -35,6 +38,9 @@ if __name__ == '__main__':
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
+
+	parser.add_argument('--digits_to_round', action='store', default='4', dest='digits_to_round',
+						help="""(int) (default: 4) the number of decimal numbers to round.""")
 
 	parser.add_argument('--output_model', action='store', default="model.h5", dest='output_model',
 						help="""(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file.""")
@@ -99,10 +105,14 @@ if __name__ == '__main__':
 						help="""(String) (Default: 'softmax') The activation function of the output layer.""")
 
 	args = parser.parse_args()
+	return args
 
+
+if __name__ == '__main__':
+	args = _parse_arguments()
 	args = cast_input_types(args)
 	channels = 3 if args.image_color == 'rgb' else 1
 	base_model = tf.keras.applications.ResNet50(weights='imagenet', include_top=False,
-												input_shape=(args.image_height, args.image_width, channels))
-	trainer = TensorflowTrainer(args, 'resnet50', base_model)
+												   input_shape=(args.image_height, args.image_width, channels))
+	trainer = TensorFlowTrainerImageClassification(args, 'ResNet50', base_model)
 	trainer.run()

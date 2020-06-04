@@ -15,8 +15,15 @@ arguments:
     value: None
   test_size:
     value: 0.2
+  train_loss_type:
+    value: "MSE"
+  test_loss_type:
+    value: "MSE"
+  digits_to_round:
+    value: 4
   output_model:
     value: model.sav
+
   criterion:
     value: gini
   splitter:

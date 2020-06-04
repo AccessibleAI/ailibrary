@@ -6,18 +6,15 @@ cnvrg.io - AI library
 
 Written by: Omer Liberman
 
-Last update: Oct 15, 2019
+Last update: Jun 01, 2020
 Updated by: Omer Liberman
 
-logistic_regression.py
+linear_regression.py
 ==============================================================================
 """
 import argparse
-import pandas as pd
-
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from SKTrainerRegression import SKTrainerRegression
+from utils.scikit_learn.sk_trainer import SKTrainerRegression
 
 
 def _cast_types(args):
@@ -28,52 +25,16 @@ def _cast_types(args):
 	"""
 	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
-	args.fit_intercept = (args.fit_intercept in ['True', "True", 'true', "true"])
-	args.normalize = (args.normalize in ['True', "True", 'true', "true"])
-	args.copy_X = (args.copy_X in ['True', "True", 'true', "true"])
+	args.digits_to_round = int(args.digits_to_round)
+	args.fit_intercept = (args.fit_intercept == 'True')
+	args.normalize = (args.normalize == 'True')
+	args.copy_X = (args.copy_X == 'True')
 	args.n_jobs = None if args.n_jobs == 'None' else int(args.n_jobs)
 	# --------------- #
 	return args
 
 
-def main(args):
-	args = _cast_types(args)
-
-	# Loading data as df, and splitting it to train and test based on user input
-	data = pd.read_csv(args.data)
-	for col in data.columns:
-		if col.startswith('Unnamed'):
-			data = data.drop(columns=col, axis=1)
-
-	rows_num, cols_num = data.shape
-
-	if rows_num == 0:
-		raise Exception("Dataset Error: The given dataset has no examples.")
-	if cols_num < 2:
-		raise Exception("Dataset Error: Not enough columns.")
-
-	X = data.iloc[:, :-1]
-	y = data.iloc[:, -1]
-	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=args.test_size)
-
-	# Initializing model with user input
-	model = LinearRegression(fit_intercept=args.fit_intercept,
-	                         normalize=args.normalize,
-	                         copy_X=args.copy_X,
-	                         n_jobs=args.n_jobs)
-
-	trainer = SKTrainerRegression(model=model,
-								train_set=(X_train, y_train),
-								test_set=(X_test, y_test),
-								output_model_name=args.output_model,
-								testing_mode=args.test_mode,
-								folds=args.x_val,
-								regression_type=0)
-
-	trainer.run()
-
-
-if __name__ == '__main__':
+def _parse_arguments():
 	parser = argparse.ArgumentParser(description="""linear regression""")
 	# ----- cnvrg.io params.
 	parser.add_argument('--data', action='store', dest='data', required=True,
@@ -91,8 +52,17 @@ if __name__ == '__main__':
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
 	                    help="""Float. The portion of the data of testing. Default is 0.2""")
 
-	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
-	                    help="""String. The name of the output file which is a trained model. Default is linear_regression_model.sav""")
+	parser.add_argument('--train_loss_type', action='store', default='MSE', dest='train_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, RMSE, MAE, R2.')
+
+	parser.add_argument('--test_loss_type', action='store', default='MSE', dest='test_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, RMSE, MAE, R2, zero_one_loss.')
+
+	parser.add_argument('--digits_to_round', action='store', default='4', dest='digits_to_round',
+						help="""(int) (default: 4) the number of decimal numbers to round.""")
+
+	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model_name',
+						help="""String. The name of the output file which is a trained model. Default is model.sav""")
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
@@ -111,5 +81,30 @@ if __name__ == '__main__':
 	                    help="""int or None, optional (default=None). The number of jobs to use for the computation. This will only provide speedup for n_targets > 1 and sufficient large problems. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details.""")
 
 	args = parser.parse_args()
+	return args
 
+
+def main(args):
+	args = _cast_types(args)
+
+	# Initializing model with user input
+	model = LinearRegression(fit_intercept=args.fit_intercept,
+	                         normalize=args.normalize,
+	                         copy_X=args.copy_X,
+	                         n_jobs=args.n_jobs)
+
+	trainer = SKTrainerRegression(sk_learn_model_object=model,
+									  path_to_csv_file=args.data,
+									  test_size=args.test_size,
+									  output_model_name=args.output_model_name,
+									  train_loss_type=args.train_loss_type,
+									  test_loss_type=args.test_loss_type,
+									  digits_to_round=args.digits_to_round,
+									  folds=args.x_val)
+
+	trainer.run()
+
+
+if __name__ == '__main__':
+	args = _parse_arguments()
 	main(args)

@@ -6,18 +6,16 @@ cnvrg.io - AI library
 
 Written by: Omer Liberman
 
-Last update: Dec 18, 2019
+Last update: Jun 01, 2020
 Updated by: Omer Liberman
 
 xgb.py
 ==============================================================================
 """
 import argparse
-import pandas as pd
-
-from SKTrainer import *
 from xgboost import XGBClassifier
-from sklearn.model_selection import train_test_split
+from utils.scikit_learn.sk_trainer import SKTrainerClassification
+
 
 def _cast_types(args):
 	"""
@@ -27,6 +25,7 @@ def _cast_types(args):
 	"""
 	args.x_val = None if args.x_val == 'None' else int(args.x_val)
 	args.test_size = float(args.test_size)
+	args.digits_to_round = int(args.digits_to_round)
 	args.max_depth = int(args.max_depth)
 	args.learning_rate = float(args.learning_rate)
 	args.n_estimators = int(args.n_estimators)
@@ -48,69 +47,10 @@ def _cast_types(args):
 	args.base_score = float(args.base_score)
 	args.random_state = int(args.random_state)
 	args.missing = None if args.missing == 'None' else float(args.missing)
-
 	return args
 
 
-def main(args):
-	args = _cast_types(args)
-
-	# Loading data set.
-	data = pd.read_csv(args.data, index_col=0)
-	for col in data.columns:
-		if col.startswith('Unnamed'):
-			data = data.drop(columns=col, axis=1)
-
-	# Checking data sets sizes.
-	rows_num, cols_num = data.shape
-	if rows_num == 0:
-		raise Exception("Library Error: The given dataset has no examples.")
-	if cols_num < 2:
-		raise Exception("Dataset Error: Not enough columns.")
-
-	# Split to X and y.
-	X = data.iloc[:, :-1]
-	y = data.iloc[:, -1]
-
-	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=args.test_size)
-
-	# Model initialization.
-	model = XGBClassifier(
-		max_depth=args.max_depth,
-		learning_rate=args.learning_rate,
-		n_estimators=args.n_estimators,
-		verbosity=args.verbosity,
-		objective=args.objective,
-		booster=args.booster,
-		tree_method=args.tree_method,
-		n_jobs=args.n_jobs,
-		gamma=args.gamma,
-		min_child_weight=args.min_child_weight,
-		max_delta_step=args.max_delta_step,
-		subsample=args.subsample,
-		colsample_bytree=args.colsample_bytree,
-		colsample_bylevel=args.colsample_bylevel,
-		colsample_bynode=args.colsample_bynode,
-		reg_alpha=args.reg_alpha,
-		reg_lambda=args.reg_lambda,
-		scale_pos_weight=args.scale_pos_weight,
-		base_score=args.base_score,
-		random_state=args.random_state,
-		missing=args.missing)
-
-	folds = None if args.x_val is None else args.x_val
-
-	trainer = SKTrainer(model=model,
-						train_set=(X_train, y_train),
-						test_set=(X_test, y_test),
-						output_model_name=args.output_model,
-						testing_mode=args.test_mode,
-						folds=folds)
-
-	trainer.run()
-
-
-if __name__ == '__main__':
+def _parse_arguments():
 	parser = argparse.ArgumentParser(description="""xgboost Classifier""")
 
 	# ----- cnvrg.io params.
@@ -129,8 +69,17 @@ if __name__ == '__main__':
 	parser.add_argument('--test_size', action='store', default="0.2", dest='test_size',
 	                    help="""Float. The portion of the data of testing. Default is 0.2""")
 
-	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model',
-	                    help="""String. The name of the output file which is a trained random forests model """)
+	parser.add_argument('--train_loss_type', action='store', default='MSE', dest='train_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, RMSE, MAE, R2.')
+
+	parser.add_argument('--test_loss_type', action='store', default='MSE', dest='test_loss_type',
+						help='(string) (default: MSE) can be one of: F1, LOG, MSE, RMSE, MAE, R2, zero_one_loss.')
+
+	parser.add_argument('--digits_to_round', action='store', default='4', dest='digits_to_round',
+						help="""(int) (default: 4) the number of decimal numbers to round.""")
+
+	parser.add_argument('--output_model', action='store', default="model.sav", dest='output_model_name',
+						help="""String. The name of the output file which is a trained model. Default is model.sav""")
 
 	parser.add_argument('--test_mode', action='store', default=False, dest='test_mode',
 						help="""--- For inner use of cnvrg.io ---""")
@@ -204,5 +153,50 @@ if __name__ == '__main__':
 						 np.nan. . Default is None""")
 
 	args = parser.parse_args()
+	return args
 
+
+def main(args):
+	args = _cast_types(args)
+
+	# Model initialization.
+	model = XGBClassifier(
+		max_depth=args.max_depth,
+		learning_rate=args.learning_rate,
+		n_estimators=args.n_estimators,
+		verbosity=args.verbosity,
+		objective=args.objective,
+		booster=args.booster,
+		tree_method=args.tree_method,
+		n_jobs=args.n_jobs,
+		gamma=args.gamma,
+		min_child_weight=args.min_child_weight,
+		max_delta_step=args.max_delta_step,
+		subsample=args.subsample,
+		colsample_bytree=args.colsample_bytree,
+		colsample_bylevel=args.colsample_bylevel,
+		colsample_bynode=args.colsample_bynode,
+		reg_alpha=args.reg_alpha,
+		reg_lambda=args.reg_lambda,
+		scale_pos_weight=args.scale_pos_weight,
+		base_score=args.base_score,
+		random_state=args.random_state,
+		missing=args.missing)
+
+	folds = None if args.x_val is None else args.x_val
+
+	trainer = SKTrainerClassification(sk_learn_model_object=model,
+									  path_to_csv_file=args.data,
+									  test_size=args.test_size,
+									  output_model_name=args.output_model_name,
+									  train_loss_type=args.train_loss_type,
+									  test_loss_type=args.test_loss_type,
+									  digits_to_round=args.digits_to_round,
+									  folds=folds)
+
+	trainer.run()
+
+
+if __name__ == '__main__':
+	args = _parse_arguments()
 	main(args)

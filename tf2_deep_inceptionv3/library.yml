@@ -15,6 +15,9 @@ arguments:
   data_test:
     value: None
     description: "(String) (Default: None) Path to a local directory which contains sub-directories, each for a single class. The data is used for testing."
+  digits_to_round:
+    value: 4
+    description: "(int) (default: 4) the number of decimal numbers to round."
   output_model:
     value: model.h5
     description: "(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file."
