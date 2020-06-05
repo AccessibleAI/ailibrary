@@ -14,7 +14,7 @@ decision_trees_classifier.py
 """
 import argparse
 from sklearn.tree import DecisionTreeClassifier
-from utils.scikit_learn.sk_trainer import SKTrainerClassification
+from utils.scikit_learn.classification.sk_trainer_classification import SKTrainerClassification
 
 
 def _cast_types(args):

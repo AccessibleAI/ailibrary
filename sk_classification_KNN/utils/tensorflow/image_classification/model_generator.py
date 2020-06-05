@@ -77,7 +77,7 @@ class ModelGenerator:
 	def __get_loss(loss, num_of_classes):
 		if loss == 'cross_entropy':  # default value.
 			return CategoricalCrossentropy() # if num_of_classes != 2 else BinaryCrossentropy()
-		elif loss == 'binary_cross_entropy"':
+		elif loss == 'binary_cross_entropy':
 			return BinaryCrossentropy()
 		elif loss == 'cosine_similarity':
 			return CosineSimilarity()
@@ -87,5 +87,5 @@ class ModelGenerator:
 			return MeanSquaredError()
 		elif loss == 'huber':
 			return Huber()
-		else: raise ValueError('loss type does not exist.')
+		else: raise ValueError('loss type {} does not exist.'.format(loss))
 

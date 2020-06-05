@@ -14,6 +14,7 @@ tensor_flow_trainer_image_classification.py
 """
 import os
 import time
+import cnvrg
 import numpy as np
 import tensorflow as tf
 
@@ -98,9 +99,9 @@ class TensorFlowTrainerImageClassification:
 						'digits_to_round': (int, self.__digits_to_round)}
 
 		try:
-			self.__experiment = Experiment()
 			self.__cnvrg_env = True
-		except Exception:
+			self.__experiment = Experiment()
+		except:
 			self.__cnvrg_env = False
 
 	def run(self):
@@ -287,7 +288,10 @@ class TensorFlowTrainerImageClassification:
 
 		:return: none.
 		"""
-		output_model_name = os.environ.get("CNVRG_WORKDIR") + "/" + self.__arguments.output_model \
-			if os.environ.get("CNVRG_WORKDIR") is not None else self.__arguments.output_model
-		self.__model.save(output_model_name)
-		export_labels_dictionary_from_classes_list(self.__classes)
+		if self.__cnvrg_env:
+			dir_name = os.environ.get("CNVRG_WORKDIR") + "/" if os.environ.get("CNVRG_WORKDIR") is not None else ""
+			file_name = self.__arguments.output_model
+		else:
+			dir_name, file_name = os.path.split(self.__arguments.output_model)
+		self.__model.save(dir_name + '/' + file_name)
+		export_labels_dictionary_from_classes_list(self.__classes, dir_name)

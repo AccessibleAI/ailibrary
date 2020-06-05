@@ -14,7 +14,7 @@ svm.py
 """
 import argparse
 from sklearn import svm
-from utils.scikit_learn.sk_trainer import SKTrainerClassification
+from utils.scikit_learn.classification.sk_trainer_classification import SKTrainerClassification
 
 
 def _cast_types(args):
@@ -163,6 +163,14 @@ def main(args):
 		random_state=args.random_state)
 
 	folds = None if args.x_val is None else args.x_val
+
+	if (args.train_loss_type == 'LOG' or args.test_loss_type == 'LOG') and (folds is not None):
+		print("SVM doesn't support cross validation with log loss")
+		print("changes to MSE (default value) ...")
+		if args.test_loss_type == 'LOG':
+			args.test_loss_type = 'MSE'
+		if args.train_loss_type == 'LOG':
+			args.train_loss_type = 'MSE'
 
 	trainer = SKTrainerClassification(sk_learn_model_object=model,
 									  path_to_csv_file=args.data,

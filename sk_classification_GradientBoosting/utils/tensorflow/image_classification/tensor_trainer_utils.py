@@ -32,14 +32,8 @@ def cast_input_types(args):
 	return args
 
 
-def export_labels_dictionary_from_classes_list(classes):
-	with open('labels.json', 'w') as fp:
-		json.dump(classes, fp)
-
-
-def export_labels_dictionary_from_generator(generator):
-	classes = generator.class_indices
-	with open('labels.json', 'w') as fp:
+def export_labels_dictionary_from_classes_list(classes, output_dir):
+	with open(output_dir + '/labels.json', 'w') as fp:
 		json.dump(classes, fp)
 
 

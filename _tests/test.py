@@ -18,11 +18,9 @@ DATA_PATH_TENSOR_FLOW_TRAIN = DATA_DIR + 'images/training_set'
 DATA_PATH_TENSOR_FLOW_TEST = DATA_DIR + 'images/test_set'
 TENSORFLOW_VALIDATION_SPLITS = ['0.1']
 TENSORFLOW_EPOCHS = ['10']
-TENSORFLOW_LOSS = ['cross_entropy', 'binary_cross_entropy',
-				   'cosine_similarity', 'mean_absolute_error', 'mean_squared_error',
-				   'huber']
-TENSORFLOW_OPTIMIZERS = ['sgd', 'rmsprop', 'adagrad', 'adam']
-TENSORFLOW_ACTIVATIONS = ['relu', 'softmax']
+TENSORFLOW_LOSS = ['binary_cross_entropy', 'mean_absolute_error', 'mean_squared_error']
+TENSORFLOW_OPTIMIZERS = ['sgd', 'rmsprop']
+TENSORFLOW_ACTIVATIONS = ['relu']
 
 
 # library name: (library type, directory name, library script name)
@@ -208,6 +206,7 @@ class SKLearnTest(unittest.TestCase):
 			command = compose_command_sklearn(library_name=lib, data=DATA_PATH_SK_LEARN,
 											  output_model=OUTPUTS_DIR + model, cross_validation=CROSS_VALIDATION,
 											  loss_type=loss)
+			print(command)
 			os.system(command)
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced with loss {}.".format(loss)
 			os.remove(OUTPUTS_DIR + model)
@@ -320,6 +319,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 	def test_inception_with_test_data(self):
 		lib = 'inceptionV3'
@@ -334,6 +334,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 	def test_resnet_no_test_data(self):
 		lib = 'resnet50'
@@ -348,6 +349,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 	def test_resnet_with_test_data(self):
 		lib = 'resnet50'
@@ -362,6 +364,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 	def test_vgg_no_test_data(self):
 		lib = 'vgg16'
@@ -376,6 +379,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 	def test_vgg_with_test_data(self):
 		lib = 'vgg16'
@@ -390,6 +394,7 @@ class TensorflowTest(unittest.TestCase):
 			assert model in os.listdir(OUTPUTS_DIR), "model file hasn't been produced."
 			assert "labels.json" in os.listdir(OUTPUTS_DIR), "labels file hasn't been produced."
 			os.remove(OUTPUTS_DIR + model)
+			os.remove(OUTPUTS_DIR + 'labels.json')
 
 if __name__ == '__main__':
 	unittest.main()

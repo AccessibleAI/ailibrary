@@ -91,7 +91,7 @@ class SKTrainerRegression:
 		try:
 			self.__experiment = Experiment()
 			self.__cnvrg_env = True
-		except Exception:
+		except:
 			self.__cnvrg_env = False
 
 		#self.__regression_type = SKTrainerRegression.REGRESSION_TYPE[regression_type]

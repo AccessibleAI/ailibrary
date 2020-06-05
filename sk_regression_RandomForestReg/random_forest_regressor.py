@@ -14,7 +14,7 @@ random_forest_regressor.py
 """
 import argparse
 from sklearn.ensemble import RandomForestRegressor
-from utils.scikit_learn.sk_trainer import SKTrainerRegression
+from utils.scikit_learn.regression.sk_trainer_regression import SKTrainerRegression
 
 
 def _cast_types(args):

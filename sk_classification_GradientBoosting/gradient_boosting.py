@@ -14,7 +14,7 @@ gradient_boosting.py
 """
 import argparse
 from sklearn.ensemble import GradientBoostingClassifier
-from utils.scikit_learn.sk_trainer import SKTrainerClassification
+from utils.scikit_learn.classification.sk_trainer_classification import SKTrainerClassification
 
 
 def _cast_types(args):
