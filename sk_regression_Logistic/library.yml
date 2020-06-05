@@ -2,7 +2,7 @@
 title: Logistic Regression
 command: python3 logistic_regression.py
 description: " - model probability using Logistic Regression. Built by cnvrg."
-version: 1.1.70
+version: 1.1.72
 docker_images: cnvrg
 compute: small
 data_type: CSV
@@ -15,12 +15,6 @@ arguments:
     value: None
   test_size:
     value: 0.2
-  train_loss_type:
-    value: "MSE"
-  test_loss_type:
-    value: "MSE"
-  digits_to_round:
-    value: 4
   output_model:
     value: model.sav
 
