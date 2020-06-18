@@ -1,0 +1,19 @@
+---
+title: Batch Predict
+command: python3 con_sql.py
+description: " -  Easily batch predict.  Built by cnvrg."
+version: 1.4.2
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: python
+
+arguments:
+  endpoint_id:
+    value: ''
+  input_file:
+    value: ''
+  output_file:
+    value: ''
+  dataset:
+    value: ''
