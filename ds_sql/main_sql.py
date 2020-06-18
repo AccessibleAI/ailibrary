@@ -27,9 +27,10 @@ if __name__ == '__main__':
 
     # get confidentail parameters from args or os
     pwd = os.getenv('SQL_PWD') or args.pwd
+    uid = os.getenv('SQL_UID') or args.uid
     port = (args.port or 1433)
 
-    sql = con_sql.SQLConnector(uid=args.uid, pwd=pwd, driver=args.driver,
+    sql = con_sql.SQLConnector(uid=uid, pwd=pwd, driver=args.driver,
                        server=args.server, database=args.database)
 
     if args.csv:

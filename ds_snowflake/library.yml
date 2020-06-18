@@ -1,19 +1,23 @@
 ---
-title: Batch Predict
+title: Snowflake
 command: python3 con_sql.py
-description: " -  Easily batch predict.  Built by cnvrg."
+description: " -  Snowflake Database Connector."
 version: 1.4.2
 docker_images: cnvrg
 compute: small
-data_type: ipynb
+data_type: csv
 icon: python
 
 arguments:
-  endpoint_id:
-    value: ''
-  input_file:
+  query:
     value: ''
   output_file:
     value: ''
-  dataset:
+  warehouse:
+    value: ''
+  account:
+    value: ''
+  database:
+    value: ''
+  schema:
     value: ''

@@ -1,9 +1,8 @@
 import argparse
 import os
+# from cnvrg import Dataset
 
 from ds_snowflake import con_snowflake
-
-
 
 
 if __name__ == '__main__':
@@ -17,14 +16,18 @@ if __name__ == '__main__':
     parser.add_argument('--password', action="store", dest='password', type=str, default='')
     parser.add_argument('--query', action="store", dest='query', type=str, default='')
     parser.add_argument('--filename', action="store", dest='filename', type=str, default='')
+    parser.add_argument('--dataset', action="store", dest='dataset', type=str, default='')
     args = parser.parse_args()
 
     # get confidentail parameters from args or os
     password = os.getenv('SNOWFLAKE_PASSWORD') or args.password
     warehouse = os.getenv('SNOWFLAKE_WAREHOUSE') or args.warehouse
-    account = os.getenv('SNOWFLAKE_Account') or args.account
+    account = os.getenv('SNOWFLAKE_ACCOUNT') or args.account
+    user = os.getenv('SNOWFLAKE_USER') or args.user
     query = args.query
-    snf = con_snowflake.SnowflakeConnector(user=args.user, password=password, warehouse=warehouse, account=account,database=args.database,schema=args.schema)
+    
+    snf = con_snowflake.SnowflakeConnector(user=user, password=password, warehouse=warehouse, account=account,database=args.database,schema=args.schema)
+
     #test
     snf.to_csv(query=query,file_name=args.filename)
     # setup the connection

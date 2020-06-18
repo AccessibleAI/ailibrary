@@ -1,14 +1,40 @@
-This library is made to run a batch prediction using a CSV with an existing cnvrg batch prediction endpoint.
+SQL Connector library provides an easy way to connect to different SQL databases using ODBC. 
+This connector allows you to connect to DB, run queries and analyze results. It is supported in both Python environments or cnvrg Flows
 
-## Notes for this library
-This library will run a batch prediction on a supplied CSV. It will submit each row of the CSV as a prediction to an existing batch prediction endpoint and save the resulting inferences to a new CSV and upload the outut CSV to a dataset of your choosing.
+In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
+
 
 ## Parameters
+---
 
-```--endpoint_id``` - string, required. The ID of the batch predict endpoint you are using. The endpoint must already be deployed.
+```--query``` - str, required. The Snowflake query to be executed
+```--output_file``` - str, optional. Filename to store the query as a CSV
 
-```--input_file``` - string, required. The path of a CSV file with the data for the batch prediction. For example, `/data/dataset/data.csv`.
+## Config parameters
+---
 
-```--output_file``` - string, required. The path of the CSV output file. For example, `/cnvrg/output.csv`.
+```--warehouse``` - Snowflake warehouse name 
 
-```--dataset``` - string, required. The name of an existing dataset that the output CSV will be uploaded to.
+```--account``` - account name
+
+```--database``` - database name
+
+```--schema``` - schema name
+
+
+## Authentication
+---
+It is recommended to use environment variables as authentication method. This library expects the following env variables:
+
+* `SNOWFLAKE_PASSWORD` - account
+* `SNOWFLAKE_USER` - username
+
+You can also set additional parameters as environment variables and not pass them as arguments:
+
+* `SNOWFLAKE_WAREHOUSE` - warehouse
+* `SNOWFLAKE_ACCOUNT` - username
+
+The environment variables can be stored securely in the project settings in cnvrg. 
+
+You can also pass credentials as arguments: `user` and `password`
+
