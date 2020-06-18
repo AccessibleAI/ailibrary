@@ -1,0 +1,2 @@
+cnvrg
+snowflake-connector-python
