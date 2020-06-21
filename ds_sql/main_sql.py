@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from ds_sql import con_sql
+from ds_sql import sql_connector
 
 
 
@@ -30,8 +30,8 @@ if __name__ == '__main__':
     uid = os.getenv('SQL_UID') or args.uid
     port = (args.port or 1433)
 
-    sql = con_sql.SQLConnector(uid=uid, pwd=pwd, driver=args.driver,
-                       server=args.server, database=args.database)
+    sql = sql_connector.SQLConnector(uid=uid, pwd=pwd, driver=args.driver,
+                                     server=args.server, database=args.database)
 
     if args.csv:
         sql.to_csv(query=args.query, file_name=args.filename)

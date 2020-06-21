@@ -1,8 +1,6 @@
 import argparse
 import os
-# from cnvrg import Dataset
-
-from ds_snowflake import con_snowflake
+from ds_snowflake import snowflake_connector
 
 
 if __name__ == '__main__':
@@ -26,7 +24,7 @@ if __name__ == '__main__':
     user = os.getenv('SNOWFLAKE_USER') or args.user
     query = args.query
     
-    snf = con_snowflake.SnowflakeConnector(user=user, password=password, warehouse=warehouse, account=account,database=args.database,schema=args.schema)
+    snf = snowflake_connector.SnowflakeConnector(user=user, password=password, warehouse=warehouse, account=account, database=args.database, schema=args.schema)
 
     #test
     snf.to_csv(query=query,file_name=args.filename)

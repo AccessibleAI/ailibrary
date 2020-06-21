@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 
-from ds_sql.con_sql import SQLConnector
+from ds_sql.sql_connector import SQLConnector
 
 if __name__ == '__main__':
 

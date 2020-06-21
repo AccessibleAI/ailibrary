@@ -1,18 +1,18 @@
 import argparse
 import pandas as pd
 import snowflake.connector
-
+import os
 
 class SnowflakeConnector():
 
-    def __init__(self, user=None, password=None, account=None, warehouse=None, database=None, schema=None):
-        self.user = user
-        self.password = password
-        self.account = account
-        self.warehouse = warehouse
+    def __init__(self, account=None, warehouse=None, database=None, schema=None):
+        self.user = os.environ.get("SNOWFLAKE_USER")
+        self.password = os.environ.get("SNOWFLAKE_PASSWORD")
+        self.account = account or os.environ.get("SNOWFLAKE_ACCOUNT")
+        self.warehouse = warehouse or os.environ.get("SNOWFLAKE_WAREHOUSE")
         self.database = database
         self.schema = schema
-        self.cur =None
+        self.cur = None
         self.connect()
 
 

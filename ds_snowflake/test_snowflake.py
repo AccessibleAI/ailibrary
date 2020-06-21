@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 
-from ds_snowflake.con_snowflake import SnowflakeConnector
+from ds_snowflake.snowflake_connector import SnowflakeConnector
 
 if __name__ == '__main__':
     snf = SnowflakeConnector(user="LEAH", password="Cnvrg18!", warehouse="COMPUTE_WH",

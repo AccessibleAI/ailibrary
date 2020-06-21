@@ -1,15 +1,15 @@
 import pandas as pd
 import pyodbc
 import csv
-
+import os
 
 
 
 class SQLConnector():
 
-    def __init__(self, uid=None, pwd=None, driver=None, server=None, database=None, trusted_connection=False,port=None):
-        self.uid = uid
-        self.pwd = pwd
+    def __init__(self, driver=None, server=None, database=None, trusted_connection=False,port=None):
+        self.uid = os.environ.get("SQL_UID")
+        self.pwd = os.environ.get("SQL_PWD")
         self.driver = driver
         self.server = server
         self.database = database
