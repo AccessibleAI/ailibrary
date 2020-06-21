@@ -2,7 +2,7 @@
 title: Snowflake
 command: python3 sql_connector.py
 description: " -  Snowflake Database Connector."
-version: 1.4.2
+version: 1.4.3
 docker_images: cnvrg
 compute: small
 data_type: csv
