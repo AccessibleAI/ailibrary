@@ -5,7 +5,7 @@ import os
 
 
 
-class SQLConnector():
+class sql_connector():
 
     def __init__(self, driver=None, server=None, database=None, trusted_connection=False,port=None):
         self.uid = os.environ.get("SQL_UID")
