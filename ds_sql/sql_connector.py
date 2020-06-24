@@ -29,9 +29,7 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
             r"DRIVER={%s};" % driver +
             conn_str.format(**config)
         )
-        conn=conn
-        cur=conn.cursor()
-        return cur
+        return conn
     except Exception as e:
         print("Could not connect to SQL server, check your parameters")
         print(e)
