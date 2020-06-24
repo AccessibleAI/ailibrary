@@ -43,7 +43,7 @@ def close_connection(self):
         print("Could not close connection to snowflake")
         print(e)
         exit(1)
-def run(cur, query=None):
+def run(cur=None, query=None):
     if query is None:
         print("Query can't be empty")
         exit(1)
@@ -54,12 +54,12 @@ def run(cur, query=None):
         print(e)
         exit(1)
 
-def to_df(conn, query,index_col=None, coerce_float=True, params=None, parse_dates=None, chunksize=None):
+def to_df(conn=None, query=None,index_col=None, coerce_float=True, params=None, parse_dates=None, chunksize=None):
     df = pd.read_sql_query(query, conn,index_col, coerce_float, params, parse_dates, chunksize )
     return df
 
-def to_csv(query, file_name):
-    cur = run(query)
+def to_csv(cur=None, query=None, file_name=None):
+    cur = run(cur=cur, query=query)
     col_headers = [i[0] for i in cur.description]
     rows = [list(i) for i in cur.fetchall()]
     df = pd.DataFrame(rows, columns=col_headers)

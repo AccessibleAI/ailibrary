@@ -3,6 +3,11 @@ import argparse
 import os
 import pandas as pd
 import importlib
+
+
+
+def connect(mod, **kwatgs):
+    mod.connect(**kwatgs)
 if __name__ == '__main__':
 
     model_name = "sql_connector"
@@ -11,8 +16,11 @@ if __name__ == '__main__':
                                                   module_path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    mod.connect()
-    print(mod)
+    os.environ["SQL_UID"] = "leah"
+    os.environ["SQL_PWD"] = "Cnvrg1234!!!!"
+    # print(os.environ.get("SQL_UID"))
+    connect(mod,driver="ODBC Driver 17 for SQL Server", server="cnvrgtest.database.windows.net", database="test123" )
+    #mod.connect(driver="ODBC Driver 17 for SQL Server", server="cnvrgtest.database.windows.net", database="test123")
 
     #sql = SQLConnector(uid="leah", pwd="Cnvrg1234!!!!", driver="ODBC Driver 17 for SQL Server",
      #                  server="cnvrgtest.database.windows.net", database="test123")
