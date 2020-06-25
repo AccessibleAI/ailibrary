@@ -1,5 +1,5 @@
 ---
-title: Snowflake
+title: Snowflake Connector
 command: python3 sql_connector.py
 description: " -  Snowflake Database Connector."
 version: 1.4.4
