@@ -9,6 +9,16 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 
 ```--query``` - str, required. The SQL query to be executed
 
+## Prerequisites
+---
+The following prerequisites need to be installed before using the library:
+- [install the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
+
+- Install pyodbc library
+```python3
+pip install pyodbc
+```
+
 ## Config parameters
 ---
 
@@ -28,3 +38,40 @@ It is recommended to use environment variables as authentication method. This li
 The environment variables can be stored securely in the project settings in cnvrg. 
 
 You can also pass credentials as arguments: `uid` and `pwd`
+
+```python3
+from cnvrg import Library
+library = Library('cnvrg/sql_connector')
+library.load()
+library.connect(driver="DRIVER VERSION",server="SERVER", database="DATABASE")
+```
+
+## Using the Library
+---
+
+### Executing a query
+
+Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
+```python3
+results = library.query("SELECT * FROM users")
+results.fetchall()
+```
+### Create a Dataframe from query
+
+```python3
+df = library.to_df("SELECT * FROM users")
+```
+[You can send additional parameters](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_sql_query.html)
+```python3
+df = library.to_df("SELECT * FROM users",index_col=[surname,firstname])
+```
+### Create a csv file from query
+This will create a csv file (with the given filename path) with the results
+```python3
+library.to_csv("SELECT * FROM users","results.csv")
+```
+### Close Connection
+This will close the connection
+```python3
+library.close_connection()
+`

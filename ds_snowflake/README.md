@@ -21,7 +21,12 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 
 ```--schema``` - schema name
 
-
+## Prerequisites
+---
+The following library need to be installed before using the library:
+```python3
+pip install snowflake-connector-python
+```
 ## Authentication
 ---
 It is recommended to use environment variables as authentication method. This library expects the following env variables:
@@ -38,3 +43,34 @@ The environment variables can be stored securely in the project settings in cnvr
 
 You can also pass credentials as arguments: `user` and `password`
 
+```python3
+from cnvrg import Library
+library = Library('cnvrg/snowflake_connector')
+library.load()
+library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
+```
+
+## Using the Library
+---
+
+### Executing a query
+
+Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
+```python3
+results = library.query("SELECT * FROM users")
+results.fetchall()
+```
+### Create a Dataframe from query
+```python3
+df = library.to_df("SELECT * FROM users")
+```
+### Create a csv file from query
+This will create a csv file (with the given filename path) with the results
+```python3
+library.to_csv("SELECT * FROM users","results.csv")
+```
+### Close Connection
+This will close the connection
+```python3
+library.close_connection()
+```
