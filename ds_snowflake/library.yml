@@ -1,6 +1,6 @@
 ---
 title: Snowflake Connector
-command: python3 sql_connector.py
+command: python3 snowflake_connector.py
 description: " -  Snowflake Database Connector."
 version: 1.4.4
 docker_images: cnvrg
