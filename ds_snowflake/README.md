@@ -45,9 +45,13 @@ You can also pass credentials as arguments: `user` and `password`
 
 <code>
 from cnvrg import Library
+
 library = Library('cnvrg/snowflake_connector')
+
 library.load()
+
 library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
+
 </code>
 
 ## Using the Library
@@ -56,12 +60,14 @@ library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", dat
 ### Executing a query
 
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
+
 <code>
 results = library.query("SELECT * FROM users")
 results.fetchall()
 </code>
 
 ### Create a Dataframe from query
+
 <code>
 df = library.to_df("SELECT * FROM users")
 </code>
@@ -74,8 +80,8 @@ library.to_csv("SELECT * FROM users","results.csv")
 </code>
 
 ### Close Connection
-
 Close the connection
+
 <code>
 library.close_connection()
 </code>

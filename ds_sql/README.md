@@ -78,6 +78,7 @@ library.to_csv("SELECT * FROM users","results.csv")
 
 ### Close Connection
 Close the connection
+
 <code>
 library.close_connection()
 </code>
