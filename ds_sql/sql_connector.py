@@ -2,6 +2,7 @@ import pandas as pd
 import pyodbc
 import csv
 import os
+import sys
 
 
 def connect(driver=None, server=None, database=None, trusted_connection=False,port=None):
@@ -33,24 +34,24 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
     except Exception as e:
         print("Could not connect to SQL server, check your parameters")
         print(e)
-        exit(1)
-def close_connection(self):
+        sys.exit(1)
+def close_connection(cur=None):
     try:
-        self.cur.close()
+        cur.close()
     except Exception as e:
         print("Could not close connection to snowflake")
         print(e)
-        exit(1)
+        sys.exit(1)
 def run(cur=None, query=None):
     if query is None:
         print("Query can't be empty")
-        exit(1)
+        sys.exit(1)
     try:
         return cur.execute(query)
     except Exception as e:
         print("Could not run query: %s" % query)
         print(e)
-        exit(1)
+        sys.exit(1)
 
 def to_df(conn=None, query=None,index_col=None, coerce_float=True, params=None, parse_dates=None, chunksize=None):
     df = pd.read_sql_query(query, conn,index_col, coerce_float, params, parse_dates, chunksize )
