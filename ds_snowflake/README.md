@@ -47,8 +47,11 @@ You can also pass credentials as arguments: `user` and `password`
 
 ```
 from cnvrg import Library
+
 library = Library('cnvrg/snowflake_connector')
+
 library.load()
+
 library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
 ```
 </code>
