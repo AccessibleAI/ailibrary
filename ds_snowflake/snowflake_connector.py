@@ -35,7 +35,7 @@ def close_connection(cur=None):
 def run(cur=None, query=None):
     if query is None:
         print("Query can't be empty")
-        exit(1)
+        sys.exit(1)
     try:
         return cur.execute(query)
     except Exception as e:
