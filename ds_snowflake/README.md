@@ -24,7 +24,7 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 ## Prerequisites
 ---
 The following library need to be installed before using the library:
-```python3
+```python
 pip install snowflake-connector-python
 ```
 ## Authentication
