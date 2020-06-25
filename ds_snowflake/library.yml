@@ -1,0 +1,23 @@
+---
+title: Snowflake Connector
+command: python3 snowflake_connector.py
+description: " -  Snowflake Database Connector."
+version: 1.4.4
+docker_images: cnvrg
+compute: small
+data_type: csv
+icon: python
+
+arguments:
+  query:
+    value: ''
+  output_file:
+    value: ''
+  warehouse:
+    value: ''
+  account:
+    value: ''
+  database:
+    value: ''
+  schema:
+    value: ''

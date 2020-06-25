@@ -1,0 +1,19 @@
+---
+title: SQL Connector
+command: python3 sql_connector.py
+description: " -  SQL ODBC Connector."
+version: 1.4.3
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: python
+
+arguments:
+  query:
+    value: ''
+  database:
+    value: ''
+  server:
+    value: ''
+  driver:
+    value: ''
