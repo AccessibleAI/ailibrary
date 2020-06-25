@@ -44,14 +44,13 @@ The environment variables can be stored securely in the project settings in cnvr
 You can also pass credentials as arguments: `user` and `password`
 
 <code>
+
+```
 from cnvrg import Library
-
 library = Library('cnvrg/snowflake_connector')
-
 library.load()
-
 library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
-
+```
 </code>
 
 ## Using the Library
