@@ -1,4 +1,4 @@
-``SQL Connector library provides an easy way to connect to different SQL databases using ODBC. 
+SQL Connector library provides an easy way to connect to different SQL databases using ODBC. 
 This connector allows you to connect to DB, run queries and analyze results. It is supported in both Python environments or cnvrg Flows
 
 In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
