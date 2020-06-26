@@ -4,21 +4,77 @@ This connector allows you to connect to Snowflake, run queries and analyze resul
 In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
 
 
-## Running in interactive mode
-
-<div style="background:#F7FBF1;">
+## Running in interactive mode (Notebooks / IDE)
+---
+<div style='font-size:0.9rem; font-weight:bold;'>Loading the library</div>
+<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
 <pre>
 <code class='python'>
 from cnvrg import Library
 library = Library('cnvrg/snowflake_connector')
 library.load()
-library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
 </code>
 </pre>
 </div>
 
-## Running as executable
 
+<div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
+<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
+<pre>
+<code class='python'>
+library.connect(warehouse="SNOWFLAKE_WAREHOUSE",
+                account="SNOWFLAKE_ACCOUNT",
+                database="SNOWFLAKE_DATABASE",
+                schema="SNOWFLAKE_SCHEMA")
+</code>
+</pre>
+</div>
+
+<div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
+Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
+
+<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
+<pre>
+<code class='python'>
+results = library.query("SELECT * FROM users")
+results.fetchall()
+</code>
+</pre>
+</div>
+
+
+<div style='font-size:0.9rem; font-weight:bold;'>Load as Dataframe / CSV</div>
+
+<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
+<pre>
+<code class='python'>
+
+# Create a dataframe from query in a single line
+
+df = library.to_df("SELECT * FROM users")
+
+# Create a csv file (with the given filename path) with the results
+
+library.to_csv("SELECT * FROM users","results.csv")
+
+</code>
+</pre>
+</div>
+
+<div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
+
+<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
+<pre>
+<code class='python'>
+library.close_connection()
+</code>
+</pre>
+</div>
+
+## Running as an executable (Flow / Job)
+
+You can also run this library as part of a Flow that will fetch data and store it as a 
+dataset in cnvrg.io. This is useful for data/ML pipelines that are running recurringly or on trigger.
 
 ## Parameters
 ---
@@ -58,36 +114,5 @@ You can also set additional parameters as environment variables and not pass the
 The environment variables can be stored securely in the project settings in cnvrg. 
 
 You can also pass credentials as arguments: `user` and `password`
-
-Connect to Snowflake server:<br>
-<code>from cnvrg import Library</code><br>
-<code>library = Library('cnvrg/snowflake_connector')</code><br>
-<code>library.load()</code><br>
-<code>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")</code><br>
-
 ## Using the Library
----
 
-### Executing a query
-
-Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
-
-Example:<br> 
-<code>results = library.query("SELECT * FROM users")</code><br>
-<code>results.fetchall()</code><br>
-
-### Create a Dataframe from query
-
-Example:<br>
-<code>df = library.to_df("SELECT * FROM users")</code>
-
-### Create a csv file from query
-Create a csv file (with the given filename path) with the results
-
-Example:<br>
-<code>library.to_csv("SELECT * FROM users","results.csv")</code>
-
-### Close Connection
-Closes the connection
-
-<code>library.close_connection()</code>
