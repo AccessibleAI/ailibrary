@@ -14,10 +14,8 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 The following prerequisites need to be installed before using the library:
 - [install the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
 
-- Install pyodbc library
-<code>
-pip install pyodbc
-</code>
+- Install pyodbc library<br>
+<code>pip install pyodbc</code>
 
 ## Config parameters
 ---
@@ -39,46 +37,34 @@ The environment variables can be stored securely in the project settings in cnvr
 
 You can also pass credentials as arguments: `uid` and `pwd`
 
-<code>
-from cnvrg import Library
-library = Library('cnvrg/sql_connector')
-library.load()
-library.connect(driver="DRIVER VERSION",server="SERVER", database="DATABASE")
-</code>
+Connect to the SQL Server:<br>
+<code>from cnvrg import Library<br>library = Library('cnvrg/sql_connector')<br>library.load()<br>library.connect(driver="DRIVER VERSION",server="SERVER", database="DATABASE")<br></code>
 
 ## Using the Library
 ---
 
 ### Executing a query
 
-Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
-
-<code>
-results = library.query("SELECT * FROM users")
-results.fetchall()
-</code>
+Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results<br>
+Example:<br>
+<code>results = library.query("SELECT * FROM users")<br>results.fetchall()<br></code>
 
 ### Create a Dataframe from query
-
-<code>
-df = library.to_df("SELECT * FROM users")
-</code>
-
+Example:<br>
+<code>df = library.to_df("SELECT * FROM users")</code>
+<br>
 [You can send additional parameters](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_sql_query.html)
-<code>
-df = library.to_df("SELECT * FROM users",index_col=[surname,firstname])
-</code>
+<code>df = library.to_df("SELECT * FROM users",index_col=[surname,firstname])</code>
 
 ### Create a csv file from query
-Create a csv file (with the given filename path) with the results
+Creates a csv file (with the given filename path) with the results
 
-<code>
-library.to_csv("SELECT * FROM users","results.csv")
-</code>
+Example:<br>
+<code>library.to_csv("SELECT * FROM users","results.csv")</code>
 
 ### Close Connection
-Close the connection
-
+Closes the connection
+<br>
 <code>
 library.close_connection()
 </code>
