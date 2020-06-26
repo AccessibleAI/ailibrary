@@ -3,72 +3,57 @@ This connector allows you to connect to Snowflake, run queries and analyze resul
 
 In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
 
+## Prerequisites
+---
+The following library need to be installed before using the library:
+
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>pip install snowflake-connector-python</code></pre>
+</div>
+
 
 ## Running in interactive mode (Notebooks / IDE)
 ---
 <div style='font-size:0.9rem; font-weight:bold;'>Loading the library</div>
-<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
-<pre>
-<code class='python'>
-from cnvrg import Library
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>from cnvrg import Library
 library = Library('cnvrg/snowflake_connector')
-library.load()
-</code>
-</pre>
+library.load()</code></pre>
 </div>
 
 
 <div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
-<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
-<pre>
-<code class='python'>
-library.connect(warehouse="SNOWFLAKE_WAREHOUSE",
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",
                 account="SNOWFLAKE_ACCOUNT",
                 database="SNOWFLAKE_DATABASE",
-                schema="SNOWFLAKE_SCHEMA")
-</code>
-</pre>
+                schema="SNOWFLAKE_SCHEMA")</code></pre>
 </div>
 
 <div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
 
-<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
-<pre>
-<code class='python'>
-results = library.query("SELECT * FROM users")
-results.fetchall()
-</code>
-</pre>
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'>results = library.query("SELECT * FROM users")
+results.fetchall()</code></pre>
 </div>
 
 
 <div style='font-size:0.9rem; font-weight:bold;'>Load as Dataframe / CSV</div>
 
-<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
-<pre>
-<code class='python'>
-
-# Create a dataframe from query in a single line
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'># Create a dataframe from query in a single line
 
 df = library.to_df("SELECT * FROM users")
 
 # Create a csv file (with the given filename path) with the results
 
-library.to_csv("SELECT * FROM users","results.csv")
-
-</code>
-</pre>
+library.to_csv("SELECT * FROM users","results.csv")</code></pre>
 </div>
 
 <div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
 
-<div style="background:#f7fbff; font-size:12px; padding:10px 10px 10px 10px;">
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre>
-<code class='python'>
-library.close_connection()
-</code>
-</pre>
+<code class='python'>library.close_connection()</code></pre>
 </div>
 
 ## Running as an executable (Flow / Job)
@@ -93,11 +78,6 @@ dataset in cnvrg.io. This is useful for data/ML pipelines that are running recur
 
 ```--schema``` - schema name
 
-## Prerequisites
----
-The following library need to be installed before using the library:
-
-<code>pip install snowflake-connector-python</code>
 
 ## Authentication
 ---
