@@ -18,15 +18,16 @@ The following library need to be installed before using the library:
 library = Library('cnvrg/snowflake_connector')
 library.load()</code></pre></div>
 <p></p>
-<p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
 <p></p>
+Connect to your data source using the following single line of code. It is recommended to store 
+credentials as environment variables.
+
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",
                 account="SNOWFLAKE_ACCOUNT",
                 database="SNOWFLAKE_DATABASE",
                 schema="SNOWFLAKE_SCHEMA")</code></pre></div>
-<p></p>
 <p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
 <p></p>
@@ -36,9 +37,9 @@ Using the `library.query(query)` will return a cursor object, which can be later
 <pre><code class='python'>results = library.query("SELECT * FROM users")
 results.fetchall()</code></pre></div>
 <p></p>
-<p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Load as Dataframe / CSV</div>
-
+<p></p>
+You could also run the query and retrieve it as dataframe / CSV file automatically using the following lines of code:
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'># Create a dataframe from query in a single line
 
@@ -47,7 +48,6 @@ df = library.to_df("SELECT * FROM users")
 # Create a csv file (with the given filename path) with the results
 
 library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
-<p></p>
 <p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
 <p></p>
@@ -93,5 +93,3 @@ You can also set additional parameters as environment variables and not pass the
 The environment variables can be stored securely in the project settings in cnvrg. 
 
 You can also pass credentials as arguments: `user` and `password`
-## Using the Library
-
