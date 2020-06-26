@@ -4,6 +4,15 @@ This connector allows you to connect to Snowflake, run queries and analyze resul
 In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
 
 
+## Running in interactive mode
+<pre>
+The following library need to be installed before using the library:
+
+</pre>
+
+## Running as executable
+
+
 ## Parameters
 ---
 
