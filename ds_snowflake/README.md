@@ -43,15 +43,9 @@ The environment variables can be stored securely in the project settings in cnvr
 
 You can also pass credentials as arguments: `user` and `password`
 
-<code>
-from cnvrg import Library
+Connect to Snowflake server:
 
-library = Library('cnvrg/snowflake_connector')
-
-library.load()
-
-library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
-</code>
+<code>from cnvrg import Library<br>library = Library('cnvrg/snowflake_connector')<br>library.load()<br>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")<br></code>
 
 ## Using the Library
 ---
@@ -60,27 +54,21 @@ library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", dat
 
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
 
-<code>
-results = library.query("SELECT * FROM users")<br>
-results.fetchall()<br>
-</code>
+Example: 
+<code>results = library.query("SELECT * FROM users")<br>results.fetchall()<br></code>
 
 ### Create a Dataframe from query
 
-<code>
-df = library.to_df("SELECT * FROM users")
-</code>
+Example:
+<code>df = library.to_df("SELECT * FROM users")</code>
 
 ### Create a csv file from query
 Create a csv file (with the given filename path) with the results
 
-<code>
-library.to_csv("SELECT * FROM users","results.csv")
-</code>
+Example:
+<code>library.to_csv("SELECT * FROM users","results.csv")</code>
 
 ### Close Connection
 Close the connection
 
-<code>
-library.close_connection()
-</code>
+<code>library.close_connection()</code>
