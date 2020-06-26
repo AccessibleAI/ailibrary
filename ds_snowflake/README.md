@@ -61,8 +61,8 @@ library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", dat
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
 
 <code>
-results = library.query("SELECT * FROM users")
-results.fetchall()
+results = library.query("SELECT * FROM users")<br>
+results.fetchall()<br>
 </code>
 
 ### Create a Dataframe from query
