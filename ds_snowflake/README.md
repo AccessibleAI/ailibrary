@@ -65,7 +65,8 @@ dataset in cnvrg.io. This is useful for data/ML pipelines that are running recur
 ```--query``` - str, required. The Snowflake query to be executed
 ```--output_file``` - str, optional. Filename to store the query as a CSV
 
-## Config parameters
+<div style='font-size:0.9rem; font-weight:bold;'>Config & Auth Parameters</div>
+
 ---
 
 ```--warehouse``` - Snowflake warehouse name 
@@ -77,7 +78,6 @@ dataset in cnvrg.io. This is useful for data/ML pipelines that are running recur
 ```--schema``` - schema name
 
 
-<div style='font-size:0.9rem; font-weight:bold;'>Authentication Parameters</div>
 <p></p>
 It is recommended to use environment variables as authentication method. This library expects the following env variables:
 
