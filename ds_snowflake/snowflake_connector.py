@@ -43,8 +43,8 @@ def run(conn=None, query=None):
         print(e)
         sys.exit(1)
 
-def to_df(results,**kwargs):
-    df = pd.DataFrame.from_records(results, **kwargs)
+def to_df(**kwargs):
+    df = pd.DataFrame.from_records(**kwargs)
     return df
 
 def to_csv(conn=None, query=None, filename=None):
