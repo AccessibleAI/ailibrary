@@ -13,6 +13,8 @@ The following library need to be installed before using the library:
 ## Running in interactive mode (Notebooks / IDE)
 ---
 <div style='font-size:0.9rem; font-weight:bold;'>Loading the library</div>
+<br />
+
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>from cnvrg import Library
 library = Library('cnvrg/snowflake_connector')
 library.load()</code></pre></div>
@@ -20,22 +22,24 @@ library.load()</code></pre></div>
 <br />
 <br />
 <div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
+<br />
+
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",
                 account="SNOWFLAKE_ACCOUNT",
                 database="SNOWFLAKE_DATABASE",
                 schema="SNOWFLAKE_SCHEMA")</code></pre></div>
-
+<br />
+<br />
 <div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
+<br />
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
 
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>results = library.query("SELECT * FROM users")
 results.fetchall()</code></pre></div>
-
 <br />
 <br />
-
 <div style='font-size:0.9rem; font-weight:bold;'>Load as Dataframe / CSV</div>
 
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
@@ -50,7 +54,7 @@ library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
 <br />
 <br />
 <div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
-
+<br />
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre>
 <code class='python'>library.close_connection()</code></pre></div>
