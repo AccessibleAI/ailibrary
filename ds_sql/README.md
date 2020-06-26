@@ -29,7 +29,7 @@ credentials as environment variables.
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>library.connect(driver="DRIVER VERSION",
                 server="SERVER", 
-                database="DATABASE")</code></code></pre></div>
+                database="DATABASE")</code></pre></div>
 <p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
 <p></p>
