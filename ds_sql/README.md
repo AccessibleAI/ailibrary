@@ -5,10 +5,9 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 
 ## Prerequisites
 ---
-The following prerequisites need to be installed before using the library:<br>
+The following prerequisites need to be installed before using the library:
 * ODBC driver: [Install the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
-
-* Install pyodbc library<br>
+* Install pyodbc library
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>pip install pyodbc</code></pre></div>
 
 
@@ -27,8 +26,8 @@ credentials as environment variables.
 
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>library.connect(driver="DRIVER VERSION",
-                                        server="SERVER", 
-                                        database="DATABASE")</code></code></pre></div>
+                server="SERVER", 
+                database="DATABASE")</code></code></pre></div>
 <p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
 <p></p>
@@ -53,8 +52,10 @@ library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
 <div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
 <p></p>
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<p></p>
 <pre>
 <code class='python'>library.close_connection()</code></pre></div>
+<p></p>
 
 ## Running as an executable (Flow / Job)
 ---
@@ -64,7 +65,7 @@ dataset in cnvrg.io. This is useful for data/ML pipelines that are running recur
 <div style='font-size:0.9rem; font-weight:bold;'>Executable Parameters</div>
 <p></p>
 ```--query``` - str, required. The Snowflake query to be executed
-
+<p></p>
 <div style='font-size:0.9rem; font-weight:bold;'>Config & Auth Parameters</div>
 <p></p>
 ```--database``` - database name 
@@ -82,5 +83,3 @@ It is recommended to use environment variables as authentication method. This li
 The environment variables can be stored securely in the project settings in cnvrg. 
 
 You can also pass credentials as arguments: `uid` and `pwd`
-
-
