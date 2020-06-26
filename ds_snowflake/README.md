@@ -56,13 +56,12 @@ library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
 <code class='python'>library.close_connection()</code></pre></div>
 
 ## Running as an executable (Flow / Job)
-
+---
 You can also run this library as part of a Flow that will fetch data and store it as a 
 dataset in cnvrg.io. This is useful for data/ML pipelines that are running recurringly or on trigger.
 
-## Parameters
----
-
+<div style='font-size:0.9rem; font-weight:bold;'>Executable Parameters</div>
+<p></p>
 ```--query``` - str, required. The Snowflake query to be executed
 ```--output_file``` - str, optional. Filename to store the query as a CSV
 
@@ -78,8 +77,8 @@ dataset in cnvrg.io. This is useful for data/ML pipelines that are running recur
 ```--schema``` - schema name
 
 
-## Authentication
----
+<div style='font-size:0.9rem; font-weight:bold;'>Authentication Parameters</div>
+<p></p>
 It is recommended to use environment variables as authentication method. This library expects the following env variables:
 
 * `SNOWFLAKE_PASSWORD` - account
