@@ -6,7 +6,9 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 ## Prerequisites
 ---
 The following prerequisites need to be installed before using the library:
+
 * ODBC driver: [Install the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
+
 * Install pyodbc library
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>pip install pyodbc</code></pre></div>
 
