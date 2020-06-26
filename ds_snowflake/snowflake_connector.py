@@ -48,10 +48,9 @@ def to_df(conn=None, query=None):
     df = pd.DataFrame.from_records(iter(cur), columns=[x[0] for x in cur.description])
     return df
 
-def to_csv(conn=None, query=None, file_name=None):
+def to_csv(conn=None, query=None, filename=None):
     cur = run(conn=conn, query=query)
     col_headers = [i[0] for i in cur.description]
     rows = [list(i) for i in cur.fetchall()]
     df = pd.DataFrame(rows, columns=col_headers)
-
-    df.to_csv(file_name, index=False)
+    df.to_csv(filename, index=False)
