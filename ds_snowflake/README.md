@@ -44,7 +44,10 @@ The environment variables can be stored securely in the project settings in cnvr
 You can also pass credentials as arguments: `user` and `password`
 
 Connect to Snowflake server:<br>
-<code>from cnvrg import Library<br>library = Library('cnvrg/snowflake_connector')<br>library.load()<br>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")<br></code>
+<code>from cnvrg import Library</code><br>
+<code>library = Library('cnvrg/snowflake_connector')</code><br>
+<code>library.load()</code><br>
+<code>library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")</code><br>
 
 ## Using the Library
 ---
@@ -54,7 +57,8 @@ Connect to Snowflake server:<br>
 Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
 
 Example:<br> 
-<code>results = library.query("SELECT * FROM users")<br>results.fetchall()<br></code>
+<code>results = library.query("SELECT * FROM users")</code><br>
+<code>results.fetchall()</code><br>
 
 ### Create a Dataframe from query
 
