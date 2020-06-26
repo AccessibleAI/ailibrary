@@ -44,7 +44,7 @@ def run(conn=None, query=None):
         sys.exit(1)
 
 def to_df(conn=None, query=None):
-    cur = run(cur=conn, query=query)
+    cur = run(conn=conn, query=query)
     df = pd.DataFrame.from_records(iter(cur), columns=[x[0] for x in cur.description])
     return df
 
