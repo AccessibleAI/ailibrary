@@ -3,33 +3,79 @@ This connector allows you to connect to DB, run queries and analyze results. It 
 
 In addition, you can create CSVs, Dataframes and store them to a versioned dataset in cnvrg. 
 
-
-## Parameters
----
-
-```--query``` - str, required. The SQL query to be executed
-
 ## Prerequisites
 ---
 The following prerequisites need to be installed before using the library:<br>
 * ODBC driver: [Install the ODBC driver](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
 
 * Install pyodbc library<br>
-<code>pip install pyodbc</code>
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>pip install pyodbc</code></pre></div>
 
-## Config parameters
+
+## Running in interactive mode (Notebooks / IDE)
 ---
+<div style='font-size:0.9rem; font-weight:bold;'>Loading the library</div>
+<p></p>
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;"><pre><code class='python'>from cnvrg import Library
+library = Library('cnvrg/sql_connector')
+library.load()</code></pre></div>
+<p></p>
+<div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
+<p></p>
+Connect to your data source using the following single line of code. It is recommended to store 
+credentials as environment variables.
 
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'>library.connect(driver="DRIVER VERSION",
+                                        server="SERVER", 
+                                        database="DATABASE")</code></code></pre></div>
+<p></p>
+<div style='font-size:0.9rem; font-weight:bold;'>Executing a query</div>
+<p></p>
+Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results
+
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'>results = library.query("SELECT * FROM users")
+results.fetchall()</code></pre></div>
+<p></p>
+<div style='font-size:0.9rem; font-weight:bold;'>Load as Dataframe / CSV</div>
+<p></p>
+You could also run the query and retrieve it as dataframe / CSV file automatically using the following lines of code:
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre><code class='python'># Create a dataframe from query in a single line
+
+df = library.to_df("SELECT * FROM users")
+
+# Create a csv file (with the given filename path) with the results
+
+library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
+<p></p>
+<div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
+<p></p>
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<pre>
+<code class='python'>library.close_connection()</code></pre></div>
+
+## Running as an executable (Flow / Job)
+---
+You can also run this library as part of a Flow that will fetch data and store it as a 
+dataset in cnvrg.io. This is useful for data/ML pipelines that are running recurringly or on trigger.
+
+<div style='font-size:0.9rem; font-weight:bold;'>Executable Parameters</div>
+<p></p>
+```--query``` - str, required. The Snowflake query to be executed
+
+<div style='font-size:0.9rem; font-weight:bold;'>Config & Auth Parameters</div>
+<p></p>
 ```--database``` - database name 
 
 ```--server``` - Host (ip/domain) of your PostgreSQL database
 
 ```--driver``` - ODBC Driver, for example: `ODBC Driver 17 for SQL Server Environment` 
 
-
-## Authentication
----
+<p></p>
 It is recommended to use environment variables as authentication method. This library expects the following env variables:
+
 * `SQL_PWD` - password
 * `SQL_UID` - uid for the database
 
@@ -37,38 +83,4 @@ The environment variables can be stored securely in the project settings in cnvr
 
 You can also pass credentials as arguments: `uid` and `pwd`
 
-Connect to the SQL Server:<br>
-<code>from cnvrg import Library</code><br>
-<code>library = Library('cnvrg/sql_connector')</code><br>
-<code>library.load()</code><br>
-<code>library.connect(driver="DRIVER VERSION",server="SERVER", database="DATABASE")</code><br>
 
-## Using the Library
----
-
-### Executing a query
-
-Using the `library.query(query)` will return a cursor object, which can be later used to retrieve the relevant results<br>
-Example:<br>
-<code>results = library.query("SELECT * FROM users")</code>
-<br><code>results.fetchall()<br></code>
-
-### Create a Dataframe from query
-Example:<br>
-<code>df = library.to_df("SELECT * FROM users")</code>
-<br>
-[You can send additional parameters](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_sql_query.html)
-<code>df = library.to_df("SELECT * FROM users",index_col=[surname,firstname])</code><br>
-
-### Create a csv file from query
-Creates a csv file (with the given filename path) with the results
-
-Example:<br>
-<code>library.to_csv("SELECT * FROM users","results.csv")</code>
-
-### Close Connection
-Closes the connection
-<br>
-<code>
-library.close_connection()
-</code>
