@@ -5,10 +5,17 @@ In addition, you can create CSVs, Dataframes and store them to a versioned datas
 
 
 ## Running in interactive mode
-<pre>
-The following library need to be installed before using the library:
 
+<div style="background:#F7FBF1;">
+<pre>
+<code class='python'>
+from cnvrg import Library
+library = Library('cnvrg/snowflake_connector')
+library.load()
+library.connect(warehouse="SNOWFLAKE_WAREHOUSE",account="SNOWFLAKE_ACCOUNT", database="SNOWFLAKE_DATABASE",schema="SNOWFLAKE_SCHEMA")
+</code>
 </pre>
+</div>
 
 ## Running as executable
 
