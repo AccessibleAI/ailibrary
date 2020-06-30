@@ -43,8 +43,9 @@ def run(conn=None, query=None):
         print(e)
         sys.exit(1)
 
-def to_df(**kwargs):
-    df = pd.DataFrame.from_records(**kwargs)
+def to_df(conn=None, query=None):
+    cur = run(conn=conn, query=query)
+    df = pd.DataFrame.from_records(iter(cur), columns=[x[0] for x in cur.description])
     return df
 
 def to_csv(conn=None, query=None, filename=None):
