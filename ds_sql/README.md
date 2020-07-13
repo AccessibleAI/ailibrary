@@ -47,19 +47,18 @@ You could also run the query and retrieve it as dataframe / CSV file automatical
 
 df = library.to_df("SELECT * FROM users")
 
-<p></p>
-<div style='font-size:0.9rem; font-weight:bold;'>Push dataframe back to sql server</div>
-<p></p>
-You could also push the dataframe back to the sql server:
-<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
-<pre><code class='python'># Push the dataframe to the sql server
-
-df = library.to_sql(df=df, if_exists='replace', index = False)
-
 # Create a csv file (with the given filename path) with the results
 
 library.to_csv("SELECT * FROM users","results.csv")</code></pre></div>
 <p></p>
+<div style='font-size:0.9rem; font-weight:bold;'>Push the dataframe back to the sql server</div>
+<p></p>
+<div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
+<p></p>
+<pre>
+<code class='python'>library.to_sql(df=df,table_name='CARS',if_exists='replace', index = False))</code></pre></div>
+<p></p>
+
 <div style='font-size:0.9rem; font-weight:bold;'>Close Connection</div>
 <p></p>
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
