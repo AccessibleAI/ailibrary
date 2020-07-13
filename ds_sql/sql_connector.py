@@ -57,6 +57,14 @@ def to_df(conn=None, query=None,**kwargs):
     df = pd.read_sql_query(query, conn,**kwargs )
     return df
 
+def to_sql(conn=None, df=None,table_name=None, **kwargs):
+    try:
+        df.to_sql(table_name, conn, **kwargs)
+    except Exception as e:
+        print("Could not save data")
+        print(e)
+        sys.exit(1)
+
 def to_csv(conn=None, query=None, filename=None):
     cur = run(conn=conn, query=query)
     col_headers = [i[0] for i in cur.description]
