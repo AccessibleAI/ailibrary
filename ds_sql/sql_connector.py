@@ -20,21 +20,20 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
             conn_str = (
                 r'SERVER={server},{port};' 
                 r'DATABASE={database};' 
-                r'TRUSTED_CONNECTION=yes')
+                r'TRUSTED_CONNECTION=yes;'
+                r'MARS_Connection=yes')
         else:
             conn_str = (
                 r'SERVER={server};' 
                 r'DATABASE={database};' 
                 r'UID={username};' 
-                r'PWD={password}')
+                r'PWD={password};'
+                r'MARS_Connection=yes')
 
 
         conn_string_engine = r"DRIVER={%s};" % driver + conn_str.format(**config)
         engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_engine))
-        conn = pyodbc.connect(
-            r"DRIVER={%s};" % driver +
-            conn_str.format(**config)
-        )
+        conn = engine.raw_connection()
         return conn,engine
     except Exception as e:
         print("Could not connect to SQL server, check your parameters")
