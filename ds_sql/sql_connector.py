@@ -29,9 +29,12 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
                 r'PWD={password}')
 
 
-        conn_string = r"DRIVER={%s};" % driver + conn_str.format(**config)
-        engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string))
-        conn = engine.raw_connection()
+        conn_string_engine = r"DRIVER={%s};" % driver + conn_str.format(**config)
+        engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_engine))
+        conn = pyodbc.connect(
+            r"DRIVER={%s};" % driver +
+            conn_str.format(**config)
+        )
         return conn,engine
     except Exception as e:
         print("Could not connect to SQL server, check your parameters")
