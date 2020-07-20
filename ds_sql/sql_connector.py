@@ -1,9 +1,10 @@
 import pandas as pd
 import pyodbc
+from sqlalchemy import create_engine
+import urllib
 import csv
 import os
 import sys
-
 
 def connect(driver=None, server=None, database=None, trusted_connection=False,port=None):
     try:
@@ -16,21 +17,24 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
                       username=uid,
                       password=pwd)
         if trusted_connection:
-            conn_str = ('SERVER={server};' +
-                                'DATABASE={database};' +
-                                'TRUSTED_CONNECTION=yes')
+            conn_str = (
+                r'SERVER={server},{port};' 
+                r'DATABASE={database};' 
+                r'TRUSTED_CONNECTION=yes;'
+                r'MARS_Connection=yes')
         else:
-            conn_str = ('SERVER={server},{port};' +
-                    'DATABASE={database};' +
-                    'UID={username};' +
-                    'PWD={password}')
+            conn_str = (
+                r'SERVER={server};' 
+                r'DATABASE={database};' 
+                r'UID={username};' 
+                r'PWD={password};'
+                r'MARS_Connection=yes')
 
 
-        conn = pyodbc.connect(
-            r"DRIVER={%s};" % driver +
-            conn_str.format(**config)
-        )
-        return conn
+        conn_string_engine = r"DRIVER={%s};" % driver + conn_str.format(**config)
+        engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_engine))
+        conn = engine.raw_connection()
+        return conn,engine
     except Exception as e:
         print("Could not connect to SQL server, check your parameters")
         print(e)
