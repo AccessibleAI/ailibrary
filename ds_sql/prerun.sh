@@ -18,4 +18,3 @@ URL_DEB='https://downloads.mysql.com/archives/get/p/10/file/mysql-connector-odbc
 wget -O "$TEMP_DEB" "$URL_DEB" &&
 sudo dpkg -i "$TEMP_DEB"
 rm -f "$TEMP_DEB"
-
