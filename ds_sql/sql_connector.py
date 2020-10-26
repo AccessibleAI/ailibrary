@@ -37,7 +37,7 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
             conn_string_engine = "mysql+pymysql://%s:%s@%s:%s/%s" %(uid, pwd,server,port,database)
         else:  # currently it's MSSQL
             conn_string_mssql = r"DRIVER={%s};" % driver + conn_str.format(**config)
-            conn_string_engine = "mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_engine)
+            conn_string_engine = "mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_mssql)
 
         engine = create_engine(conn_string_engine)
         conn = engine.raw_connection()
