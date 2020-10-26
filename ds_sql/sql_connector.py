@@ -31,11 +31,11 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
                 r'UID={username};' 
                 r'PWD={password};'
                 r'MARS_Connection=yes')
-        engine_driver = "mssql+pyodbc"
         if "mysql" in driver.lower():
-            engine_driver = "mysql+pymysql"
-        conn_string_engine = r"DRIVER={%s};" % driver + conn_str.format(**config)
-        engine = create_engine("%s:///?odbc_connect=%s" % (engine_driver,urllib.parse.quote_plus(conn_string_engine)))
+            engine = create_engine("mysql+pymysql://%s" % urllib.parse.quote_plus(conn_string_engine))
+        else:
+            engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_engine))
+
         conn = engine.raw_connection()
         return conn,engine
     except Exception as e:
