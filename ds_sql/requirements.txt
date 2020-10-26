@@ -1,3 +1,4 @@
 cnvrg
 pyodbc
 sqlalchemy
+pymysql
