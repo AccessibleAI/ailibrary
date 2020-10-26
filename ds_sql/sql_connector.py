@@ -31,6 +31,8 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
                 r'UID={username};' 
                 r'PWD={password};'
                 r'MARS_Connection=yes')
+        conn_string_engine = r"DRIVER={%s};" % driver + conn_str.format(**config)
+
         if "mysql" in driver.lower():
             engine = create_engine("mysql+pymysql://%s" % urllib.parse.quote_plus(conn_string_engine))
         else:
