@@ -2,7 +2,7 @@
 title: SQL Connector
 command: python3 sql_connector.py
 description: " -  SQL ODBC Connector."
-version: 1.6.4.3
+version: 1.6.4.4
 docker_images: cnvrg
 compute: small
 data_type: ipynb
