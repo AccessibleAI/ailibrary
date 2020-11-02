@@ -24,7 +24,8 @@ library.load()</code></pre></div>
 <div style='font-size:0.9rem; font-weight:bold;'>Connecting to the data source</div>
 <p></p>
 Connect to your data source using the following single line of code. It is recommended to store 
-credentials as environment variables.
+credentials as secrets.
+
 
 <div style="background:#f7fbff; font-size:14px; padding:10px 10px 10px 10px;">
 <pre><code class='python'>library.connect(driver="DRIVER VERSION",
