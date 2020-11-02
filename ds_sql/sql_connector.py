@@ -8,7 +8,7 @@ import sys
 import pymysql
 
 
-def connect(driver=None, server=None, database=None, trusted_connection=False,port=None,pool_recycle=3600):
+def connect(driver=None, server=None, database=None, trusted_connection=False,port=None,pool_recycle=3600,**kwargs):
     try:
         uid = os.environ.get("SQL_UID")
         pwd = os.environ.get("SQL_PWD")
@@ -39,7 +39,7 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
             conn_string_mssql = r"DRIVER={%s};" % driver + conn_str.format(**config)
             conn_string_engine = "mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_mssql)
 
-        engine = create_engine(conn_string_engine,pool_pre_ping=True,pool_recycle=pool_recycle)
+        engine = create_engine(conn_string_engine,pool_pre_ping=True,pool_recycle=pool_recycle,**kwargs)
         conn = engine.raw_connection()
         return conn,engine
     except Exception as e:
