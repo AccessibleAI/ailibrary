@@ -48,7 +48,7 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
         sys.exit(1)
 def close_connection(conn=None):
     try:
-        conn.cursor().close()
+        conn.close()
     except Exception as e:
         print("Could not close connection to SQL server")
         print(e)
