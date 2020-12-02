@@ -34,7 +34,7 @@ def connect(driver=None, server=None, database=None, trusted_connection=False,po
 
 
         if "mysql" in driver.lower(): # support mysql
-            conn_string_engine = "mysql+pymysql://%s:%s@%s:%s/%s" %(uid, pwd,server,port,database)
+                conn_string_engine = "mysql+pymysql://%s:%s@%s:%s/%s" %(uid, pwd,server,port,database)
         else:  # currently it's MSSQL
             conn_string_mssql = r"DRIVER={%s};" % driver + conn_str.format(**config)
             conn_string_engine = "mssql+pyodbc:///?odbc_connect=%s" % urllib.parse.quote_plus(conn_string_mssql)
@@ -71,8 +71,14 @@ def run(conn=None, query=None,commit=False):
         sys.exit(1)
 
 def to_df(conn=None, query=None,**kwargs):
-    df = pd.read_sql_query(query, conn,**kwargs )
-    return df
+    try:
+        df = pd.read_sql_query(query, conn,**kwargs )
+        return df
+
+    except Exception as e:
+        print("Could not run query: %s" % query)
+        print(e)
+        sys.exit(1)
 
 def to_sql(conn=None, df=None,table_name=None, **kwargs):
     try:
