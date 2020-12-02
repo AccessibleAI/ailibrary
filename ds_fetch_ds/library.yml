@@ -2,7 +2,7 @@
 title: Fetch new dataset changes from an S3 bucket
 command: python3 fetch_ds.py
 description: " - fetch new changes from s3 bucket to cnvrg dataset. Built by cnvrg."
-version: 1.0.0
+version: 1.0.1
 docker_images: cnvrg
 compute: small
 data_type: CSV
@@ -11,7 +11,5 @@ icon: python
 arguments:
   s3_bucket:
     value: ''
-  override:
-    value: false
   target_dataset:
     value: ''
