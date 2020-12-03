@@ -2,7 +2,7 @@
 title: Run distributed jobs
 command: python3 distributed_run.py
 description: " - pulls data from bucket and run transformations on the distributed runs Built by cnvrg."
-version: 1.0.0
+version: 1.0.1
 docker_images: cnvrg
 compute: small
 data_type: CSV

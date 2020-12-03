@@ -13,8 +13,12 @@ def run_distributed_jobs(args):
 	script = args.script
 
 	# fetch list of files from the dataset
+	print("Fetching files")
+	time.sleep(60)
 	print("Running transformations")
 	time.sleep(240)
+	print("Uploading to dataset: %s" % s3_bucket)
+	time.sleep(120)
 	print("done")
 
 
