@@ -10,10 +10,14 @@ icon: python
 
 arguments:
   endpoint_id:
+    type: 'categorical'
     value: ''
   input_file:
+    type: 'categorical'
     value: ''
   output_file:
+    type: 'categorical'
     value: ''
   dataset:
+    type: 'categorical'
     value: ''
