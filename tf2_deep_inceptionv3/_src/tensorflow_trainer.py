@@ -202,7 +202,7 @@ class TensorflowTrainer:
 		elif status == 'post-test':
 			for metric in metrics:
 				if metric in self.__metrics.keys():  # if metric exists
-					if len(self.__metrics[metric] == 1):  # param
+					if len(self.__metrics[metric]) == 1:  # param
 						if self.__cnvrg_env:
 							self.__experiment.log_param(metric, self.__metrics[metric])
 						else:
