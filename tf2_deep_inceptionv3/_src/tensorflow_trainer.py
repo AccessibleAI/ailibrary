@@ -203,12 +203,11 @@ class TensorflowTrainer:
 			for metric in metrics:
 				if metric in self.__metrics.keys():  # if metric exists
 						
-						if self.__cnvrg_env:
-							self.__experiment.log_param(metric, self.__metrics[metric])
-						else:
-							print("log_param -  {key} : {value}".format(key=metric, value=self.__metrics[metric]))
-					else:  # metrics should be called here.
-						pass
+					if self.__cnvrg_env:
+						self.__experiment.log_param(metric, self.__metrics[metric])
+					else:
+						print("log_param -  {key} : {value}".format(key=metric, value=self.__metrics[metric]))
+
 		else:
 			raise ValueError('Unrecognized status.')
 
