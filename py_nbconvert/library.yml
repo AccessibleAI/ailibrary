@@ -10,12 +10,17 @@ icon: python
 
 arguments:
   notebooks:
+    type: 'categorical'
     value: ''
   to:
+    type: 'categorical'
     value: notebook
   template:
+    type: 'categorical'
     value: None
   inplace:
+    type: 'categorical'
     value: False
   allow-errors:
+    type: 'categorical'
     value: False

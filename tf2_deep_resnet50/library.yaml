@@ -10,12 +10,15 @@ icon: tensorflow
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
     description: "(String) (Required param) Path to a local directory which contains sub-directories, each for a single class. The data is used for training and validation."
   data_test:
+    type: 'categorical'
     value: None
     description: "(String) (Default: None) Path to a local directory which contains sub-directories, each for a single class. The data is used for testing."
   output_model:
+    type: 'categorical'
     value: model.h5
     description: "(String) (Default: 'model.h5') The name of the output model file. It is recommended to use '.h5' file."
   validation_split:
@@ -26,6 +29,7 @@ arguments:
     value: 1
     description: "(int) (Default: 10) The number of epochs the algorithm performs in the training phase."
   steps_per_epoch:
+    type: 'categorical'
     value: None
     description: "(int or None) (Default: None) If its None -> num of samples / batch_size, otherwise -> The number of batches done in each epoch."
   batch_size:
@@ -35,21 +39,25 @@ arguments:
     value: 1
     description: "(int) (Default: 1) The number of workers which are used."
   multi_processing:
+    type: 'categorical'
     value: False
     description: "(boolean) (Default: False) Indicates whether to run multi processing."
   verbose:
     value: 1
     description: "(integer) (Default: 1) can be either 1 or 0."
   image_color:
+    type: 'categorical'
     value: rgb
     description: "(String) (Default: 'rgb') The colors of the images. Can be one of: 'grayscale', 'rgb'."
   loss:
+    type: 'categorical'
     value: cross_entropy
     description: "(String) (Default: 'crossentropy') The loss function of the model. By default its binary_crossentropy or categorical_crossentropy, depended of the classes number."
   dropout:
     value: 0.3
     description: "(float) (Default: 0.3) The dropout of the added fully connected layers."
   optimizer:
+    type: 'categorical'
     value: adam
     description: "(String) (Default: 'adam') The optimizer the algorithm uses. Can be one of: 'adam', 'adagrad', 'rmsprop', 'sgd'."
   image_width:
@@ -71,8 +79,10 @@ arguments:
     value: 2
     description: "(int) (Default: 2) The height of the pooling window."
   hidden_layer_activation:
+    type: 'categorical'
     value: relu
     description: "(String) (Default: 'relu') The activation function of the hidden layers."
   output_layer_activation:
+    type: 'categorical'
     value: softmax
     description: "(String) (Default: 'softmax') The activation function of the output layer."

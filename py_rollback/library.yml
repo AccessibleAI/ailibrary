@@ -10,4 +10,5 @@ icon: python
 
 arguments:
   endpoint_id:
+    type: 'categorical'
     value: ''

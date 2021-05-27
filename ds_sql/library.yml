@@ -10,10 +10,14 @@ icon: python
 
 arguments:
   query:
+    type: 'categorical'
     value: ''
   database:
+    type: 'categorical'
     value: ''
   server:
+    type: 'categorical'
     value: ''
   driver:
+    type: 'categorical'
     value: ''

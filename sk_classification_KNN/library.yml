@@ -10,27 +10,34 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'categorical'
     value: None
   test_size:
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   n_neighbors:
     value: 5
   weights:
+    type: 'categorical'
     value: uniform
   algorithm:
+    type: 'categorical'
     value: auto
   leaf_size:
     value: 30
   p:
     value: 2
   metric:
+    type: 'categorical'
     value: minkowski
   metric_params:
+    type: 'categorical'
     value: None
   n_jobs:
     value: 1

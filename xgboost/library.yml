@@ -10,12 +10,15 @@ icon: xgboost
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   test_size:
     value: 0.2
   x_val:
+    type: 'categorical'
     value: None
   output_model:
+    type: 'categorical'
     value: model.sav
   max_depth:
     value: 3
@@ -26,10 +29,13 @@ arguments:
   verbosity:
     value: 1
   objective:
+    type: 'categorical'
     value: 'binary:logistic'
   booster:
+    type: 'categorical'
     value: 'gbtree'
   tree_method:
+    type: 'categorical'
     value: 'auto'
   n_jobs:
     value: 1
@@ -59,4 +65,5 @@ arguments:
   random_state:
     value: 0
   missing:
+    type: 'categorical'
     value: None
