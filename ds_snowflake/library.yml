@@ -10,14 +10,20 @@ icon: python
 
 arguments:
   query:
+    type: 'categorical'
     value: ''
   output_file:
+    type: 'categorical'
     value: ''
   warehouse:
+    type: 'categorical'
     value: ''
   account:
+    type: 'categorical'
     value: ''
   database:
+    type: 'categorical'
     value: ''
   schema:
+    type: 'categorical'
     value: ''

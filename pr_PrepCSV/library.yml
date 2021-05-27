@@ -10,18 +10,26 @@ icon: python
 
 arguments:
   csv:
+    type: 'categorical'
     value: ''
   target_column_name:
+    type: 'categorical'
     value: None
   columns_with_missing_values:
+    type: 'categorical'
     value: None
   columns_to_scale:
+    type: 'categorical'
     value: None
   columns_to_normalize:
+    type: 'categorical'
     value: None
   columns_to_dummy:
+    type: 'categorical'
     value: None
   output_file_path:
+    type: 'categorical'
     value: None
   visualize:
+    type: 'categorical'
     value: False

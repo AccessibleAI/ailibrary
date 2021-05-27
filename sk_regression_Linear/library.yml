@@ -10,19 +10,26 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'categorical'
     value: None
   test_size:
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   fit_intercept:
+    type: 'categorical'
     value: True
   normalize:
+    type: 'categorical'
     value: False
   copy_X:
+    type: 'categorical'
     value: True
   n_jobs:
+    type: 'categorical'
     value: None
