@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo apt-get -y install pandoc
-sudo apt-get -y install texlive-xetex texlive-fonts-recommended texlive-generic-recommended
+sudo apt-get update
+sudo apt-get -yq install pandoc
+sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install texlive-xetex texlive-fonts-recommended texlive-generic-recommended
