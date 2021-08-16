@@ -12,6 +12,8 @@ try:
     parser.add_argument('--input_file', action="store", dest='input', type=str, default='')
     parser.add_argument('--output_file', action="store", dest='output', type=str, default='')
     parser.add_argument('--dataset', action="store", dest='dataset', type=str, default='')
+    parser.add_argument('--project_dir', action="store", dest='project_dir', type=str, default='')
+    parser.add_argument('--output_dir', action="store", dest='output_dir', type=str, default='')
 
     args = parser.parse_args()
     slug = args.slug
