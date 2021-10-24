@@ -1,0 +1,30 @@
+---
+title: BigQuery connector
+command: python3 main.py
+description: "- BigQuery Dataset Connector."
+version: 1.0.0
+docker_images: cnvrg
+compute: medium
+data_type: python
+icon: python
+
+arguments:
+  query:
+    value: '"SELECT * FROM table"'
+    type: categorical
+  csv:
+    value: 'False'
+    type: categorical
+  df:
+    value: 'False'
+    type: categorical
+  filename:
+    value: ''
+    type: categorical
+  cnvrg_ds:
+    value: ''
+    type: categorical
+  output_dir:
+    value: '/output'
+    type: categorical
+
