@@ -1,0 +1,5 @@
+--extra-index-url https://test.pypi.org/simple/
+cnvrg-new
+argparse
+redshift_connector
+pandas
