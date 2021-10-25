@@ -1,7 +1,11 @@
 
 ## Cnvrg S3-client for AI-LIBRARY
 
-This library is made to download ojectfiles from S3
+This library is made to download ojectfiles from S3.
+
+Install the cnvrg-sdk 
+
+```pip install -i https://test.pypi.org/simple/ cnvrg-new```
 
 ## Authorization
 Authorization is performed using environment variables under **project -> settings -> secrets**
