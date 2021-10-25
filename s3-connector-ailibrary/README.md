@@ -1,13 +1,7 @@
 
-
 ## Cnvrg S3-client for AI-LIBRARY
 
 This library is made to download ojectfiles from S3
-
-Install the cnvrg-sdk 
-
-```pip install -i https://test.pypi.org/simple/ cnvrg-new```
-
 
 ## Authorization
 Authorization is performed using environment variables under **project -> settings -> secrets**
@@ -21,18 +15,21 @@ Authorization is performed using environment variables under **project -> settin
 
 ## Parameters
 
-```--dataset_name``` - string, required. The name of the dataset.
+``` bucketname ``` - string s3 bucketname
 
-```--dataset_path``` - string (default = /cnvrg/output). The path to save the dataset files to
+``` file ``` - string The file that inisde the bucket
 
+``` localdir ``` - string (default = /cnvrg/output). When project is connected to git - The path of the folder with experiment artifacts to be synced as the commit for the experiment. (Default is project's default)
 
-![image](https://user-images.githubusercontent.com/88431066/138665873-b2a6bf51-bbcc-425e-b024-2248998303dc.png)
+```cnvrg_dataset``` - string, The path to save the dataset files.
+
+![image](https://user-images.githubusercontent.com/88431066/138676166-3aa696bb-f43f-4d12-80a8-2b88945787dc.png)
 
 
 #### Download objects
 
 ```bash
-$ python s3-connector.py --endpoint https://s3.amazonaws.com download --bucketname cnvrg-bucket --file file.csv --localdir /cnvrg/out
+$ python s3-connector.py --endpoint https://s3.amazonaws.com download --bucketname cnvrg-bucket --file file.csv --localdir /cnvrg/output --cnvrg_data <datasetname>
 
 usage: s3-connector.py download [-h] [--nopbar] [-l LOCALDIR] [-o] [-v VERSIONID] (-f FILENAME | -p PREFIX) bucket
 
