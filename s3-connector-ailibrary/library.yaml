@@ -1,0 +1,39 @@
+---
+title: S3-Connector
+command: python s3_client.py --endpoint https://s3.amazonaws.com download
+description: "Read data from s3"
+version: 1.0.21
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: aws
+
+
+arguments:
+  bucketname:
+    value: 'bucketname'
+    type: categorical
+  file:
+    value: 'file.csv'
+    type: categorical
+  localdir:
+    value: '/cnvrg/output/'
+    type: categorical
+  cnvrg_dataset:
+    value: 'None'
+    type: categorical
+
+
+#arguments: 
+#  -e:
+#    value: 'https://s3.amazonaws.com download'
+#    type: categorical
+#  input:
+#    value: 'sometxt.txt'
+#    type: categorical
+#  input:
+#    value: 'test.txt'
+#    type: categorical
+#python s3_client.py  -e https://s3.amazonaws.com download cnvrg-bucket -f bitwarden_export_20210828230530.csv -l /tmp
+
+
