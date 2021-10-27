@@ -1,0 +1,27 @@
+---
+title: Azure-Connector
+command: python azure_connector.py
+description: "Download/upload blobs from Azure"
+version: 1.0.0
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: python
+
+
+arguments:
+  batch_download:
+    value: ''
+    type: categorical
+  container_name:
+    value: 'mycontainer'
+    type: categorical
+  file_name:
+    value: 'file.csv'
+    type: categorical
+  output:
+    value: '/cnvrg/output/'
+    type: categorical
+  cnvrg_dataset:
+    value: 'None'
+    type: categorical
