@@ -6,13 +6,13 @@ version: 1.0.12
 docker_images: cnvrg
 compute: small
 data_type: csv
-icon: vgg
+icon: python
 
 arguments:
-  dataset_name:
+  kaggle_dataset_name:
     value: ''
     type: categorical
-  dataset_path:
+  target_path:
     value: '/cnvrg/output'
     type: categorical
   cnvrg_dataset:
