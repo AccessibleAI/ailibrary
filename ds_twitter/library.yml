@@ -1,0 +1,28 @@
+---
+title: pull twitter data
+command: python3 pull_twitter_data.py
+description: " -  Library for pulling twitter data"
+version: 1.1.1
+docker_images: cnvrg
+compute: medium
+data_type: CSV
+icon: python
+
+arguments:
+  token:
+    value: ''
+  term:
+    value: ''
+  dataset:
+    value: ''
+  output_file:
+    value: ''
+  max_twitts:
+    value: ''
+  end_point:
+    value: ''
+  days_back:
+    value: ''
+    
+    
+
