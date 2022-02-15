@@ -10,34 +10,50 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
   criterion:
+    type: 'categorical'
     value: gini
   splitter:
+    type: 'categorical'
     value: best
   max_depth:
+    type: 'integer'
     value: None
   min_samples_split:
+    type: 'float'
     value: 2
   min_samples_leaf:
+    type: 'float'
     value: 1
   min_weight_fraction_leaf:
+    type: 'float'
     value: 0.
   max_features:
+    type: 'categorical'
     value: None
   random_state:
+    type: 'integer'
     value: None
   max_leaf_nodes:
+    type: 'integer'
     value: None
   min_impurity_decrease:
+    type: 'float'
     value: 0.
   class_weight:
+    type: 'categorical'
     value: None
   presort:
+    type: 'categorical'
     value: False

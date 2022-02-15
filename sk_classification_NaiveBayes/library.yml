@@ -10,17 +10,24 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   alpha:
+    type: 'float'
     value: 0.1
   fit_prior:
+    type: 'categorical'
     value: True
   class_prior:
+    type: 'categorical'
     value: None

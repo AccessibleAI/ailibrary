@@ -10,41 +10,60 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   penalty:
+    type: 'categorical'
     value: l2
   dual:
+    type: 'categorical'
     value: False
   tol:
+    type: 'float'
     value: 1e-4
   C:
+    type: 'float'
     value: 1.0
   fit_intercept:
+    type: 'categorical'
     value: True
   intercept_scaling:
+    type: 'float'
     value: 1
   class_weight:
+    type: 'categorical'
     value: None
   random_state:
+    type: 'integer'
     value: None
   solver:
+    type: 'categorical'
     value: lbfgs
   max_iter:
+    type: 'integer'
     value: 100
   multi_class:
+    type: 'categorical'
     value: auto
   verbose:
+    type: 'integer'
     value: 0
   warm_start:
+    type: 'categorical'
     value: False
   n_jobs:
+    type: 'integer'
     value: None
   l1_ratio:
+    type: 'float'
     value: None
