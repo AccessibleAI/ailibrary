@@ -17,8 +17,8 @@ import botocore
 import tabulate
 import tqdm
 import urllib3
-
-from cnvrgp import Cnvrg
+from botocore.handlers import disable_signing
+from cnvrgv2 import Cnvrg
 
 
 ##############################################################################
@@ -50,7 +50,6 @@ def parse_parameters():
     parser.add_argument(
         "-r", "--region", default=None, dest="region_name", help="S3 Region Name"
     )
-     
 
     # Add subcommands options
     subparsers = parser.add_subparsers(title="Commands", dest="command")
@@ -137,7 +136,7 @@ def parse_parameters():
         action="store_true",
         help="Disable progress bar",
     )
-  
+
     download_parser.add_argument(
         "-l",
         "--localdir",
@@ -169,19 +168,19 @@ def parse_parameters():
     download_parser.set_defaults(func=cmd_download)
 
     # cnvrg_dataset
-    download_parser.add_argument('--cnvrg_dataset', "-dataset", help="""--- the name of the cnvrg dataset to store in ---""")
-    
-    #args = parser.parse_args()
-    
-    #cmd_download(cnvrg_dataset=args.cnvrg_dataset)
-    #dataset_parser.set_defaults(func=cmd_download(cnvrg_dataset=args.cnvrg_dataset))
+    download_parser.add_argument('--cnvrg_dataset', "-dataset",
+                                 help="""--- the name of the cnvrg dataset to store in ---""")
 
+    # args = parser.parse_args()
+
+    # cmd_download(cnvrg_dataset=args.cnvrg_dataset)
+    # dataset_parser.set_defaults(func=cmd_download(cnvrg_dataset=args.cnvrg_dataset))
 
     # If there is no parameter, print help
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(0)
-    
+
     return parser.parse_args()
 
 
@@ -342,9 +341,10 @@ class Config:
     def get_env(var):
         """Read environment variable."""
         if not os.environ.get(var):
-            raise ValueError(
-                "Error: You must export environment variable {}".format(var)
-            )
+            return None
+           #raise ValueError(
+           #    "Error: You must export environment variable {}".format(var)
+           # )
         return os.environ.get(var)
 
 
@@ -452,10 +452,10 @@ class S3:
         if prefix:
             return (
                 self.s3_resource.Bucket(bucket_name)
-                .objects.filter(
+                    .objects.filter(
                     Prefix=prefix,
                 )
-                .limit(limit)
+                    .limit(limit)
             )
         else:
             return self.s3_resource.Bucket(bucket_name).objects.all().limit(limit)
@@ -479,10 +479,10 @@ class S3:
         if prefix:
             return (
                 self.s3_resource.Bucket(bucket_name)
-                .object_versions.filter(
+                    .object_versions.filter(
                     Prefix=prefix,
                 )
-                .limit(limit)
+                    .limit(limit)
             )
         else:
             return (
@@ -537,19 +537,18 @@ class S3:
 
         obj_size = os.path.getsize(file_name)
         with ProgressBar(
-            unit="B",
-            unit_scale=True,
-            desc="data transferred",
-            total=obj_size,
-            miniters=1,
-            disable=self.disable_pbar,
+                unit="B",
+                unit_scale=True,
+                desc="data transferred",
+                total=obj_size,
+                miniters=1,
+                disable=self.disable_pbar,
         ) as pbar:
             self.s3_resource.Bucket(bucket_name).upload_file(
                 Filename=file_name,
                 Key=key_name,
                 Callback=pbar.update_to,
             )
-    
 
     @time_elapsed
     def download_object(self, bucket_name, object_name, dest_name, versionid=None):
@@ -579,12 +578,12 @@ class S3:
 
         log.debug("obj_size: %s, extraargs: %s", obj_size, extraargs)
         with ProgressBar(
-            unit="B",
-            unit_scale=True,
-            desc="data transferred",
-            total=obj_size,
-            miniters=1,
-            disable=self.disable_pbar,
+                unit="B",
+                unit_scale=True,
+                desc="data transferred",
+                total=obj_size,
+                miniters=1,
+                disable=self.disable_pbar,
         ) as pbar:
             self.s3_resource.Bucket(bucket_name).download_file(
                 object_name, dest_name, ExtraArgs=extraargs, Callback=pbar.update_to
@@ -650,7 +649,8 @@ class Download:
             overwrite   (True/False): Overwrite local file if it already exist
         """
         for obj in self.s3.list_objects(self.bucket_name, prefix=prefix):
-            self.download_file(obj.key, overwrite)
+            if not str(obj.key).endswith('/'):
+                self.download_file(obj.key, overwrite)
 
     def define_dest_name(self, object_name):
         """
@@ -835,7 +835,7 @@ def cmd_download(s3, args):
 
     # Check if local directory exists
     if not os.path.exists(args.localdir):
-        msg("red", "Error: directory {} does not exist".format(args.localdir), 1)
+        os.makedirs(args.localdir)
 
     download = Download(s3, args.bucket, args.localdir)
 
@@ -847,21 +847,22 @@ def cmd_download(s3, args):
     if args.prefix:
         download.download_prefix(args.prefix, args.overwrite)
 
-    if args.cnvrg_dataset.lower() != 'none':
+    if args.cnvrg_dataset and args.cnvrg_dataset.lower() != 'none':
         cnvrg = Cnvrg()
         ds = cnvrg.datasets.get(args.cnvrg_dataset)
-    try:
-        ds.reload()
-    except:
-        print('The provided Dataset was not found')
-        print(f'Creating a new dataset named {args.cnvrg_dataset}')
-        ds = cnvrg.datasets.create(name=args.cnvrg_dataset)
-        print('Uploading files to Cnvrg dataset')
-        if args.filename:
-           os.system("cd {}".format(args.localdir))
-           ds.put_files(paths=[args.filename])
-        if args.prefix:
-           ds.put_files(paths=[args.localdir])
+        try:
+            ds.reload()
+        except:
+            print('The provided Dataset was not found')
+            print(f'Creating a new dataset named {args.cnvrg_dataset}')
+            ds = cnvrg.datasets.create(name=args.cnvrg_dataset)
+            print('Uploading files to Cnvrg dataset')
+            if args.filename:
+                os.system("cd {}".format(args.localdir))
+                ds.put_files(paths=[args.filename])
+            if args.prefix:
+                ds.put_files(paths=[args.localdir])
+
 
 ##############################################################################
 # Main function
@@ -896,13 +897,13 @@ def main():
         args.endpoint,
         args.region_name,
     )
+    if config.aws_access_key_id is None:
+        s3.s3_resource.meta.client.meta.events.register('choose-signer.s3.*', disable_signing)
 
     # Execute the function (command)
     if args.command is not None:
         args.func(s3, args)
-    
 
-   
 
 ##############################################################################
 # Run from command line
