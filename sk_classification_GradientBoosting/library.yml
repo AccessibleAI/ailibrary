@@ -10,53 +10,78 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   loss:
+    type: 'categorical'
     value: deviance
   learning_rate:
+    type: 'float'
     value: 0.1
   n_estimators:
+    type: 'integer'
     value: 100
   subsample:
+    type: 'float'
     value: 1.0
   criterion:
+    type: 'categorical'
     value: friedman_mse
   min_samples_split:
+    type: 'float'
     value: 2
   min_samples_leaf:
+    type: 'float'
     value: 1
   min_weight_fraction_leaf:
+    type: 'float'
     value: 0.
   max_depth:
+    type: 'integer'
     value: 3
   min_impurity_decrease:
+    type: 'float'
     value: 0.
   min_impurity_split:
+    type: 'float'
     value: 1e-7
   init:
+    type: 'categorical'
     value: None
   random_state:
+    type: 'integer'
     value: None
   max_features:
+    type: 'categorical'
     value: None
   verbose:
+    type: 'integer'
     value: 0
   max_leaf_nodes:
+    type: 'integer'
     value: None
   warm_start:
+    type: 'categorical'
     value: False
   presort:
+    type: 'categorical'
     value: deprecated
   validation_fraction:
+    type: 'float'
     value: 0.1
   n_iter_no_change:
+    type: 'integer'
     value: None
   tol:
+    type: 'float'
     value: 1e-4

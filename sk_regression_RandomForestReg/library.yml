@@ -10,41 +10,60 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   n_estimators:
+    type: 'integer'
     value: 10
   criterion:
+    type: 'categorical'
     value: mse
   max_depth:
+    type: 'integer'
     value: None
   min_samples_split:
+    type: 'float'
     value: 2
   min_samples_leaf:
+    type: 'float'
     value: 1
   min_weight_fraction_leaf:
+    type: 'float'
     value: 0.
   max_features:
+    type: 'categorical'
     value: auto
   max_leaf_nodes:
+    type: 'integer'
     value: None
   min_impurity_decrease:
+    type: 'float'
     value: 0.
   bootstrap:
+    type: 'categorical'
     value: True
   oob_score:
+    type: 'categorical'
     value: False
   n_jobs:
+    type: 'integer'
     value: 1
   random_state:
+    type: 'integer'
     value: None
   verbose:
+    type: 'integer'
     value: 0
   warm_start:
+    type: 'categorical'
     value: True

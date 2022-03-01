@@ -10,53 +10,78 @@ icon: xgboost
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   test_size:
+    type: 'float'
     value: 0.2
   x_val:
+    type: 'integer'
     value: None
   output_model:
+    type: 'categorical'
     value: model.sav
   max_depth:
+    type: 'integer'
     value: 3
   learning_rate:
+    type: 'float'
     value: 0.1
   n_estimators:
+    type: 'integer'
     value: 100
   verbosity:
+    type: 'integer'
     value: 1
   objective:
+    type: 'categorical'
     value: 'binary:logistic'
   booster:
+    type: 'categorical'
     value: 'gbtree'
   tree_method:
+    type: 'categorical'
     value: 'auto'
   n_jobs:
+    type: 'integer'
     value: 1
   gamma:
+    type: 'float'
     value: 0
   min_child_weight:
+    type: 'integer'
     value: 1
   max_delta_step:
+    type: 'integer'
     value: 0
   subsample:
+    type: 'float'
     value: 1
   colsample_bytree:
+    type: 'float'
     value: 1
   colsample_bylevel:
+    type: 'float'
     value: 1
   colsample_bynode:
+    type: 'float'
     value: 1
 
   reg_alpha:
+    type: 'float'
     value: 0
   reg_lambda:
+    type: 'float'
     value: 1
   scale_pos_weight:
+    type: 'float'
     value: 1
   base_score:
+    type: 'float'
     value: 0.5
   random_state:
+    type: 'integer'
     value: 0
   missing:
+    type: 'float'
     value: None

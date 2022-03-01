@@ -10,39 +10,57 @@ icon: sklearn
 
 arguments:
   data:
+    type: 'categorical'
     value: ''
   x_val:
+    type: 'integer'
     value: None
   test_size:
+    type: 'float'
     value: 0.2
   output_model:
+    type: 'categorical'
     value: model.sav
 
   C:
+    type: 'float'
     value: 1.0
   kernel:
+    type: 'categorical'
     value: rbf
   degree:
+    type: 'integer'
     value: 3
   gamma:
+    type: 'float'
     value: auto
   coef0:
+    type: 'float'
     value: 0.0
   shrinking:
+    type: 'categorical'
     value: True
   probability:
+    type: 'categorical'
     value: False
   tol:
+    type: 'float'
     value: 1e-3
   cache_size:
+    type: 'float'
     value: 200.0
   class_weight:
+    type: 'categorical'
     value: None
   verbose:
+    type: 'categorical'
     value: False
   max_iter:
+    type: 'integer'
     value: -1
   decision_function_shape:
+    type: 'categorical'
     value: ovr
   random_state:
+    type: 'integer'
     value: None
