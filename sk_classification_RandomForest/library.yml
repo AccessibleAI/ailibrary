@@ -9,8 +9,8 @@ data_type: CSV
 icon: sklearn
 
 arguments:
-  type: 'categorical'
   data:
+    type: 'categorical'
     value: ''
   x_val:
     type: 'integer'
