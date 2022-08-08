@@ -13,25 +13,25 @@ arguments:
     type: 'categorical'
     value: ''
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   output_model:
     type: 'categorical'
     value: model.sav
   max_depth:
-    type: 'integer'
+    type: 'categorical'
     value: 3
   learning_rate:
-    type: 'float'
+    type: 'categorical'
     value: 0.1
   n_estimators:
-    type: 'integer'
+    type: 'categorical'
     value: 100
   verbosity:
-    type: 'integer'
+    type: 'categorical'
     value: 1
   objective:
     type: 'categorical'
@@ -43,45 +43,45 @@ arguments:
     type: 'categorical'
     value: 'auto'
   n_jobs:
-    type: 'integer'
+    type: 'categorical'
     value: 1
   gamma:
-    type: 'float'
+    type: 'categorical'
     value: 0
   min_child_weight:
-    type: 'integer'
+    type: 'categorical'
     value: 1
   max_delta_step:
-    type: 'integer'
+    type: 'categorical'
     value: 0
   subsample:
-    type: 'float'
+    type: 'categorical'
     value: 1
   colsample_bytree:
-    type: 'float'
+    type: 'categorical'
     value: 1
   colsample_bylevel:
-    type: 'float'
+    type: 'categorical'
     value: 1
   colsample_bynode:
-    type: 'float'
+    type: 'categorical'
     value: 1
 
   reg_alpha:
-    type: 'float'
+    type: 'categorical'
     value: 0
   reg_lambda:
-    type: 'float'
+    type: 'categorical'
     value: 1
   scale_pos_weight:
-    type: 'float'
+    type: 'categorical'
     value: 1
   base_score:
-    type: 'float'
+    type: 'categorical'
     value: 0.5
   random_state:
-    type: 'integer'
+    type: 'categorical'
     value: 0
   missing:
-    type: 'float'
+    type: 'categorical'
     value: None

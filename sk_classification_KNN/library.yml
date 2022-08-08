@@ -13,17 +13,17 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
     value: model.sav
 
   n_neighbors:
-    type: 'integer'
+    type: 'categorical'
     value: 5
   weights:
     type: 'categorical'
@@ -32,10 +32,10 @@ arguments:
     type: 'categorical'
     value: auto
   leaf_size:
-    type: 'integer'
+    type: 'categorical'
     value: 30
   p:
-    type: 'integer'
+    type: 'categorical'
     value: 2
   metric:
     type: 'categorical'
@@ -44,5 +44,5 @@ arguments:
     type: 'categorical'
     value: None
   n_jobs:
-    type: 'integer'
+    type: 'categorical'
     value: 1
