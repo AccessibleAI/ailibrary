@@ -1,5 +1,5 @@
 ---
-title: Random Forest
+title: Random Forest Eitan
 command: python3 random_forest_classifier.py
 description: " - Random forest for classification. Built by cnvrg."
 version: 1.1.93
@@ -13,43 +13,43 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
     value: model.sav
   n_estimators:
-    type: 'integet'
+    type: 'categorical'
     value: 10
   criterion:
     type: 'categorical'
     value: gini
   max_depth:
-    type: 'integer'
+    type: 'categorical'
     value: None
   min_samples_split:
-    type: 'float'
+    type: 'categorical'
     value: 2
   min_samples_leaf:
-    type: 'float'
+    type: 'categorical'
     value: 1
   min_weight_fraction_leaf:
-    type: 'float'
+    type: 'categorical'
     value: 0.
   max_features:
     type: 'categorical'
     value: auto
   max_leaf_nodes:
-    type: 'integer'
+    type: 'categorical'
     value: None
   min_impurity_decrease:
-    type: 'float'
+    type: 'categorical'
     value: 0.
   min_impurity_split:
-    type: 'float'
+    type: 'categorical'
     value: None
   bootstrap:
     type: 'categorical'
@@ -58,13 +58,13 @@ arguments:
     type: 'categorical'
     value: False
   n_jobs:
-    type: 'integer'
+    type: 'categorical'
     value: 1
   random_state:
-    type: 'integer'
+    type: 'categorical'
     value: None
   verbose:
-    type: 'integer'
+    type: 'categorical'
     value: 0
   warm_start:
     type: 'categorical'
