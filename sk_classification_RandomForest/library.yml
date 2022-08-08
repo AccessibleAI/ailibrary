@@ -1,5 +1,5 @@
 ---
-title: Random Forest Eitan
+title: Random Forest
 command: python3 random_forest_classifier.py
 description: " - Random forest for classification. Built by cnvrg."
 version: 1.1.93
