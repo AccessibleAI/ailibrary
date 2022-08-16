@@ -13,10 +13,10 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
@@ -32,5 +32,5 @@ arguments:
     type: 'categorical'
     value: True
   n_jobs:
-    type: 'integer'
+    type: 'categorical'
     value: None

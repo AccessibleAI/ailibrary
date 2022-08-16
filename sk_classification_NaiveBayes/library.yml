@@ -13,17 +13,17 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
     value: model.sav
 
   alpha:
-    type: 'float'
+    type: 'categorical'
     value: 0.1
   fit_prior:
     type: 'categorical'

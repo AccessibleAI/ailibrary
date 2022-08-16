@@ -13,29 +13,29 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
     value: model.sav
 
   C:
-    type: 'float'
+    type: 'categorical'
     value: 1.0
   kernel:
     type: 'categorical'
     value: rbf
   degree:
-    type: 'integer'
+    type: 'categorical'
     value: 3
   gamma:
-    type: 'float'
+    type: 'categorical'
     value: auto
   coef0:
-    type: 'float'
+    type: 'categorical'
     value: 0.0
   shrinking:
     type: 'categorical'
@@ -44,10 +44,10 @@ arguments:
     type: 'categorical'
     value: False
   tol:
-    type: 'float'
+    type: 'categorical'
     value: 1e-3
   cache_size:
-    type: 'float'
+    type: 'categorical'
     value: 200.0
   class_weight:
     type: 'categorical'
@@ -56,11 +56,11 @@ arguments:
     type: 'categorical'
     value: False
   max_iter:
-    type: 'integer'
+    type: 'categorical'
     value: -1
   decision_function_shape:
     type: 'categorical'
     value: ovr
   random_state:
-    type: 'integer'
+    type: 'categorical'
     value: None

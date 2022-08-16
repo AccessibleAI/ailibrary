@@ -13,10 +13,10 @@ arguments:
     type: 'categorical'
     value: ''
   x_val:
-    type: 'integer'
+    type: 'categorical'
     value: None
   test_size:
-    type: 'float'
+    type: 'categorical'
     value: 0.2
   output_model:
     type: 'categorical'
@@ -28,28 +28,28 @@ arguments:
     type: 'categorical'
     value: best
   max_depth:
-    type: 'integer'
+    type: 'categorical'
     value: None
   min_samples_split:
-    type: 'float'
+    type: 'categorical'
     value: 2
   min_samples_leaf:
-    type: 'float'
+    type: 'categorical'
     value: 1
   min_weight_fraction_leaf:
-    type: 'float'
+    type: 'categorical'
     value: 0.
   max_features:
     type: 'categorical'
     value: None
   random_state:
-    type: 'integer'
+    type: 'categorical'
     value: None
   max_leaf_nodes:
-    type: 'integer'
+    type: 'categorical'
     value: None
   min_impurity_decrease:
-    type: 'float'
+    type: 'categorical'
     value: 0.
   class_weight:
     type: 'categorical'
