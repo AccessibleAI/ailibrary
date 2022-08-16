@@ -150,7 +150,7 @@ class SKTrainer:
 		if len(set(self.__y_test)) != 2: return
 		fpr, tpr, _ = roc_curve(self.__y_test, y_test_pred)
 		if self.__testing_mode is False:
-			self.__experiment.log_metric(key='ROC curve', Ys=tpr.tolist(), Xs=fpr.tolist())
+			self.__experiment.log_metric(key='ROC_curve', Ys=tpr.tolist(), Xs=fpr.tolist())
 		else: print("FPRs: {fpr}\nTPRs: {tpr}".format(fpr=fpr, tpr=tpr))
 
 	def __plot_correlation_matrix(self):
@@ -179,7 +179,7 @@ class SKTrainer:
 		self.__plot_accuracies_and_errors_helper_rounding()
 		if self.__testing_mode is True: self.__plot_accuracies_and_errors_helper_testing_mode()
 
-		for p in ['model', 'test_acc', 'test_loss', 'test_loss_type', 'train set size', 'test set size', 'train_loss_type']:
+		for p in ['model', 'test_acc', 'test_loss', 'test_loss_type', 'train_set_size', 'test_set_size', 'train_loss_type']:
 			self.__experiment.log_param(p, self.__metrics[p])
 
 		if self.__is_cross_val is True:
