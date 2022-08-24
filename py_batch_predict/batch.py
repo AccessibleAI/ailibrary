@@ -8,13 +8,13 @@ import pandas as pd
 
 try:
     parser = argparse.ArgumentParser(description='set input arguments')
-    parser.add_argument('--endpoint_id', action="store", dest='slug', type=str, default='')
+    parser.add_argument('--endpoint_id', action="store", dest='endpoint_id', type=str, default='')
     parser.add_argument('--input_file', action="store", dest='input', type=str, default='')
     parser.add_argument('--output_file', action="store", dest='output', type=str, default='')
     parser.add_argument('--dataset', action="store", dest='dataset', type=str, default='')
 
     args = parser.parse_args()
-    slug = args.slug
+    endpoint_id = args.endpoint_id
     input_file = args.input
     output_file = args.output
     dataset = args.dataset
@@ -26,10 +26,10 @@ try:
         exit(1)
 
     #fetch endpoint details
-    endpoint = Endpoint(slug)
+    endpoint = Endpoint(endpoint_id)
     endpoint_data = endpoint.data
     if endpoint_data is None:
-        print('Can\'t find Endpoint {slug}'.format(slug=slug))
+        print('Can\'t find Endpoint {endpoint_id}'.format(endpoint_id=endpoint_id))
         exit(1)
         
     #fetch dataset details
