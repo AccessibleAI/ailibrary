@@ -8,10 +8,13 @@ import pandas as pd
 
 try:
     parser = argparse.ArgumentParser(description='set input arguments')
-    parser.add_argument('--endpoint_id', action="store", dest='endpoint_id', type=str, default='')
+    parser.add_argument('--project_dir', action='store', dest='project_dir',help="""--- For inner use of cnvrg.io ---""")
+    parser.add_argument('--output_dir', action='store', dest='output_dir',help="""--- For inner use of cnvrg.io ---""")
+    parser.add_argument('--endpoint_id', action="store", dest='slug', type=str, default='')
     parser.add_argument('--input_file', action="store", dest='input', type=str, default='')
     parser.add_argument('--output_file', action="store", dest='output', type=str, default='')
     parser.add_argument('--dataset', action="store", dest='dataset', type=str, default='')
+
 
     args = parser.parse_args()
     endpoint_id = args.endpoint_id
