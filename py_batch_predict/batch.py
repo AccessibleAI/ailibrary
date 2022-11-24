@@ -13,6 +13,7 @@ try:
 
     parser.add_argument('--endpoint_id', action="store", dest='slug', type=str, default='')
     parser.add_argument('--input_file', action="store", dest='input', type=str, default='')
+
     parser.add_argument('--output_file', action="store", dest='output', type=str, default='')
     parser.add_argument('--dataset', action="store", dest='dataset', type=str, default='')
 
