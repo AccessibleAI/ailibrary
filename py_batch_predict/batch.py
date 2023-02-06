@@ -17,7 +17,7 @@ try:
 
 
     args = parser.parse_args()
-    endpoint_id = args.endpoint_id
+    endpoint_id = args.slug
     input_file = args.input
     output_file = args.output
     dataset = args.dataset
