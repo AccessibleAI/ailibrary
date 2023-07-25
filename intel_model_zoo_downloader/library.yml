@@ -1,0 +1,17 @@
+---
+title: OpenVINO Model Zoo Downloader
+command: python3 _src/tools/downloader/downloader.py
+description: " -  OPENVino Toolkit Model Zoo Downloader. cnvrg.io AI Library Component"
+version: 1.0.0
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: bash
+
+arguments:
+  name:
+    value: 'bert-large-uncased-whole-word-masking-squad-0001'
+    type: categorical
+  out_dir:
+    value: /cnvrg
+    type: categorical

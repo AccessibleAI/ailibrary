@@ -1,0 +1,18 @@
+---
+title: Tensorflow h5 to FP32 Converter
+command: python3 convert.py
+description: " -  Convrt h5 weights file to tflite format for edge deployment."
+version: 1.0.5
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: tensorflow
+
+arguments:
+  model:
+    value: 'converted'
+    type: categorical
+  input:
+    value: 'model'
+    type: categorical
+

@@ -1,0 +1,18 @@
+---
+title: Tensorflow h5 to tflite Converter
+command: python3 convert.py
+description: " - Convert h5 weights file to tflite format for edge deployment."
+version: 1.0.9
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: tensorflow
+
+arguments:
+  model:
+    value: 'mnist_lite'
+    type: categorical
+  input:
+    value: 'mnist_model'
+    type: categorical
+
