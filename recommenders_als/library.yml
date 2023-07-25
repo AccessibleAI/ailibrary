@@ -1,0 +1,34 @@
+title: ALS
+command: python3 ALS.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.5
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  train_file:
+    value: ''
+    type: 'categorical'
+  test_file:
+    value: ''
+    type: 'categorical'
+  num_of_steps_1:
+    value: ''
+    type: 'discrete'
+  embed_dim_1:
+    value: ''
+    type: 'discrete'
+  reg_coef:
+    value: ''
+    type: 'discrete'
+  learning_rate:
+    value: ''
+    type: 'discrete'
+  threshold:
+    value: ''
+    type: 'discrete'
+  precision_at_value:
+    value: ''
+    type: 'discrete'

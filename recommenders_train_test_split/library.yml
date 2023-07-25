@@ -1,0 +1,13 @@
+title: Train_Test_Split
+command: python3 TTS.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.1
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  filename:
+    value: ''
+    type: 'categorical'

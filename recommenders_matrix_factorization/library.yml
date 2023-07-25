@@ -1,0 +1,37 @@
+title: Matrix_Factorization
+command: python3 Matrix_Factorization.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.6
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  train_file:
+    value: ''
+    type: 'categorical'
+  test_file:
+    value: ''
+    type: 'categorical'
+  std_dev_1:
+    value: ''
+    type: 'discrete'
+  embed_dim_1:
+    value: ''
+    type: 'discrete'
+  num_of_steps_1:
+    value: ''
+    type: 'discrete'
+  learning_rate:
+    value: ''
+    type: 'discrete'
+  threshold:
+    value: ''
+    type: 'discrete'
+  rec_method:
+    value: ''
+    type: 'categorical'
+  precision_at_value:
+    value: ''
+    type: 'discrete'

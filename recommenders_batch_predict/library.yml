@@ -1,0 +1,25 @@
+title: batch_predict
+command: python3 predict.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.3
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  filename:
+    value: ''
+    type: 'categorical'
+  mapping_file_user:
+    value: ''
+    type: 'categorical'
+  mapping_file_item:
+    value: ''
+    type: 'categorical'
+  top_count:
+    value: ''
+    type: 'discrete'
+  choice:
+    value: ''
+    type: 'categorical'

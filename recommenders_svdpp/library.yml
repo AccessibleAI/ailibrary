@@ -1,0 +1,37 @@
+title: SVDpp
+command: python3 SVDpp.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.5
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  train_file:
+    value: ''
+    type: 'categorical'
+  test_file:
+    value: ''
+    type: 'categorical'
+  num_of_steps_1:
+    value: ''
+    type: 'discrete'
+  embed_dim_1:
+    value: ''
+    type: 'discrete'
+  reg_coef:
+    value: ''
+    type: 'discrete'
+  learning_rate:
+    value: ''
+    type: 'discrete'
+  std_dev_1:
+    value: ''
+    type: 'discrete'
+  thresold:
+    value: ''
+    type: 'discrete'
+  precision_at_value:
+    value: ''
+    type: 'discrete'
