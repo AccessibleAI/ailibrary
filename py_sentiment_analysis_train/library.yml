@@ -1,0 +1,27 @@
+title: py_sentiment_analysis_train
+command: python3 train.py
+description: " -  Library for training sentiment analysis model"
+version: 1.0.3
+docker_images: cnvrg
+compute: large
+data_type: ipynb
+icon: python
+
+arguments:
+  filename:
+    value: ''
+    type: 'categorical'
+  text_column:
+    value: 'text'
+    type: 'categorical'
+  label_column:
+    value: 'sentiment'
+    type: 'categorical'
+  epochs:
+    value: 5
+    type: 'discrete'
+  batch_size:
+    value: 32
+    type: 'discrete'
+
+

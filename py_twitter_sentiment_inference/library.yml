@@ -1,0 +1,20 @@
+---
+title: Twitter Predict Inference
+command: python3 predict_inference.py
+description: "Predicts Twitter sentiments on demand"
+version: 1.0.8
+docker_images: cnvrg
+compute: medium
+data_type: CSV
+icon: python
+
+arguments:
+  input_file:
+    type: 'categorical'
+    value: ''
+  output_file:
+    type: 'categorical'
+    value: ''
+  dataset:
+    type: 'categorical'
+    value: ''
