@@ -1,0 +1,21 @@
+---
+title: S3-Connector
+command: python s3_connector.py --endpoint https://s3.amazonaws.com download
+description: "Download data from s3"
+version: 1.0.23
+docker_images: cnvrg
+compute: small
+data_type: ipynb
+icon: aws
+
+
+arguments:
+  bucketname:
+    value: 'mybucket'
+    type: categorical
+  prefix:
+    value: 'folder/'
+    type: categorical
+  localdir:
+    value: '/cnvrg/output/'
+    type: categorical
