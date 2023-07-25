@@ -1,0 +1,18 @@
+---
+title: Auto SkLearn Classification
+command: python3 ask_classification.py
+description: "Do easy binary classification utilizing Auto-Sklearn"
+version: 1.0.1
+docker_images: cnvrg
+compute: medium
+data_type: csv
+icon: sklearn
+
+arguments:
+  csv_filename:
+    value: ''
+    type: categorical
+  dataset_name:
+    value: ''
+    type: categorical
+  
