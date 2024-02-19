@@ -80,7 +80,7 @@ try:
             writer.writerow(row)
 
     print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
-    os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file))
+    os.system('cnvrgv2 dataset put -n {url} -f {exported_file}'.format(url=ds_url, exported_file=output_file))
 
     print("Batch prediction has finished, scaling down")
     endpoint.scale_down()
