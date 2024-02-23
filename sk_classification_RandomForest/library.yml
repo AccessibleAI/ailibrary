@@ -41,16 +41,13 @@ arguments:
     value: 0.
   max_features:
     type: 'categorical'
-    value: auto
+    value: sqrt
   max_leaf_nodes:
     type: 'categorical'
     value: None
   min_impurity_decrease:
     type: 'categorical'
     value: 0.
-  min_impurity_split:
-    type: 'categorical'
-    value: None
   bootstrap:
     type: 'categorical'
     value: True
