@@ -40,7 +40,9 @@ try:
     if ds is None:
         print('Can\'t find Dataset {dataset}'.format(dataset=dataset))
         exit(1)
+    ds_url = ds.get_full_url()
 
+    
     endpoint.link_experiment()
 
     print("Starting to scale up endpoint")
