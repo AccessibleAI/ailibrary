@@ -21,7 +21,7 @@ try:
     input_file = args.input
     output_file = args.output
     dataset = args.dataset
-    
+
     ## checking that input file exists and not empty otherwise theres no point to scale up the endpoint
     f = open(input_file, "r")
     if os.path.getsize(input_file) == 0:
@@ -40,7 +40,6 @@ try:
     if ds is None:
         print('Can\'t find Dataset {dataset}'.format(dataset=dataset))
         exit(1)
-    ds_url = ds.get_full_url()
 
     endpoint.link_experiment()
 
@@ -79,10 +78,15 @@ try:
         for row in row_list:
             writer.writerow(row)
 
-    print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
-    os.system('cnvrgv2 dataset put -n {url} -f {exported_file}'.format(url=ds_url, exported_file=output_file))
+    if os.system('cnvrgv2 > /dev/null 2>&1')== 0:
+        print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
+        os.system('cnvrgv2 dataset put -n {url} -f {exported_file}'.format(url=dataset, exported_file=output_file))
+    elif os.system('cnvrg > /dev/null 2>&1')==0:
+        print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
+        os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file)) 
+    else: 
+        print("Neither cnvrg nor cnvrgv2 is installed, to continue please add them to your requirements.txt file or use an Image with one of them installed.")
 
-    print("Batch prediction has finished, scaling down")
     endpoint.scale_down()
 
 except Exception as e:
