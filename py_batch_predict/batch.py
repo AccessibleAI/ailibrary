@@ -79,12 +79,13 @@ try:
         writer.writerow(["input", "prediction"])
         for row in row_list:
             writer.writerow(row)
-
-    if os.system('cnvrgv2 > /dev/null 2>&1')== 0:
-        print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
+            
+    upload_message = 'Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset)
+    if os.system('cnvrgv2 > /dev/null 2>&1') == 0:
+        print(upload_message)
         os.system('cnvrgv2 dataset put -n {url} -f {exported_file}'.format(url=dataset, exported_file=output_file))
-    elif os.system('cnvrg > /dev/null 2>&1')==0:
-        print('Uploading {output_file} to dataset {dataset}'.format(output_file=output_file, dataset=dataset))
+    elif os.system('cnvrg > /dev/null 2>&1') == 0:
+        print(upload_message)
         os.system('cnvrg data put {url} {exported_file}'.format(url=ds_url, exported_file=output_file)) 
     else: 
         print("Neither cnvrg nor cnvrgv2 is installed, to continue please add them to your requirements.txt file or use an Image with one of them installed.")
