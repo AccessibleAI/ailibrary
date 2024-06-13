@@ -1,0 +1,13 @@
+title: data_validation
+command: python3 data_validation.py
+description: " -  whatever is supposed to be shown to user - representive text for the user"
+version: 1.0.6
+docker_images: cnvrg
+compute: medium
+data_type: ipynb
+icon: python
+
+arguments:
+  filename:
+    value: ''
+    type: 'categorical'
