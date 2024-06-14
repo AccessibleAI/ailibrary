@@ -32,7 +32,7 @@ def close_connection(conn=None):
         print("Could not close connection to snowflake")
         print(e)
         sys.exit(1)
-def run(conn=None, query=None):
+def run(conn=None, query=None,commit=False):
     if query is None:
         print("Query can't be empty")
         sys.exit(1)
