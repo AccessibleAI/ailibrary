@@ -1,0 +1,8 @@
+haystack-ai==2.4.0 
+
+# Document Stores
+pinecone_haystack==1.2.2
+
+# Embedding Models Libraries
+sentence-transformers==3.0.1
+
