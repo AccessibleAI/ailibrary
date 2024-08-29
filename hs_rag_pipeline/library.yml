@@ -1,0 +1,38 @@
+---
+title: RAG pipeline
+command: python rag_pipeline.py
+description: " -  preprocess text files, split them into smaller segments, vectorize them using an embedding model, and then index these vectors into a chosen vector database."
+version: 1.0.0
+docker_images: cnvrg
+compute: small
+data_type:
+icon: python
+
+arguments:
+  data_path:
+    type: 'categorical'
+    value: ''
+  file_format:
+    type: 'categorical'
+    value: ''
+  preprocess_split_by:
+    type: 'categorical'
+    value: ''
+  preprocess_split_length:
+    type: 'discrete'
+    value: ''
+  embedding_model:
+    type: 'categorical'
+    value: ''
+  vector_db_type:
+    type: 'categorical'
+    value: ''
+  index_dimension:
+    type: 'discrete'
+    value: ''
+  pinecone_api_key:
+    type: 'categorical'
+    value: ''
+  pinecone_index_name:
+    type: 'categorical'
+    value: ''
