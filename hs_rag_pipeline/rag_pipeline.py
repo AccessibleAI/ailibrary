@@ -74,7 +74,7 @@ def main(args):
     indexing_pipeline = Pipeline()
 
     # SentenceTransformersTextEmbedder can be retrieved like get_document_store
-    indexing_pipeline.add_component(SentenceTransformersDocumentEmbedder(model=args.embedding_model), name="embedder")
+    indexing_pipeline.add_component(instance=SentenceTransformersDocumentEmbedder(model=args.embedding_model), name="embedder")
     indexing_pipeline.add_component(instance=DocumentWriter(document_store=document_store), name="writer")
     indexing_pipeline.connect("embedder", "writer")
 
